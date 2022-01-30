@@ -21,7 +21,7 @@
   #define OLED_TIMEOUT 300000
   #define OLED_FONT_HEIGHT 8
   #define OLED_FONT_WIDTH 6
-  #define OLED_FONT_H "users/jurgen-kluft/oledfont.c"
+  #define OLED_FONT_H "oledfont.c"
 #endif
 
 #ifdef RGBLIGHT_ENABLE
