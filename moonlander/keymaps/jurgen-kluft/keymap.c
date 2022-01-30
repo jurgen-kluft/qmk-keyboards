@@ -3,6 +3,7 @@
 #include "smart.h"
 #include "oneshot.h"
 #include "layers.h"
+#include "secrets.x"
 
 #define KC_MAC_UNDO LGUI(KC_Z)
 #define KC_MAC_CUT LGUI(KC_X)
@@ -264,7 +265,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case KC_PASSWORD:
             if (record->event.pressed) {
-                SEND_STRING("SP00NS_and_");
+                SEND_STRING(SECRET_PASSWORD);
             }
             break;
         case KC_SMART_NUMBER:

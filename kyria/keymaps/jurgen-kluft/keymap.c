@@ -5,6 +5,7 @@
 #include "cushi.h"
 #include "layers.h"
 #include "custom_keycodes.h"
+#include "secrets.x"
 
 #define KC_VBAR LSFT(KC_BSLASH)
 
@@ -301,7 +302,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             return true;
         case KC_PASSWORD:
             if (record->event.pressed) {
-                SEND_STRING("SP00NS_and_");
+                SEND_STRING(SECRET_PASSWORD);
             }
             return true;
         case KC_SNUM:

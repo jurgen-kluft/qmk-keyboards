@@ -2,38 +2,18 @@
 *
 !*/
 
-vendor/
-t2-output/
-target/
-tags
-
 #except the following files
 !.gitignore
 !.clang-format
-!*.cpp
-!*.hpp
 !*.c
 !*.h
+!*.def
 !*.inl
-
-!*.build
-
-!*.go
-!*.lua
-
-!*.cs
-!*.csproj
-!*.resx
-
-!*.hlsl
-!*.fragment
+!*.mk
 
 !*.md
 !*.jpg
 !*.txt
-!*.html
 
-!*.ini
-!*.bat
 
 #except the following folders
