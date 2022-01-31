@@ -9,7 +9,7 @@ But knowing the key combinations they could be configured in many editors and ev
 
 - (i) put you in insert mode
 
-- h,j,k,l = movement keys
+- h,j,k,l                       *    => LEFT/DOWN/UP/RIGHT ARROW  = movement keys
 - (w)ord                        *    => CTRL+Right-Arrow          = move forwards by word (position at start of word)
 - (b)ack                        *    => CTRL+Left-Arrow           = move backwards by word (position at start of word)
 - (W)ord                        *    => GUI+ALT+Right-Arrow       = move forwards by word (position at end of word)
@@ -20,11 +20,11 @@ But knowing the key combinations they could be configured in many editors and ev
 - (c)hange (l)ine                    => HOME, SHIFT+END, BACKSPACE                           = will delete until end of line and put you in insert mode
 - (c)hange (){}[]<>"'           *    => Quick-Select + BACKSPACE                             = will delete between typed delimiter and put you in insert mode
 
-- (t)                           *    => = move forwards to character     (metaGo.Smart)
+- (t)                           *    => ALT+S, 'character'                                   = move forwards to character     (metaGo.Smart)
 
 - (d)elete (w)ord               *    = will delete word
-- (d)elete (b)egin              *    = will delete from cursor to begin of line
-- (d)elete (e)nd                *    = will delete from cursor to end of line
+- (d)elete (b)egin              *    => SHIFT+HOME, DEL                                      = will delete from cursor to begin of line
+- (d)elete (e)nd                *    => SHIFT+END, DEL                                       = will delete from cursor to end of line
 - (d)elete (l)ine               *    => CTRL+SHIFT+L                                         = will delete line
 - (d)elete (i)nside             *    => CTRL+ALT+i, DEL                                      = will delete inside
 - (d)elete un(t)il              *    => SHIFT+ALT+, DEL                                      = delete until character
@@ -32,7 +32,7 @@ But knowing the key combinations they could be configured in many editors and ev
 
 - (y)ank (i)nside               *    => metaGo select inside the surrounding pairs + COPY    = copy inside
 - (y)ank un(t)il                *    => SHIFT+ALT+, + COPY                                   = copy until character
-- (y)ank (w)ord                 *    = copy word
+- (y)ank (w)ord                 *    => copy-word.copy                                       = copy word
 - (y)ank (y)ank                 *    => CTRL+INSERT                                          = copy line
 - (y)ank (){}[]<>"'             *    => CTRL+K+({[<"' + COPY                                 = copy between typed delimiter
 
@@ -46,8 +46,8 @@ But knowing the key combinations they could be configured in many editors and ev
 
 - (p)aste = paste
 - (P)aste = paste before
-- (o)pen = open new line and put you in insert mode
-- (O)pen = open new line before and put you in insert mode
+- (o)pen                         *    => GUI+ENTER                                            = open new line and put you in insert mode
+- (O)pen                         *    => GUI+SHIFT+ENTER                                      = open new line before and put you in insert mode
 
 - (a)lign current line to (t)op
 - (a)lign current line to (c)enter
