@@ -178,11 +178,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
             {
                 if (!process_cushi_keys(keycode, record))
                     return false;
-                keycode = process_cukey(keycode);
-                if (keycode == KC_NO)
-                    return false;
+                
+                if (record->event.pressed)
+                {
+                    keycode = process_cukey(keycode);
+                    if (keycode != KC_NO)
+                        tap_code16(keycode);
+                }
+                
+                return false;
             }
-            return true;
         case KC_PASSWORD:
             if (record->event.pressed)
             {
