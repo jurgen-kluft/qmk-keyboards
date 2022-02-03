@@ -6,8 +6,7 @@ My keymap uses the following features:
 - Smart numbers 
 - Smart caps words
 - Custom normal/shift keycodes (cushi)
-- Custom OS keycodes (cukey)
-
+- Custom OS keycodes to deal with Mac OS / Windows / Ubuntu (cukey)
 
 I have 3 Kyria keyboards, two at home and one at work (since April 2021).
 
