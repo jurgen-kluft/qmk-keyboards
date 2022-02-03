@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "custom_keycodes.h"
+#include "cukey.h"
 
 static uint16_t cushi_registered_keycode = KC_NO;
 
@@ -43,7 +43,12 @@ bool process_cushi_keys(uint16_t keycode, keyrecord_t *record) {
             cushi_registered_keycode = cushi_key_normal;
         }
 
-        register_code16(cushi_registered_keycode);
+        // this could be a custom keycode, so we need to translate it
+        cushi_registered_keycode = process_cukey(cushi_registered_keycode);
+        if (cushi_registered_keycode != KC_NO) {
+            register_code16(cushi_registered_keycode);
+        }
+        
         set_mods(mods);  // Restore the mods.
     }
 

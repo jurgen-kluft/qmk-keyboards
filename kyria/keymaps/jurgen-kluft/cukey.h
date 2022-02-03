@@ -9,12 +9,8 @@ enum eCustomKeyCodes {
     KC_OLED,
     KC_SCAPS,
     KC_SNUM,
-    OS_SHFT,
-    OS_CTRL,
-    OS_ALT,
-    OS_CMD,
-    OS_MODE,
-    OS_MODE_SHOW,
+    KC_OS_MODE,
+    KC_OS_PMODE,
     KC_OS_UNDO,
     KC_OS_REDO,
     KC_OS_CUT,
@@ -24,7 +20,14 @@ enum eCustomKeyCodes {
     KC_OS_PDT,
     KC_OS_CLOSE,
 
+    OS_SHFT,
+    OS_CTRL,
+    OS_ALT,
+    OS_CMD,
+
 #include "cushi.def"
 };
 
 #undef CUSHI_ENTRY
+
+uint16_t process_cukey(uint16_t keycode);
