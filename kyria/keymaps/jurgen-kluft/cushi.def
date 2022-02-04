@@ -1,4 +1,9 @@
-CUSHI_ENTRY(KC_ASTR_SLSH,  KC_ASTR , cushi_key_shift=KC_SLASH, )
-CUSHI_ENTRY(KC_DOT_CMA,    KC_DOT  , cushi_key_shift=KC_COMMA, )
-CUSHI_ENTRY(KC_AMPR_PIPE,  KC_AMPR , cushi_key_shift=KC_PIPE , )
-CUSHI_ENTRY(KC_DQUO_GRAV,  KC_DQUO , cushi_key_shift=KC_GRV  , )
+// clang-format off
+CUSHI_ENTRY(KC_ASTR_SLSH, KC_ASTR,   cushi_key_shift = KC_SLASH,  )
+CUSHI_ENTRY(KC_DOT_CMA,   KC_DOT,    cushi_key_shift = KC_COMMA,  )
+CUSHI_ENTRY(KC_AMPR_PIPE, KC_AMPR,   cushi_key_shift = KC_PIPE,   )
+CUSHI_ENTRY(KC_DQUO_GRAV, KC_DQUO,   cushi_key_shift = KC_GRV,    )
+CUSHI_ENTRY(KC_LBRC_LABK, KC_LBRC,   cushi_key_shift = KC_LABK,   )
+CUSHI_ENTRY(KC_RBRC_RABK, KC_RBRC,   cushi_key_shift = KC_RABK,   )
+CUSHI_ENTRY(KC_NDT_PDT,   KC_OS_NDT, cushi_key_shift = KC_OS_PDT, )
+// clang-format on

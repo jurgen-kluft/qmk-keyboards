@@ -1,6 +1,15 @@
 # Kyria
 
+My keymap uses the following features:
+- Callum style Oneshot Modifiers (a rewrite)
+  - plus a modification to allow double-tap to lock a modifier
+- Smart numbers 
+- Smart caps words
+- Custom normal/shift keycodes (cushi)
+- Custom OS keycodes to deal with Mac OS / Windows / Ubuntu (cukey)
+
 I have 3 Kyria keyboards, two at home and one at work (since April 2021).
+
 The Kyria's I use daily have Gazzew Boba U4 switches.
 
 Work ![image](Kyria-work.jpg)

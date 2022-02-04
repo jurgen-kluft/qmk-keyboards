@@ -53,14 +53,3 @@
 // every other tick, lower the resolution to 2.
 #define ENCODER_RESOLUTION 2
 
-// VIM implementation; features
-#define BETTER_VISUAL_MODE
-#define VIM_I_TEXT_OBJECTS
-#define VIM_A_TEXT_OBJECTS
-#define VIM_G_MOTIONS
-#define VIM_COLON_CMDS
-#define VIM_PASTE_BEFORE
-#define VIM_REPLACE
-#define VIM_DOT_REPEAT
-#define VIM_W_BEGINNING_OF_WORD
-#define VIM_NUMBERED_JUMPS
