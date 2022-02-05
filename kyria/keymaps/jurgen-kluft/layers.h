@@ -6,10 +6,11 @@ enum layers {
     _RSTHD,
     _QWERTY_CAPS,
     _RSTHD_CAPS,
+    _SSYM,
     _NUM,
+    _MOUS,
     _SYM,
     _NAV,
     _RAISE,
-    _MOUS,
     _NUM_LAYERS
 };

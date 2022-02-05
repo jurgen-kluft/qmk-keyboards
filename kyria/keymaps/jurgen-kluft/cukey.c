@@ -99,9 +99,9 @@ uint16_t process_cukey(uint16_t keycode)
                 {
                     case OS_WINDOWS: return (kc_os_win[i]);
                     case OS_UBUNTU: return (kc_os_ubt[i]);
-                    case OS_MAC:
-                    default: return (kc_os_mac[i]); break;
+                    default: break;
                 }
+                return (kc_os_mac[i]);
             }
             break;
         }
