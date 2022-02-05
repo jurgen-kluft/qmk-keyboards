@@ -28,16 +28,16 @@
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    xxxx, KC_Q, KC_W, KC_E, KC_R, KC_T,                                      KC_Y,   KC_U, KC_I,       KC_O,   KC_P,     xxxx, 
-    xxxx, KC_A, KC_S, KC_D, KC_F, KC_G,                                      KC_H,   KC_J, KC_K,       KC_L,   KC_COLN,  xxxx, 
-    xxxx, KC_Z, KC_X, KC_C, KC_V, KC_B,   xxxx,     xxxx,   xxxx, xxxx,      KC_N,   KC_M, OSL(_SSYM), KC_DOT, KC_SLASH, xxxx, 
+    xxxx, KC_Q, KC_W, KC_E, KC_R, KC_T,                                      KC_Y,   KC_U, KC_I,     KC_O,   KC_P,       xxxx, 
+    xxxx, KC_A, KC_S, KC_D, KC_F, KC_G,                                      KC_H,   KC_J, KC_K,     KC_L,   KC_SCLN,    xxxx, 
+    xxxx, KC_Z, KC_X, KC_C, KC_V, KC_B,   xxxx,     xxxx,   xxxx, xxxx,      KC_N,   KC_M, KC_COMMA, KC_DOT, OSL(_SSYM), xxxx, 
                       xxxx, xxxx, LA_NAV, KC_SPACE, xxxx,   xxxx, KC_BSPACE, LA_SYM, xxxx, xxxx                                
   ),
   [_RSTHD] = LAYOUT(
-    xxxx, KC_J,    KC_C, KC_Y, KC_F, KC_K,                                 KC_Z,   KC_L, KC_BSPACE,  KC_U,   KC_Q,     xxxx, 
-    xxxx, KC_R,    KC_S, KC_T, KC_H, KC_D,                                 KC_M,   KC_N, KC_A,       KC_I,   KC_O,     xxxx, 
-    xxxx, KC_SCLN, KC_V, KC_G, KC_P, KC_B,   xxxx,     xxxx,   xxxx, xxxx, KC_X,   KC_W, OSL(_SSYM), KC_DOT, KC_SLASH, xxxx, 
-                         xxxx, xxxx, LA_NAV, KC_SPACE, xxxx,   xxxx, KC_E, LA_SYM, xxxx, xxxx                                
+    xxxx, KC_J,       KC_C, KC_Y, KC_F, KC_K,                                 KC_Z,   KC_L, KC_BSPACE, KC_U,   KC_Q,       xxxx, 
+    xxxx, KC_R,       KC_S, KC_T, KC_H, KC_D,                                 KC_M,   KC_N, KC_A,      KC_I,   KC_O,       xxxx, 
+    xxxx, OSL(_SSYM), KC_V, KC_G, KC_P, KC_B,   xxxx,     xxxx,   xxxx, xxxx, KC_X,   KC_W, KC_COMMA,  KC_DOT, OSL(_SSYM), xxxx, 
+                            xxxx, xxxx, LA_NAV, KC_SPACE, xxxx,   xxxx, KC_E, LA_SYM, xxxx, xxxx                                 
   ),
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I), LSFT(KC_O), LSFT(KC_P), xxxx, 
@@ -51,23 +51,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), xxxx,     xxxx,       xxxx,     xxxx,       LSFT(KC_X), LSFT(KC_W), KC_COMMA,   KC_DOT,     KC_AT,      xxxx, 
                                   KC_TRANS,   KC_TRANS,   KC_TRANS,   KC_TRANS, KC_TRANS,   KC_TRANS, LSFT(KC_E), KC_TRANS,   KC_TRANS,   KC_TRANS                                  
   ),
-  // Symbols (Gen) in order of frequency       # | & { } , ? [ ] _ < > $ % ` ' / - : \ ( ) = ^ ~ " ! . + @ *
   // Symbols (C++) in order of frequency space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~ 
   //
-  /*  @   ~   {   }   %                               `   -   +   #   $
-      :   =   (   )   !                               "   ,   .   /   ;        
-          ?   [   ]   '   xx   xx           xx   xx   ^   >   <   \    
-              xx  xx  _    &   xx           xx   |    *   xx  xx 
+  /*
+      @   ~   ({  )}   %                              `   -   +   /   $
+      :   =            !                              "   *   _   |   ;        
+          ?   [<  ]>   '  xx   xx           xx   xx   ^   &   #   \    
+              xx  xx  xx  xx   xx           xx   xx   xx  xx  xx 
   */
   [_SSYM] = LAYOUT(
     xxxx, KC_AT,   KC_TILDE, KC_LCBR,      KC_RCBR,      KC_PERC,                                         KC_GRV,  KC_MINUS, KC_PLUS,  KC_HASH,   KC_DLR,  xxxx, 
-    xxxx, KC_SCLN, KC_EQUAL, KC_LPRN,      KC_RPRN,      KC_EXLM,                                         KC_DQUO, KC_COMMA, KC_DOT,   KC_SLASH,  KC_COLN, xxxx, 
+    xxxx, KC_COLN, KC_EQUAL, KC_LPRN,      KC_RPRN,      KC_EXLM,                                         KC_DQUO, KC_COMMA, KC_DOT,   KC_SLASH,  KC_SCLN, xxxx, 
     xxxx, xxxx,    KC_QUES,  KC_LBRC_LABK, KC_RBRC_RABK, KC_QUOT, xxxx,    xxxx,       xxxx,     xxxx,    KC_CIRC, KC_LABK,  KC_RABK,  KC_BSLASH, xxxx,    xxxx, 
                              KC_TRANS,     KC_TRANS,     KC_UNDS, KC_AMPR, KC_TRANS,   KC_TRANS, KC_PIPE, KC_ASTR, KC_TRANS, KC_TRANS                            
   ),
   [_NUM] = LAYOUT(
     xxxx, KC_TRANS, KC_TRANS, KC_SLASH, KC_EQUAL, KC_TRANS,                                           KC_LBRACKET, KC_7,     KC_8,     KC_9, KC_TRANS, xxxx, 
-    xxxx, KC_SCLN,  KC_UNDS,  KC_PLUS,  KC_MINUS, KC_ASTR,                                            KC_TRANS,    KC_0,     KC_1,     KC_2, KC_3,     xxxx, 
+    xxxx, KC_COLN,  KC_UNDS,  KC_PLUS,  KC_MINUS, KC_ASTR,                                            KC_TRANS,    KC_0,     KC_1,     KC_2, KC_3,     xxxx, 
     xxxx, KC_TRANS, KC_TRANS, KC_COMMA, KC_DOT,   KC_TRANS, xxxx,     xxxx,       xxxx,     xxxx,     KC_RBRACKET, KC_4,     KC_5,     KC_6, KC_TRANS, xxxx, 
                               KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS,   KC_TRANS, KC_TRANS, KC_TRANS,    KC_TRANS, KC_TRANS                        
   ),
@@ -78,12 +78,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_TRANS,    KC_TRANS, KC_TRANS, KC_RSTHD, KC_TRANS,   KC_TRANS, KC_QWERTY, KC_TRANS,      KC_TRANS,      KC_TRANS                                   
   ),
   // Symbols in order of frequency # | & { } , ? [ ] _ < > $ % ` ' / - 0 : \ 1 ( ) = ^ ~ " 6 7 8 ! . 9 + @ * 2 3 4 5 
-  //   ~    _    {<    }>   "`           -    +    *    /    ^     
-  //   :    %    (     )    =           &|   SFT  CTL  ALT  CMD    
-  //   @    ?    [     ]    '                 !    #    \    $     
+  // Symbols (C++) in order of frequency space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~ 
+  /*
+           "    ({   )}   %$                               `    -    +    /    
+      :;   =|   _    *    !                                @~  SFT  CTL  ALT  CMD    
+           ?    [    ]    '    xx   xx           xx   xx   ^    &    #    \    
+                xx   xx   xx   xx   xx           xx   xx   xx  xx  xx 
+  */
+
   [_SYM] = LAYOUT(
     xxxx, KC_TILDE, KC_UNDS, KC_LCBR,      KC_RCBR,      KC_DQUO_GRAV,                                             KC_MINUS,     KC_PLUS,  KC_ASTR,  KC_SLASH,  KC_CIRC, xxxx, 
-    xxxx, KC_COLN,  KC_PERC, KC_LPRN,      KC_RPRN,      KC_EQUAL,                                                 KC_AMPR_PIPE, OS_SHFT,  OS_CTRL,  OS_ALT,    OS_CMD,  xxxx, 
+    xxxx, KC_COLN,  KC_EQUAL, KC_LPRN,      KC_RPRN,     KC_PERC,                                                 KC_AMPR_PIPE, OS_SHFT,  OS_CTRL,  OS_ALT,    OS_CMD,  xxxx, 
     xxxx, KC_AT,    KC_QUES, KC_LBRC_LABK, KC_RBRC_RABK, KC_QUOT,      xxxx,       xxxx,       xxxx,     xxxx,     SH_TG,        KC_EXLM,  KC_HASH,  KC_BSLASH, KC_DLR,  xxxx, 
                              KC_TRANS,     KC_TRANS,     KC_TRANS,     KC_NDT_PDT, KC_TRANS,   KC_TRANS, KC_TRANS, KC_TRANS,     KC_TRANS, KC_TRANS                            
   ),
@@ -91,15 +96,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                               KC_SNUM,  KC_PGUP,   KC_HOME,  KC_INSERT, LT_MOS,   xxxx, 
     xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                            KC_LEFT,  KC_DOWN,   KC_UP,    KC_RIGHT,  KC_TRANS, xxxx, 
     xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx,     xxxx,       xxxx,     xxxx,      KC_SCAPS, KC_PGDOWN, KC_END,   KC_TRANS,  KC_TRANS, xxxx, 
-                                   KC_TRANS,   KC_TRANS,    _______,  KC_TRANS, KC_TRANS,   KC_TRANS, KC_DELETE, KC_TRANS, KC_TRANS,  KC_TRANS                             
+                                   KC_TRANS,   KC_TRANS,    _______,   KC_TRANS, KC_TRANS,   KC_TRANS, KC_DELETE, KC_TRANS, KC_TRANS,  KC_TRANS                             
   ),
   //   F8   F9   F10  F11  F7             -   7   8   9   F12
   //   CMD  ALT  CTRL SHFT F5             +   0   1   2   3
   //   F1   F2   F3   F4   F6            */   4   5   6   .,
   [_RAISE] = LAYOUT(
-    xxxx, KC_F8,  KC_F9,  KC_F10,   KC_F11,   KC_F7,                                              KC_MINUS,     KC_7,     KC_8,     KC_9, KC_F12,     xxxx, 
-    xxxx, OS_CMD, OS_ALT, OS_CTRL,  OS_SHFT,  KC_F5,                                              KC_PLUS,      KC_0,     KC_1,     KC_2, KC_3,       xxxx, 
-    xxxx, KC_F1,  KC_F2,  KC_F3,    KC_F4,    KC_F6,    xxxx,     xxxx,       xxxx,     xxxx,     KC_ASTR_SLSH, KC_4,     KC_5,     KC_6, KC_DOT_CMA, xxxx, 
+    xxxx, KC_F8,  KC_F9,  KC_F10,   KC_F11,   KC_F7,                                             KC_MINUS,     KC_7,     KC_8,     KC_9, KC_F12,     xxxx, 
+    xxxx, OS_CMD, OS_ALT, OS_CTRL,  OS_SHFT,  KC_F5,                                             KC_PLUS,      KC_0,     KC_1,     KC_2, KC_3,       xxxx, 
+    xxxx, KC_F1,  KC_F2,  KC_F3,    KC_F4,    KC_F6,   xxxx,     xxxx,       xxxx,     xxxx,     KC_ASTR_SLSH, KC_4,     KC_5,     KC_6, KC_DOT_CMA, xxxx, 
                           KC_TRANS, KC_TRANS, _______, KC_TRANS, KC_TRANS,   KC_TRANS, KC_TRANS, KC_TRANS,     KC_TRANS, KC_TRANS                          
   )
 };
