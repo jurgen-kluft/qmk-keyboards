@@ -89,6 +89,7 @@ void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
                 case KC_ASTR:
                 case KC_EQL:
                 case KC_SLSH:
+                case KC_COLN:
                 case KC_DOT:
                 case KC_COMMA:
                     return;
