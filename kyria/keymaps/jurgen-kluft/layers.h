@@ -1,6 +1,7 @@
 #pragma once
 
-
+// Note: when changing the order please change the code/data for OLED
+//       to display the correct active layer.
 enum layers {
     _QWERTY = 0,
     _RSTHD,

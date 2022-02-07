@@ -78,20 +78,28 @@ void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             switch (keycode) {
                 case KC_1 ... KC_0:
-                case KC_RBRACKET:
-                case KC_LBRACKET:
+                case KC_BSPC:
+                case KC_LABK:
+                case KC_RABK:
                 case KC_LPRN:
                 case KC_RPRN:
-                case KC_BSPC:
-                case KC_UNDS:
-                case KC_MINS:
-                case KC_PLUS:
-                case KC_ASTR:
-                case KC_EQL:
-                case KC_SLSH:
+                case KC_LCBR:
+                case KC_RCBR:
+                case KC_LBRC:
+                case KC_RBRC:
                 case KC_COLN:
-                case KC_DOT:
+                case KC_SCLN:
+                case KC_EQUAL:
+                case KC_UNDS:
+                case KC_ASTR:
+                case KC_PLUS:
+                case KC_MINUS:
+                case KC_SLASH:
+                case KC_BSLASH:
                 case KC_COMMA:
+                case KC_DOT:
+                case KC_DLR:
+                case KC_AT:
                     return;
             }
 

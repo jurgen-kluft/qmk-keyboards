@@ -142,7 +142,7 @@ void render_layer_state(void){
 	}
 }
 
-PROGMEM char const layer_names[] = "-QWERT\0\0-RSTHD\0\0-CAPS \0\0-CAPS \0\0-NUMB \0\0-SYMB \0\0-NAVI \0\0-RAIS \0\0-MOUS ";
+PROGMEM char const layer_names[] = "-QWERT\0\0-RSTHD\0\0-CAPS \0\0-CAPS \0\0-SSYM \0\0-NUMB \0\0-MOUS \0\0-SYMB \0\0-NAVI \0\0-RAIS ";
 
 // Keylock State			
 void render_keylock_status(uint8_t led_usb_state) {

@@ -7,5 +7,7 @@ CUSHI_ENTRY(KC_RPRN_RCBR, KC_RPRN,   cushi_key_shift = KC_RCBR,   )
 CUSHI_ENTRY(KC_SCLN_COLN, KC_SCLN,   cushi_key_shift = KC_COLN,   )
 CUSHI_ENTRY(KC_EQUL_PIPE, KC_EQUAL,  cushi_key_shift = KC_PIPE,   )
 CUSHI_ENTRY(KC_DQUO_EXCL, KC_DQUO,   cushi_key_shift = KC_EXLM,   )
-CUSHI_ENTRY(KC_GRV_TLD,   KC_GRV,    cushi_key_shift = KC_TILDE,  )
+CUSHI_ENTRY(KC_UNDS_TLD,  KC_UNDS,   cushi_key_shift = KC_TILDE,  )
+CUSHI_ENTRY(KC_PERC_CIRC, KC_PERC,   cushi_key_shift = KC_CIRC,   )
+
 // clang-format on
