@@ -7,8 +7,6 @@ enum eCustomKeyCodes {
     KC_RSTHD,
     KC_PASSWORD,
     KC_OLED,
-    KC_SCAPS,
-    KC_SNUM,
     KC_OS_MODE,
     KC_OS_PMODE,
     KC_OS_UNDO,
@@ -25,7 +23,15 @@ enum eCustomKeyCodes {
     OS_ALT,
     OS_CMD,
 
+    KC_SMART_BEGIN,
+    
+    KC_SCAPS,
+    KC_SNUM,
+    KC_SSYM,
+
 #include "cushi.def"
+
+    KC_SMART_END,
 };
 
 #undef CUSHI_ENTRY

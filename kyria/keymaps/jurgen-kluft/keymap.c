@@ -30,19 +30,21 @@
 
 */
 
+// Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~ 
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                       KC_Y,   KC_U,     KC_I,       KC_O,   KC_P,     xxxx, 
-    xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                       KC_H,   KC_J,     KC_K,       KC_L,   KC_SCLN,  xxxx, 
-    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,   KC_M,     OSL(_SSYM), KC_DOT, KC_COMMA, xxxx, 
-                      LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, LA_SYM, KC_SCAPS, LT_MOS                              
+    xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                       KC_Y,   KC_U,     KC_I,    KC_O,   KC_P,     xxxx, 
+    xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                       KC_H,   KC_J,     KC_K,    KC_L,   KC_SCLN,  xxxx, 
+    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,   KC_M,     KC_SSYM, KC_DOT, KC_COMMA, xxxx, 
+                      LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, LA_SYM, KC_SCAPS, LT_MOS                           
   ),
   [_RSTHD] = LAYOUT(
-    xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                       KC_Z,   KC_L,     KC_BSPACE,  KC_U,   KC_Q,     xxxx, 
-    xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                       KC_M,   KC_N,     KC_A,       KC_I,   KC_O,     xxxx, 
-    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,   KC_W,     OSL(_SSYM), KC_DOT, KC_COMMA, xxxx, 
-                         LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_E,      LA_SYM, KC_SCAPS, LT_MOS                              
+    xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                       KC_Z,   KC_L,     KC_BSPACE, KC_U,   KC_Q,     xxxx, 
+    xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                       KC_M,   KC_N,     KC_A,      KC_I,   KC_O,     xxxx, 
+    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,   KC_W,     KC_SSYM,   KC_DOT, KC_COMMA, xxxx, 
+                         LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_E,      LA_SYM, KC_SCAPS, LT_MOS                             
   ),
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I), LSFT(KC_O), LSFT(KC_P), xxxx, 
@@ -56,31 +58,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx,       LSFT(KC_X), LSFT(KC_W), OSL(_SSYM), KC_DOT,     KC_COMMA,   xxxx, 
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, LSFT(KC_E), ____,       ____,       ____                                      
   ),
-  /* 
-     Symbols (C++) in order of frequency space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~ \ 
-
-      $    /    (     )      `                                      ^    [     ]     &    <
-      :    =    _     *      +                                      -    {     }     |    ;
-      ~    \    ?     !      '    xx     xx           xx     xx     %    @     ,     .    >
-                space space  "    space  space        space  space  #    space space
-  */
-    [_SSYM] = LAYOUT( 
-    xxxx, KC_LABK,  KC_RABK,  KC_LPRN,  KC_RPRN,  KC_PERC,                                   KC_CIRC, KC_MINUS, KC_PLUS,  KC_SLASH,  KC_DLR,  xxxx, 
-    xxxx, KC_COLN,  KC_EQUAL, KC_ASTR,  KC_UNDS,  KC_EXLM,                                   KC_GRV,  KC_LCBR,  KC_RCBR,  KC_PIPE,   KC_SCLN, xxxx, 
-    xxxx, KC_TILDE, KC_QUES,  KC_DOT,   KC_QUOT,  KC_LBRC, xxxx,     xxxx,   xxxx, xxxx,     KC_RBRC, KC_AMPR,  KC_COMMA, KC_BSLASH, KC_AT,   xxxx, 
-                              KC_SPACE, KC_SPACE, KC_DQUO, KC_SPACE, xxxx,   xxxx, KC_SPACE, KC_HASH, KC_SPACE, KC_SPACE                            
+  [_SSYM] = LAYOUT(
+    xxxx, KC_LABK,      KC_RABK,      KC_LPRN_LCBR, KC_RPRN_RCBR, KC_PERC_CIRC,                                   KC_QUOT, KC_MINUS, KC_PLUS,  KC_SLASH,  KC_DLR,  xxxx, 
+    xxxx, KC_SCLN_COLN, KC_DQUO_EXCL, KC_UNDS_TLD,  KC_ASTR,      KC_EQUL_PIPE,                                   KC_GRV,  KC_COMMA, KC_DOT,   KC_HASH,   KC_LCBR, xxxx, 
+    xxxx, KC_TILDE,     KC_QUES,      KC_LBRC,      KC_RBRC,      ____,         xxxx,     xxxx,   xxxx, xxxx,     KC_PIPE, KC_AMPR,  KC_SSYM,  KC_BSLASH, KC_AT,   xxxx, 
+                                      KC_SPACE,     KC_SPACE,     KC_DQUO,      KC_SPACE, xxxx,   xxxx, KC_SPACE, OS_SHFT, KC_SPACE, KC_SPACE                            
   ),
-  /*
-      $   /   (   )    {                            }   7   8   9   <
-      :   =   _   *    +                            -   1   2   3   ;
-      @   \   .    ,   [  xx  xx           xx  xx   ]   4   5   6   >
-              xx  xx  xx  xx  xx           xx  xx   0   xx  xx 
-  */
   [_NUM] = LAYOUT(
-    xxxx, KC_DLR,  KC_SLASH,  KC_LPRN,  KC_RPRN, KC_LCBR,                                    KC_RCBR,  KC_7, KC_8,     KC_LABK, KC_LABK, xxxx, 
-    xxxx, KC_COLN, KC_EQUAL,  KC_UNDS,  KC_ASTR, KC_PLUS,                                    KC_MINUS, KC_1, KC_2,     KC_3,    KC_SCLN, xxxx, 
-    xxxx, ____,    KC_BSLASH, KC_COMMA, KC_DOT,  KC_LBRC, xxxx,     xxxx,   xxxx, xxxx,      KC_RBRC,  KC_4, KC_5,     KC_6,    KC_AT,   xxxx, 
-                              KC_SPACE, ____,    KC_9,    KC_SPACE, xxxx,   xxxx, KC_BSPACE, KC_0,     ____, KC_SPACE                          
+    xxxx, KC_TRANS, KC_SLASH,  KC_LBRC,  KC_RBRC,  KC_TRANS,                                    KC_TRANS, KC_7, KC_8,     KC_9, KC_TRANS, xxxx, 
+    xxxx, KC_TRANS, KC_MINUS,  KC_9,     KC_0,     KC_EQUAL,                                    KC_TRANS, KC_1, KC_2,     KC_3, KC_SCLN,  xxxx, 
+    xxxx, KC_TRANS, KC_BSLASH, KC_DOT,   KC_COMMA, KC_TRANS, xxxx,     xxxx,   xxxx, xxxx,      KC_TRANS, KC_4, KC_5,     KC_6, KC_TRANS, xxxx, 
+                               KC_SPACE, ____,     OS_SHFT,  KC_SPACE, xxxx,   xxxx, KC_BSPACE, KC_0,     ____, KC_SPACE                        
   ),
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY,    MU_TOG,      MU_MOD,      KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
@@ -88,15 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_OS_MODE, KC_OS_PMODE, KC_PASSWORD, ____,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
                                    ____,        ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
   ),
-  /*
-     Symbols in order of frequency                 # | & { } , ? [ ] _ < > $ % ` ' / - : \ ( ) = ^ ~ " ! . + @ *  
-     Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~ 
-
-       $    /   ({   )}   %^                               '     [    ]    >    <
-      :;   =|   _~    *   +                                -    SFT  CTL  ALT  CMD    
-       @    \    `   "!   EE   xx   xx           xx   xx   EE    &    #    ?    ~
-                xx   xx   xx   xx   xx           xx   xx   SYM   xx   xx 
-  */
   [_SYM] = LAYOUT(
     xxxx, KC_LABK,      KC_RABK,      KC_LPRN_LCBR, KC_RPRN_RCBR, KC_PERC_CIRC,                           KC_QUOT, KC_MINUS, KC_PLUS, KC_SLASH,  KC_DLR, xxxx, 
     xxxx, KC_SCLN_COLN, KC_DQUO_EXCL, KC_UNDS_TLD,  KC_ASTR,      KC_EQUL_PIPE,                           KC_GRV,  OS_SHFT,  OS_CTRL, OS_ALT,    OS_CMD, xxxx, 
@@ -166,28 +145,15 @@ bool smart_feature_cancel_key(uint16_t keycode, keyrecord_t* record)
         case LA_SYM:
         case LA_NAV:
         case LA_NUM:
-        case KC_SNUM:
-        case KC_SCAPS:
         case LA_RCAPS:
         case LA_QCAPS: return true;
     }
     return false;
 }
 
-static uint8_t s_smart_state = 0;
-
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
     process_record_oled(keycode, record);
-
-    switch (keycode)
-    {
-        case KC_SNUM:
-        case KC_SCAPS:
-        case LA_NAV:
-        case LA_SYM: break;
-        default: s_smart_state |= (s_smart_state & 1) << 1; break;
-    }
 
     switch (keycode)
     {
@@ -211,65 +177,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
                 SEND_STRING(SECRET_PASSWORD);
             }
             return true;
+        case KC_SSYM:
+            if (record->event.pressed)
+            {
+                smart_feature_toggle(SMART_SYMBOLS, _SSYM);
+                return true;
+            }
+            break;
         case KC_SNUM:
             if (record->event.pressed)
             {
-                if (!smart_feature_state(SMART_NUMBERS))
-                {
-                    smart_feature_enable(SMART_NUMBERS, _NUM);
-                    s_smart_state = 1;
-                }
-                else
-                {
-                    smart_feature_disable(SMART_NUMBERS);
-                    s_smart_state = 0;
-                }
+                smart_feature_toggle(SMART_NUMBERS, _NUM);
+                return true;
             }
-            else
-            {
-                if (s_smart_state == 3)
-                {
-                    smart_feature_disable(SMART_NUMBERS);
-                }
-                s_smart_state = 0;
-            }
-            return true;
+            break;
         case KC_SCAPS:
             if (record->event.pressed)
             {
-                // Layer Bit -> Layer Number
-                // _QWERTY   ->  _QWERTY_CAPS
-                //     0     ->      2
-                // _RSTHD    ->  _RSTHD_CAPS
-                //     1     ->      3
                 if (!smart_feature_state(SMART_CAPSLOCK))
                 {
                     if (default_layer_state == (1 << _QWERTY))
                     {
-                        smart_feature_enable(SMART_CAPSLOCK, _QWERTY_CAPS);
-                        s_smart_state = 1;
+                        smart_feature_toggle(SMART_CAPSLOCK, _QWERTY_CAPS);
                     }
                     else if (default_layer_state == (1 << _RSTHD))
                     {
-                        smart_feature_enable(SMART_CAPSLOCK, _RSTHD_CAPS);
-                        s_smart_state = 1;
+                        smart_feature_toggle(SMART_CAPSLOCK, _RSTHD_CAPS);
                     }
                 }
-                else
-                {
-                    smart_feature_disable(SMART_CAPSLOCK);
-                    s_smart_state = 0;
-                }
+                return true;
             }
-            else
-            {
-                if (s_smart_state == 3)
-                {
-                    smart_feature_disable(SMART_CAPSLOCK);
-                }
-                s_smart_state = 0;
-            }
-            return true;
+            break;
         case KC_OLED:
             if (record->event.pressed)
             {
@@ -283,20 +221,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
     int8_t keycode_consumed = 0;
 
-    if ((smart_feature_cancel_key(keycode, record)) || ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode))))
+    if ((smart_feature_cancel_key(keycode, record)) || (keycode>=KC_SMART_BEGIN && keycode<=KC_SMART_END) || ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode))))
     {
-        if (s_smart_state == 0)
+        if (smart_feature_state(SMART_CAPSLOCK))
         {
-            if (smart_feature_state(SMART_CAPSLOCK))
-            {
-                keycode_consumed = 1;
-                smart_capslock_process(keycode, record);
-            }
-            else if (smart_feature_state(SMART_NUMBERS))
-            {
-                keycode_consumed = 1;
-                smart_numbers_process(keycode, record);
-            }
+            keycode_consumed = 1;
+            smart_capslock_process(keycode, record);
+        }
+        else if (smart_feature_state(SMART_NUMBERS))
+        {
+            keycode_consumed = 1;
+            smart_numbers_process(keycode, record);
+        }
+        else if (smart_feature_state(SMART_SYMBOLS))
+        {
+            keycode_consumed = 1;
+            smart_symbols_process(keycode, record);
         }
     }
 
