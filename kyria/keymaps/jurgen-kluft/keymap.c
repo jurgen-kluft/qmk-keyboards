@@ -89,10 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    ____,       ____,        ____,      KC_BSPACE, xxxx,   xxxx, KC_DELETE, ____,      ____,      ____                                
   ),
   [_RAISE] = LAYOUT(
-    xxxx, ____,   KC_F6,  KC_F7,   KC_F8,   ____,                             KC_F1, KC_F2,  KC_F3,  KC_F4, ____, xxxx, 
-    xxxx, OS_CMD, OS_ALT, OS_CTRL, OS_SHFT, KC_F12,                           KC_F5, KC_F11, KC_F10, KC_F9, ____, xxxx, 
-    xxxx, ____,   ____,   ____,    ____,    ____,   xxxx, xxxx,   xxxx, xxxx, ____,  ____,   ____,   ____,  ____, xxxx, 
-                          ____,    ____,    ____,   ____, xxxx,   xxxx, ____, ____,  ____,   ____                       
+    xxxx, KC_7,   KC_5,   KC_3,    KC_1,    KC_9,                            KC_8,   KC_0,   KC_2,   KC_4,  KC_6,  xxxx, 
+    xxxx, OS_CMD, OS_ALT, OS_CTRL, OS_SHFT, KC_F5,                           KC_F12, KC_F11, KC_F10, KC_F9, ____,  xxxx, 
+    xxxx, KC_F7,  KC_F5,  KC_F3,   KC_F1,   ____,  xxxx, xxxx,   xxxx, xxxx, ____,   KC_F2,  KC_F4,  KC_F6, KC_F8, xxxx, 
+                          ____,    ____,    ____,  ____, xxxx,   xxxx, ____, ____,   ____,   ____                        
   )
 };
 // clang-format on
