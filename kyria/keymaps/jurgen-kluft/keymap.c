@@ -58,12 +58,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx,       LSFT(KC_X), LSFT(KC_W), KC_SSYM,    KC_DOT,     KC_COMMA,   xxxx, 
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, LSFT(KC_E), ____,       ____,       ____                                      
   ),
-  [_SSYM] = LAYOUT(
-    xxxx, KC_LABK,      KC_RABK,      KC_LPRN_LCBR, KC_RPRN_RCBR, KC_PERC_CIRC,                                   KC_QUOT, KC_MINUS, KC_PLUS,  KC_SLASH,  KC_DLR,  xxxx, 
-    xxxx, KC_SCLN_COLN, KC_DQUO_EXCL, KC_UNDS_TLD,  KC_ASTR,      KC_EQUL_PIPE,                                   KC_GRV,  KC_COMMA, KC_DOT,   KC_HASH,   KC_LCBR, xxxx, 
-    xxxx, KC_TILDE,     KC_QUES,      KC_LBRC,      KC_RBRC,      ____,         xxxx,     xxxx,   xxxx, xxxx,     KC_PIPE, KC_AMPR,  KC_SSYM,  KC_BSLASH, KC_AT,   xxxx, 
-                                      KC_SPACE,     KC_SPACE,     KC_DQUO,      KC_SPACE, xxxx,   xxxx, KC_SPACE, OS_SHFT, KC_SPACE, KC_SPACE                            
-  ),
   [_NUM] = LAYOUT(
     xxxx, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS,                                    KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, xxxx, 
     xxxx, KC_6,     KC_4,     KC_2,     KC_0,     KC_8,                                        KC_9,     KC_1,     KC_3,     KC_5,     KC_7,     xxxx, 
