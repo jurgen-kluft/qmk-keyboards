@@ -49,13 +49,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I), LSFT(KC_O), LSFT(KC_P), xxxx, 
     xxxx, LSFT(KC_A), LSFT(KC_S), LSFT(KC_D), LSFT(KC_F), LSFT(KC_G),                           LSFT(KC_H), LSFT(KC_J), LSFT(KC_K), LSFT(KC_L), KC_UNDS,    xxxx, 
-    xxxx, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx, LSFT(KC_N), LSFT(KC_M), OSL(_SSYM), KC_DOT,     KC_COMMA,   xxxx, 
+    xxxx, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx, LSFT(KC_N), LSFT(KC_M), KC_SSYM,    KC_DOT,     KC_COMMA,   xxxx, 
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, ____, ____,       ____,       ____                                      
   ),
   [_RSTHD_CAPS] = LAYOUT(
     xxxx, LSFT(KC_J), LSFT(KC_C), LSFT(KC_Y), LSFT(KC_F), LSFT(KC_K),                                 LSFT(KC_Z), LSFT(KC_L), KC_BSPACE,  LSFT(KC_U), LSFT(KC_Q), xxxx, 
     xxxx, LSFT(KC_R), LSFT(KC_S), LSFT(KC_T), LSFT(KC_H), LSFT(KC_D),                                 LSFT(KC_M), LSFT(KC_N), LSFT(KC_A), LSFT(KC_I), LSFT(KC_O), xxxx, 
-    xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx,       LSFT(KC_X), LSFT(KC_W), OSL(_SSYM), KC_DOT,     KC_COMMA,   xxxx, 
+    xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx,       LSFT(KC_X), LSFT(KC_W), KC_SSYM,    KC_DOT,     KC_COMMA,   xxxx, 
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, LSFT(KC_E), ____,       ____,       ____                                      
   ),
   [_SSYM] = LAYOUT(
@@ -65,10 +65,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       KC_SPACE,     KC_SPACE,     KC_DQUO,      KC_SPACE, xxxx,   xxxx, KC_SPACE, OS_SHFT, KC_SPACE, KC_SPACE                            
   ),
   [_NUM] = LAYOUT(
-    xxxx, KC_TRANS, KC_SLASH,  KC_LBRC,  KC_RBRC,  KC_TRANS,                                    KC_TRANS, KC_7, KC_8,     KC_9, KC_TRANS, xxxx, 
-    xxxx, KC_TRANS, KC_MINUS,  KC_9,     KC_0,     KC_EQUAL,                                    KC_TRANS, KC_1, KC_2,     KC_3, KC_SCLN,  xxxx, 
-    xxxx, KC_TRANS, KC_BSLASH, KC_DOT,   KC_COMMA, KC_TRANS, xxxx,     xxxx,   xxxx, xxxx,      KC_TRANS, KC_4, KC_5,     KC_6, KC_TRANS, xxxx, 
-                               KC_SPACE, ____,     OS_SHFT,  KC_SPACE, xxxx,   xxxx, KC_BSPACE, KC_0,     ____, KC_SPACE                        
+    xxxx, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS,                                    KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, xxxx, 
+    xxxx, KC_6,     KC_4,     KC_2,     KC_0,     KC_8,                                        KC_9,     KC_1,     KC_3,     KC_5,     KC_7,     xxxx, 
+    xxxx, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, xxxx,     xxxx,   xxxx, xxxx,      KC_TRANS, KC_TRANS, KC_SSYM,  KC_TRANS, KC_TRANS, xxxx, 
+                              KC_SPACE, ____,     ____,     KC_SPACE, xxxx,   xxxx, KC_BSPACE, KC_TRANS, ____,     KC_SPACE                            
   ),
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
@@ -77,16 +77,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
   ),
   [_SYM] = LAYOUT(
-    xxxx, KC_LABK,      KC_RABK,      KC_LPRN_LCBR, KC_RPRN_RCBR, KC_PERC_CIRC,                           KC_QUOT, KC_MINUS, KC_PLUS, KC_SLASH,  KC_DLR, xxxx, 
+    xxxx, KC_LBRC,      KC_RBRC,      KC_LPRN_LCBR, KC_RPRN_RCBR, KC_PERC_CIRC,                           KC_QUOT, KC_MINUS, KC_PLUS, KC_SLASH,  KC_DLR, xxxx, 
     xxxx, KC_SCLN_COLN, KC_DQUO_EXCL, KC_UNDS_TLD,  KC_ASTR,      KC_EQUL_PIPE,                           KC_GRV,  OS_SHFT,  OS_CTRL, OS_ALT,    OS_CMD, xxxx, 
-    xxxx, KC_TILDE,     KC_QUES,      KC_LBRC,      KC_RBRC,      SH_TG,        xxxx, xxxx,   xxxx, xxxx, SH_TG,   KC_AMPR,  KC_HASH, KC_BSLASH, KC_AT,  xxxx, 
+    xxxx, KC_TILDE,     KC_QUES,      KC_COMMA,     KC_DOT,       SH_TG,        xxxx, xxxx,   xxxx, xxxx, SH_TG,   KC_AMPR,  KC_SSYM, KC_BSLASH, KC_AT,  xxxx, 
                                       ____,         ____,         ____,         ____, xxxx,   xxxx, ____, ____,    ____,     ____                              
   ),
   [_NAV] = LAYOUT(
     xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                        KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
     xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, ____, xxxx, 
     xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx,      xxxx,   xxxx, xxxx,      SH_TG,     KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
-                                   ____,       ____,        ____,      KC_BSPACE, xxxx,   xxxx, KC_DELETE, ____,      ____,      ____                                
+                                   ____,       ____,        ____,      KC_BSPACE, xxxx,   xxxx, KC_DELETE, ____,      ____,      ____                           
   ),
   [_RAISE] = LAYOUT(
     xxxx, ____,        ____,   ____,    ____,    ____,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
@@ -180,7 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
         case KC_SSYM:
             if (record->event.pressed)
             {
-                smart_feature_toggle(SMART_SYMBOLS, _SSYM);
+                smart_feature_toggle(SMART_SYMBOLS, _SYM);
                 return true;
             }
             break;
@@ -225,17 +225,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
     {
         if (smart_feature_state(SMART_CAPSLOCK))
         {
-            keycode_consumed = 1;
             smart_capslock_process(keycode, record);
         }
-        else if (smart_feature_state(SMART_NUMBERS))
+        if (smart_feature_state(SMART_NUMBERS))
         {
-            keycode_consumed = 1;
             smart_numbers_process(keycode, record);
         }
-        else if (smart_feature_state(SMART_SYMBOLS))
+        if (smart_feature_state(SMART_SYMBOLS))
         {
-            keycode_consumed = 1;
             smart_symbols_process(keycode, record);
         }
     }

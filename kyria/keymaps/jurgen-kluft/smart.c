@@ -6,11 +6,12 @@
 // ----------------------------------------------------------------------------------------------------
 
 static uint8_t g_smart_status[SMART_FEATURES] = {0, 0, 0};
+static uint8_t g_smart_count[SMART_FEATURES] = {0, 0, 0};
 
 bool smart_feature_state(uint8_t f) { return (g_smart_status[f] != 0); }
 void smart_feature_enable(uint8_t f, uint8_t layer) {
-    smart_feature_disable_all_but(f);
     g_smart_status[f] = layer;
+    g_smart_count[f] = 0;
     layer_on(layer);
 }
 
@@ -18,6 +19,7 @@ void smart_feature_disable(uint8_t f) {
     uint8_t layer = g_smart_status[f];
     if (layer > 0) {
         g_smart_status[f] = 0;
+        g_smart_count[f] = 0;
         layer_off(layer);
     }
 }
@@ -36,6 +38,7 @@ void smart_feature_disable_all_but(uint8_t f) {
             uint8_t layer = g_smart_status[i];
             if (layer > 0) {
                 g_smart_status[i] = 0;
+                g_smart_count[f] = 0;
                 layer_off(layer);
             }
         }
@@ -44,8 +47,8 @@ void smart_feature_disable_all_but(uint8_t f) {
 
 void smart_feature_toggle(uint8_t f, uint8_t layer) {
     if (!smart_feature_state(f)) {
-        smart_feature_disable_all_but(f);
         g_smart_status[f] = layer;
+        g_smart_count[f] = 0;
         layer_on(layer);
     } else {
         smart_feature_disable(f);
@@ -62,20 +65,13 @@ void smart_capslock_process(uint16_t keycode, keyrecord_t *record) {
     if (smart_feature_state(SMART_CAPSLOCK)) {
         if (record->event.pressed) {
             switch (keycode) {
-                case KC_SCLN:
-                case SKC_A ... SKC_Z:
-                case KC_BSPC:
-                case KC_DEL:
-                case KC_UNDS:
-                case KC_AT:
-                case KC_DOT:
-                case KC_MINS:
-                    if (get_mods() == 0) {
-                        return;
-                    }
+                case KC_SPACE:
+                    smart_feature_disable(SMART_CAPSLOCK);
+                    return;
             }
-
-            smart_feature_disable(SMART_CAPSLOCK);
+            if (smart_feature_cancel_key(keycode, record)) {
+                smart_feature_disable(SMART_CAPSLOCK);
+            }
         }
     }
 }
@@ -86,8 +82,16 @@ void smart_capslock_process(uint16_t keycode, keyrecord_t *record) {
 void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
     if (smart_feature_state(SMART_NUMBERS)) {
         if (record->event.pressed) {
+            g_smart_count[SMART_NUMBERS] |= 2;
             switch (keycode) {
                 case KC_1 ... KC_0:
+                case KC_LPRN_LCBR:
+                case KC_RPRN_RCBR:
+                case KC_PERC_CIRC:
+                case KC_SCLN_COLN:
+                case KC_DQUO_EXCL:
+                case KC_UNDS_TLD:
+                case KC_EQUL_PIPE:
                 case KC_BSPC:
                 case KC_LABK:
                 case KC_RABK:
@@ -112,8 +116,18 @@ void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
                 case KC_AT:
                     return;
             }
-
-            smart_feature_disable(SMART_NUMBERS);
+            if (g_smart_count[SMART_NUMBERS] == 3) {
+                smart_feature_disable(SMART_NUMBERS);
+            }
+        } else {
+            switch (keycode) {
+                case KC_SNUM:
+                    if (g_smart_count[SMART_NUMBERS] == 3) {
+                        smart_feature_disable(SMART_NUMBERS);
+                    }
+                    break;
+            }            
+            g_smart_count[SMART_NUMBERS] |= 1;
         }
     }
 }
@@ -176,6 +190,9 @@ void smart_symbols_process(uint16_t keycode, keyrecord_t *record) {
             switch (keycode) {
                 case KC_SSYM:
                 case OS_SHFT:
+                case OS_CTRL:
+                case OS_ALT:
+                case OS_CMD:
                     return;
             }
 

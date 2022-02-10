@@ -6,11 +6,13 @@
         font-size: 14px;
         font-kerning: normal;
         text-rendering: optimizeLegibility;
-        fill: #34393e;
+        fill: #000;
+        background: #202020;
     }
 
     rect {
         fill: #f6f8fa;
+        fill-opacity: 1;
     }
 
     .green {
@@ -46,8 +48,8 @@
     }
 
     .none {
-        fill: #fff;
-        fill-opacity: 0.0;
+        fill: #f0f0f0;
+        fill-opacity: 0.8;
     }
 
 </style>
@@ -535,7 +537,7 @@
 <text x="233" y="1261" text-anchor="middle" class="key-text">MOUSE</text>
 <rect x="265" y="1239" width="55" height="45" rx="6" ry="6" class="" />
 <text x="292" y="1261" text-anchor="middle" class="key-text">SNUMS</text>
-<rect x="324" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<rect x="324" y="1239" width="55" height="45" rx="6" ry="6" class="green" />
 <text x="351" y="1261" text-anchor="middle" class="key-text">NAV</text>
 <rect x="383" y="1239" width="55" height="45" rx="6" ry="6" class="" />
 <text x="410" y="1261" text-anchor="middle" class="key-text"></text>
@@ -545,7 +547,7 @@
 <text x="587" y="1261" text-anchor="middle" class="key-text"></text>
 <rect x="619" y="1239" width="55" height="45" rx="6" ry="6" class="" />
 <text x="646" y="1261" text-anchor="middle" class="key-text">e</text>
-<rect x="678" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<rect x="678" y="1239" width="55" height="45" rx="6" ry="6" class="red" />
 <text x="705" y="1261" text-anchor="middle" class="key-text">SYM</text>
 <rect x="737" y="1239" width="55" height="45" rx="6" ry="6" class="" />
 <text x="764" y="1261" text-anchor="middle" class="key-text">SCAPS</text>
