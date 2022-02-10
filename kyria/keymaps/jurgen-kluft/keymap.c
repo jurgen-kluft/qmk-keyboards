@@ -71,10 +71,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_SPACE, ____,     OS_SHFT,  KC_SPACE, xxxx,   xxxx, KC_BSPACE, KC_0,     ____, KC_SPACE                        
   ),
   [_MOUS] = LAYOUT(
-    xxxx, KC_MPLY,    MU_TOG,      MU_MOD,      KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
-    xxxx, OS_CMD,     OS_ALT,      OS_CTRL,     OS_SHFT, RGB_HUD,                                    KC_MS_WH_DOWN, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    RGB_HUI, xxxx, 
-    xxxx, KC_OS_MODE, KC_OS_PMODE, KC_PASSWORD, ____,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
-                                   ____,        ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
+    xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
+    xxxx, OS_CMD,     OS_ALT,      OS_CTRL, OS_SHFT, RGB_HUD,                                    KC_MS_WH_DOWN, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    RGB_HUI, xxxx, 
+    xxxx, KC_OS_MODE, KC_OS_PMODE, ____,    ____,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
+                                   ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
   ),
   [_SYM] = LAYOUT(
     xxxx, KC_LABK,      KC_RABK,      KC_LPRN_LCBR, KC_RPRN_RCBR, KC_PERC_CIRC,                           KC_QUOT, KC_MINUS, KC_PLUS, KC_SLASH,  KC_DLR, xxxx, 
@@ -89,10 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    ____,       ____,        ____,      KC_BSPACE, xxxx,   xxxx, KC_DELETE, ____,      ____,      ____                                
   ),
   [_RAISE] = LAYOUT(
-    xxxx, KC_7,   KC_5,   KC_3,    KC_1,    KC_9,                            KC_8,   KC_0,   KC_2,   KC_4,  KC_6,  xxxx, 
-    xxxx, OS_CMD, OS_ALT, OS_CTRL, OS_SHFT, KC_F5,                           KC_F12, KC_F11, KC_F10, KC_F9, ____,  xxxx, 
-    xxxx, KC_F7,  KC_F5,  KC_F3,   KC_F1,   ____,  xxxx, xxxx,   xxxx, xxxx, ____,   KC_F2,  KC_F4,  KC_F6, KC_F8, xxxx, 
-                          ____,    ____,    ____,  ____, xxxx,   xxxx, ____, ____,   ____,   ____                        
+    xxxx, ____,        ____,   ____,    ____,    ____,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
+    xxxx, OS_CMD,      OS_ALT, OS_CTRL, OS_SHFT, ____,                                KC_F5,     KC_F11, KC_F10, KC_F9, ____,  xxxx, 
+    xxxx, KC_PASSWORD, ____,   ____,    ____,    KC_OS_PDT, xxxx, xxxx,   xxxx, xxxx, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, ____,  xxxx, 
+                               ____,    ____,    ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____                        
   )
 };
 // clang-format on
@@ -359,6 +359,12 @@ qmk-keyboard-format:json:begin
       0,
       2
   ],
+  "svgmapping": [
+    [  0,  1,  2,  3,  4,  5, -1, -1, -1, -1, -1,  6,  7,  8,  9, 10, 11 ],
+    [ 12, 13, 14, 15, 16, 17, -1, -1, -1, -1, -1, 18, 19, 20, 21, 22, 23 ],
+    [ 24, 25, 26, 27, 28, 29, 30, 31, -1, 32, 33, 34, 35, 36, 37, 38, 39 ],
+    [ -1, -1, -1, 40, 41, 42, 43, 44, -1, 45, 46, 47, 48, 49, -1, -1, -1 ]
+],
   "vizcellwidth": 5,
   "vizemits": [
   ],

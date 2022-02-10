@@ -28,4 +28,4 @@ Moonlander can be purchased here: https://www.zsa.io/moonlander/
 
 # Keymap
 
-![image](Kyria-keymap.png)
+![](Keymap.svg)
