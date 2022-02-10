@@ -28,4 +28,4 @@ Moonlander can be purchased here: https://www.zsa.io/moonlander/
 
 # Keymap
 
-![](Keymap.svg)
+![](keymap.svg)
