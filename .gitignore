@@ -14,6 +14,7 @@
 !*.md
 !*.jpg
 !*.png
+!*.svg
 !*.txt
 
 

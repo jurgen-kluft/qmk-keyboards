@@ -1,0 +1,1054 @@
+<svg width="1025" height="2202" viewBox="0 0 1025 2202" xmlns="http://www.w3.org/2000/svg">
+<style>
+
+    svg {
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+        font-size: 14px;
+        font-kerning: normal;
+        text-rendering: optimizeLegibility;
+        fill: #34393e;
+    }
+
+    rect {
+        fill: #f6f8fa;
+    }
+
+    .green {
+        fill: #fdd;
+    }
+
+    .green {
+        fill: #dfd;
+    }
+
+    .purple {
+        fill: #ddf;
+    }
+
+    .yellow {
+        fill: #ffd;
+    }
+
+    .blue {
+        fill: #dff;
+    }
+
+    .pink {
+        fill: #fdf;
+    }
+
+    .grey {
+        fill: #ddd;
+    }
+
+    .red {
+        fill: #fdd;
+    }
+
+    .none {
+        fill: #fff;
+        fill-opacity: 0.0;
+    }
+
+</style>
+<rect x="29" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="147" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="855" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="914" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="973" y="24" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="46" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="95" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="95" text-anchor="middle" class="key-text">⌘</text>
+<rect x="147" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="95" text-anchor="middle" class="key-text">⎇</text>
+<rect x="206" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="95" text-anchor="middle" class="key-text">^</text>
+<rect x="265" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="95" text-anchor="middle" class="key-text">⇧</text>
+<rect x="324" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="95" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="95" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="95" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="95" text-anchor="middle" class="key-text"></text>
+<rect x="855" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="95" text-anchor="middle" class="key-text"></text>
+<rect x="914" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="95" text-anchor="middle" class="key-text"></text>
+<rect x="973" y="73" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="95" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="147" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="855" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="914" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="973" y="122" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="144" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="171" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="193" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="313" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="313" text-anchor="middle" class="key-text">&lt;</text>
+<rect x="147" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="313" text-anchor="middle" class="key-text">&gt;</text>
+<rect x="206" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="313" text-anchor="middle" class="key-text">({</text>
+<rect x="265" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="313" text-anchor="middle" class="key-text">)}</text>
+<rect x="324" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="313" text-anchor="middle" class="key-text">%^</text>
+<rect x="678" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="313" text-anchor="middle" class="key-text">&apos;</text>
+<rect x="737" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="313" text-anchor="middle" class="key-text">-</text>
+<rect x="796" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="313" text-anchor="middle" class="key-text">+</text>
+<rect x="855" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="313" text-anchor="middle" class="key-text">/</text>
+<rect x="914" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="313" text-anchor="middle" class="key-text">$</text>
+<rect x="973" y="291" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="313" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="362" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="362" text-anchor="middle" class="key-text">;:</text>
+<rect x="147" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="362" text-anchor="middle" class="key-text">&quot;!</text>
+<rect x="206" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="362" text-anchor="middle" class="key-text">_~</text>
+<rect x="265" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="362" text-anchor="middle" class="key-text">*</text>
+<rect x="324" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="362" text-anchor="middle" class="key-text">=|</text>
+<rect x="678" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="362" text-anchor="middle" class="key-text">`</text>
+<rect x="737" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="362" text-anchor="middle" class="key-text">⇧</text>
+<rect x="796" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="362" text-anchor="middle" class="key-text">^</text>
+<rect x="855" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="362" text-anchor="middle" class="key-text">⎇</text>
+<rect x="914" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="362" text-anchor="middle" class="key-text">⌘</text>
+<rect x="973" y="340" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="362" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="411" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="411" text-anchor="middle" class="key-text">~</text>
+<rect x="147" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="411" text-anchor="middle" class="key-text">?</text>
+<rect x="206" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="411" text-anchor="middle" class="key-text">[</text>
+<rect x="265" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="411" text-anchor="middle" class="key-text">]</text>
+<rect x="324" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="411" text-anchor="middle" class="key-text">EE</text>
+<rect x="383" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="411" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="411" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="411" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="411" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="411" text-anchor="middle" class="key-text">EE</text>
+<rect x="737" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="411" text-anchor="middle" class="key-text">&amp;</text>
+<rect x="796" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="411" text-anchor="middle" class="key-text">#</text>
+<rect x="855" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="411" text-anchor="middle" class="key-text">\</text>
+<rect x="914" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="411" text-anchor="middle" class="key-text">@</text>
+<rect x="973" y="389" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="411" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="438" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="460" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="580" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="580" text-anchor="middle" class="key-text">Redo</text>
+<rect x="147" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="580" text-anchor="middle" class="key-text">Close</text>
+<rect x="206" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="580" text-anchor="middle" class="key-text">Esc</text>
+<rect x="265" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="580" text-anchor="middle" class="key-text">⏎</text>
+<rect x="324" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="580" text-anchor="middle" class="key-text">Tab</text>
+<rect x="678" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="580" text-anchor="middle" class="key-text">Insrt</text>
+<rect x="737" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="580" text-anchor="middle" class="key-text">⇞</text>
+<rect x="796" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="580" text-anchor="middle" class="key-text">⇤</text>
+<rect x="855" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="580" text-anchor="middle" class="key-text"></text>
+<rect x="914" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="580" text-anchor="middle" class="key-text">NDT</text>
+<rect x="973" y="558" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="580" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="629" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="629" text-anchor="middle" class="key-text">⌘</text>
+<rect x="147" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="629" text-anchor="middle" class="key-text">⎇</text>
+<rect x="206" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="629" text-anchor="middle" class="key-text">^</text>
+<rect x="265" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="629" text-anchor="middle" class="key-text">⇧</text>
+<rect x="324" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="629" text-anchor="middle" class="key-text">⌦</text>
+<rect x="678" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="629" text-anchor="middle" class="key-text">L</text>
+<rect x="737" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="629" text-anchor="middle" class="key-text">D</text>
+<rect x="796" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="629" text-anchor="middle" class="key-text">U</text>
+<rect x="855" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="629" text-anchor="middle" class="key-text">R</text>
+<rect x="914" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="629" text-anchor="middle" class="key-text">PDT</text>
+<rect x="973" y="607" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="629" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="678" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="678" text-anchor="middle" class="key-text">Undo</text>
+<rect x="147" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="678" text-anchor="middle" class="key-text">Cut</text>
+<rect x="206" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="678" text-anchor="middle" class="key-text">Copy</text>
+<rect x="265" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="678" text-anchor="middle" class="key-text">Paste</text>
+<rect x="324" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="678" text-anchor="middle" class="key-text">EE</text>
+<rect x="383" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="678" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="678" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="678" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="678" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="678" text-anchor="middle" class="key-text">EE</text>
+<rect x="737" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="678" text-anchor="middle" class="key-text">⇟</text>
+<rect x="796" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="678" text-anchor="middle" class="key-text">⇥</text>
+<rect x="855" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="678" text-anchor="middle" class="key-text"></text>
+<rect x="914" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="678" text-anchor="middle" class="key-text"></text>
+<rect x="973" y="656" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="678" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="727" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="727" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="727" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="727" text-anchor="middle" class="key-text">⌫</text>
+<rect x="442" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="727" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="727" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="727" text-anchor="middle" class="key-text">⌦</text>
+<rect x="678" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="727" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="727" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="705" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="727" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="847" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="847" text-anchor="middle" class="key-text"></text>
+<rect x="147" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="847" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="847" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="847" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="847" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="847" text-anchor="middle" class="key-text">F12</text>
+<rect x="737" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="847" text-anchor="middle" class="key-text">F2</text>
+<rect x="796" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="847" text-anchor="middle" class="key-text">F3</text>
+<rect x="855" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="847" text-anchor="middle" class="key-text">F4</text>
+<rect x="914" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="847" text-anchor="middle" class="key-text">F1</text>
+<rect x="973" y="825" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="847" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="896" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="896" text-anchor="middle" class="key-text">⌘</text>
+<rect x="147" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="896" text-anchor="middle" class="key-text">⎇</text>
+<rect x="206" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="896" text-anchor="middle" class="key-text">^</text>
+<rect x="265" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="896" text-anchor="middle" class="key-text">⇧</text>
+<rect x="324" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="896" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="896" text-anchor="middle" class="key-text">F5</text>
+<rect x="737" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="896" text-anchor="middle" class="key-text">F11</text>
+<rect x="796" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="896" text-anchor="middle" class="key-text">F10</text>
+<rect x="855" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="896" text-anchor="middle" class="key-text">F9</text>
+<rect x="914" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="896" text-anchor="middle" class="key-text"></text>
+<rect x="973" y="874" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="896" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="147" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="945" text-anchor="middle" class="key-text">PDT</text>
+<rect x="383" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="945" text-anchor="middle" class="key-text">NDT</text>
+<rect x="737" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="945" text-anchor="middle" class="key-text">F6</text>
+<rect x="796" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="945" text-anchor="middle" class="key-text">F7</text>
+<rect x="855" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="945" text-anchor="middle" class="key-text">F8</text>
+<rect x="914" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="973" y="923" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="945" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="972" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="994" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1114" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1114" text-anchor="middle" class="key-text">j</text>
+<rect x="147" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1114" text-anchor="middle" class="key-text">c</text>
+<rect x="206" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1114" text-anchor="middle" class="key-text">y</text>
+<rect x="265" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1114" text-anchor="middle" class="key-text">f</text>
+<rect x="324" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1114" text-anchor="middle" class="key-text">k</text>
+<rect x="678" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1114" text-anchor="middle" class="key-text">z</text>
+<rect x="737" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1114" text-anchor="middle" class="key-text">l</text>
+<rect x="796" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1114" text-anchor="middle" class="key-text">⌫</text>
+<rect x="855" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1114" text-anchor="middle" class="key-text">u</text>
+<rect x="914" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1114" text-anchor="middle" class="key-text">q</text>
+<rect x="973" y="1092" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1114" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1163" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1163" text-anchor="middle" class="key-text">r</text>
+<rect x="147" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1163" text-anchor="middle" class="key-text">s</text>
+<rect x="206" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1163" text-anchor="middle" class="key-text">t</text>
+<rect x="265" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1163" text-anchor="middle" class="key-text">h</text>
+<rect x="324" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1163" text-anchor="middle" class="key-text">d</text>
+<rect x="678" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1163" text-anchor="middle" class="key-text">m</text>
+<rect x="737" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1163" text-anchor="middle" class="key-text">n</text>
+<rect x="796" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1163" text-anchor="middle" class="key-text">a</text>
+<rect x="855" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1163" text-anchor="middle" class="key-text">i</text>
+<rect x="914" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1163" text-anchor="middle" class="key-text">o</text>
+<rect x="973" y="1141" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1163" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1212" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1212" text-anchor="middle" class="key-text">_</text>
+<rect x="147" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1212" text-anchor="middle" class="key-text">v</text>
+<rect x="206" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1212" text-anchor="middle" class="key-text">g</text>
+<rect x="265" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1212" text-anchor="middle" class="key-text">p</text>
+<rect x="324" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1212" text-anchor="middle" class="key-text">b</text>
+<rect x="383" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="1212" text-anchor="middle" class="key-text">PDT</text>
+<rect x="442" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="1212" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="1212" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="1212" text-anchor="middle" class="key-text">NDT</text>
+<rect x="678" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1212" text-anchor="middle" class="key-text">x</text>
+<rect x="737" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1212" text-anchor="middle" class="key-text">w</text>
+<rect x="796" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1212" text-anchor="middle" class="key-text"></text>
+<rect x="855" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1212" text-anchor="middle" class="key-text">.</text>
+<rect x="914" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1212" text-anchor="middle" class="key-text">,</text>
+<rect x="973" y="1190" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1212" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1261" text-anchor="middle" class="key-text">MOUSE</text>
+<rect x="265" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1261" text-anchor="middle" class="key-text">SNUMS</text>
+<rect x="324" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1261" text-anchor="middle" class="key-text">NAV</text>
+<rect x="383" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="1261" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="1261" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="1261" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="1261" text-anchor="middle" class="key-text">e</text>
+<rect x="678" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1261" text-anchor="middle" class="key-text">SYM</text>
+<rect x="737" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1261" text-anchor="middle" class="key-text">SCAPS</text>
+<rect x="796" y="1239" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1261" text-anchor="middle" class="key-text">MOUSE</text>
+<rect x="29" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1381" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1381" text-anchor="middle" class="key-text">J</text>
+<rect x="147" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1381" text-anchor="middle" class="key-text">C</text>
+<rect x="206" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1381" text-anchor="middle" class="key-text">Y</text>
+<rect x="265" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1381" text-anchor="middle" class="key-text">F</text>
+<rect x="324" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1381" text-anchor="middle" class="key-text">K</text>
+<rect x="678" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1381" text-anchor="middle" class="key-text">Z</text>
+<rect x="737" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1381" text-anchor="middle" class="key-text">L</text>
+<rect x="796" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1381" text-anchor="middle" class="key-text">⌫</text>
+<rect x="855" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1381" text-anchor="middle" class="key-text">U</text>
+<rect x="914" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1381" text-anchor="middle" class="key-text">Q</text>
+<rect x="973" y="1359" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1381" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1430" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1430" text-anchor="middle" class="key-text">R</text>
+<rect x="147" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1430" text-anchor="middle" class="key-text">S</text>
+<rect x="206" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1430" text-anchor="middle" class="key-text">T</text>
+<rect x="265" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1430" text-anchor="middle" class="key-text">H</text>
+<rect x="324" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1430" text-anchor="middle" class="key-text">D</text>
+<rect x="678" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1430" text-anchor="middle" class="key-text">M</text>
+<rect x="737" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1430" text-anchor="middle" class="key-text">N</text>
+<rect x="796" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1430" text-anchor="middle" class="key-text">A</text>
+<rect x="855" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1430" text-anchor="middle" class="key-text">I</text>
+<rect x="914" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1430" text-anchor="middle" class="key-text">O</text>
+<rect x="973" y="1408" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1430" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1479" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1479" text-anchor="middle" class="key-text">_</text>
+<rect x="147" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1479" text-anchor="middle" class="key-text">V</text>
+<rect x="206" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1479" text-anchor="middle" class="key-text">G</text>
+<rect x="265" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1479" text-anchor="middle" class="key-text">P</text>
+<rect x="324" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1479" text-anchor="middle" class="key-text">B</text>
+<rect x="383" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="1479" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="1479" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="1479" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="1479" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1479" text-anchor="middle" class="key-text">X</text>
+<rect x="737" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1479" text-anchor="middle" class="key-text">W</text>
+<rect x="796" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1479" text-anchor="middle" class="key-text">SSYM</text>
+<rect x="855" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1479" text-anchor="middle" class="key-text">.</text>
+<rect x="914" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1479" text-anchor="middle" class="key-text">,</text>
+<rect x="973" y="1457" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1479" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="1528" text-anchor="middle" class="key-text">E</text>
+<rect x="678" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="1506" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1528" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1648" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1648" text-anchor="middle" class="key-text">&lt;</text>
+<rect x="147" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1648" text-anchor="middle" class="key-text">&gt;</text>
+<rect x="206" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1648" text-anchor="middle" class="key-text">({</text>
+<rect x="265" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1648" text-anchor="middle" class="key-text">)}</text>
+<rect x="324" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1648" text-anchor="middle" class="key-text">%^</text>
+<rect x="678" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1648" text-anchor="middle" class="key-text">&apos;</text>
+<rect x="737" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1648" text-anchor="middle" class="key-text">-</text>
+<rect x="796" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1648" text-anchor="middle" class="key-text">+</text>
+<rect x="855" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1648" text-anchor="middle" class="key-text">/</text>
+<rect x="914" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1648" text-anchor="middle" class="key-text">$</text>
+<rect x="973" y="1626" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1648" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1697" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1697" text-anchor="middle" class="key-text">;:</text>
+<rect x="147" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1697" text-anchor="middle" class="key-text">&quot;!</text>
+<rect x="206" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1697" text-anchor="middle" class="key-text">_~</text>
+<rect x="265" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1697" text-anchor="middle" class="key-text">*</text>
+<rect x="324" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1697" text-anchor="middle" class="key-text">=|</text>
+<rect x="678" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1697" text-anchor="middle" class="key-text">`</text>
+<rect x="737" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1697" text-anchor="middle" class="key-text">,</text>
+<rect x="796" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1697" text-anchor="middle" class="key-text">.</text>
+<rect x="855" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1697" text-anchor="middle" class="key-text">#</text>
+<rect x="914" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1697" text-anchor="middle" class="key-text">{</text>
+<rect x="973" y="1675" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1697" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1746" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1746" text-anchor="middle" class="key-text">~</text>
+<rect x="147" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1746" text-anchor="middle" class="key-text">?</text>
+<rect x="206" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1746" text-anchor="middle" class="key-text">[</text>
+<rect x="265" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1746" text-anchor="middle" class="key-text">]</text>
+<rect x="324" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1746" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="1746" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="1746" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="1746" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="1746" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1746" text-anchor="middle" class="key-text">|</text>
+<rect x="737" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1746" text-anchor="middle" class="key-text">&amp;</text>
+<rect x="796" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1746" text-anchor="middle" class="key-text"></text>
+<rect x="855" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1746" text-anchor="middle" class="key-text">\</text>
+<rect x="914" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1746" text-anchor="middle" class="key-text">@</text>
+<rect x="973" y="1724" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1746" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1795" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1795" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1795" text-anchor="middle" class="key-text">&quot;</text>
+<rect x="383" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="1795" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="1795" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="1795" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="1795" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1795" text-anchor="middle" class="key-text">⇧</text>
+<rect x="737" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1795" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="1773" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1795" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1915" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1915" text-anchor="middle" class="key-text"></text>
+<rect x="147" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1915" text-anchor="middle" class="key-text">/</text>
+<rect x="206" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1915" text-anchor="middle" class="key-text">[</text>
+<rect x="265" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1915" text-anchor="middle" class="key-text">]</text>
+<rect x="324" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1915" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1915" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1915" text-anchor="middle" class="key-text">7</text>
+<rect x="796" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1915" text-anchor="middle" class="key-text">8</text>
+<rect x="855" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1915" text-anchor="middle" class="key-text">9</text>
+<rect x="914" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1915" text-anchor="middle" class="key-text"></text>
+<rect x="973" y="1893" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1915" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="1964" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="1964" text-anchor="middle" class="key-text"></text>
+<rect x="147" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="1964" text-anchor="middle" class="key-text">-</text>
+<rect x="206" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="1964" text-anchor="middle" class="key-text">9</text>
+<rect x="265" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="1964" text-anchor="middle" class="key-text">0</text>
+<rect x="324" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="1964" text-anchor="middle" class="key-text">=</text>
+<rect x="678" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="1964" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="1964" text-anchor="middle" class="key-text">1</text>
+<rect x="796" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="1964" text-anchor="middle" class="key-text">2</text>
+<rect x="855" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="1964" text-anchor="middle" class="key-text">3</text>
+<rect x="914" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="1964" text-anchor="middle" class="key-text">;</text>
+<rect x="973" y="1942" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="1964" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="147" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="2013" text-anchor="middle" class="key-text">\</text>
+<rect x="206" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2013" text-anchor="middle" class="key-text">.</text>
+<rect x="265" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2013" text-anchor="middle" class="key-text">,</text>
+<rect x="324" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2013" text-anchor="middle" class="key-text">4</text>
+<rect x="796" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2013" text-anchor="middle" class="key-text">5</text>
+<rect x="855" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="2013" text-anchor="middle" class="key-text">6</text>
+<rect x="914" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="973" y="1991" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="2013" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2062" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2062" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2062" text-anchor="middle" class="key-text">⇧</text>
+<rect x="383" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="2062" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="2062" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="2062" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="2062" text-anchor="middle" class="key-text">⌫</text>
+<rect x="678" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2062" text-anchor="middle" class="key-text">0</text>
+<rect x="737" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2062" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="2040" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2062" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="2182" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="2182" text-anchor="middle" class="key-text">q</text>
+<rect x="147" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="2182" text-anchor="middle" class="key-text">w</text>
+<rect x="206" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2182" text-anchor="middle" class="key-text">e</text>
+<rect x="265" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2182" text-anchor="middle" class="key-text">r</text>
+<rect x="324" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2182" text-anchor="middle" class="key-text">t</text>
+<rect x="678" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2182" text-anchor="middle" class="key-text">y</text>
+<rect x="737" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2182" text-anchor="middle" class="key-text">u</text>
+<rect x="796" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2182" text-anchor="middle" class="key-text">i</text>
+<rect x="855" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="2182" text-anchor="middle" class="key-text">o</text>
+<rect x="914" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="2182" text-anchor="middle" class="key-text">p</text>
+<rect x="973" y="2160" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="2182" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="2231" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="2231" text-anchor="middle" class="key-text">a</text>
+<rect x="147" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="2231" text-anchor="middle" class="key-text">s</text>
+<rect x="206" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2231" text-anchor="middle" class="key-text">d</text>
+<rect x="265" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2231" text-anchor="middle" class="key-text">f</text>
+<rect x="324" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2231" text-anchor="middle" class="key-text">g</text>
+<rect x="678" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2231" text-anchor="middle" class="key-text">h</text>
+<rect x="737" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2231" text-anchor="middle" class="key-text">j</text>
+<rect x="796" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2231" text-anchor="middle" class="key-text">k</text>
+<rect x="855" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="2231" text-anchor="middle" class="key-text">l</text>
+<rect x="914" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="2231" text-anchor="middle" class="key-text">;</text>
+<rect x="973" y="2209" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="2231" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="2280" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="2280" text-anchor="middle" class="key-text">z</text>
+<rect x="147" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="2280" text-anchor="middle" class="key-text">x</text>
+<rect x="206" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2280" text-anchor="middle" class="key-text">c</text>
+<rect x="265" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2280" text-anchor="middle" class="key-text">v</text>
+<rect x="324" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2280" text-anchor="middle" class="key-text">b</text>
+<rect x="383" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="2280" text-anchor="middle" class="key-text">PDT</text>
+<rect x="442" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="2280" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="2280" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="2280" text-anchor="middle" class="key-text">NDT</text>
+<rect x="678" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2280" text-anchor="middle" class="key-text">n</text>
+<rect x="737" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2280" text-anchor="middle" class="key-text">m</text>
+<rect x="796" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2280" text-anchor="middle" class="key-text"></text>
+<rect x="855" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="2280" text-anchor="middle" class="key-text">.</text>
+<rect x="914" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="2280" text-anchor="middle" class="key-text">,</text>
+<rect x="973" y="2258" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="2280" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2329" text-anchor="middle" class="key-text">MOUSE</text>
+<rect x="265" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2329" text-anchor="middle" class="key-text">SNUMS</text>
+<rect x="324" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2329" text-anchor="middle" class="key-text">NAV</text>
+<rect x="383" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="2329" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="2329" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="2329" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="2329" text-anchor="middle" class="key-text">⌫</text>
+<rect x="678" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2329" text-anchor="middle" class="key-text">SYM</text>
+<rect x="737" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2329" text-anchor="middle" class="key-text">SCAPS</text>
+<rect x="796" y="2307" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2329" text-anchor="middle" class="key-text">MOUSE</text>
+<rect x="29" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="2449" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="2449" text-anchor="middle" class="key-text">Q</text>
+<rect x="147" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="2449" text-anchor="middle" class="key-text">W</text>
+<rect x="206" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2449" text-anchor="middle" class="key-text">E</text>
+<rect x="265" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2449" text-anchor="middle" class="key-text">R</text>
+<rect x="324" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2449" text-anchor="middle" class="key-text">T</text>
+<rect x="678" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2449" text-anchor="middle" class="key-text">Y</text>
+<rect x="737" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2449" text-anchor="middle" class="key-text">U</text>
+<rect x="796" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2449" text-anchor="middle" class="key-text">I</text>
+<rect x="855" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="2449" text-anchor="middle" class="key-text">O</text>
+<rect x="914" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="2449" text-anchor="middle" class="key-text">P</text>
+<rect x="973" y="2427" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="2449" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="2498" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="2498" text-anchor="middle" class="key-text">A</text>
+<rect x="147" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="2498" text-anchor="middle" class="key-text">S</text>
+<rect x="206" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2498" text-anchor="middle" class="key-text">D</text>
+<rect x="265" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2498" text-anchor="middle" class="key-text">F</text>
+<rect x="324" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2498" text-anchor="middle" class="key-text">G</text>
+<rect x="678" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2498" text-anchor="middle" class="key-text">H</text>
+<rect x="737" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2498" text-anchor="middle" class="key-text">J</text>
+<rect x="796" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2498" text-anchor="middle" class="key-text">K</text>
+<rect x="855" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="2498" text-anchor="middle" class="key-text">L</text>
+<rect x="914" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="2498" text-anchor="middle" class="key-text">_</text>
+<rect x="973" y="2476" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="2498" text-anchor="middle" class="key-text"></text>
+<rect x="29" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="56" y="2547" text-anchor="middle" class="key-text"></text>
+<rect x="88" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="115" y="2547" text-anchor="middle" class="key-text">Z</text>
+<rect x="147" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="174" y="2547" text-anchor="middle" class="key-text">X</text>
+<rect x="206" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2547" text-anchor="middle" class="key-text">C</text>
+<rect x="265" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2547" text-anchor="middle" class="key-text">V</text>
+<rect x="324" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2547" text-anchor="middle" class="key-text">B</text>
+<rect x="383" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="2547" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="2547" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="2547" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="2547" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2547" text-anchor="middle" class="key-text">N</text>
+<rect x="737" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2547" text-anchor="middle" class="key-text">M</text>
+<rect x="796" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2547" text-anchor="middle" class="key-text">SSYM</text>
+<rect x="855" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="882" y="2547" text-anchor="middle" class="key-text">.</text>
+<rect x="914" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="941" y="2547" text-anchor="middle" class="key-text">,</text>
+<rect x="973" y="2525" width="55" height="45" rx="6" ry="6" class="" />
+<text x="1000" y="2547" text-anchor="middle" class="key-text"></text>
+<rect x="206" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="233" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="265" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="292" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="324" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="351" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="383" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="410" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="442" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="469" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="560" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="587" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="619" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="646" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="678" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="705" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="737" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="764" y="2596" text-anchor="middle" class="key-text"></text>
+<rect x="796" y="2574" width="55" height="45" rx="6" ry="6" class="" />
+<text x="823" y="2596" text-anchor="middle" class="key-text"></text>
+</svg>
