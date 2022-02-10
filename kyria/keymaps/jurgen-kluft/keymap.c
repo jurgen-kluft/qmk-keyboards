@@ -83,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       ____,         ____,         ____,         ____, xxxx,   xxxx, ____, ____,    ____,     ____                              
   ),
   [_NAV] = LAYOUT(
-    xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                        KC_INSERT, KC_PGUP,   KC_HOME, ____,     KC_OS_NDT, xxxx, 
-    xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, KC_OS_PDT, xxxx, 
-    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx,      xxxx,   xxxx, xxxx,      SH_TG,     KC_PGDOWN, KC_END,  ____,     ____,      xxxx, 
+    xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                        KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
+    xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, ____, xxxx, 
+    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx,      xxxx,   xxxx, xxxx,      SH_TG,     KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
                                    ____,       ____,        ____,      KC_BSPACE, xxxx,   xxxx, KC_DELETE, ____,      ____,      ____                                
   ),
   [_RAISE] = LAYOUT(
@@ -364,7 +364,17 @@ qmk-keyboard-format:json:begin
     [ 12, 13, 14, 15, 16, 17, -1, -1, -1, -1, -1, 18, 19, 20, 21, 22, 23 ],
     [ 24, 25, 26, 27, 28, 29, 30, 31, -1, 32, 33, 34, 35, 36, 37, 38, 39 ],
     [ -1, -1, -1, 40, 41, 42, 43, 44, -1, 45, 46, 47, 48, 49, -1, -1, -1 ]
-],
+  ],
+  "svglayers": [
+      "_QWERTY",
+      "_RSTHD",
+      "_QWERTY_CAPS",
+      "_RSTHD_CAPS",
+      "_SSYM",
+      "_SYM",
+      "_NAV",
+      "_RAISE"
+  ],
   "vizcellwidth": 5,
   "vizemits": [
   ],
@@ -567,11 +577,11 @@ qmk-keyboard-format:json:begin
       "KC_ENTER": "  ⏎  " ,
       "KC_BSPACE": "  ⌫  " ,
       "KC_DELETE": "  ⌦  " ,
-      "KC_INSERT": "Insrt" ,
-      "KC_LEFT":  "  L  " ,
-      "KC_RIGHT": "  R  " ,
-      "KC_UP":    "  U  " ,
-      "KC_DOWN":  "  D  " ,
+      "KC_INSERT": " Ins " ,
+      "KC_LEFT":  "  ←  " ,
+      "KC_RIGHT": "  →  " ,
+      "KC_UP":    "  ↑  " ,
+      "KC_DOWN":  "  ↓  " ,
       "KC_HOME": "  ⇤  " ,
       "KC_END": "  ⇥  " ,
       "KC_PGUP": "  ⇞  " ,
