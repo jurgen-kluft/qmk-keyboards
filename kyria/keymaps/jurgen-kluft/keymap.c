@@ -57,10 +57,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, LSFT(KC_E), ____,       ____,       ____                                          
   ),
   [_NUM] = LAYOUT(
-    xxxx, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO,                                KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO, xxxx, 
-    xxxx, KC_6,  KC_4,  KC_2,     KC_0,  KC_8,                                 KC_9,  KC_1,  KC_3,     KC_5,  KC_7,  xxxx, 
-    xxxx, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO, xxxx, xxxx,   xxxx, xxxx,      KC_NO, KC_NO, ____,     ____,  KC_NO, xxxx, 
-                        KC_SPACE, ____,  ____,  ____, xxxx,   xxxx, KC_BSPACE, ____,  ____,  KC_SPACE                      
+    xxxx, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO,                                KC_NO, KC_5,  KC_6,     KC_7, KC_8,  xxxx, 
+    xxxx, KC_NO, KC_NO, KC_9,     KC_0,  KC_NO,                                KC_NO, KC_1,  KC_2,     KC_3, KC_4,  xxxx, 
+    xxxx, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO, xxxx, xxxx,   xxxx, xxxx,      KC_NO, KC_NO, ____,     ____, KC_NO, xxxx, 
+                        KC_SPACE, ____,  ____,  ____, xxxx,   xxxx, KC_BSPACE, ____,  ____,  KC_SPACE                     
   ),
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
@@ -68,18 +68,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_OS_MODE, KC_OS_PMODE, ____,    ____,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
                                    ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
   ),
-/*
-    //#     [      ]       {       }       %                                       '       -       +       /       $   
-    //#     #      "       _       *       =                                       `       (       )      ::       :   
-    //#     ^      ?       !       ~       <                                       >       &       |       \       @   
+  /*
+    // Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~  
+    //#     >      &       |       _       ~                                       %       '       "       #       $   
+    //#     !      -       +       =       [                                       `       (       {      ::       :   
+    //#     <      /       *       \       ]                                       ^       )       }       ?       @   
     //#                   ____   ____    ____    ____                    ____    ____    ____    ____  
-LAYOUT => _SYM
-*/
+  LAYOUT => _SYM
+  */
   [_SYM] = LAYOUT(
-    xxxx, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_PERC,                            KC_QUOT, KC_MINUS, KC_PLUS, KC_SLASH,  KC_DLR,  xxxx, 
-    xxxx, KC_HASH, KC_DQUO, KC_UNDS, KC_ASTR, KC_EQUAL,                           KC_GRV,  KC_LPRN,  KC_RPRN, KC_DCOLN,  KC_COLN, xxxx, 
-    xxxx, KC_CIRC, KC_QUES, KC_EXLM, KC_TILD, KC_LABK,  xxxx, xxxx,   xxxx, xxxx, KC_RABK, KC_AMPR,  KC_PIPE, KC_BSLASH, KC_AT,   xxxx, 
-                            ____,    ____,    ____,     ____, xxxx,   xxxx, ____, ____,    ____,     ____                               
+    xxxx, KC_RABK, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                           KC_PERC, KC_QUOT, KC_DQUO, KC_HASH,  KC_DLR,  xxxx, 
+    xxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                           KC_GRV,  KC_LPRN, KC_LCBR, KC_DCOLN, KC_COLN, xxxx, 
+    xxxx, KC_LABK, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, xxxx, xxxx,   xxxx, xxxx, KC_CIRC, KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   xxxx, 
+                             ____,    ____,      ____,    ____, xxxx,   xxxx, ____, ____,    ____,    ____                              
   ),
   [_NAV] = LAYOUT(
     xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                        KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
@@ -376,7 +377,7 @@ qmk-keyboard-format:json:begin
       "_RSTHD",
       "_QWERTY_CAPS",
       "_RSTHD_CAPS",
-      "_SSYM",
+      "_NUM",
       "_SYM",
       "_NAV",
       "_RAISE"

@@ -63,25 +63,25 @@ void smart_feature_toggle(uint8_t f, uint8_t layer) {
 
 void smart_capslock_process(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        switch (keycode) {
-            case KC_SPACE:
-                smart_feature_disable(SMART_CAPSLOCK);
-                return;
-        }
-        g_smart_count[SMART_CAPSLOCK] |= 2;
-        if (smart_feature_cancel_key(keycode, record)) {
-            smart_feature_disable(SMART_CAPSLOCK);
+        if (keycode != KC_SPACE && !smart_feature_cancel_key(keycode, record)) {
+            g_smart_count[SMART_CAPSLOCK] |= 2;
+            return;
         }
     } else {
         switch (keycode) {
             case KC_SCAPS:
                 g_smart_count[SMART_CAPSLOCK] |= 1;
                 if (g_smart_count[SMART_CAPSLOCK] == 3) {
-                    smart_feature_disable(SMART_CAPSLOCK);
+                    break;
                 }
-                break;
+                // fall through
+            default:
+                return;
         }
     }
+    
+    smart_feature_disable(SMART_CAPSLOCK);
+    g_smart_count[SMART_CAPSLOCK] = 0;
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -89,6 +89,7 @@ void smart_capslock_process(uint16_t keycode, keyrecord_t *record) {
 
 void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
+
         switch (keycode) {
             case KC_1 ... KC_0:
             case KC_LBRC:
@@ -127,18 +128,21 @@ void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
                 return;
         }
 
-        smart_feature_disable(SMART_NUMBERS);
-
     } else {
         switch (keycode) {
             case KC_SNUM:
                 g_smart_count[SMART_NUMBERS] |= 1;
                 if (g_smart_count[SMART_NUMBERS] == 3) {
-                    smart_feature_disable(SMART_NUMBERS);
+                    break;
                 }
-                break;
+                // fall through
+            default:
+                return;
         }
     }
+
+    smart_feature_disable(SMART_NUMBERS);
+    g_smart_count[SMART_NUMBERS] = 0;
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -146,15 +150,21 @@ void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
 
 void smart_symbols_process(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        g_smart_count[SMART_SYMBOLS] |= 2;
+        if (!smart_feature_cancel_key(keycode, record)) {
+            g_smart_count[SMART_SYMBOLS] |= 2;
+            return;
+        }
     } else {
         switch (keycode) {
             case KC_SSYM:
                 g_smart_count[SMART_SYMBOLS] |= 1;
                 break;
         }
-        if (g_smart_count[SMART_SYMBOLS] == 3) {
-            smart_feature_disable(SMART_SYMBOLS);
+        if (g_smart_count[SMART_SYMBOLS] != 3) {
+            return;
         }
     }
+
+    smart_feature_disable(SMART_SYMBOLS);
+    g_smart_count[SMART_SYMBOLS] = 0;
 }
