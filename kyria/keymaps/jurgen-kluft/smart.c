@@ -89,9 +89,10 @@ void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
                 case KC_RPRN_RCBR:
                 case KC_PERC_CIRC:
                 case KC_SCLN_COLN:
-                case KC_DQUO_EXCL:
-                case KC_UNDS_TLD:
-                case KC_EQUL_PIPE:
+                case KC_DQUO_QUOT:
+                case KC_EQUL_TLD:
+                case KC_AMPR_PIPE:
+                case KC_QUES_EXCL:
                 case KC_BSPC:
                 case KC_LABK:
                 case KC_RABK:
@@ -173,13 +174,6 @@ void smart_symbols_process(uint16_t keycode, keyrecord_t *record) {
                 case KC_BSLASH:
                 case KC_AT:
                 case KC_HASH:
-                case KC_LPRN_LCBR:
-                case KC_RPRN_RCBR:
-                case KC_PERC_CIRC:
-                case KC_SCLN_COLN:
-                case KC_DQUO_EXCL:
-                case KC_UNDS_TLD:
-                case KC_EQUL_PIPE:
                     return;
             }
 
