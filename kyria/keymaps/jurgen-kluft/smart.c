@@ -66,7 +66,12 @@ void smart_capslock_process(uint16_t keycode, keyrecord_t *record) {
         if (keycode != KC_SPACE && !smart_feature_cancel_key(keycode, record)) {
             g_smart_count[SMART_CAPSLOCK] |= 2;
             return;
+        } else if (keycode == KC_SPACE) {
+            if ((g_smart_count[SMART_CAPSLOCK] & 1)==0) {
+                return;
+            }
         }
+
     } else {
         switch (keycode) {
             case KC_SCAPS:
