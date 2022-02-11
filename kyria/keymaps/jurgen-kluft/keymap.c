@@ -400,6 +400,15 @@ qmk-keyboard-format:json:begin
       "    //#                                                ╰───────╯          ╰───────╯                                                "
   ],
   "vizsymbols": {
+      "_QWERTY": "QWERTY Layer",
+      "_RSTHD": "RSTHD Layer",
+      "_QWERTY_CAPS": "QWERTY Layer (Caps)",
+      "_RSTHD_CAPS": "RSTHD Layer (Caps)",
+      "_NUM": "Numbers Layer",
+      "_MOUS": "Mouse Layer",
+      "_SYM": "Symbols Layer",
+      "_NAV": "Navigation Layer",
+      "_RAISE": "Raise Layer",
       "xxxx": "     ",
       "SH_TG": "  EE ",
       "KC_SCAPS": "Smart Caps",
