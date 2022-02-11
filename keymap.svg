@@ -117,14 +117,13 @@
 <rect x="619" y="140" width="55" height="45" rx="6" ry="6" class="" />
 <text x="646" y="162" text-anchor="middle" class="key-text">m</text>
 <rect x="678" y="140" width="55" height="45" rx="6" ry="6" class="" />
-<text x="705" y="153" text-anchor="middle" class="key-text">Smart</text>
-<text x="705" y="171" text-anchor="middle" class="key-text">Sym</text>
+<text x="705" y="153" text-anchor="middle" class="key-text">,</text>
+<text x="705" y="171" text-anchor="middle" class="key-text">&lt;</text>
 <rect x="737" y="140" width="55" height="45" rx="6" ry="6" class="" />
 <text x="764" y="153" text-anchor="middle" class="key-text">.</text>
 <text x="764" y="171" text-anchor="middle" class="key-text">&gt;</text>
 <rect x="796" y="140" width="55" height="45" rx="6" ry="6" class="" />
-<text x="823" y="153" text-anchor="middle" class="key-text">,</text>
-<text x="823" y="171" text-anchor="middle" class="key-text">&lt;</text>
+<text x="823" y="162" text-anchor="middle" class="key-text">@</text>
 <rect x="206" y="189" width="55" height="45" rx="6" ry="6" class="" />
 <text x="233" y="211" text-anchor="middle" class="key-text">MOUSE</text>
 <rect x="265" y="189" width="55" height="45" rx="6" ry="6" class="" />
@@ -137,7 +136,8 @@
 <rect x="501" y="189" width="55" height="45" rx="6" ry="6" class="" />
 <text x="528" y="211" text-anchor="middle" class="key-text">⌫</text>
 <rect x="560" y="189" width="55" height="45" rx="6" ry="6" class="" />
-<text x="587" y="211" text-anchor="middle" class="key-text">SYM</text>
+<text x="587" y="202" text-anchor="middle" class="key-text">Smart</text>
+<text x="587" y="220" text-anchor="middle" class="key-text">Sym</text>
 <rect x="619" y="189" width="55" height="45" rx="6" ry="6" class="" />
 <text x="646" y="202" text-anchor="middle" class="key-text">Smart</text>
 <text x="646" y="220" text-anchor="middle" class="key-text">Caps</text>
@@ -203,14 +203,13 @@
 <rect x="619" y="407" width="55" height="45" rx="6" ry="6" class="" />
 <text x="646" y="429" text-anchor="middle" class="key-text">w</text>
 <rect x="678" y="407" width="55" height="45" rx="6" ry="6" class="" />
-<text x="705" y="420" text-anchor="middle" class="key-text">Smart</text>
-<text x="705" y="438" text-anchor="middle" class="key-text">Sym</text>
+<text x="705" y="420" text-anchor="middle" class="key-text">,</text>
+<text x="705" y="438" text-anchor="middle" class="key-text">&lt;</text>
 <rect x="737" y="407" width="55" height="45" rx="6" ry="6" class="" />
 <text x="764" y="420" text-anchor="middle" class="key-text">.</text>
 <text x="764" y="438" text-anchor="middle" class="key-text">&gt;</text>
 <rect x="796" y="407" width="55" height="45" rx="6" ry="6" class="" />
-<text x="823" y="420" text-anchor="middle" class="key-text">,</text>
-<text x="823" y="438" text-anchor="middle" class="key-text">&lt;</text>
+<text x="823" y="429" text-anchor="middle" class="key-text">@</text>
 <rect x="206" y="456" width="55" height="45" rx="6" ry="6" class="" />
 <text x="233" y="478" text-anchor="middle" class="key-text">MOUSE</text>
 <rect x="265" y="456" width="55" height="45" rx="6" ry="6" class="" />
@@ -223,7 +222,8 @@
 <rect x="501" y="456" width="55" height="45" rx="6" ry="6" class="" />
 <text x="528" y="478" text-anchor="middle" class="key-text">e</text>
 <rect x="560" y="456" width="55" height="45" rx="6" ry="6" class="" />
-<text x="587" y="478" text-anchor="middle" class="key-text">SYM</text>
+<text x="587" y="469" text-anchor="middle" class="key-text">Smart</text>
+<text x="587" y="487" text-anchor="middle" class="key-text">Sym</text>
 <rect x="619" y="456" width="55" height="45" rx="6" ry="6" class="" />
 <text x="646" y="469" text-anchor="middle" class="key-text">Smart</text>
 <text x="646" y="487" text-anchor="middle" class="key-text">Caps</text>
@@ -289,14 +289,13 @@
 <rect x="619" y="674" width="55" height="45" rx="6" ry="6" class="" />
 <text x="646" y="696" text-anchor="middle" class="key-text">M</text>
 <rect x="678" y="674" width="55" height="45" rx="6" ry="6" class="" />
-<text x="705" y="687" text-anchor="middle" class="key-text">Smart</text>
-<text x="705" y="705" text-anchor="middle" class="key-text">Sym</text>
+<text x="705" y="687" text-anchor="middle" class="key-text">,</text>
+<text x="705" y="705" text-anchor="middle" class="key-text">&lt;</text>
 <rect x="737" y="674" width="55" height="45" rx="6" ry="6" class="" />
 <text x="764" y="687" text-anchor="middle" class="key-text">.</text>
 <text x="764" y="705" text-anchor="middle" class="key-text">&gt;</text>
 <rect x="796" y="674" width="55" height="45" rx="6" ry="6" class="" />
-<text x="823" y="687" text-anchor="middle" class="key-text">,</text>
-<text x="823" y="705" text-anchor="middle" class="key-text">&lt;</text>
+<text x="823" y="696" text-anchor="middle" class="key-text">@</text>
 <rect x="206" y="723" width="55" height="45" rx="6" ry="6" class="" />
 <text x="233" y="745" text-anchor="middle" class="key-text"></text>
 <rect x="265" y="723" width="55" height="45" rx="6" ry="6" class="" />
@@ -373,14 +372,13 @@
 <rect x="619" y="941" width="55" height="45" rx="6" ry="6" class="" />
 <text x="646" y="963" text-anchor="middle" class="key-text">W</text>
 <rect x="678" y="941" width="55" height="45" rx="6" ry="6" class="" />
-<text x="705" y="954" text-anchor="middle" class="key-text">Smart</text>
-<text x="705" y="972" text-anchor="middle" class="key-text">Sym</text>
+<text x="705" y="954" text-anchor="middle" class="key-text">,</text>
+<text x="705" y="972" text-anchor="middle" class="key-text">&lt;</text>
 <rect x="737" y="941" width="55" height="45" rx="6" ry="6" class="" />
 <text x="764" y="954" text-anchor="middle" class="key-text">.</text>
 <text x="764" y="972" text-anchor="middle" class="key-text">&gt;</text>
 <rect x="796" y="941" width="55" height="45" rx="6" ry="6" class="" />
-<text x="823" y="954" text-anchor="middle" class="key-text">,</text>
-<text x="823" y="972" text-anchor="middle" class="key-text">&lt;</text>
+<text x="823" y="963" text-anchor="middle" class="key-text">@</text>
 <rect x="206" y="990" width="55" height="45" rx="6" ry="6" class="" />
 <text x="233" y="1012" text-anchor="middle" class="key-text"></text>
 <rect x="265" y="990" width="55" height="45" rx="6" ry="6" class="" />
@@ -403,14 +401,11 @@
 <rect x="147" y="1110" width="55" height="45" rx="6" ry="6" class="" />
 <text x="174" y="1132" text-anchor="middle" class="key-text">]</text>
 <rect x="206" y="1110" width="55" height="45" rx="6" ry="6" class="" />
-<text x="233" y="1123" text-anchor="middle" class="key-text">(</text>
-<text x="233" y="1141" text-anchor="middle" class="key-text">{</text>
+<text x="233" y="1132" text-anchor="middle" class="key-text">{</text>
 <rect x="265" y="1110" width="55" height="45" rx="6" ry="6" class="" />
-<text x="292" y="1123" text-anchor="middle" class="key-text">)</text>
-<text x="292" y="1141" text-anchor="middle" class="key-text">}</text>
+<text x="292" y="1132" text-anchor="middle" class="key-text">}</text>
 <rect x="324" y="1110" width="55" height="45" rx="6" ry="6" class="" />
-<text x="351" y="1123" text-anchor="middle" class="key-text">%</text>
-<text x="351" y="1141" text-anchor="middle" class="key-text">^</text>
+<text x="351" y="1132" text-anchor="middle" class="key-text">%</text>
 <rect x="560" y="1110" width="55" height="45" rx="6" ry="6" class="" />
 <text x="587" y="1132" text-anchor="middle" class="key-text">&apos;</text>
 <rect x="619" y="1110" width="55" height="45" rx="6" ry="6" class="" />
@@ -422,54 +417,45 @@
 <rect x="796" y="1110" width="55" height="45" rx="6" ry="6" class="" />
 <text x="823" y="1132" text-anchor="middle" class="key-text">$</text>
 <rect x="88" y="1159" width="55" height="45" rx="6" ry="6" class="" />
-<text x="115" y="1172" text-anchor="middle" class="key-text">;</text>
-<text x="115" y="1190" text-anchor="middle" class="key-text">:</text>
+<text x="115" y="1181" text-anchor="middle" class="key-text">#</text>
 <rect x="147" y="1159" width="55" height="45" rx="6" ry="6" class="" />
-<text x="174" y="1172" text-anchor="middle" class="key-text">&quot;</text>
-<text x="174" y="1190" text-anchor="middle" class="key-text">&apos;</text>
+<text x="174" y="1181" text-anchor="middle" class="key-text">&quot;</text>
 <rect x="206" y="1159" width="55" height="45" rx="6" ry="6" class="" />
 <text x="233" y="1181" text-anchor="middle" class="key-text">_</text>
 <rect x="265" y="1159" width="55" height="45" rx="6" ry="6" class="" />
-<text x="292" y="1172" text-anchor="middle" class="key-text">*</text>
-<text x="292" y="1190" text-anchor="middle" class="key-text">#</text>
+<text x="292" y="1181" text-anchor="middle" class="key-text">*</text>
 <rect x="324" y="1159" width="55" height="45" rx="6" ry="6" class="" />
-<text x="351" y="1172" text-anchor="middle" class="key-text">=</text>
-<text x="351" y="1190" text-anchor="middle" class="key-text">~</text>
+<text x="351" y="1181" text-anchor="middle" class="key-text">=</text>
 <rect x="560" y="1159" width="55" height="45" rx="6" ry="6" class="" />
 <text x="587" y="1181" text-anchor="middle" class="key-text">`</text>
 <rect x="619" y="1159" width="55" height="45" rx="6" ry="6" class="" />
-<text x="646" y="1181" text-anchor="middle" class="key-text">⇧</text>
+<text x="646" y="1181" text-anchor="middle" class="key-text">(</text>
 <rect x="678" y="1159" width="55" height="45" rx="6" ry="6" class="" />
-<text x="705" y="1181" text-anchor="middle" class="key-text">^</text>
+<text x="705" y="1181" text-anchor="middle" class="key-text">)</text>
 <rect x="737" y="1159" width="55" height="45" rx="6" ry="6" class="" />
-<text x="764" y="1181" text-anchor="middle" class="key-text">⎇</text>
+<text x="764" y="1181" text-anchor="middle" class="key-text">&quot;</text>
 <rect x="796" y="1159" width="55" height="45" rx="6" ry="6" class="" />
-<text x="823" y="1181" text-anchor="middle" class="key-text">⌘</text>
+<text x="823" y="1181" text-anchor="middle" class="key-text">:</text>
 <rect x="88" y="1208" width="55" height="45" rx="6" ry="6" class="" />
-<text x="115" y="1230" text-anchor="middle" class="key-text"></text>
+<text x="115" y="1230" text-anchor="middle" class="key-text">^</text>
 <rect x="147" y="1208" width="55" height="45" rx="6" ry="6" class="" />
-<text x="174" y="1221" text-anchor="middle" class="key-text">?</text>
-<text x="174" y="1239" text-anchor="middle" class="key-text">!</text>
+<text x="174" y="1230" text-anchor="middle" class="key-text">?</text>
 <rect x="206" y="1208" width="55" height="45" rx="6" ry="6" class="" />
-<text x="233" y="1221" text-anchor="middle" class="key-text">,</text>
-<text x="233" y="1239" text-anchor="middle" class="key-text">&lt;</text>
+<text x="233" y="1230" text-anchor="middle" class="key-text">!</text>
 <rect x="265" y="1208" width="55" height="45" rx="6" ry="6" class="" />
-<text x="292" y="1221" text-anchor="middle" class="key-text">.</text>
-<text x="292" y="1239" text-anchor="middle" class="key-text">&gt;</text>
+<text x="292" y="1230" text-anchor="middle" class="key-text">~</text>
 <rect x="324" y="1208" width="55" height="45" rx="6" ry="6" class="" />
-<text x="351" y="1230" text-anchor="middle" class="key-text">EE</text>
+<text x="351" y="1230" text-anchor="middle" class="key-text">&lt;</text>
 <rect x="383" y="1208" width="55" height="45" rx="6" ry="6" class="" />
 <text x="410" y="1230" text-anchor="middle" class="key-text"></text>
 <rect x="501" y="1208" width="55" height="45" rx="6" ry="6" class="" />
 <text x="528" y="1230" text-anchor="middle" class="key-text"></text>
 <rect x="560" y="1208" width="55" height="45" rx="6" ry="6" class="" />
-<text x="587" y="1230" text-anchor="middle" class="key-text">EE</text>
+<text x="587" y="1230" text-anchor="middle" class="key-text">&gt;</text>
 <rect x="619" y="1208" width="55" height="45" rx="6" ry="6" class="" />
-<text x="646" y="1221" text-anchor="middle" class="key-text">&amp;</text>
-<text x="646" y="1239" text-anchor="middle" class="key-text">|</text>
+<text x="646" y="1230" text-anchor="middle" class="key-text">&amp;</text>
 <rect x="678" y="1208" width="55" height="45" rx="6" ry="6" class="" />
-<text x="705" y="1221" text-anchor="middle" class="key-text">Smart</text>
-<text x="705" y="1239" text-anchor="middle" class="key-text">Sym</text>
+<text x="705" y="1230" text-anchor="middle" class="key-text">|</text>
 <rect x="737" y="1208" width="55" height="45" rx="6" ry="6" class="" />
 <text x="764" y="1230" text-anchor="middle" class="key-text">\</text>
 <rect x="796" y="1208" width="55" height="45" rx="6" ry="6" class="" />
