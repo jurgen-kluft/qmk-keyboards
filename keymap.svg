@@ -123,7 +123,7 @@
 <text x="764" y="153" text-anchor="middle" class="key-text">.</text>
 <text x="764" y="171" text-anchor="middle" class="key-text">&gt;</text>
 <rect x="796" y="140" width="55" height="45" rx="6" ry="6" class="" />
-<text x="823" y="162" text-anchor="middle" class="key-text">@</text>
+<text x="823" y="162" text-anchor="middle" class="key-text">_</text>
 <rect x="206" y="189" width="55" height="45" rx="6" ry="6" class="" />
 <text x="233" y="211" text-anchor="middle" class="key-text">MOUSE</text>
 <rect x="265" y="189" width="55" height="45" rx="6" ry="6" class="" />
@@ -209,7 +209,7 @@
 <text x="764" y="420" text-anchor="middle" class="key-text">.</text>
 <text x="764" y="438" text-anchor="middle" class="key-text">&gt;</text>
 <rect x="796" y="407" width="55" height="45" rx="6" ry="6" class="" />
-<text x="823" y="429" text-anchor="middle" class="key-text">@</text>
+<text x="823" y="429" text-anchor="middle" class="key-text">_</text>
 <rect x="206" y="456" width="55" height="45" rx="6" ry="6" class="" />
 <text x="233" y="478" text-anchor="middle" class="key-text">MOUSE</text>
 <rect x="265" y="456" width="55" height="45" rx="6" ry="6" class="" />
