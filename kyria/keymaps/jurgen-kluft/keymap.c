@@ -26,29 +26,23 @@
 // LAYOUT => _NUM
 // LAYOUT => _NAV
 // LAYOUT => _RAISE
-
-    //#     [      ]       {       }       %                                       '       -       +       /       $   
-    //#     #      "       _       *       =                                       `       (       )       "       :   
-    //#     ^      ?       !       ~       <                                       >       &       |       \       @   
-    //#                   ____   ____    ____    ____                    ____    ____    ____    ____  
-LAYOUT => _SYM
 */
 
-// Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~ 
+// Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                       KC_Y,    KC_U,     KC_I,     KC_O,   KC_P,    xxxx, 
     xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                       KC_H,    KC_J,     KC_K,     KC_L,   KC_SCLN, xxxx, 
-    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA, KC_DOT, KC_AT,   xxxx, 
+    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA, KC_DOT, KC_UNDS, xxxx, 
                       LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_SSYM, KC_SCAPS, LT_MOS                           
   ),
   [_RSTHD] = LAYOUT(
-    xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                       KC_Z,    KC_L,     KC_BSPACE, KC_U,   KC_Q,  xxxx, 
-    xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                       KC_M,    KC_N,     KC_A,      KC_I,   KC_O,  xxxx, 
-    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA,  KC_DOT, KC_AT, xxxx, 
-                         LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_SSYM, KC_SCAPS, LT_MOS                          
+    xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                       KC_Z,    KC_L,     KC_BSPACE, KC_U,   KC_Q,    xxxx, 
+    xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                       KC_M,    KC_N,     KC_A,      KC_I,   KC_O,    xxxx, 
+    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA,  KC_DOT, KC_UNDS, xxxx, 
+                         LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_SSYM, KC_SCAPS, LT_MOS                            
   ),
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I), LSFT(KC_O), LSFT(KC_P), xxxx, 
@@ -74,9 +68,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_OS_MODE, KC_OS_PMODE, ____,    ____,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
                                    ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
   ),
+/*
+    //#     [      ]       {       }       %                                       '       -       +       /       $   
+    //#     #      "       _       *       =                                       `       (       )      ::       :   
+    //#     ^      ?       !       ~       <                                       >       &       |       \       @   
+    //#                   ____   ____    ____    ____                    ____    ____    ____    ____  
+LAYOUT => _SYM
+*/
   [_SYM] = LAYOUT(
     xxxx, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_PERC,                            KC_QUOT, KC_MINUS, KC_PLUS, KC_SLASH,  KC_DLR,  xxxx, 
-    xxxx, KC_HASH, KC_DQUO, KC_UNDS, KC_ASTR, KC_EQUAL,                           KC_GRV,  KC_LPRN,  KC_RPRN, KC_DQUO,   KC_COLN, xxxx, 
+    xxxx, KC_HASH, KC_DQUO, KC_UNDS, KC_ASTR, KC_EQUAL,                           KC_GRV,  KC_LPRN,  KC_RPRN, KC_DCOLN,  KC_COLN, xxxx, 
     xxxx, KC_CIRC, KC_QUES, KC_EXLM, KC_TILD, KC_LABK,  xxxx, xxxx,   xxxx, xxxx, KC_RABK, KC_AMPR,  KC_PIPE, KC_BSLASH, KC_AT,   xxxx, 
                             ____,    ____,    ____,     ____, xxxx,   xxxx, ____, ____,    ____,     ____                               
   ),
@@ -175,6 +176,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
                 SEND_STRING(SECRET_PASSWORD);
             }
             return true;
+        case KC_DCOLN:
+            if (record->event.pressed)
+            {
+                tap_code16(KC_COLN);
+            }
+            else
+            {
+                tap_code16(KC_COLN);
+            }
+            break;
         case KC_SSYM:
             if (record->event.pressed)
             {
@@ -219,7 +230,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
     int8_t keycode_consumed = 0;
 
-    if ((smart_feature_cancel_key(keycode, record)) || (keycode>=KC_SMART_BEGIN && keycode<=KC_SMART_END) || ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode))))
+    if ((smart_feature_cancel_key(keycode, record)) || (keycode >= KC_SMART_BEGIN && keycode <= KC_SMART_END) || ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode))))
     {
         if (smart_feature_state(SMART_CAPSLOCK))
         {
@@ -490,6 +501,7 @@ qmk-keyboard-format:json:begin
       "KC_COMM": " , < " ,
       "KC_DOT": " . > " ,
       "KC_COLN": "  :  ",
+      "KC_DCOLN": " ::  ",
       "KC_SCOLON": " ; : ",
       "KC_SCLN": " ; : ",
       "KC_SLASH": "  \/  ",
@@ -548,7 +560,7 @@ qmk-keyboard-format:json:begin
       "KC_OS_CUT": " Cut " ,
       "KC_OS_COPY": " Copy" ,
       "KC_OS_PASTE": "Paste" ,
-      "KC_OS_CLOSE": "Close" , 
+      "KC_OS_CLOSE": "Close" ,
       "KC_COPY": " Copy",
       "KC_PASTE": "Paste",
       "KC_CUT":    " Cut " ,

@@ -29,6 +29,8 @@ enum eCustomKeyCodes {
     KC_SNUM,
     KC_SSYM,
 
+    KC_DCOLN,
+
 #include "cushi.def"
 
     KC_SMART_END,
