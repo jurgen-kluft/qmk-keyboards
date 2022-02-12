@@ -70,16 +70,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   /*
     // Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~  
-    //#     >      &       |       _       ~                                       %       '       "       #       $   
-    //#     !      -       +       =       [                                       `       (       {      ::       :   
-    //#     <      /       *       \       ]                                       ^       )       }       ?       @   
+    //#     %      &       |       _       ~                                       `       '       "       #       $   
+    //#     !      -       +       =       [                                       >       (       {      ::       :   
+    //#     ^      /       *       \       ]                                       <       )       }       ?       @   
     //#                   ____   ____    ____    ____                    ____    ____    ____    ____  
   LAYOUT => _SYM
   */
   [_SYM] = LAYOUT(
-    xxxx, KC_RABK, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                           KC_PERC, KC_QUOT, KC_DQUO, KC_HASH,  KC_DLR,  xxxx, 
-    xxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                           KC_GRV,  KC_LPRN, KC_LCBR, KC_DCOLN, KC_COLN, xxxx, 
-    xxxx, KC_LABK, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, xxxx, xxxx,   xxxx, xxxx, KC_CIRC, KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   xxxx, 
+    xxxx, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                           KC_GRV,  KC_QUOT, KC_DQUO, KC_HASH,  KC_DLR,  xxxx, 
+    xxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                           KC_RABK, KC_LPRN, KC_LCBR, KC_DCOLN, KC_COLN, xxxx, 
+    xxxx, KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, xxxx, xxxx,   xxxx, xxxx, KC_LABK, KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   xxxx, 
                              ____,    ____,      ____,    ____, xxxx,   xxxx, ____, ____,    ____,    ____                              
   ),
   [_NAV] = LAYOUT(
