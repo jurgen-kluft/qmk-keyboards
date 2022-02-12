@@ -60,6 +60,10 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     s_feature_state &= ~(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT | FEATURE_USED);
                     layer_off(_RAISE);
                 }
+                else
+                {
+                    return true;
+                }
             }
 
             if (features_active_any(FEATURE_NUM | FEATURE_CAPS))
@@ -70,11 +74,13 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     {
                         s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
                         layer_off(_QWERTY_CAPS);
+                        return false;
                     }
                     if (features_active(FEATURE_NUM))
                     {
                         s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
                         layer_off(_NUM);
+                        return false;
                     }
                 }
             }
@@ -140,10 +146,7 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     }
                     else
                     {
-                        if (!features_active(FEATURE_SYM_ONESHOT))
-                        {
-                            layer_on(_NAV);
-                        } 
+                        layer_on(_NAV);
                     }
                     break;
                 case KC_FSYM: // pressed
@@ -155,7 +158,7 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     else
                     {
                         s_feature_state |= FEATURE_SYM;
-                        s_feature_state &= ~(FEATURE_USED | FEATURE_SYM_ONESHOT);
+                        s_feature_state &= ~FEATURE_USED;
                         if (features_active(FEATURE_SYM | FEATURE_NAV))
                         {
                             layer_off(_SYM);
@@ -188,17 +191,18 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
         }
         else
         {
-            if (s_feature_state== FEATURE_SYM_ONESHOT)
-            {
-                if (keycode == KC_BSPACE || keycode == KC_SPACE || keycode == KC_FNUM || keycode == KC_FNAV || keycode == KC_FCAPS)
-                {
-                    s_feature_state &= ~FEATURE_SYM_ONESHOT;
-                    layer_off(_SYM);
-                }
-            }
-
             switch (keycode)
             {
+                default:
+                    if (s_feature_state == FEATURE_SYM_ONESHOT)
+                    {
+                        if (keycode == KC_BSPACE || keycode == KC_SPACE)
+                        {
+                            s_feature_state &= ~FEATURE_SYM_ONESHOT;
+                            layer_off(_SYM);
+                        }
+                    }
+                    break;
                 case OS_SHFT:
                 case OS_CTRL:
                 case OS_ALT:
@@ -269,12 +273,12 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                             s_feature_state |= FEATURE_NAV_ONESHOT;
                             layer_off(_SYM);
                             layer_off(_NAV);
-                            layer_on(_RAISE);                                
+                            layer_on(_RAISE);
                         }
-                        else 
-                        {                    
+                        else
+                        {
                             layer_off(_NAV);
-                        } 
+                        }
                     }
                     break;
 
