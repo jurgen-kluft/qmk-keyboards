@@ -24,6 +24,11 @@ enum eCustomKeyCodes {
     OS_CMD,
 
     KC_SMART_BEGIN,
+
+    KC_FCAPS,
+    KC_FNUM,
+    KC_FSYM,
+    KC_FNAV,
     
     KC_SCAPS,
     KC_SNUM,

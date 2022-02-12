@@ -155,10 +155,10 @@ void smart_numbers_process(uint16_t keycode, keyrecord_t *record) {
 
 void smart_symbols_process(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        if (!smart_feature_cancel_key(keycode, record)) {
+        if (keycode != LA_NAV) {
             g_smart_count[SMART_SYMBOLS] |= 2;
-            return;
         }
+        return;
     } else {
         switch (keycode) {
             case KC_SSYM:

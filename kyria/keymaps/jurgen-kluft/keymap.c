@@ -5,18 +5,12 @@
 #include "oneshot.h"
 #include "cushi.h"
 #include "cukey.h"
+#include "feature.h"
 #include "secrets.x"
 
 #define KC_TRANS KC_TRANSPARENT
 #define ____     KC_TRANSPARENT
 #define xxxx     KC_NO
-
-#define LA_SYM   MO(_SYM)
-#define LA_NAV   MO(_NAV)
-#define LA_NUM   MO(_NUM)
-#define LA_QCAPS MO(_QWERTY_CAPS)
-#define LA_RCAPS MO(_RSTHD_CAPS)
-#define LT_MOS   TG(_MOUS)
 
 /*
 
@@ -30,19 +24,28 @@
 
 // Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~
 
+/*
+name
+address
+email address
+phone number
+
+
+*/
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                       KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx, 
     xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                       KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx, 
     xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
-                      LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_SSYM, KC_SCAPS, LT_MOS                                     
+                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS                                     
   ),
   [_RSTHD] = LAYOUT(
     xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                       KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx, 
     xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                       KC_M,    KC_N,     KC_A,          KC_I,        KC_O,    xxxx, 
     xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
-                         LT_MOS, KC_SNUM, LA_NAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_SSYM, KC_SCAPS, LT_MOS                                     
+                         LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_FSYM, KC_FCAPS, LT_MOS                                     
   ),
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I),    LSFT(KC_O),  LSFT(KC_P), xxxx, 
@@ -86,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                        KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
     xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, ____, xxxx, 
     xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx,      xxxx,   xxxx, xxxx,      SH_TG,     KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
-                                   ____,       ____,        ____,      KC_BSPACE, xxxx,   xxxx, KC_DELETE, ____,      ____,      ____                           
+                                   ____,       ____,        ____,      ____,      xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
   ),
   [_RAISE] = LAYOUT(
     xxxx, ____,        ____,   ____,    ____,    ____,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
@@ -97,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _NAV, _SYM, _RAISE); }
+//layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _NAV, _SYM, _RAISE); }
 
 #ifdef ENABLE_ONESHOT
 
@@ -105,11 +108,10 @@ bool is_oneshot_modifier_cancel_key(uint16_t keycode)
 {
     switch (keycode)
     {
-        case LA_NAV:
-        case LA_NUM:
-        case LA_QCAPS:
-        case KC_SNUM:
-        case KC_SCAPS: return true;
+        case KC_FNAV:
+        case KC_FSYM:
+        case KC_FNUM:
+        case KC_FCAPS: return true;
         default: return false;
     }
 }
@@ -118,8 +120,9 @@ bool is_oneshot_modifier_ignored_key(uint16_t keycode)
 {
     switch (keycode)
     {
-        case LA_SYM:
-        case LA_NAV: return true;
+        case KC_FNAV: 
+        case KC_FSYM: 
+            return true;
     }
     return false;
 }
@@ -144,9 +147,7 @@ bool smart_feature_cancel_key(uint16_t keycode, keyrecord_t* record)
     {
         case LA_SYM:
         case LA_NAV:
-        case LA_NUM:
-        case LA_RCAPS:
-        case LA_QCAPS: return true;
+        case LA_NUM: return true;
     }
     return false;
 }
@@ -187,37 +188,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
                 tap_code16(KC_COLN);
             }
             break;
-        case KC_SSYM:
-            if (record->event.pressed)
-            {
-                smart_feature_toggle(SMART_SYMBOLS, _SYM);
-                return true;
-            }
-            break;
-        case KC_SNUM:
-            if (record->event.pressed)
-            {
-                smart_feature_toggle(SMART_NUMBERS, _NUM);
-                return true;
-            }
-            break;
-        case KC_SCAPS:
-            if (record->event.pressed)
-            {
-                if (!smart_feature_state(SMART_CAPSLOCK))
-                {
-                    if (default_layer_state == (1 << _QWERTY))
-                    {
-                        smart_feature_toggle(SMART_CAPSLOCK, _QWERTY_CAPS);
-                    }
-                    else if (default_layer_state == (1 << _RSTHD))
-                    {
-                        smart_feature_toggle(SMART_CAPSLOCK, _RSTHD_CAPS);
-                    }
-                }
-                return true;
-            }
-            break;
+            /*
+                    case KC_SSYM:
+                        if (record->event.pressed)
+                        {
+                            smart_feature_toggle(SMART_SYMBOLS, _SYM);
+                            return true;
+                        }
+                        break;
+                    case KC_SNUM:
+                        if (record->event.pressed)
+                        {
+                            smart_feature_toggle(SMART_NUMBERS, _NUM);
+                            return true;
+                        }
+                        break;
+                    case KC_SCAPS:
+                        if (record->event.pressed)
+                        {
+                            if (!smart_feature_state(SMART_CAPSLOCK))
+                            {
+                                if (default_layer_state == (1 << _QWERTY))
+                                {
+                                    smart_feature_toggle(SMART_CAPSLOCK, _QWERTY_CAPS);
+                                }
+                                else if (default_layer_state == (1 << _RSTHD))
+                                {
+                                    smart_feature_toggle(SMART_CAPSLOCK, _RSTHD_CAPS);
+                                }
+                            }
+                            return true;
+                        }
+                        break;
+            */
         case KC_OLED:
             if (record->event.pressed)
             {
@@ -231,21 +234,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
     int8_t keycode_consumed = 0;
 
-    if ((smart_feature_cancel_key(keycode, record)) || (keycode >= KC_SMART_BEGIN && keycode <= KC_SMART_END) || ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode))))
+    if (!process_feature_key(keycode, record))
     {
-        if (smart_feature_state(SMART_CAPSLOCK))
-        {
-            smart_capslock_process(keycode, record);
-        }
-        if (smart_feature_state(SMART_NUMBERS))
-        {
-            smart_numbers_process(keycode, record);
-        }
-        if (smart_feature_state(SMART_SYMBOLS))
-        {
-            smart_symbols_process(keycode, record);
-        }
+        return false;
     }
+
+    /*
+        if ((smart_feature_cancel_key(keycode, record)) || (keycode >= KC_SMART_BEGIN && keycode <= KC_SMART_END) || ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode))))
+        {
+            if (smart_feature_state(SMART_CAPSLOCK))
+            {
+                smart_capslock_process(keycode, record);
+            }
+            if (smart_feature_state(SMART_NUMBERS))
+            {
+                smart_numbers_process(keycode, record);
+            }
+            if (smart_feature_state(SMART_SYMBOLS))
+            {
+                smart_symbols_process(keycode, record);
+            }
+        }
+    */
 
 #ifdef ENABLE_ONESHOT
     keycode_consumed += update_oneshot_modifiers(keycode, record, keycode_consumed);

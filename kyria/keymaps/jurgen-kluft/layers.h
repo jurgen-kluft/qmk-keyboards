@@ -14,3 +14,8 @@ enum layers {
     _RAISE,
     _NUM_LAYERS
 };
+
+#define LA_SYM   MO(_SYM)
+#define LA_NAV   MO(_NAV)
+#define LA_NUM   MO(_NUM)
+#define LT_MOS   TG(_MOUS)
