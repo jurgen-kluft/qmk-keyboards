@@ -10,4 +10,6 @@ My keymap uses the following features:
 
 # Keymap
 
+(Generated with `https://github.com/jurgen-kluft/go-qmk-keymap`)
+
 ![](keymap.svg)
