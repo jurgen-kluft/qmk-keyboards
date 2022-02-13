@@ -108,7 +108,6 @@ bool is_oneshot_modifier_cancel_key(uint16_t keycode)
     switch (keycode)
     {
         case KC_FNAV:
-        case KC_FSYM:
         case KC_FNUM:
         case KC_FCAPS: return true;
         default: return false;
@@ -139,17 +138,6 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 }
 
 #endif
-
-bool smart_feature_cancel_key(uint16_t keycode, keyrecord_t* record)
-{
-    switch (keycode)
-    {
-        case LA_SYM:
-        case LA_NAV:
-        case LA_NUM: return true;
-    }
-    return false;
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
@@ -391,6 +379,9 @@ qmk-keyboard-format:json:begin
       "_NAV",
       "_RAISE"
   ],
+  "svgcolors":  {
+      "KC_FNAV": "green",
+  },
   "vizcellwidth": 5,
   "vizemits": [
   ],
