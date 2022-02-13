@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "oled.h"
 #include "layers.h"
-#include "smart.h"
 #include "oneshot.h"
 #include "cushi.h"
 #include "cukey.h"
@@ -36,15 +35,15 @@ phone number
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                       KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx, 
-    xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                       KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx, 
-    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
+    xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                        KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx, 
+    xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                        KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx, 
+    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
                       LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS                                     
   ),
   [_RSTHD] = LAYOUT(
-    xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                       KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx, 
-    xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                       KC_M,    KC_N,     KC_A,          KC_I,        KC_O,    xxxx, 
-    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,   KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
+    xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                        KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx, 
+    xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                        KC_M,    KC_N,     KC_A,          KC_I,        KC_O,    xxxx, 
+    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
                          LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_FSYM, KC_FCAPS, LT_MOS                                     
   ),
   [_QWERTY_CAPS] = LAYOUT(
@@ -60,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, LSFT(KC_E), ____,       ____,       ____                                          
   ),
   [_NUM] = LAYOUT(
-    xxxx, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO,                                KC_NO, KC_5,  KC_6,     KC_7, KC_8,  xxxx, 
-    xxxx, KC_NO, KC_NO, KC_9,     KC_0,  KC_NO,                                KC_NO, KC_1,  KC_2,     KC_3, KC_4,  xxxx, 
-    xxxx, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO, xxxx, xxxx,   xxxx, xxxx,      KC_NO, KC_NO, ____,     ____, KC_NO, xxxx, 
-                        KC_SPACE, ____,  ____,  ____, xxxx,   xxxx, KC_BSPACE, ____,  ____,  KC_SPACE                     
+    xxxx, xxxx, xxxx, xxxx,     xxxx, xxxx,                                xxxx, KC_5, KC_6,     KC_7, KC_8, xxxx, 
+    xxxx, xxxx, xxxx, KC_9,     KC_0, xxxx,                                xxxx, KC_1, KC_2,     KC_3, KC_4, xxxx, 
+    xxxx, xxxx, xxxx, xxxx,     xxxx, xxxx, xxxx, xxxx,   xxxx, xxxx,      xxxx, xxxx, ____,     ____, xxxx, xxxx, 
+                      KC_SPACE, ____, ____, ____, xxxx,   xxxx, KC_BSPACE, ____, ____, KC_SPACE                    
   ),
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
@@ -86,15 +85,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              ____,    ____,      ____,    ____, xxxx,   xxxx, ____, ____,    ____,    ____                              
   ),
   [_NAV] = LAYOUT(
-    xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                        KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
-    xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, ____, xxxx, 
-    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx,      xxxx,   xxxx, xxxx,      SH_TG,     KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
-                                   ____,       ____,        ____,      ____,      xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
+    xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                   KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
+    xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, ____, xxxx, 
+    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx, xxxx,   xxxx, xxxx,      SH_TG,     KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
+                                   ____,       ____,        ____,      ____, xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
   ),
   [_RAISE] = LAYOUT(
-    xxxx, ____,        ____,   ____,    ____,    ____,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
-    xxxx, OS_CMD,      OS_ALT, OS_CTRL, OS_SHFT, ____,                                KC_F5,     KC_F11, KC_F10, KC_F9, ____,  xxxx, 
-    xxxx, KC_PASSWORD, ____,   ____,    ____,    KC_OS_PDT, xxxx, xxxx,   xxxx, xxxx, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, ____,  xxxx, 
+    xxxx, xxxx,        xxxx,   xxxx,    xxxx,    xxxx,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
+    xxxx, OS_CMD,      OS_ALT, OS_CTRL, OS_SHFT, xxxx,                                KC_F5,     KC_F11, KC_F10, KC_F9, xxxx,  xxxx, 
+    xxxx, KC_PASSWORD, xxxx,   xxxx,    xxxx,    KC_OS_PDT, xxxx, xxxx,   xxxx, xxxx, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx, 
                                ____,    ____,    ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____                        
   )
 };
@@ -423,9 +422,10 @@ qmk-keyboard-format:json:begin
       "_RAISE": "Raise Layer",
       "xxxx": "     ",
       "SH_TG": "  EE ",
-      "KC_SCAPS": "Smart Caps",
-      "KC_SNUM": "Smart Num",
-      "KC_SSYM": "Smart Sym",
+      "KC_FCAPS": "Smart Caps",
+      "KC_FNUM": "Smart Num",
+      "KC_FSYM": " Sym ",
+      "KC_FNAV": " Nav ",
       "KC_PASSWORD": "  Ψ  ",
       "LT_MOS": "MOUSE",
       "LA_NAV": " NAV ",

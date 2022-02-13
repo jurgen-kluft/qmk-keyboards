@@ -5,15 +5,16 @@
 
 /*
 
-process_feature_key
-
 FEATURE_NUM, FEATURE_CAPS, FEATURE_SYM and FEATURE_NAV.
 
-Pressing and releasing the KC_FNAV key will activate the _NAV layer and allow one other key press after which the layer will turn off, it can be cancelled by pressing
-and releasing KC_SPACE, KC_BSPACE, KC_FNAV or KC_FSYM.
+The main reason for processing layer and smart feature keys for tri layer state is that it allows more flexibility in terms
+of how and when layers are turned on and off.
 
-Pressing and releasing the KC_FSYM key will activate the _SYM layer and allow one other key press after which the layer will turn off, it can be cancelled by
-pressing and releasing KC_SPACE, KC_BSPACE, KC_FSYM or KC_FNAV.
+The key KC_FNAV can basically turn off any feature by just press and release it.
+
+Pressing and releasing the KC_FSYM key will activate the _SYM layer in one-shot mode and allow one other key press after which 
+the layer will turn off, it can be cancelled by pressing and releasing KC_SPACE, KC_BSPACE, KC_FCAPS, KC_FNUM.
+Pressing and releasing the KC_FNAV key while the _SYM layer is in one-shot mode will lock the _RAISE layer.
 
 Pressing and releasing the KC_FNUM key will activate the _NUM layer and stay active until one of the following keys is
 pressed: KC_FNUM, KC_FNAV, KC_FSYM, KC_SPACE.
@@ -21,8 +22,6 @@ pressed: KC_FNUM, KC_FNAV, KC_FSYM, KC_SPACE.
 Pressing and releasing the KC_FCAPS key will activate _QWERTY_CAPS layer and stay on until one of the following keys is pressed:
 KC_FCAPS, KC_FNAV, KC_FSYM, KC_SPACE.
 
-Pressing and releasing the KC_FNAV key and then pressing and releasing the KC_FSYM key will activate the _RAISE layer and stay in that layer until
-one of the following keys are pressed KC_SPACE, KC_BSPACE, KC_FNAV, KC_FSYM, KC_FCAPS or KC_FNUM.
 
 Holding the KC_FNUM key will activate the _NUM layer and while other keys are pressed it will stay on until the KC_FNUM key is released.
 Holding the KC_FCAPS key will activate the _QWERTY_CAPS layer and when other keys are pressed it will stay on until the KC_FCAPS key is released.
@@ -74,13 +73,19 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     {
                         s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
                         layer_off(_QWERTY_CAPS);
-                        return false;
+                        if (keycode == KC_FCAPS)
+                        {
+                            return false;
+                        }
                     }
                     if (features_active(FEATURE_NUM))
                     {
                         s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
                         layer_off(_NUM);
-                        return false;
+                        if (keycode == KC_FNUM)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
@@ -100,40 +105,12 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
 
                 // pressed
                 case KC_1 ... KC_0:
+                case S(KC_1)... S(KC_0):
                 case KC_F1 ... KC_F12:
                 case KC_A ... KC_Z:
-                case KC_LBRC:
-                case KC_RBRC:
-                case KC_LCBR:
-                case KC_RCBR:
-                case KC_PERC:
-                case KC_QUOT:
-                case KC_MINUS:
-                case KC_PLUS:
-                case KC_SLASH:
-                case KC_DLR:
-                case KC_TILD:
-                case KC_UNDS:
-                case KC_ASTR:
-                case KC_EQUAL:
-                case KC_GRV:
-                case KC_LPRN:
-                case KC_RPRN:
-                case KC_DQUO:
-                case KC_COLN:
-                case KC_DCOLN:
-                case KC_CIRC:
-                case KC_QUES:
-                case KC_EXLM:
-                case KC_HASH:
-                case KC_LABK:
-                case KC_RABK:
-                case KC_AMPR:
-                case KC_PIPE:
-                case KC_BSLASH:
-                case KC_AT:
-                case KC_COMMA:
-                case KC_DOT: s_feature_state |= FEATURE_USED; break;
+                case KC_MINUS ... KC_SLASH:
+                case S(KC_MINUS)... S(KC_SLASH):
+                case KC_DCOLN: s_feature_state |= FEATURE_USED; break;
 
                 case KC_FNAV: // pressed
                     s_feature_state |= FEATURE_NAV;
@@ -193,16 +170,6 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
         {
             switch (keycode)
             {
-                default:
-                    if (s_feature_state == FEATURE_SYM_ONESHOT)
-                    {
-                        if (keycode == KC_BSPACE || keycode == KC_SPACE)
-                        {
-                            s_feature_state &= ~FEATURE_SYM_ONESHOT;
-                            layer_off(_SYM);
-                        }
-                    }
-                    break;
                 case OS_SHFT:
                 case OS_CTRL:
                 case OS_ALT:
@@ -214,42 +181,15 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
 
                 // released
                 case KC_1 ... KC_0:
+                case S(KC_1)... S(KC_0):
                 case KC_F1 ... KC_F12:
                 case KC_A ... KC_Z:
-                case KC_LBRC:
-                case KC_RBRC:
-                case KC_LCBR:
-                case KC_RCBR:
-                case KC_PERC:
-                case KC_QUOT:
-                case KC_MINUS:
-                case KC_PLUS:
-                case KC_SLASH:
-                case KC_DLR:
-                case KC_TILD:
-                case KC_UNDS:
-                case KC_ASTR:
-                case KC_EQUAL:
-                case KC_GRV:
-                case KC_LPRN:
-                case KC_RPRN:
-                case KC_DQUO:
-                case KC_COLN:
+                case KC_MINUS ... KC_SLASH:
+                case S(KC_MINUS)... S(KC_SLASH):
                 case KC_DCOLN:
-                case KC_CIRC:
-                case KC_QUES:
-                case KC_EXLM:
-                case KC_HASH:
-                case KC_LABK:
-                case KC_RABK:
-                case KC_AMPR:
-                case KC_PIPE:
-                case KC_BSLASH:
-                case KC_AT:
-                case KC_COMMA:
-                case KC_DOT:
-
-                    if (features_active(FEATURE_SYM_ONESHOT))
+                case KC_BSPACE:
+                case KC_SPACE:
+                    if (features_active(FEATURE_SYM_ONESHOT) && !features_active(FEATURE_NAV_ONESHOT))
                     {
                         s_feature_state &= ~FEATURE_SYM_ONESHOT;
                         layer_off(_SYM);
