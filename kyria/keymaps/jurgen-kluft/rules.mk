@@ -16,6 +16,8 @@ SWAP_HANDS_ENABLE = no
 RGB_MATRIX_ENABLE = no
 SPACE_CADET_ENABLE = no
 KEY_OVERRIDE_ENABLE = no
+GRAVE_ESC_ENABLE = no
+# RAW_ENABLE = no
 
 UNICODE_ENABLE                  = no
 WPM_ENABLE                      = no
