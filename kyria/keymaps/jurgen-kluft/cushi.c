@@ -3,11 +3,13 @@
 
 static uint16_t cushi_registered_keycode = KC_NO;
 
-#define CUSHI_ENTRY(entry_cushi_keycode, entry_cushi_key_normal, entry_cushi_key_shift, entry_cushi_key_ctrl) \
-    case entry_cushi_keycode:                                                                                 \
-        cushi_key_normal = entry_cushi_key_normal;                                                            \
-        entry_cushi_key_shift;                                                                                \
-        entry_cushi_key_ctrl;                                                                                 \
+#define CUSHI_ENTRY(keycode, normal, shift, ctrl, alt, cmd)  \
+    case keycode:                                            \
+        key_normal = normal;                                 \
+        shift;                                               \
+        ctrl;                                                \
+        alt;                                                 \
+        cmd;                                                 \
         break;
 
 bool process_cushi_keys(uint16_t keycode, keyrecord_t *record) {
@@ -17,9 +19,11 @@ bool process_cushi_keys(uint16_t keycode, keyrecord_t *record) {
         cushi_registered_keycode = KC_NO;
     }
 
-    uint16_t cushi_key_normal = KC_NO;
-    uint16_t cushi_key_shift  = KC_NO;
-    uint16_t cushi_key_ctrl   = KC_NO;
+    uint16_t key_normal = KC_NO;
+    uint16_t key_shift  = KC_NO;
+    uint16_t key_ctrl   = KC_NO;
+    uint16_t key_alt    = KC_NO;
+    uint16_t key_gui    = KC_NO;
 
     // @NOTE: Add your custom entries in cushi.def
     switch (keycode) {
@@ -31,16 +35,24 @@ bool process_cushi_keys(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         const uint8_t mods = get_mods();
 
-        if ((cushi_key_shift != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_SHIFT) != 0)) {
+        if ((key_shift != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_SHIFT) != 0)) {
             del_mods(MOD_MASK_SHIFT);
             del_weak_mods(MOD_MASK_SHIFT);
-            cushi_registered_keycode = cushi_key_shift;
-        } else if ((cushi_key_ctrl != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_CTRL) != 0)) {
+            cushi_registered_keycode = key_shift;
+        } else if ((key_ctrl != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_CTRL) != 0)) {
             del_mods(MOD_MASK_CTRL);
             del_weak_mods(MOD_MASK_CTRL);
-            cushi_registered_keycode = cushi_key_ctrl;
+            cushi_registered_keycode = key_ctrl;
+        } else if ((key_alt != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_ALT) != 0)) {
+            del_mods(MOD_MASK_ALT);
+            del_weak_mods(MOD_MASK_ALT);
+            cushi_registered_keycode = key_alt;
+        } else if ((key_gui != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_GUI) != 0)) {
+            del_mods(MOD_MASK_GUI);
+            del_weak_mods(MOD_MASK_GUI);
+            cushi_registered_keycode = key_gui;
         } else {
-            cushi_registered_keycode = cushi_key_normal;
+            cushi_registered_keycode = key_normal;
         }
 
         // this could be a custom keycode, so we need to translate it
