@@ -104,6 +104,9 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                 case KC_DOT_EXCL: break;
 
                 // pressed
+                case SH_TG:
+
+                // pressed
                 case KC_1 ... KC_0:
                 case S(KC_1)... S(KC_0):
                 case KC_F1 ... KC_F12:
@@ -189,6 +192,7 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                 case KC_DCOLN:
                 case KC_BSPACE:
                 case KC_SPACE:
+                case SH_TG:
                     if (features_active(FEATURE_SYM_ONESHOT) && !features_active(FEATURE_NAV_ONESHOT))
                     {
                         s_feature_state &= ~FEATURE_SYM_ONESHOT;

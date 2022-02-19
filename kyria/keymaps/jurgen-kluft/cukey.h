@@ -1,11 +1,10 @@
 #pragma once
 
-#define CUSHI_ENTRY(custom_keycode, cushi_normal, cushi_shift, cushi_ctrl) custom_keycode,
+#define CUSHI_ENTRY(custom_keycode, key_normal, key_shift, key_ctrl, key_alt, key_gui) custom_keycode,
 
 enum eCustomKeyCodes {
     KC_QWERTY = SAFE_RANGE,
     KC_RSTHD,
-    KC_PASSWORD,
     KC_OLED,
     KC_OS_MODE,
     KC_OS_PMODE,
@@ -17,6 +16,11 @@ enum eCustomKeyCodes {
     KC_OS_NDT,
     KC_OS_PDT,
     KC_OS_CLOSE,
+
+    KC_SECRET_1,
+    KC_SECRET_2,
+    KC_SECRET_3,
+    KC_SECRET_4,
 
     OS_SHFT,
     OS_CTRL,

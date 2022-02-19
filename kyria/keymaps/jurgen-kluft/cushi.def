@@ -1,4 +1,6 @@
 // clang-format off
-CUSHI_ENTRY(KC_COMMA_QUES, KC_COMMA, cushi_key_shift = KC_QUES,   )
-CUSHI_ENTRY(KC_DOT_EXCL,   KC_DOT,   cushi_key_shift = KC_EXLM,   )
+//          custom_keycode  key_normal, key_shift, key_ctrl, key_alt, key_gui
+CUSHI_ENTRY(KC_COMMA_QUES,  KC_COMMA,   key_shift = KC_QUES, , , )
+CUSHI_ENTRY(KC_DOT_EXCL,    KC_DOT,     key_shift = KC_EXLM, , , )
+CUSHI_ENTRY(KC_DEL_BKSP,    KC_DELETE, , , key_alt = KC_BSPC, )
 // clang-format on

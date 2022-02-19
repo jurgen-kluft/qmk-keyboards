@@ -10,13 +10,14 @@
 #define KC_TRANS KC_TRANSPARENT
 #define ____     KC_TRANSPARENT
 #define xxxx     KC_NO
+#define LT_MOS   TG(_MOUS)
 
 /*
-
 // LAYOUT => _QWERTY
 // LAYOUT => _QWERTY_CAPS
 // LAYOUT => _SSYM
 // LAYOUT => _NUM
+// LAYOUT => _SYM
 // LAYOUT => _NAV
 // LAYOUT => _RAISE
 */
@@ -28,59 +29,49 @@ name
 address
 email address
 phone number
-
-
 */
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                        KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx, 
-    xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                        KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx, 
-    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
-                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS                                     
+    xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                        KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx,
+    xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                        KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx,
+    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx,
+                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS
   ),
   [_RSTHD] = LAYOUT(
-    xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                        KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx, 
-    xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                        KC_M,    KC_N,     KC_A,          KC_I,        KC_O,    xxxx, 
-    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
-                         LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_FSYM, KC_FCAPS, LT_MOS                                     
+    xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                        KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx,
+    xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                        KC_M,    KC_N,     KC_A,          KC_I,        KC_O,    xxxx,
+    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx,
+                         LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_FSYM, KC_FCAPS, LT_MOS
   ),
   [_QWERTY_CAPS] = LAYOUT(
-    xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I),    LSFT(KC_O),  LSFT(KC_P), xxxx, 
-    xxxx, LSFT(KC_A), LSFT(KC_S), LSFT(KC_D), LSFT(KC_F), LSFT(KC_G),                           LSFT(KC_H), LSFT(KC_J), LSFT(KC_K),    LSFT(KC_L),  KC_UNDS,    xxxx, 
-    xxxx, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx, LSFT(KC_N), LSFT(KC_M), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx, 
-                                  ____,       ____,       ____,       ____, xxxx,   xxxx, ____, ____,       ____,       ____                                          
+    xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I),    LSFT(KC_O),  LSFT(KC_P), xxxx,
+    xxxx, LSFT(KC_A), LSFT(KC_S), LSFT(KC_D), LSFT(KC_F), LSFT(KC_G),                           LSFT(KC_H), LSFT(KC_J), LSFT(KC_K),    LSFT(KC_L),  KC_UNDS,    xxxx,
+    xxxx, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx, LSFT(KC_N), LSFT(KC_M), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx,
+                                  ____,       ____,       ____,       ____, xxxx,   xxxx, ____, ____,       ____,       ____
   ),
   [_RSTHD_CAPS] = LAYOUT(
-    xxxx, LSFT(KC_J), LSFT(KC_C), LSFT(KC_Y), LSFT(KC_F), LSFT(KC_K),                                 LSFT(KC_Z), LSFT(KC_L), KC_BSPACE,     LSFT(KC_U),  LSFT(KC_Q), xxxx, 
-    xxxx, LSFT(KC_R), LSFT(KC_S), LSFT(KC_T), LSFT(KC_H), LSFT(KC_D),                                 LSFT(KC_M), LSFT(KC_N), LSFT(KC_A),    LSFT(KC_I),  LSFT(KC_O), xxxx, 
-    xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx,       LSFT(KC_X), LSFT(KC_W), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx, 
-                                  ____,       ____,       ____,       ____, xxxx,   xxxx, LSFT(KC_E), ____,       ____,       ____                                          
+    xxxx, LSFT(KC_J), LSFT(KC_C), LSFT(KC_Y), LSFT(KC_F), LSFT(KC_K),                                 LSFT(KC_Z), LSFT(KC_L), KC_BSPACE,     LSFT(KC_U),  LSFT(KC_Q), xxxx,
+    xxxx, LSFT(KC_R), LSFT(KC_S), LSFT(KC_T), LSFT(KC_H), LSFT(KC_D),                                 LSFT(KC_M), LSFT(KC_N), LSFT(KC_A),    LSFT(KC_I),  LSFT(KC_O), xxxx,
+    xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx,       LSFT(KC_X), LSFT(KC_W), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx,
+                                  ____,       ____,       ____,       ____, xxxx,   xxxx, LSFT(KC_E), ____,       ____,       ____
   ),
   [_NUM] = LAYOUT(
-    xxxx, xxxx, xxxx, xxxx,     xxxx, xxxx,                                xxxx, KC_5, KC_6,     KC_7, KC_8, xxxx, 
-    xxxx, xxxx, xxxx, KC_9,     KC_0, xxxx,                                xxxx, KC_1, KC_2,     KC_3, KC_4, xxxx, 
-    xxxx, xxxx, xxxx, xxxx,     xxxx, xxxx, xxxx, xxxx,   xxxx, xxxx,      xxxx, xxxx, ____,     ____, xxxx, xxxx, 
-                      KC_SPACE, ____, ____, ____, xxxx,   xxxx, KC_BSPACE, ____, ____, KC_SPACE                    
+    xxxx, xxxx, xxxx, xxxx,     xxxx, xxxx,                                xxxx, KC_5, KC_6,     KC_7, KC_8, xxxx,
+    xxxx, xxxx, xxxx, KC_9,     KC_0, xxxx,                                xxxx, KC_1, KC_2,     KC_3, KC_4, xxxx,
+    xxxx, xxxx, xxxx, xxxx,     xxxx, xxxx, xxxx, xxxx,   xxxx, xxxx,      xxxx, xxxx, ____,     ____, xxxx, xxxx,
+                      KC_SPACE, ____, ____, ____, xxxx,   xxxx, KC_BSPACE, ____, ____, KC_SPACE
   ),
   [_MOUS] = LAYOUT(
-    xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
-    xxxx, OS_CMD,     OS_ALT,      OS_CTRL, OS_SHFT, RGB_HUD,                                    KC_MS_WH_DOWN, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    RGB_HUI, xxxx, 
-    xxxx, KC_OS_MODE, KC_OS_PMODE, ____,    ____,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
-                                   ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
+    xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx,
+    xxxx, OS_CMD,     OS_ALT,      OS_CTRL, OS_SHFT, RGB_HUD,                                    KC_MS_WH_DOWN, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    RGB_HUI, xxxx,
+    xxxx, KC_OS_MODE, KC_OS_PMODE, ____,    ____,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx,
+                                   ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____
   ),
-  /*
-    // Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~  
-    //#     %      &       |       _       ~                                       `       '       "       #       $   
-    //#     !      -       +       =       [                                       >       (       {      ::       :   
-    //#     ^      /       *       \       ]                                       <       )       }       ?       @   
-    //#                   ____   ____    ____    ____                    ____    ____    ____    ____  
-  LAYOUT => _SYM
-  */
   [_SYM] = LAYOUT(
     xxxx, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                           KC_GRV,  KC_QUOT, KC_DQUO, KC_HASH,  KC_DLR,  xxxx, 
-    xxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                           KC_LABK, KC_LPRN, KC_LCBR, KC_RABK, KC_COLN, xxxx, 
+    xxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                           KC_LABK, KC_LPRN, KC_LCBR, KC_RABK,  KC_COLN, xxxx, 
     xxxx, KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, xxxx, xxxx,   xxxx, xxxx, SH_TG,   KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   xxxx, 
                              ____,    ____,      ____,    ____, xxxx,   xxxx, ____, ____,    ____,    ____                              
   ),
@@ -91,15 +82,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    ____,       ____,        ____,      ____, xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
   ),
   [_RAISE] = LAYOUT(
-    xxxx, xxxx,        xxxx,   xxxx,    xxxx,    xxxx,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
-    xxxx, OS_CMD,      OS_ALT, OS_CTRL, OS_SHFT, xxxx,                                KC_F5,     KC_F11, KC_F10, KC_F9, xxxx,  xxxx, 
-    xxxx, KC_PASSWORD, xxxx,   xxxx,    xxxx,    KC_OS_PDT, xxxx, xxxx,   xxxx, xxxx, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx, 
-                               ____,    ____,    ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____                        
+    xxxx, xxxx,        xxxx,          xxxx,           xxxx,           xxxx,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx,
+    xxxx, OS_CMD,      OS_ALT,        OS_CTRL,        OS_SHFT,        xxxx,                                KC_F5,     KC_F11, KC_F10, KC_F9, xxxx,  xxxx,
+    xxxx, KC_SECRET_1, KC_SECRET_2,   KC_SECRET_3,    KC_SECRET_4,    KC_OS_PDT, xxxx, xxxx,   xxxx, xxxx, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx,
+                                      ____,           ____,           ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____
   )
 };
 // clang-format on
-
-//layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _NAV, _SYM, _RAISE); }
 
 #ifdef ENABLE_ONESHOT
 
@@ -118,8 +107,8 @@ bool is_oneshot_modifier_ignored_key(uint16_t keycode)
 {
     switch (keycode)
     {
-        case KC_FNAV: 
-        case KC_FSYM: 
+        case KC_FNAV:
+        case KC_FSYM:
             return true;
     }
     return false;
@@ -159,10 +148,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
             return false;
         }
-        case KC_PASSWORD:
+        case KC_SECRET_1:
             if (record->event.pressed)
             {
-                SEND_STRING(SECRET_PASSWORD);
+                SEND_STRING(SECRET_1);
+            }
+            return true;
+        case KC_SECRET_2:
+            if (record->event.pressed)
+            {
+                SEND_STRING(SECRET_2);
+            }
+            return true;
+        case KC_SECRET_3:
+            if (record->event.pressed)
+            {
+                SEND_STRING(SECRET_3);
+            }
+            return true;
+        case KC_SECRET_4:
+            if (record->event.pressed)
+            {
+                SEND_STRING(SECRET_4);
             }
             return true;
         case KC_DCOLN:
@@ -175,39 +182,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
                 tap_code16(KC_COLN);
             }
             break;
-            /*
-                    case KC_SSYM:
-                        if (record->event.pressed)
-                        {
-                            smart_feature_toggle(SMART_SYMBOLS, _SYM);
-                            return true;
-                        }
-                        break;
-                    case KC_SNUM:
-                        if (record->event.pressed)
-                        {
-                            smart_feature_toggle(SMART_NUMBERS, _NUM);
-                            return true;
-                        }
-                        break;
-                    case KC_SCAPS:
-                        if (record->event.pressed)
-                        {
-                            if (!smart_feature_state(SMART_CAPSLOCK))
-                            {
-                                if (default_layer_state == (1 << _QWERTY))
-                                {
-                                    smart_feature_toggle(SMART_CAPSLOCK, _QWERTY_CAPS);
-                                }
-                                else if (default_layer_state == (1 << _RSTHD))
-                                {
-                                    smart_feature_toggle(SMART_CAPSLOCK, _RSTHD_CAPS);
-                                }
-                            }
-                            return true;
-                        }
-                        break;
-            */
         case KC_OLED:
             if (record->event.pressed)
             {
@@ -225,24 +199,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
     {
         return false;
     }
-
-    /*
-        if ((smart_feature_cancel_key(keycode, record)) || (keycode >= KC_SMART_BEGIN && keycode <= KC_SMART_END) || ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode))))
-        {
-            if (smart_feature_state(SMART_CAPSLOCK))
-            {
-                smart_capslock_process(keycode, record);
-            }
-            if (smart_feature_state(SMART_NUMBERS))
-            {
-                smart_numbers_process(keycode, record);
-            }
-            if (smart_feature_state(SMART_SYMBOLS))
-            {
-                smart_symbols_process(keycode, record);
-            }
-        }
-    */
 
 #ifdef ENABLE_ONESHOT
     keycode_consumed += update_oneshot_modifiers(keycode, record, keycode_consumed);
