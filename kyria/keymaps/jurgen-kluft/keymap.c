@@ -80,14 +80,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_SYM] = LAYOUT(
     xxxx, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                           KC_GRV,  KC_QUOT, KC_DQUO, KC_HASH,  KC_DLR,  xxxx, 
-    xxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                           KC_RABK, KC_LPRN, KC_LCBR, KC_DCOLN, KC_COLN, xxxx, 
-    xxxx, KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, xxxx, xxxx,   xxxx, xxxx, KC_LABK, KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   xxxx, 
+    xxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                           KC_LABK, KC_LPRN, KC_LCBR, KC_RABK, KC_COLN, xxxx, 
+    xxxx, KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, xxxx, xxxx,   xxxx, xxxx, SH_TG,   KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   xxxx, 
                              ____,    ____,      ____,    ____, xxxx,   xxxx, ____, ____,    ____,    ____                              
   ),
   [_NAV] = LAYOUT(
     xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                   KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
     xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, ____, xxxx, 
-    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx, xxxx,   xxxx, xxxx,      SH_TG,     KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
+    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx, xxxx,   xxxx, xxxx,      KC_TRANS,  KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
                                    ____,       ____,        ____,      ____, xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
   ),
   [_RAISE] = LAYOUT(
