@@ -35,7 +35,9 @@ bool process_cushi_keys(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         const uint8_t mods = get_mods();
 
-        if ((key_shift != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_SHIFT) != 0)) {
+        if ((key_normal != KC_NO) && ((mods & MOD_MASK_CSAG) == 0)) {
+            cushi_registered_keycode = key_normal;
+        } else if ((key_shift != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_SHIFT) != 0)) {
             del_mods(MOD_MASK_SHIFT);
             del_weak_mods(MOD_MASK_SHIFT);
             cushi_registered_keycode = key_shift;
@@ -51,9 +53,7 @@ bool process_cushi_keys(uint16_t keycode, keyrecord_t *record) {
             del_mods(MOD_MASK_GUI);
             del_weak_mods(MOD_MASK_GUI);
             cushi_registered_keycode = key_gui;
-        } else {
-            cushi_registered_keycode = key_normal;
-        }
+        } 
 
         // this could be a custom keycode, so we need to translate it
         cushi_registered_keycode = process_cukey(cushi_registered_keycode);
@@ -64,5 +64,5 @@ bool process_cushi_keys(uint16_t keycode, keyrecord_t *record) {
         set_mods(mods);  // Restore the mods.
     }
 
-    return false;
+    return true;
 }
