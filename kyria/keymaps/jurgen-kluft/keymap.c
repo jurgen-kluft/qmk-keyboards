@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I),    LSFT(KC_O),  LSFT(KC_P), xxxx,
     xxxx, LSFT(KC_A), LSFT(KC_S), LSFT(KC_D), LSFT(KC_F), LSFT(KC_G),                           LSFT(KC_H), LSFT(KC_J), LSFT(KC_K),    LSFT(KC_L),  KC_UNDS,    xxxx,
-    xxxx, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), ____, xxxx,   xxxx, xx____xx, LSFT(KC_N), LSFT(KC_M), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx,
+    xxxx, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), ____, xxxx,   xxxx, ____, LSFT(KC_N), LSFT(KC_M), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx,
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, ____, ____,       ____,       ____
   ),
   [_RSTHD_CAPS] = LAYOUT(
