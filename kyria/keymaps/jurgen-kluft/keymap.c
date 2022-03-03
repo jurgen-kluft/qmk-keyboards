@@ -34,10 +34,10 @@ phone number
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                        KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx,
-    xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                        KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx,
-    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx,
-                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS
+    xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                                 KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx,
+    xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                                 KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx,
+    xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,    KC_OS_PDT, xxxx,      xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx,
+                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,      xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS
   ),
   [_RSTHD] = LAYOUT(
     xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                        KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx,
@@ -48,43 +48,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I),    LSFT(KC_O),  LSFT(KC_P), xxxx,
     xxxx, LSFT(KC_A), LSFT(KC_S), LSFT(KC_D), LSFT(KC_F), LSFT(KC_G),                           LSFT(KC_H), LSFT(KC_J), LSFT(KC_K),    LSFT(KC_L),  KC_UNDS,    xxxx,
-    xxxx, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx, LSFT(KC_N), LSFT(KC_M), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx,
+    xxxx, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), ____, xxxx,   xxxx, xx____xx, LSFT(KC_N), LSFT(KC_M), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx,
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, ____, ____,       ____,       ____
   ),
   [_RSTHD_CAPS] = LAYOUT(
     xxxx, LSFT(KC_J), LSFT(KC_C), LSFT(KC_Y), LSFT(KC_F), LSFT(KC_K),                                 LSFT(KC_Z), LSFT(KC_L), KC_BSPACE,     LSFT(KC_U),  LSFT(KC_Q), xxxx,
     xxxx, LSFT(KC_R), LSFT(KC_S), LSFT(KC_T), LSFT(KC_H), LSFT(KC_D),                                 LSFT(KC_M), LSFT(KC_N), LSFT(KC_A),    LSFT(KC_I),  LSFT(KC_O), xxxx,
-    xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), xxxx, xxxx,   xxxx, xxxx,       LSFT(KC_X), LSFT(KC_W), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx,
+    xxxx, KC_UNDS,    LSFT(KC_V), LSFT(KC_G), LSFT(KC_P), LSFT(KC_B), ____, xxxx,   xxxx, ____,       LSFT(KC_X), LSFT(KC_W), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx,
                                   ____,       ____,       ____,       ____, xxxx,   xxxx, LSFT(KC_E), ____,       ____,       ____
   ),
   [_NUM] = LAYOUT(
-    xxxx, xxxx, xxxx, xxxx,     xxxx, xxxx,                                xxxx, KC_5, KC_6,     KC_7, KC_8, xxxx,
-    xxxx, xxxx, xxxx, KC_9,     KC_0, xxxx,                                xxxx, KC_1, KC_2,     KC_3, KC_4, xxxx,
-    xxxx, xxxx, xxxx, xxxx,     xxxx, xxxx, xxxx, xxxx,   xxxx, xxxx,      xxxx, xxxx, ____,     ____, xxxx, xxxx,
-                      KC_SPACE, ____, ____, ____, xxxx,   xxxx, KC_BSPACE, ____, ____, KC_SPACE
+    xxxx, xxxx, xxxx, KC_MS_BTN2,xxxx, xxxx,                                xxxx, KC_5, KC_6,     KC_7, KC_8, xxxx,
+    xxxx, xxxx, xxxx, KC_9,      KC_0, xxxx,                                xxxx, KC_1, KC_2,     KC_3, KC_4, xxxx,
+    xxxx, xxxx, xxxx, xxxx,      xxxx, xxxx, ____, xxxx,   xxxx, ____,      xxxx, xxxx, ____,     ____, xxxx, xxxx,
+                      KC_SPACE,  ____, ____, ____, xxxx,   xxxx, KC_BSPACE, ____, ____, KC_SPACE
   ),
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx,
     xxxx, OS_CMD,     OS_ALT,      OS_CTRL, OS_SHFT, RGB_HUD,                                    KC_MS_WH_DOWN, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    RGB_HUI, xxxx,
-    xxxx, KC_OS_MODE, KC_OS_PMODE, ____,    ____,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx,
+    xxxx, KC_OS_MODE, KC_OS_PMODE, ____,    ____,    RGB_VAD, ____,     xxxx,   xxxx, ____,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx,
                                    ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____
   ),
   [_SYM] = LAYOUT(
     xxxx, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                           KC_GRV,  KC_QUOT, KC_DQUO, KC_HASH,  KC_DLR,  xxxx, 
     xxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                           KC_LABK, KC_LPRN, KC_LCBR, KC_RABK,  KC_COLN, xxxx, 
-    xxxx, KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, xxxx, xxxx,   xxxx, xxxx, SH_TG,   KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   xxxx, 
+    xxxx, KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, ____, xxxx,   xxxx, ____, SH_TG,   KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   xxxx, 
                              ____,    ____,      ____,    ____, xxxx,   xxxx, ____, ____,    ____,    ____                              
   ),
   [_NAV] = LAYOUT(
     xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                   KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
     xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, ____, xxxx, 
-    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     xxxx, xxxx,   xxxx, xxxx,      KC_TRANS,  KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
+    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     ____, xxxx,   xxxx, ____,      KC_TRANS,  KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
                                    ____,       ____,        ____,      ____, xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
   ),
   [_RAISE] = LAYOUT(
     xxxx, xxxx,        xxxx,          xxxx,           xxxx,           xxxx,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx,
     xxxx, OS_CMD,      OS_ALT,        OS_CTRL,        OS_SHFT,        xxxx,                                KC_F5,     KC_F11, KC_F10, KC_F9, xxxx,  xxxx,
-    xxxx, KC_SECRET_1, KC_SECRET_2,   KC_SECRET_3,    KC_SECRET_4,    KC_OS_PDT, xxxx, xxxx,   xxxx, xxxx, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx,
+    xxxx, KC_SECRET_1, KC_SECRET_2,   KC_SECRET_3,    KC_SECRET_4,    KC_OS_PDT, ____, xxxx,   xxxx, ____, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx,
                                       ____,           ____,           ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____
   )
 };
