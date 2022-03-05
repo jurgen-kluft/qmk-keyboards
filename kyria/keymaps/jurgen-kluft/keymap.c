@@ -92,8 +92,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENABLE_ONESHOT
 
+#define static_assert(bExpression, msg)    typedef uint8_t assert_failed[(bExpression) ? 1 : -1]
+static_assert(sizeof(bool) == sizeof(uint8_t), "bool is not 1 byte");
+
+
 bool is_oneshot_modifier_cancel_key(uint16_t keycode)
 {
+
     switch (keycode)
     {
         case KC_FNAV:

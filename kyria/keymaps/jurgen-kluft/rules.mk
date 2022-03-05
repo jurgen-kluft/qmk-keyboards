@@ -1,5 +1,6 @@
 # Disable unused features
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
+COMBO_ENABLE = yes      # Key combo support
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no  	# Console for debug
@@ -30,8 +31,8 @@ WPM_ENABLE                      = no
 ENCODER_ENABLE                  = yes # Ensure encoders are disabled unless set to true in a specific keymap
 SWAP_HANDS_ENABLE               = yes
 
-OLED_DRIVER_ENABLE              = yes  # Enables the use of OLED displays
-RGBLIGHT_ENABLE                 = yes  # Enable keyboard RGB underglow
+OLED_DRIVER_ENABLE              = no  # Enables the use of OLED displays
+RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
 
 SRC += oled.c
 SRC += oneshot.c
