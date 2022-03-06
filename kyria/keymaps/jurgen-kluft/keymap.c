@@ -86,15 +86,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, OS_CMD,      OS_ALT,        OS_CTRL,        OS_SHFT,        xxxx,                                KC_F5,     KC_F11, KC_F10, KC_F9, xxxx,  xxxx,
     xxxx, KC_SECRET_1, KC_SECRET_2,   KC_SECRET_3,    KC_SECRET_4,    KC_OS_PDT, ____, xxxx,   xxxx, ____, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx,
                                       ____,           ____,           ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____
+  ),
+  [_STENO] = LAYOUT(
+    xxxx, SC_Q, SC_W, SC_E, SC_R, SC_T,                               SC_Y, SC_U, SC_I,   SC_O,   SC_P,   xxxx,
+    xxxx, SC_A, SC_S, SC_D, SC_F, SC_G,                               SC_H, SC_J, SC_K,   SC_L,   SC_SCN, xxxx,
+    xxxx, SC_Z, SC_X, SC_C, SC_V, SC_B, ____,   xxxx,   xxxx, ____,   SC_N, SC_M, SC_CMA, SC_DOT, SC_SLS, xxxx,
+                      ____, ____, ____, SC_SPC, xxxx,   xxxx, SC_BPC, ____, ____, ____
   )
 };
 // clang-format on
 
 #ifdef ENABLE_ONESHOT
-
-#define static_assert(bExpression, msg)    typedef uint8_t assert_failed[(bExpression) ? 1 : -1]
-static_assert(sizeof(bool) == sizeof(uint8_t), "bool is not 1 byte");
-
 
 bool is_oneshot_modifier_cancel_key(uint16_t keycode)
 {
@@ -113,8 +115,7 @@ bool is_oneshot_modifier_ignored_key(uint16_t keycode)
     switch (keycode)
     {
         case KC_FNAV:
-        case KC_FSYM:
-            return true;
+        case KC_FSYM: return true;
     }
     return false;
 }
@@ -132,6 +133,8 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 }
 
 #endif
+
+void process_record_chord(uint16_t keycode, keyrecord_t* record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
@@ -305,6 +308,101 @@ void encoder_update_user(uint8_t index, bool clockwise)
         }
     }
 }
+#endif
+
+#if STENO_TIMING
+
+#define static_assert(bExpression, msg) typedef uint8_t assert_failed[(bExpression) ? 1 : -1]
+static_assert(sizeof(bool) == sizeof(uint8_t), "bool is not 1 byte");
+static_assert(sizeof(bool*) == 2, "pointer is not 4 bytes");
+
+static uint8_t chord = 0;
+
+#define CHORD_TIMELINE_SIZE 32
+static uint8_  chord_timeframe                      = 0;
+static uint8_t chord_timetrack[CHORD_TIMELINE_SIZE] = {0};
+
+// A chord is a sequence of keys that are pressed at the same time.
+// They result in a dedicated keycode for that chord:
+// e.g. SC_A | SC_S = KC_ASTR, *
+struct chord_t
+{
+    uint8_t  chord;
+    uint16_t keycode;
+};
+
+// If these are sorted by value then we can use a binary search
+// Large to small
+static chord_t achords[] = {
+    {SC_A | SC_E | SC_F, KC_LCBR }, // [
+    {SC_A | SC_E,        KC_ASTR }, // *
+    {SC_A | SC_D,        KC_EXLM }, // !
+    {SC_SLS,             KC_SLSH },
+    {SC_DOT,             KC_DOT  },
+    {SC_CMA,             KC_COMMA},
+    {SC_BPC,             KC_BKSPC},
+    {SC_SPC,             KC_SPACE},
+    {SC_SCN,             KC_SCLN },
+    {SC_Z,               KC_Z    },
+    {SC_Y,               KC_Y    },
+    {SC_X,               KC_X    },
+    {SC_W,               KC_W    },
+    {SC_V,               KC_V    },
+    {SC_U,               KC_U    },
+    {SC_T,               KC_T    },
+    {SC_S,               KC_S    },
+    {SC_R,               KC_R    },
+    {SC_Q,               KC_Q    },
+    {SC_P,               KC_P    },
+    {SC_O,               KC_O    },
+    {SC_N,               KC_N    },
+    {SC_M,               KC_M    },
+    {SC_L,               KC_L    },
+    {SC_K,               KC_K    },
+    {SC_J,               KC_J    },
+    {SC_I,               KC_I    },
+    {SC_H,               KC_H    },
+    {SC_G,               KC_G    },
+    {SC_F,               KC_F    },
+    {SC_E,               KC_E    },
+    {SC_D,               KC_D    },
+    {SC_C,               KC_C    },
+    {SC_B,               KC_B    },
+    {SC_A,               KC_A    },
+};
+static uint8_t nchords = sizeof(chords) / sizeof(chord_t);
+
+static void process_chording(void)
+{
+    // So here we scan the timetrack and see what we need to emit
+    // Chords are emitted upon key release
+}
+
+void process_record_chord(uint16_t keycode, keyrecord_t* record)
+{
+    // key repeat will also occur
+
+    if (keycode >= SC_BEGIN && keycode <= SC_H)
+    {
+        if (record->event.pressed)
+        {
+            chord |= (1 << (keycode - SC_BEGIN));
+        }
+        else
+        {
+            chord &= ~(1 << (keycode - SC_BEGIN));
+        }
+    }
+}
+
+void matrix_scan_user(void)
+{
+    chord_timetrack[chord_timeframe] = chord;
+    chord_timeframe                  = (chord_timeframe + 1) & (CHORD_TIMELINE_SIZE - 1);
+}
+
+#else
+void process_record_chord(uint16_t keycode, keyrecord_t* record) {}
 #endif
 
 /*

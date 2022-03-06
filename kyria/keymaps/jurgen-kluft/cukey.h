@@ -28,8 +28,7 @@ enum eCustomKeyCodes {
     OS_CMD,
 
     KC_SMART_BEGIN,
-
-    KC_FCAPS,
+    KC_FCAPS = KC_SMART_BEGIN,
     KC_FNUM,
     KC_FSYM,
     KC_FNAV,
@@ -43,6 +42,41 @@ enum eCustomKeyCodes {
 #include "cushi.def"
 
     KC_SMART_END,
+
+    SC_BEGIN,
+    SC_A = SC_BEGIN,
+    SC_B,
+    SC_C,
+    SC_D,
+    SC_E,
+    SC_F,
+    SC_G,
+    SC_H,
+    SC_I,
+    SC_J,
+    SC_K,
+    SC_L,
+    SC_M,
+    SC_N,
+    SC_O,
+    SC_P,
+    SC_Q,
+    SC_R,
+    SC_S,
+    SC_T,
+    SC_U,
+    SC_V,
+    SC_W,
+    SC_X,
+    SC_Y,
+    SC_Z,
+    SC_SCN,
+    SC_SPC,
+    SC_BPC,
+    SC_CMA,
+    SC_DOT,
+    SC_SLS,
+    SC_END,
 };
 
 #undef CUSHI_ENTRY

@@ -12,6 +12,7 @@ enum layers {
     _SYM,
     _NAV,
     _RAISE,
+    _STENO,
     _NUM_LAYERS
 };
 
