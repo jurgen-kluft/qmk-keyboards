@@ -11,6 +11,8 @@
 #define ____     KC_TRANSPARENT
 #define xxxx     KC_NO
 #define LT_MOS   TG(_MOUS)
+#define LT_STENO TG(_STENO)
+#define STENO_TIMING
 
 /*
 // LAYOUT => _QWERTY
@@ -37,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                                 KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx,
     xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                                 KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx,
     xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,    KC_OS_PDT, xxxx,      xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx,
-                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,      xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS
+                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,      xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_STENO
   ),
   [_RSTHD] = LAYOUT(
     xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                        KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx,
@@ -134,11 +136,12 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 
 #endif
 
-void process_record_chord(uint16_t keycode, keyrecord_t* record);
+static void process_record_chord(uint16_t keycode, keyrecord_t* record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
     process_record_oled(keycode, record);
+    process_record_chord(keycode, record);
 
     switch (keycode)
     {
@@ -310,99 +313,217 @@ void encoder_update_user(uint8_t index, bool clockwise)
 }
 #endif
 
-#if STENO_TIMING
+#ifdef STENO_TIMING
 
 #define static_assert(bExpression, msg) typedef uint8_t assert_failed[(bExpression) ? 1 : -1]
 static_assert(sizeof(bool) == sizeof(uint8_t), "bool is not 1 byte");
 static_assert(sizeof(bool*) == 2, "pointer is not 4 bytes");
-
-static uint8_t chord = 0;
-
-#define CHORD_TIMELINE_SIZE 32
-static uint8_  chord_timeframe                      = 0;
-static uint8_t chord_timetrack[CHORD_TIMELINE_SIZE] = {0};
 
 // A chord is a sequence of keys that are pressed at the same time.
 // They result in a dedicated keycode for that chord:
 // e.g. SC_A | SC_S = KC_ASTR, *
 struct chord_t
 {
-    uint8_t  chord;
+    uint32_t chord;
     uint16_t keycode;
 };
 
+#define SCBIT(SC) (1 << (SC - SC_BEGIN))
+
 // If these are sorted by value then we can use a binary search
 // Large to small
-static chord_t achords[] = {
-    {SC_A | SC_E | SC_F, KC_LCBR }, // [
-    {SC_A | SC_E,        KC_ASTR }, // *
-    {SC_A | SC_D,        KC_EXLM }, // !
-    {SC_SLS,             KC_SLSH },
-    {SC_DOT,             KC_DOT  },
-    {SC_CMA,             KC_COMMA},
-    {SC_BPC,             KC_BKSPC},
-    {SC_SPC,             KC_SPACE},
-    {SC_SCN,             KC_SCLN },
-    {SC_Z,               KC_Z    },
-    {SC_Y,               KC_Y    },
-    {SC_X,               KC_X    },
-    {SC_W,               KC_W    },
-    {SC_V,               KC_V    },
-    {SC_U,               KC_U    },
-    {SC_T,               KC_T    },
-    {SC_S,               KC_S    },
-    {SC_R,               KC_R    },
-    {SC_Q,               KC_Q    },
-    {SC_P,               KC_P    },
-    {SC_O,               KC_O    },
-    {SC_N,               KC_N    },
-    {SC_M,               KC_M    },
-    {SC_L,               KC_L    },
-    {SC_K,               KC_K    },
-    {SC_J,               KC_J    },
-    {SC_I,               KC_I    },
-    {SC_H,               KC_H    },
-    {SC_G,               KC_G    },
-    {SC_F,               KC_F    },
-    {SC_E,               KC_E    },
-    {SC_D,               KC_D    },
-    {SC_C,               KC_C    },
-    {SC_B,               KC_B    },
-    {SC_A,               KC_A    },
+/*
+static struct chord_t achords[] = {
+    {SCBIT(SC_A) | SCBIT(SC_E) | SCBIT(SC_F), KC_LCBR}, // [
+    {SCBIT(SC_A) | SCBIT(SC_E),               KC_ASTR}, // *
+    {SCBIT(SC_A) | SCBIT(SC_D),               KC_EXLM}, // !
 };
-static uint8_t nchords = sizeof(chords) / sizeof(chord_t);
 
-static void process_chording(void)
+static uint8_t nchords = sizeof(achords) / sizeof(struct chord_t);
+*/
+struct chord_key_t
 {
-    // So here we scan the timetrack and see what we need to emit
-    // Chords are emitted upon key release
-}
+    uint8_t index;
+    uint8_t timeframe;
+};
 
-void process_record_chord(uint16_t keycode, keyrecord_t* record)
+static int8_t             keys_read       = 0;
+static int8_t             keys_write      = 0;
+static struct chord_key_t keys_track[16]  = {0};
+static uint8_t            chord_timeframe = 0;
+
+static void process_record_chord(uint16_t keycode, keyrecord_t* record)
 {
     // key repeat will also occur
 
-    if (keycode >= SC_BEGIN && keycode <= SC_H)
+    if (keycode >= SC_BEGIN && keycode <= SC_END)
     {
+        int8_t sc = keycode - SC_BEGIN;
         if (record->event.pressed)
         {
-            chord |= (1 << (keycode - SC_BEGIN));
+            keys_track[keys_write & 0x0F].index     = sc;
+            keys_track[keys_write & 0x0F].timeframe = chord_timeframe;
+            keys_write                              = (keys_write + 1) & 0x0F;
+
+            int8_t keys_pressed;
+            if (keys_write > keys_read)
+            {
+                keys_pressed = keys_write - keys_read;
+            }
+            else
+            {
+                keys_pressed = keys_write + 16 - keys_read;
+            }
+            /*
+                        if (keys_pressed == 2)
+                        {
+                            // if the timeframe of the previous key is out of chording range then emit that key
+                            // see if we can identify that these 3 keys are pressed around the same timeframe
+                            // if so, we can emit a chord
+                            uint8_t d;
+                            uint8_t d1 = keys_track[(keys_read + 1) & 0x0F].timeframe;
+                            uint8_t d2 = keys_track[keys_read].timeframe;
+                            if (d2 < d1)
+                            {
+                                d = d1 - d2;
+                            }
+                            else
+                            {
+                                d = d2 - d1;
+                            }
+
+                            if (d <= 2)
+                            {
+                                // find and emit chord
+                                send_string("Chord2");
+                            }
+                        }
+                        */
+            if (keys_pressed == 4)
+            {
+                // Maximum number of keys pressed for a chord is 4
+                // see if we can identify that these 3 keys are pressed around the same timeframe
+                // if so, we can emit a chord
+                uint8_t d;
+                uint8_t d1 = keys_track[(keys_read + 3) & 0x0F].timeframe;
+                uint8_t d2 = keys_track[keys_read].timeframe;
+                if (d2 < d1)
+                {
+                    d = d1 - d2;
+                }
+                else
+                {
+                    d = d2 - d1;
+                }
+
+                if (d <= 2)
+                {
+                    // find and emit chord
+                    send_string("Chord4.2");
+                }
+                else if (d <= 3)
+                {
+                    // find and emit chord
+                    send_string("Chord4.3");
+                }
+                else if (d <= 4)
+                {
+                    // find and emit chord
+                    send_string("Chord4.4");
+                }
+                else if (d <= 5)
+                {
+                    // find and emit chord
+                    send_string("Chord4.5");
+                }
+            }
+            else if (keys_pressed == 6)
+            {
+                // see if we can identify that these 3 keys are pressed around the same timeframe
+                // if so, we can emit a chord
+                uint8_t d;
+                uint8_t d1 = keys_track[(keys_read + 2) & 0x0F].timeframe;
+                uint8_t d2 = keys_track[keys_read].timeframe;
+                if (d2 < d1)
+                {
+                    d = d1 - d2;
+                }
+                else
+                {
+                    d = d2 - d1;
+                }
+
+                if (d <= 2)
+                {
+                    // find and emit chord
+                    send_string("Chord3.2");
+                }
+                else if (d <= 3)
+                {
+                    // find and emit chord
+                    send_string("Chord3.3");
+                }
+                else if (d <= 4)
+                {
+                    // find and emit chord
+                    send_string("Chord3.4");
+                }
+                else 
+                {
+                    // find and emit chord
+                    send_string("Chord3.>");
+                }
+            }
         }
         else
         {
-            chord &= ~(1 << (keycode - SC_BEGIN));
+            // search the released key in the key track and remove it
+            int8_t i = keys_read;
+            while (i != keys_write)
+            {
+                if (keys_track[i].index == sc)
+                {
+                    while (i != keys_write)
+                    {
+                        int8_t n      = (i + 1) & 0x0F;
+                        keys_track[i] = keys_track[n];
+                        i             = n;
+                    }
+                    keys_write = (keys_write - 1) & 0x0F;
+                    break;
+                }
+                i = (i + 1) & 0x0F;
+            }
+
+            // We should also track keys that are released, they should be treated
+            // with the same latency as key presses.
         }
     }
 }
 
+#define CHORDING_PERIOD     10 // ms
+#define CHORD_TIMELINE_SIZE 128
+
+static uint16_t timer_timeframe = 0;
+void            matrix_init_user(void)
+{
+    chord_timeframe = 0;
+    timer_timeframe = 0;
+}
+
 void matrix_scan_user(void)
 {
-    chord_timetrack[chord_timeframe] = chord;
-    chord_timeframe                  = (chord_timeframe + 1) & (CHORD_TIMELINE_SIZE - 1);
+    if (timer_elapsed(timer_timeframe) > CHORDING_PERIOD)
+    {
+        timer_timeframe = timer_read();
+        chord_timeframe = (chord_timeframe + 1) & (CHORD_TIMELINE_SIZE - 1);
+
+        // How do we detect key/chord repeat?
+    }
 }
 
 #else
-void process_record_chord(uint16_t keycode, keyrecord_t* record) {}
+static void process_record_chord(uint16_t keycode, keyrecord_t* record) {}
 #endif
 
 /*

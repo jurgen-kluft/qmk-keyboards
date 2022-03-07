@@ -1,12 +1,6 @@
-#pragma once
-#include QMK_KEYBOARD_H
-
 #define ENABLE_ONESHOT
-
 #ifdef ENABLE_ONESHOT
 #pragma once
-
-#include QMK_KEYBOARD_H
 
 typedef enum {
     ONESHOT_LCTL = 0,

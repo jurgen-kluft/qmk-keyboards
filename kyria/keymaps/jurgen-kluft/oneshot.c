@@ -1,3 +1,5 @@
+#include QMK_KEYBOARD_H
+
 #include "oneshot.h"
 
 #ifdef ENABLE_ONESHOT
