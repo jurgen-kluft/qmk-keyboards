@@ -276,10 +276,10 @@ void matrix_scan_user(void)
         }
         if (keycode != KC_NO)
         {
-            register_code(keycode);
+            register_code16(keycode);
 
             // We actually need to unregister at the moment we release one of the keys of the chord, in that way we have repeating on the chord
-            unregister_code(keycode);
+            unregister_code16(keycode);
         }
 
         chord_current_pkeys_count = 0;
