@@ -202,7 +202,7 @@ bool process_record_cheng(uint16_t keycode, keyrecord_t* record)
                 {
                     uint16_t kc = chord_key_to_keycode(keycode);
                     register_code16(kc);
-                    chord_current_rkeys[chord_current_rkeys_count++] = keycode;
+                    unregister_code16(kc);
 
                     chord_current_etime = chord_current_pkeys_time[i];
 
@@ -231,15 +231,6 @@ bool process_record_cheng(uint16_t keycode, keyrecord_t* record)
                     }
                     break;
                 }
-            }
-
-            if (chord_current_pkeys_count > 1)
-            {
-                chord_current_etime = timer_read() + CHORD_TIMEOUT;
-            }
-            else
-            {
-                chord_current_etime = 0;
             }
         }
         return true;
