@@ -39,3 +39,4 @@ SRC += oneshot.c
 SRC += cushi.c
 SRC += cukey.c
 SRC += feature.c
+SRC += cheng.c
