@@ -47,6 +47,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_SCLN, xxxx,
                          LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_FSYM, KC_FCAPS, LT_MOS
   ),
+  [_STENO] = LAYOUT(
+    xxxx, SC_Q, SC_W, SC_E, SC_R, SC_T,                               SC_Y, SC_U, SC_I,   SC_O,   SC_P,   xxxx,
+    xxxx, SC_A, SC_S, SC_D, SC_F, SC_G,                               SC_H, SC_J, SC_K,   SC_L,   SC_SCN, xxxx,
+    xxxx, SC_Z, SC_X, SC_C, SC_V, SC_B, ____,   xxxx,   xxxx, ____,   SC_N, SC_M, SC_CMA, SC_DOT, SC_SLS, xxxx,
+                      ____, ____, ____, SC_SPC, xxxx,   xxxx, SC_BPC, ____, ____, ____
+  ),
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_E), LSFT(KC_R), LSFT(KC_T),                           LSFT(KC_Y), LSFT(KC_U), LSFT(KC_I),    LSFT(KC_O),  LSFT(KC_P), xxxx,
     xxxx, LSFT(KC_A), LSFT(KC_S), LSFT(KC_D), LSFT(KC_F), LSFT(KC_G),                           LSFT(KC_H), LSFT(KC_J), LSFT(KC_K),    LSFT(KC_L),  KC_UNDS,    xxxx,
@@ -88,12 +94,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, OS_CMD,      OS_ALT,        OS_CTRL,        OS_SHFT,        xxxx,                                KC_F5,     KC_F11, KC_F10, KC_F9, xxxx,  xxxx,
     xxxx, KC_SECRET_1, KC_SECRET_2,   KC_SECRET_3,    KC_SECRET_4,    KC_OS_PDT, ____, xxxx,   xxxx, ____, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx,
                                       ____,           ____,           ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____
-  ),
-  [_STENO] = LAYOUT(
-    xxxx, SC_Q, SC_W, SC_E, SC_R, SC_T,                               SC_Y, SC_U, SC_I,   SC_O,   SC_P,   xxxx,
-    xxxx, SC_A, SC_S, SC_D, SC_F, SC_G,                               SC_H, SC_J, SC_K,   SC_L,   SC_SCN, xxxx,
-    xxxx, SC_Z, SC_X, SC_C, SC_V, SC_B, ____,   xxxx,   xxxx, ____,   SC_N, SC_M, SC_CMA, SC_DOT, SC_SLS, xxxx,
-                      ____, ____, ____, SC_SPC, xxxx,   xxxx, SC_BPC, ____, ____, ____
   )
 };
 // clang-format on
@@ -136,12 +136,16 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 
 #endif
 
-static void process_record_chord(uint16_t keycode, keyrecord_t* record);
+static bool process_record_chord(uint16_t keycode, keyrecord_t* record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
+#ifdef OLED_DRIVER_ENABLE
     process_record_oled(keycode, record);
-    process_record_chord(keycode, record);
+#endif
+
+    if (process_record_chord(keycode, record))
+        return false;
 
     switch (keycode)
     {
@@ -322,25 +326,7 @@ static_assert(sizeof(bool*) == 2, "pointer is not 4 bytes");
 // A chord is a sequence of keys that are pressed at the same time.
 // They result in a dedicated keycode for that chord:
 // e.g. SC_A | SC_S = KC_ASTR, *
-struct chord_t
-{
-    uint32_t chord;
-    uint16_t keycode;
-};
 
-#define SCBIT(SC) (1 << (SC - SC_BEGIN))
-
-// If these are sorted by value then we can use a binary search
-// Large to small
-/*
-static struct chord_t achords[] = {
-    {SCBIT(SC_A) | SCBIT(SC_E) | SCBIT(SC_F), KC_LCBR}, // [
-    {SCBIT(SC_A) | SCBIT(SC_E),               KC_ASTR}, // *
-    {SCBIT(SC_A) | SCBIT(SC_D),               KC_EXLM}, // !
-};
-
-static uint8_t nchords = sizeof(achords) / sizeof(struct chord_t);
-*/
 struct chord_key_t
 {
     uint8_t index;
@@ -348,110 +334,221 @@ struct chord_key_t
 };
 
 #if 1
-static uint16_t chord_to_keycode(uint8_t sc)
+static uint16_t chord_key_to_keycode(uint16_t sc)
 {
-    uint16_t keycode = 0;
+    uint16_t keycode = sc;
     switch (sc)
     {
-        case (SC_A - SC_BEGIN)...(SC_Z - SC_BEGIN): keycode = KC_A + sc; break;
-        case (SC_SCN - SC_BEGIN): keycode = KC_SCLN; break;
-        case (SC_SPC - SC_BEGIN): keycode = KC_SPACE; break;
-        case (SC_BPC - SC_BEGIN): keycode = KC_BSPACE; break;
-        case (SC_CMA - SC_BEGIN): keycode = KC_COMMA; break;
-        case (SC_DOT - SC_BEGIN): keycode = KC_DOT; break;
-        case (SC_SLS - SC_BEGIN): keycode = KC_SLASH; break;
+        case SC_A ... SC_Z: keycode = KC_A + (sc - SC_BEGIN); break;
+        case SC_SCN: keycode = KC_SCLN; break;
+        case SC_SPC: keycode = KC_SPACE; break;
+        case SC_BPC: keycode = KC_BSPACE; break;
+        case SC_CMA: keycode = KC_COMMA; break;
+        case SC_DOT: keycode = KC_DOT; break;
+        case SC_SLS: keycode = KC_SLASH; break;
     }
     return keycode;
 }
+
+#define CHORD2(sc1, sc2)           (((uint32_t)1 << sc1) | ((uint32_t)1 << sc2))
+#define CHORD3(sc1, sc2, sc3)      (((uint32_t)1 << sc1) | ((uint32_t)1 << sc2) | ((uint32_t)1 << sc3))
+#define CHORD4(sc1, sc2, sc3, sc4) (((uint32_t)1 << sc1) | ((uint32_t)1 << sc2) | ((uint32_t)1 << sc3) | ((uint32_t)1 << sc4))
+
+static uint16_t chord2_to_keycode(uint8_t sc1, uint8_t sc2)
+{
+    uint16_t keycode = KC_NO;
+    uint32_t regoc   = CHORD2(sc1, sc2);
+    switch (regoc)
+    {
+        case CHORD2((SC_F - SC_BEGIN), (SC_J - SC_BEGIN)): keycode = KC_ENTER; break;
+        case CHORD2((SC_F - SC_BEGIN), (SC_K - SC_BEGIN)): keycode = KC_ESC; break;
+        case CHORD2((SC_F - SC_BEGIN), (SC_L - SC_BEGIN)): keycode = KC_BSPACE; break;
+    }
+    return keycode;
+}
+
+static uint16_t chord3_to_keycode(uint8_t sc1, uint8_t sc2, uint8_t sc3)
+{
+    uint16_t keycode = KC_NO;
+    uint32_t regoc   = CHORD3(sc1, sc2, sc3);
+    switch (regoc)
+    {
+        case CHORD3((SC_D - SC_BEGIN), (SC_F - SC_BEGIN), (SC_J - SC_BEGIN)): keycode = KC_LPRN; break;
+        case CHORD3((SC_D - SC_BEGIN), (SC_F - SC_BEGIN), (SC_K - SC_BEGIN)): keycode = KC_RPRN; break;
+    }
+    return keycode;
+}
+
+static uint16_t chord4_to_keycode(uint8_t sc1, uint8_t sc2, uint8_t sc3, uint8_t sc4)
+{
+    uint16_t keycode = KC_NO;
+    uint32_t regoc   = CHORD4(sc1, sc2, sc3, sc4);
+    switch (regoc)
+    {
+        case CHORD4((SC_J - SC_BEGIN), (SC_K - SC_BEGIN), (SC_D - SC_BEGIN), (SC_F - SC_BEGIN)): keycode = KC_SPACE; break;
+    }
+    return keycode;
+}
+
 #endif
 
-static int8_t             chord_read      = 0;
-static int8_t             chord_write     = 0;
-static int8_t             chord_count     = 0;
-static struct chord_key_t chord_track[16] = {0};
-static int8_t             keys_read       = 0;
-static int8_t             keys_write      = 0;
-static uint8_t            keys_track[16]  = {0};
-static uint8_t            chord_timeframe = 0;
+static int8_t             chord_pkey_read      = 0;
+static int8_t             chord_pkey_write     = 0;
+static int8_t             chord_pkey_count     = 0;
+static struct chord_key_t chord_pkey_track[16] = {0};
+static int8_t             chord_rkey_read      = 0;
+static int8_t             chord_rkey_write     = 0;
+static uint16_t           chord_rkey_track[16] = {0};
+static uint8_t            chord_timeframe      = 0;
 
-static void process_record_chord(uint16_t keycode, keyrecord_t* record)
+static bool process_record_chord(uint16_t keycode, keyrecord_t* record)
 {
     // key repeat will also occur
-
     if (keycode >= SC_BEGIN && keycode <= SC_END)
     {
         int8_t sc = keycode - SC_BEGIN;
         if (record->event.pressed)
         {
-            chord_track[chord_write].index      = sc;
-            chord_track[chord_write].timeframe  = chord_timeframe;
-            chord_write                         = (chord_write + 1) & 0x0F;
-            chord_count++;
-
-            // So if we have a sliding window of 30 ms we should be able to identify chords and normal keys
-
-            // 1. If the timing from one key to the next is more than 25 ms then we have a normal key
-            // 2. If the timing from one key to the next is less than 25 ms then we have the start of a chord
-            //    We now need to wait until the first key expires once that happens we identify the chord.
+            chord_pkey_track[chord_pkey_write].index     = sc;
+            chord_pkey_track[chord_pkey_write].timeframe = chord_timeframe;
+            chord_pkey_write                             = (chord_pkey_write + 1) & 0x0F;
+            chord_pkey_count++;
         }
         else
         {
-            // search the released key in the key track and remove it
-            int8_t i = keys_read;
-            while (i != keys_write)
+            int8_t i = chord_pkey_read;
+            while (i != chord_pkey_write)
             {
-                if (keys_track[i] == sc)
+                if (chord_pkey_track[i].index == sc)
                 {
-                    uint16_t key = chord_to_keycode(keys_track[i]);
-                    unregister_code16(key);
+                    uint16_t key = chord_key_to_keycode(keycode);
+                    register_code16(key);
 
-                    while (i != keys_write)
+                    chord_rkey_track[chord_rkey_write] = keycode;
+                    chord_rkey_write                   = (chord_rkey_write + 1) & 0x0F;
+
+                    while (i != chord_pkey_write)
                     {
-                        int8_t n      = (i + 1) & 0x0F;
-                        keys_track[i] = keys_track[n];
-                        i             = n;
+                        int8_t n            = (i + 1) & 0x0F;
+                        chord_pkey_track[i] = chord_pkey_track[n];
+                        i                   = n;
                     }
-                    keys_write = (keys_write - 1) & 0x0F;
+                    chord_pkey_write = (chord_pkey_write - 1) & 0x0F;
                     break;
                 }
                 i = (i + 1) & 0x0F;
             }
 
-            // We should also track keys that are released, they should be treated
-            // with the same latency as key presses.
+            // search the released key in the key track and remove it
+            i = chord_rkey_read;
+            while (i != chord_rkey_write)
+            {
+                if (chord_rkey_track[i] == keycode)
+                {
+                    uint16_t key = chord_key_to_keycode(keycode);
+                    unregister_code16(key);
+
+                    while (i != chord_rkey_write)
+                    {
+                        int8_t n            = (i + 1) & 0x0F;
+                        chord_rkey_track[i] = chord_rkey_track[n];
+                        i                   = n;
+                    }
+                    chord_rkey_write = (chord_rkey_write - 1) & 0x0F;
+                    break;
+                }
+                i = (i + 1) & 0x0F;
+            }
+
         }
+
+        return true;
     }
+    return false;
 }
 
 void matrix_init_user(void) { chord_timeframe = 0; }
 
 void matrix_scan_user(void)
 {
-    // every unit '1' is 4ms
-    chord_timeframe = ((timer_read() >> 2) & 0xFF);
+    // every unit '1' is 1 ms
+    chord_timeframe = timer_read();
 
-    // scan the chording track and emit keys that will never form a chord
-    uint8_t d1 = chord_timeframe;
-    while (chord_read != chord_write)
+    // We do the processing in a sliding window of 30 ms
+    // Track the keys that are expired (out of the window)
+    // Identify any chords in the window
+
     {
-        uint8_t d2 = chord_track[chord_read].timeframe;
-        uint8_t d  = d1 - d2;
-
-        if (d >= 7)
+        // We should only identify a chord when the first key in the chord track is close
+        // to being expired. We need to do this to allow for identifying complete chords.
+        // A chord can be 2, 3 or 4 keys long.
+        if (chord_pkey_count > 1)
         {
-            // send the key and remove it from the chord track and
-            // add it to the keys track
-            uint16_t key = chord_to_keycode(chord_track[chord_read].index);
-            register_code16(key);
-            keys_track[keys_write] = chord_track[chord_read].index;
-            keys_write             = (keys_write + 1) & 0x0F;
-        }
-        else
-        {
-            break;
-        }
+            uint8_t d = chord_timeframe - chord_pkey_track[chord_pkey_read].timeframe;
+            if (d >= 20)
+            {
+                d = chord_pkey_track[chord_pkey_read + chord_pkey_count - 1].timeframe - chord_pkey_track[chord_pkey_read].timeframe;
+                if (d < 28)
+                {
+                    uint8_t k1 = chord_pkey_track[chord_pkey_read].index;
+                    uint8_t k2 = chord_pkey_track[(chord_pkey_read + 1) & 0x0F].index;
 
-        chord_read = (chord_read + 1) & 0x0F;
+                    uint16_t keycode = KC_NO;
+                    switch (chord_pkey_count)
+                    {
+                        case 2:
+                        {
+                            keycode = chord2_to_keycode(k1, k2);
+                            break;
+                        }
+                        case 3:
+                        {
+                            uint8_t k3 = chord_pkey_track[(chord_pkey_read + 2) & 0x0F].index;
+                            keycode    = chord3_to_keycode(k1, k2, k3);
+                            break;
+                        }
+                        case 4:
+                        {
+                            uint8_t k3 = chord_pkey_track[(chord_pkey_read + 2) & 0x0F].index;
+                            uint8_t k4 = chord_pkey_track[(chord_pkey_read + 3) & 0x0F].index;
+                            keycode    = chord4_to_keycode(k1, k2, k3, k4);
+                            break;
+                        }
+                    }
+
+                    if (keycode != KC_NO || (chord_pkey_count >= 3))
+                    {
+                        if (keycode != KC_NO)
+                            tap_code16(keycode);
+                        chord_pkey_read  = chord_pkey_write;
+                        chord_pkey_count = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    {
+        while (chord_pkey_read != chord_pkey_write)
+        {
+            const uint8_t d = chord_timeframe - chord_pkey_track[chord_pkey_read].timeframe;
+            if (d >= 28)
+            {
+                // send the key and remove it from the chord track and
+                // add it to the keys track so that it can be released
+                uint16_t keycode = SC_BEGIN + chord_pkey_track[chord_pkey_read].index;
+                uint16_t key     = chord_key_to_keycode(keycode);
+                register_code16(key);
+                chord_rkey_track[chord_rkey_write] = keycode;
+                chord_rkey_write                   = (chord_rkey_write + 1) & 0x0F;
+            }
+            else
+            {
+                break;
+            }
+            chord_pkey_read = (chord_pkey_read + 1) & 0x0F;
+            chord_pkey_count--;
+        }
     }
 }
 
