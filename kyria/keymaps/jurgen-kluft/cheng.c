@@ -2,6 +2,8 @@
 #include "cheng.h"
 #include "cukey.h"
 
+#define CHENG_ENABLE
+
 #ifdef CHENG_ENABLE
 
 #define static_assert(bExpression, msg) typedef uint8_t assert_failed[(bExpression) ? 1 : -1]
@@ -104,7 +106,6 @@ N = 25 ms, no further key comes in and the chord is registered after 25 ms
 */
 static uint16_t chord_current_etime          = 0;
 static uint8_t  chord_current_timeout        = 0;
-static uint8_t  chord_current_timestart      = 0;
 static int8_t   chord_current_pkeys_count    = 0;
 static uint16_t chord_current_pkeys[16]      = {0};
 static uint16_t chord_current_pkeys_time[16] = {0};
@@ -120,45 +121,76 @@ bool process_record_cheng(uint16_t keycode, keyrecord_t* record)
         if (record->event.pressed)
         {
             uint16_t timer = timer_read();
+
+            int8_t u = 0;
             if (chord_current_pkeys_count == 0)
             {
-                chord_current_timeout                               = CHORD_TIMEOUT;
-                chord_current_timestart                             = timer;
+                chord_current_timeout                               = 30;
                 chord_current_etime                                 = timer;
                 chord_current_pkeys_time[chord_current_pkeys_count] = timer;
                 chord_current_pkeys[chord_current_pkeys_count++]    = keycode;
             }
-            else
+            else if (chord_current_pkeys_count == 1)
             {
-                if (timer_elapsed(chord_current_pkeys_time[0]) >= chord_current_timeout)
+                if ((timer - chord_current_etime) > chord_current_timeout)
                 {
-                    // release the first key
-                    chord_current_rkeys[chord_current_rkeys_count++] = chord_current_pkeys[0];
-                    uint16_t kc                                      = chord_key_to_keycode(keycode);
-                    register_code16(kc);
-
-                    chord_current_pkeys_count -= 1;
-                    for (int8_t i = 0; i < chord_current_pkeys_count; i++)
-                    {
-                        chord_current_pkeys_time[i] = chord_current_pkeys[i + 1];
-                        chord_current_pkeys[i]      = chord_current_pkeys[i + 1];
-                    }
-
-                    chord_current_timeout   = CHORD_TIMEOUT;
-                    chord_current_etime     = chord_current_pkeys_time[0];
-                    chord_current_timestart = chord_current_pkeys_time[0];
-
-                    chord_current_pkeys_time[chord_current_pkeys_count] = timer;
-                    chord_current_pkeys[chord_current_pkeys_count++]    = keycode;
+                    u = 1;
                 }
                 else
                 {
-                    // we now have an initial chord
-                    chord_current_timestart                             = timer;
-                    chord_current_timeout                               = CHORD_TIMEOUT - (timer - chord_current_timestart);
                     chord_current_etime                                 = timer;
+                    chord_current_timeout                               = 30;
                     chord_current_pkeys_time[chord_current_pkeys_count] = timer;
                     chord_current_pkeys[chord_current_pkeys_count++]    = keycode;
+                }
+            }
+            else if (chord_current_pkeys_count == 2)
+            {
+                if (timer - chord_current_etime > chord_current_timeout)
+                {
+                    u = 2;
+                }
+                else
+                {
+                    chord_current_etime                                 = timer;
+                    chord_current_timeout                               = 30;
+                    chord_current_pkeys_time[chord_current_pkeys_count] = timer;
+                    chord_current_pkeys[chord_current_pkeys_count++]    = keycode;
+                }
+            }
+            else if (chord_current_pkeys_count == 3)
+            {
+                if (timer - chord_current_etime > chord_current_timeout)
+                {
+                    u = 3;
+                }
+                else
+                {
+                    chord_current_pkeys_time[chord_current_pkeys_count] = timer;
+                    chord_current_pkeys[chord_current_pkeys_count++]    = keycode;
+                }
+            }
+
+            if (u > 0)
+            {
+                int8_t i = 0;
+                while (i < u)
+                {
+                    uint16_t kc = chord_key_to_keycode(chord_current_pkeys[i]);
+                    register_code16(kc);
+                    chord_current_rkeys[chord_current_rkeys_count++] = chord_current_pkeys[i];
+                    i += 1;
+                }
+                chord_current_pkeys_count -= u;
+                while (i < chord_current_pkeys_count)
+                {
+                    chord_current_pkeys[i]      = chord_current_pkeys[i + u];
+                    chord_current_pkeys_time[i] = chord_current_pkeys_time[i + u];
+                    i++;
+                }
+                if (chord_current_pkeys_count > 0)
+                {
+                    chord_current_etime = chord_current_pkeys_time[0];
                 }
             }
         }
@@ -171,6 +203,8 @@ bool process_record_cheng(uint16_t keycode, keyrecord_t* record)
                     uint16_t kc = chord_key_to_keycode(keycode);
                     register_code16(kc);
                     chord_current_rkeys[chord_current_rkeys_count++] = keycode;
+
+                    chord_current_etime = chord_current_pkeys_time[i];
 
                     chord_current_pkeys_count--;
                     while (i < chord_current_pkeys_count)
@@ -215,7 +249,6 @@ bool process_record_cheng(uint16_t keycode, keyrecord_t* record)
 
 void matrix_init_user(void)
 {
-    chord_current_timestart   = 0;
     chord_current_pkeys_count = 0;
     chord_current_rkeys_count = 0;
     chord_current_etime       = 0;
@@ -225,7 +258,7 @@ void matrix_scan_user(void)
 {
     // if we have more than one key that is pressed and the timer has expired
     // then we register the chord
-    if (chord_current_pkeys_count > 1 && (timer_elapsed(chord_current_timestart) >= CHORD_TIMEOUT))
+    if (chord_current_pkeys_count > 1 && (timer_elapsed(chord_current_etime) >= chord_current_timeout))
     {
         uint16_t keycode = KC_NO;
         if (chord_current_pkeys_count == 2)
@@ -249,7 +282,6 @@ void matrix_scan_user(void)
             unregister_code(keycode);
         }
 
-        chord_current_timestart   = 0;
         chord_current_pkeys_count = 0;
         chord_current_etime       = 0;
     }
@@ -257,7 +289,7 @@ void matrix_scan_user(void)
 
 #else
 
-static bool process_record_chord(uint16_t keycode, keyrecord_t* record)
+bool process_record_cheng(uint16_t keycode, keyrecord_t* record)
 {
     if (keycode >= SC_BEGIN && keycode <= SC_END)
     {
