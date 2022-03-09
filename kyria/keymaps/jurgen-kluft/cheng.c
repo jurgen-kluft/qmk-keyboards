@@ -32,6 +32,7 @@ static uint16_t chord_key_to_keycode(uint16_t sc)
 }
 #endif
 
+#define CHORD1(sc1)                (((uint32_t)1 << sc1))
 #define CHORD2(sc1, sc2)           (((uint32_t)1 << sc1) | ((uint32_t)1 << sc2))
 #define CHORD3(sc1, sc2, sc3)      (((uint32_t)1 << sc1) | ((uint32_t)1 << sc2) | ((uint32_t)1 << sc3))
 #define CHORD4(sc1, sc2, sc3, sc4) (((uint32_t)1 << sc1) | ((uint32_t)1 << sc2) | ((uint32_t)1 << sc3) | ((uint32_t)1 << sc4))
@@ -84,6 +85,12 @@ static uint16_t chord_to_keycodex(uint32_t scx)
     uint16_t keycode = KC_NO;
     switch (scx)
     {
+        case CHORD1((SC_SCN - SC_BEGIN)): keycode = KC_SCLN; break;
+        case CHORD1((SC_SPC - SC_BEGIN)): keycode = KC_SPACE; break;
+        case CHORD1((SC_BPC - SC_BEGIN)): keycode = KC_BSPACE; break;
+        case CHORD1((SC_CMA - SC_BEGIN)): keycode = KC_COMMA; break;
+        case CHORD1((SC_DOT - SC_BEGIN)): keycode = KC_DOT; break;
+        case CHORD1((SC_SLS - SC_BEGIN)): keycode = KC_SLASH; break;
         case CHORD2((SC_F - SC_BEGIN), (SC_J - SC_BEGIN)): keycode = KC_ENTER; break;
         case CHORD2((SC_F - SC_BEGIN), (SC_K - SC_BEGIN)): keycode = KC_ESC; break;
         case CHORD2((SC_F - SC_BEGIN), (SC_L - SC_BEGIN)): keycode = KC_BSPACE; break;
@@ -161,7 +168,7 @@ void matrix_scan_user(void)
         chord_scanned_nkeys = chord_current_nkeys;
         chord_current_timer = timer_read();
     }
-    if (chord_scanned_nkeys > 1 && (timer_elapsed(chord_current_timer) >= 100))
+    if (chord_scanned_nkeys >= 1 && (timer_elapsed(chord_current_timer) >= 100))
     {
         if (chord_used_bits != chord_scanned_bits)
         {
