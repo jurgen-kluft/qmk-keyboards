@@ -6,6 +6,16 @@
 
 #ifdef CHENG_ENABLE
 
+/*
+
+We could make it so that when we press/release the NAV key we make combo scanning active.
+This would allow us to be able to type in a normal manner and do combos without the weird
+delay that comes with it.
+
+We deactivate automatically after a combo or a normal combo key press/release.
+
+*/
+
 #define static_assert(bExpression, msg) typedef uint8_t assert_failed[(bExpression) ? 1 : -1]
 static_assert(sizeof(bool) == sizeof(uint8_t), "bool is not 1 byte");
 static_assert(sizeof(bool*) == 2, "pointer is not 4 bytes");
