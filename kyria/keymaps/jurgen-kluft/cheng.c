@@ -2,7 +2,7 @@
 #include "cheng.h"
 #include "cukey.h"
 
-#define CHENG_ENABLE
+//#define CHENG_ENABLE
 
 #ifdef CHENG_ENABLE
 
@@ -24,7 +24,7 @@ static_assert(sizeof(bool*) == 2, "pointer is not 4 bytes");
 // They result in a dedicated keycode for that chord:
 // e.g. SC_A | SC_S = KC_ASTR, *
 
-#if 1
+#if 0
 static uint16_t chord_key_to_keycode(uint16_t sc)
 {
     uint16_t keycode = sc;
@@ -127,16 +127,43 @@ bool process_record_cheng(uint16_t keycode, keyrecord_t* record)
     {
         if (chord_current_keycode != KC_NO)
         {
-            unregister_code16(chord_current_keycode);
+   //         unregister_code16(chord_current_keycode);
             chord_current_keycode = KC_NO;
         }
 
-        chord_current_timer = timer_read();
         int8_t bit          = keycode - SC_BEGIN;
         if (record->event.pressed)
         {
             chord_current_nkeys++;
             chord_current_bits |= ((uint32_t)1 << bit);
+            if (chord_current_nkeys == 2)
+            {
+                uint8_t d = timer_elapsed(chord_current_timer);
+                switch(d)
+                {
+                    case 0: tap_code16(KC_0); break;
+                    case 1: tap_code16(KC_1); break;
+                    case 2: tap_code16(KC_2); break;
+                    case 3: tap_code16(KC_3); break;
+                    case 4: tap_code16(KC_4); break;
+                    case 5: tap_code16(KC_5); break;
+                    case 6: tap_code16(KC_6); break;
+                    case 7: tap_code16(KC_7); break;
+                    case 8: tap_code16(KC_8); break;
+                    case 9: tap_code16(KC_9); break;
+                    case 10: tap_code16(KC_A); break;
+                    case 11: tap_code16(KC_B); break;
+                    case 12: tap_code16(KC_C); break;
+                    case 13: tap_code16(KC_D); break;
+                    case 14: tap_code16(KC_E); break;
+                    case 15: tap_code16(KC_F); break;
+                    case 16: tap_code16(KC_G); break;
+                    case 17: tap_code16(KC_H); break;
+                    case 18: tap_code16(KC_I); break;
+                    case 19: tap_code16(KC_J); break;
+                    case 20: tap_code16(KC_K); break;
+                }
+            }
         }
         else
         {
@@ -150,11 +177,13 @@ bool process_record_cheng(uint16_t keycode, keyrecord_t* record)
             else
             {
                 chord_current_bits &= ~((uint32_t)1 << bit);
-                uint16_t kc = chord_key_to_keycode(keycode);
-                register_code16(kc);
-                unregister_code16(kc);
+//                uint16_t kc = chord_key_to_keycode(keycode);
+//                register_code16(kc);
+//                unregister_code16(kc);
             }
         }
+
+        chord_current_timer = timer_read();
         return true;
     }
     return false;
@@ -185,7 +214,7 @@ void matrix_scan_user(void)
             uint16_t keycode = chord_to_keycodex(chord_scanned_bits);
             if (keycode != KC_NO)
             {
-                register_code16(keycode);
+ //               register_code16(keycode);
                 chord_current_keycode = keycode;
                 chord_current_timer   = timer_read();
                 chord_used_bits = chord_scanned_bits;

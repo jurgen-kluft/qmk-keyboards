@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    ____,       ____,        ____,      ____, xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
   ),
   [_RAISE] = LAYOUT(
-    xxxx, xxxx,        xxxx,          xxxx,           xxxx,           xxxx,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx,
+    xxxx, KC_SECRET_5, KC_SECRET_6,   KC_SECRET_7,    KC_SECRET_8,    xxxx,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx,
     xxxx, OS_CMD,      OS_ALT,        OS_CTRL,        OS_SHFT,        xxxx,                                KC_F5,     KC_F11, KC_F10, KC_F9, xxxx,  xxxx,
     xxxx, KC_SECRET_1, KC_SECRET_2,   KC_SECRET_3,    KC_SECRET_4,    KC_OS_PDT, ____, xxxx,   xxxx, ____, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx,
                                       ____,           ____,           ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____
@@ -168,6 +168,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
             if (record->event.pressed)
             {
                 SEND_STRING(SECRET_4);
+            }
+            return true;
+        case KC_SECRET_5:
+            if (record->event.pressed)
+            {
+                SEND_STRING(SECRET_5);
+            }
+            return true;
+        case KC_SECRET_6:
+            if (record->event.pressed)
+            {
+                SEND_STRING(SECRET_6);
+            }
+            return true;
+        case KC_SECRET_7:
+            if (record->event.pressed)
+            {
+                SEND_STRING(SECRET_7);
+            }
+            return true;
+        case KC_SECRET_8:
+            if (record->event.pressed)
+            {
+                SEND_STRING(SECRET_8);
             }
             return true;
         case KC_DCOLN:

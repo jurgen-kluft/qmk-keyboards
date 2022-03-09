@@ -21,6 +21,10 @@ enum eCustomKeyCodes {
     KC_SECRET_2,
     KC_SECRET_3,
     KC_SECRET_4,
+    KC_SECRET_5,
+    KC_SECRET_6,
+    KC_SECRET_7,
+    KC_SECRET_8,
 
     OS_SHFT,
     OS_CTRL,
