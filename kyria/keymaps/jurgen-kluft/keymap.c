@@ -39,22 +39,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ____, ____, ____, SC_SPC, xxxx,   xxxx, SC_BPC, ____, ____, ____                          
   ),
   [_QWERTY_CAPS] = LAYOUT(
-    xxxx, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T),                           S(KC_Y), S(KC_U), S(KC_I),    S(KC_O),  S(KC_P), xxxx, 
-    xxxx, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G),                           S(KC_H), S(KC_J), S(KC_K),    S(KC_L),  KC_UNDS,    xxxx, 
-    xxxx, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), ____, xxxx,   xxxx, ____, S(KC_N), S(KC_M), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx, 
-                                  ____,       ____,       ____,       ____, xxxx,   xxxx, ____, ____,       ____,       ____                                          
+    xxxx, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T),                           S(KC_Y), S(KC_U), S(KC_I),       S(KC_O),     S(KC_P), xxxx, 
+    xxxx, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G),                           S(KC_H), S(KC_J), S(KC_K),       S(KC_L),     KC_UNDS, xxxx, 
+    xxxx, S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), ____, xxxx,   xxxx, ____, S(KC_N), S(KC_M), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,   xxxx, 
+                            ____,    ____,    ____,    ____, xxxx,   xxxx, ____, ____,    ____,    ____                                       
   ),
   [_RSTHD_CAPS] = LAYOUT(
-    xxxx, S(KC_J), S(KC_C), S(KC_Y), S(KC_F), S(KC_K),                                 S(KC_Z), S(KC_L), KC_BSPACE,     S(KC_U),  S(KC_Q), xxxx, 
-    xxxx, S(KC_R), S(KC_S), S(KC_T), S(KC_H), S(KC_D),                                 S(KC_M), S(KC_N), S(KC_A),    S(KC_I),  S(KC_O), xxxx, 
-    xxxx, KC_UNDS,    S(KC_V), S(KC_G), S(KC_P), S(KC_B), ____, xxxx,   xxxx, ____,       S(KC_X), S(KC_W), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,      xxxx, 
-                                  ____,       ____,       ____,       ____, xxxx,   xxxx, S(KC_E), ____,       ____,       ____                                          
+    xxxx, S(KC_J), S(KC_C), S(KC_Y), S(KC_F), S(KC_K),                              S(KC_Z), S(KC_L), KC_BSPACE,     S(KC_U),     S(KC_Q), xxxx, 
+    xxxx, S(KC_R), S(KC_S), S(KC_T), S(KC_H), S(KC_D),                              S(KC_M), S(KC_N), S(KC_A),       S(KC_I),     S(KC_O), xxxx, 
+    xxxx, KC_UNDS, S(KC_V), S(KC_G), S(KC_P), S(KC_B), ____, xxxx,   xxxx, ____,    S(KC_X), S(KC_W), KC_COMMA_QUES, KC_DOT_EXCL, KC_AT,   xxxx, 
+                            ____,    ____,    ____,    ____, xxxx,   xxxx, S(KC_E), ____,    ____,    ____                                       
   ),
   [_NUM] = LAYOUT(
-    xxxx, xxxx, xxxx, KC_MS_BTN2, xxxx, xxxx,                                xxxx, KC_5, KC_6,     KC_7, KC_8, xxxx, 
-    xxxx, xxxx, xxxx, KC_9,       KC_0, xxxx,                                xxxx, KC_1, KC_2,     KC_3, KC_4, xxxx, 
-    xxxx, xxxx, xxxx, xxxx,       xxxx, xxxx, ____, xxxx,   xxxx, ____,      xxxx, xxxx, ____,     ____, xxxx, xxxx, 
-                      KC_SPACE,   ____, ____, ____, xxxx,   xxxx, KC_BSPACE, ____, ____, KC_SPACE                    
+    xxxx, xxxx, xxxx, xxxx, xxxx, xxxx,                                xxxx, KC_5, KC_6, KC_7, KC_8, xxxx, 
+    xxxx, xxxx, xxxx, KC_9, KC_0, xxxx,                                xxxx, KC_1, KC_2, KC_3, KC_4, xxxx, 
+    xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, ____, xxxx,   xxxx, ____,      xxxx, xxxx, ____, ____, xxxx, xxxx, 
+                      ____, ____, ____, ____, xxxx,   xxxx, KC_BSPACE, ____, ____, ____                    
   ),
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
