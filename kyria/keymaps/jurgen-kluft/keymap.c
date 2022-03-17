@@ -6,7 +6,6 @@
 #include "cukey.h"
 #include "feature.h"
 #include "cheng.h"
-#include "secrets.x"
 
 #define KC_TRANS KC_TRANSPARENT
 #define ____     KC_TRANSPARENT
@@ -14,6 +13,12 @@
 #define LT_MOS   TG(_MOUS)
 #define LT_STENO TG(_STENO)
 #define STENO_TIMING
+
+#if (__has_include("secrets.x") && !defined(NO_SECRETS))
+#include "secrets.x"
+#else
+static const char * const gSecrets[] = {  "test1",  "test2",  "test3",  "test4",  "test5",  "test6",  "test7",  "test8" };
+#endif
 
 
 // Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~
@@ -51,10 +56,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ____,    ____,    ____,    ____, xxxx,   xxxx, S(KC_E), ____,    ____,    ____                                       
   ),
   [_NUM] = LAYOUT(
-    xxxx, xxxx, xxxx, xxxx, xxxx, xxxx,                                xxxx, KC_5, KC_6, KC_7, KC_8, xxxx, 
-    xxxx, xxxx, xxxx, KC_9, KC_0, xxxx,                                xxxx, KC_1, KC_2, KC_3, KC_4, xxxx, 
-    xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, ____, xxxx,   xxxx, ____,      xxxx, xxxx, ____, ____, xxxx, xxxx, 
-                      ____, ____, ____, ____, xxxx,   xxxx, KC_BSPACE, ____, ____, ____                    
+    xxxx, xxxx, xxxx, KC_MINUS, KC_PLUS,  xxxx,                                    xxxx, KC_5, KC_6, KC_7, KC_8, xxxx, 
+    xxxx, xxxx, xxxx, KC_9,     KC_0,     KC_EQUAL,                                xxxx, KC_1, KC_2, KC_3, KC_4, xxxx, 
+    xxxx, xxxx, xxxx, KC_ASTR,  KC_SLASH, xxxx,     ____, xxxx,   xxxx, ____,      xxxx, xxxx, ____, ____, xxxx, xxxx, 
+                      ____,     ____,     ____,     ____, xxxx,   xxxx, KC_BSPACE, ____, ____, ____                    
   ),
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
@@ -69,13 +74,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              ____,    ____,      ____,    ____, xxxx,   xxxx, ____, ____,    ____,    ____                             
   ),
   [_NAV] = LAYOUT(
-    xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                   KC_INSERT, KC_PGUP,   KC_HOME, ____,     ____, xxxx, 
-    xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, ____, xxxx, 
-    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     ____, xxxx,   xxxx, ____,      KC_TRANS,  KC_PGDOWN, KC_END,  ____,     ____, xxxx, 
+    xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                   KC_INSERT, KC_PGUP,   KC_HOME, KC_NO,    KC_NO, xxxx, 
+    xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, KC_NO, xxxx, 
+    xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     ____, xxxx,   xxxx, ____,      KC_TRANS,  KC_PGDOWN, KC_END,  KC_NO,    KC_NO, xxxx, 
                                    ____,       ____,        ____,      ____, xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
   ),
   [_RAISE] = LAYOUT(
-    xxxx, KC_SECRET_5, KC_SECRET_6, KC_SECRET_7, KC_SECRET_8, xxxx,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
+    xxxx, KC_SECRET_5, KC_SECRET_6, KC_SECRET_7, KC_SECRET_8, KC_4,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
     xxxx, OS_CMD,      OS_ALT,      OS_CTRL,     OS_SHFT,     xxxx,                                KC_F5,     KC_F11, KC_F10, KC_F9, xxxx,  xxxx, 
     xxxx, KC_SECRET_1, KC_SECRET_2, KC_SECRET_3, KC_SECRET_4, KC_OS_PDT, ____, xxxx,   xxxx, ____, KC_OS_NDT, KC_F6,  KC_F7,  KC_F8, xxxx,  xxxx, 
                                     ____,        ____,        ____,      ____, xxxx,   xxxx, ____, ____,      ____,   ____                        
@@ -146,54 +151,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
             return false;
         }
-        case KC_SECRET_1:
-            if (record->event.pressed)
-            {
-                SEND_STRING(SECRET_1);
+        case KC_SECRET_1 ... KC_SECRET_8: // Secrets!  Externally defined strings, not stored in repo
+            if (!record->event.pressed) {
+                turnoff_oneshot_modifiers();
+                send_string_with_delay(gSecrets[keycode - KC_SECRET_1], MACRO_TIMER);
             }
-            return true;
-        case KC_SECRET_2:
-            if (record->event.pressed)
-            {
-                SEND_STRING(SECRET_2);
-            }
-            return true;
-        case KC_SECRET_3:
-            if (record->event.pressed)
-            {
-                SEND_STRING(SECRET_3);
-            }
-            return true;
-        case KC_SECRET_4:
-            if (record->event.pressed)
-            {
-                SEND_STRING(SECRET_4);
-            }
-            return true;
-        case KC_SECRET_5:
-            if (record->event.pressed)
-            {
-                SEND_STRING(SECRET_5);
-            }
-            return true;
-        case KC_SECRET_6:
-            if (record->event.pressed)
-            {
-                SEND_STRING(SECRET_6);
-            }
-            return true;
-        case KC_SECRET_7:
-            if (record->event.pressed)
-            {
-                SEND_STRING(SECRET_7);
-            }
-            return true;
-        case KC_SECRET_8:
-            if (record->event.pressed)
-            {
-                SEND_STRING(SECRET_8);
-            }
-            return true;
+            return false;
+            break;
         case KC_DCOLN:
             if (record->event.pressed)
             {
