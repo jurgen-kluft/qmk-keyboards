@@ -34,7 +34,7 @@ static oneshot_state modifiers_with_state[ONESHOT_MOD_COUNT] = {
 // need to keep track if the mod(s) got combined with a normal key (applied)
 static bool unapplied_mods_present = false;
 
-// keycode of the last pressed 'normal' key which haven't been released yet
+// keycode of the last pressed 'normal' key which hasn't been released yet
 static uint16_t repeating_normal_key = 0;
 
 // utility functions (implemented at the bottom of this file)

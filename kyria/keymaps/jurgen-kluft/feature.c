@@ -10,7 +10,7 @@ FEATURE_NUM, FEATURE_CAPS, FEATURE_SYM and FEATURE_NAV.
 The main reason for processing layer and smart feature keys for tri layer state is that it allows more flexibility in terms
 of how and when layers are turned on and off.
 
-The key KC_FNAV can basically turn off any feature by just press and release it.
+The key KC_FNAV can basically turn off any feature by just pressing and releasing it.
 
 Pressing and releasing the KC_FSYM key will activate the _SYM layer in one-shot mode and allow one other key press after which 
 the layer will turn off, it can be cancelled by pressing and releasing KC_SPACE, KC_BSPACE, KC_FCAPS, KC_FNUM.
@@ -22,11 +22,11 @@ pressed: KC_FNUM, KC_FNAV, KC_FSYM, KC_SPACE.
 Pressing and releasing the KC_FCAPS key will activate _QWERTY_CAPS layer and stay on until one of the following keys is pressed:
 KC_FCAPS, KC_FNAV, KC_FSYM, KC_SPACE.
 
-
 Holding the KC_FNUM key will activate the _NUM layer and while other keys are pressed it will stay on until the KC_FNUM key is released.
 Holding the KC_FCAPS key will activate the _QWERTY_CAPS layer and when other keys are pressed it will stay on until the KC_FCAPS key is released.
 Holding the KC_FSYM key will activate the _SYM layer and while other keys are pressed it will stay on until the KC_FSYM key is released.
 Holding the KC_FNAV key will activate the _NAV layer and while other keys are pressed it will stay on until the KC_FNAV key is released.
+Holding the KC_FNAV and KC_FSYM keys will activate the _RAISE layer and when releasing the KC_FNAV key or the KC_FSYM key it will deactivate the _RAISE layer.
 
 */
 

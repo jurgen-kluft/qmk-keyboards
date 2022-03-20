@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RSTHD] = LAYOUT(
     xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                        KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx, 
     xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                        KC_M,    KC_N,     KC_A,          KC_I,        KC_O,    xxxx, 
-    xxxx, KC_UNDS, KC_V, KC_G,   KC_P,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_SCLN, xxxx, 
+    xxxx, KC_SCLN, KC_V, KC_G,   KC_P,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
                          LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_FSYM, KC_FCAPS, LT_MOS                                     
   ),
   [_STENO] = LAYOUT(
@@ -183,12 +183,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
         return false;
     }
 
-    update_oneshot_modifiers(keycode, record);
-
     if (!process_cushi_keys(keycode, record))
     {
         return false;
     }
+
+    update_oneshot_modifiers(keycode, record);
 
     switch (keycode)
     {
