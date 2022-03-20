@@ -90,19 +90,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENABLE_ONESHOT
 
-bool is_oneshot_modifier_cancel_key(uint16_t keycode)
+bool is_oneshot_modifier_cancel_key(uint16_t keycode, bool pressed)
 {
-
     switch (keycode)
     {
         case KC_FNAV:
         case KC_FNUM:
-        case KC_FCAPS: return true;
-        default: return false;
+        case KC_FCAPS: return pressed;
     }
+    return false;
 }
 
-bool is_oneshot_modifier_ignored_key(uint16_t keycode)
+bool is_oneshot_modifier_ignored_key(uint16_t keycode, bool pressed)
 {
     switch (keycode)
     {
@@ -179,16 +178,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
             return true;
     }
 
-    int8_t keycode_consumed = 0;
-
     if (!process_feature_key(keycode, record))
     {
         return false;
     }
 
-#ifdef ENABLE_ONESHOT
-    keycode_consumed += update_oneshot_modifiers(keycode, record, keycode_consumed);
-#endif
+    update_oneshot_modifiers(keycode, record);
 
     if (!process_cushi_keys(keycode, record))
     {
