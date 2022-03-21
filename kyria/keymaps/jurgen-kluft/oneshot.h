@@ -2,6 +2,7 @@
 #ifdef ENABLE_ONESHOT
 #pragma once
 
+// Note: the order of the enums is important, do not change it!
 typedef enum {
     ONESHOT_LCTL = 0,
     ONESHOT_LSFT = 1,
@@ -15,12 +16,11 @@ typedef enum {
     ONESHOT_MOD_COUNT = 8,
 } oneshot_mod;
 
-
 // This function should be called inside proces_record_user and does everything needed to get one shot modifiers working.
 void update_oneshot_modifiers(uint16_t keycode, keyrecord_t *record);
 
 // Call this to turn off (release) all modifiers
-int8_t turnoff_oneshot_modifiers(void);
+void turnoff_oneshot_modifiers(void);
 
 // TO BE IMPLEMENTED BY THE USER
 // This function should return one of the oneshot_mod enumerations (see keymap.c implementation)

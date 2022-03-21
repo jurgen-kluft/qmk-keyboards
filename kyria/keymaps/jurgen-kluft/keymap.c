@@ -95,7 +95,6 @@ bool is_oneshot_modifier_cancel_key(uint16_t keycode, bool pressed)
     switch (keycode)
     {
         case KC_FNAV:
-        case KC_FNUM:
         case KC_FCAPS: return pressed;
     }
     return false;
@@ -115,10 +114,10 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 {
     switch (keycode)
     {
-        case OS_SHFT: return ONESHOT_LSFT;
-        case OS_CTRL: return ONESHOT_LCTL;
-        case OS_ALT: return ONESHOT_LALT;
-        case OS_CMD: return ONESHOT_LGUI;
+        case OS_CTRL: 
+        case OS_SHFT: 
+        case OS_ALT: 
+        case OS_CMD: return (keycode - OS_CTRL) + ONESHOT_LCTL;
     }
     return ONESHOT_NONE;
 }
@@ -211,7 +210,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
 // Layer-specific encoder knob functions
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise)
+bool encoder_update_user(uint8_t index, bool clockwise)
 {
     uint16_t layers = (layer_state | default_layer_state);
     if (index == 0)
@@ -280,6 +279,7 @@ void encoder_update_user(uint8_t index, bool clockwise)
                 break;
         }
     }
+    return false;
 }
 #endif
 

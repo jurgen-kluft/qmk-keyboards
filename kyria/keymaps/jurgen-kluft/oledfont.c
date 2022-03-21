@@ -1,5 +1,7 @@
 #include "progmem.h"
 
+#ifdef OLED_DRIVER_ENABLE
+
 // Custom 8x6 font with Custom Logo
 // Online editor: https://javl.github.io/image2cpp/
 
@@ -92,3 +94,4 @@ static const unsigned char font[] PROGMEM = {
 0x5d, 0x49, 0x41, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
+#endif
