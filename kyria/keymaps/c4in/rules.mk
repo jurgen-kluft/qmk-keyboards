@@ -10,7 +10,9 @@ MIDI_ENABLE = no 		# MIDI controls
 UNICODE_ENABLE = no 	# Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+POINTING_DEVICE_ENABLE = no
 
+MUSIC_ENABLE = no
 VIA_ENABLE = no
 AUDIO_ENABLE = no
 STENO_ENABLE = no
@@ -24,7 +26,10 @@ RGB_MATRIX_ENABLE = no
 SPACE_CADET_ENABLE = no
 KEY_OVERRIDE_ENABLE = no
 GRAVE_ESC_ENABLE = no
+MAGIC_ENABLE = no
 AUTO_SHIFT_ENABLE = no
+
+LTO_ENABLE = yes
 
 WPM_ENABLE                      = no
 
@@ -33,6 +38,8 @@ SWAP_HANDS_ENABLE               = yes
 
 OLED_DRIVER_ENABLE              = no  # Enables the use of OLED displays
 RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
+
+CXXFLAGS += -O2
 
 SRC += oled.c
 SRC += oneshot.c
