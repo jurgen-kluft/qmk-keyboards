@@ -6,15 +6,16 @@ EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no  	# Console for debug
 COMMAND_ENABLE = no     # Commands for debug and configuration
 NKRO_ENABLE = no		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+AUDIO_ENABLE = no
 MIDI_ENABLE = no 		# MIDI controls
+MUSIC_ENABLE = no       # Music
 UNICODE_ENABLE = no 	# Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 POINTING_DEVICE_ENABLE = no
 
-MUSIC_ENABLE = no
 VIA_ENABLE = no
-AUDIO_ENABLE = no
+SEQUENCER_ENABLE = no
 STENO_ENABLE = no
 LEADER_ENABLE = no
 TERMINAL_ENABLE = no
@@ -32,14 +33,11 @@ AUTO_SHIFT_ENABLE = no
 LTO_ENABLE = yes
 
 WPM_ENABLE                      = no
+SWAP_HANDS_ENABLE               = no
 
 ENCODER_ENABLE                  = yes # Ensure encoders are disabled unless set to true in a specific keymap
-SWAP_HANDS_ENABLE               = yes
-
-OLED_DRIVER_ENABLE              = no  # Enables the use of OLED displays
+OLED_ENABLE                     = no  # Enable OLEDs
 RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
-
-CXXFLAGS += -O2
 
 SRC += oled.c
 SRC += oneshot.c
