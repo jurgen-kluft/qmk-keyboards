@@ -17,9 +17,8 @@
 #if (__has_include("secrets.x") && !defined(NO_SECRETS))
 #include "secrets.x"
 #else
-static const char * const gSecrets[] = {  "test1",  "test2",  "test3",  "test4",  "test5",  "test6",  "test7",  "test8" };
+static const char* const gSecrets[] = {"test1", "test2", "test3", "test4", "test5", "test6", "test7", "test8"};
 #endif
-
 
 // Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~
 
@@ -114,9 +113,9 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 {
     switch (keycode)
     {
-        case OS_CTRL: 
-        case OS_SHFT: 
-        case OS_ALT: 
+        case OS_CTRL:
+        case OS_SHFT:
+        case OS_ALT:
         case OS_CMD: return (keycode - OS_CTRL) + ONESHOT_LCTL;
     }
     return ONESHOT_NONE;
@@ -150,7 +149,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
             return false;
         }
         case KC_SECRET_1 ... KC_SECRET_8: // Secrets!  Externally defined strings, not stored in repo
-            if (!record->event.pressed) {
+            if (!record->event.pressed)
+            {
                 turnoff_oneshot_modifiers();
                 send_string_with_delay(gSecrets[keycode - KC_SECRET_1], MACRO_TIMER);
             }
@@ -282,8 +282,6 @@ bool encoder_update_user(uint8_t index, bool clockwise)
     return false;
 }
 #endif
-
-
 
 /*
 qmk-keyboard-format:json:begin
