@@ -47,7 +47,7 @@ static inline bool features_active(uint8_t features) { return (s_feature_state &
 static inline bool features_active_any(uint8_t features) { return (s_feature_state & features) != 0; }
 
 static inline bool is_qwerty(void) {
-    uint16_t layers = layer_state;
+    uint16_t layers = layer_state | default_layer_state;
     return (layers & (1 << _QWERTY)) != 0;
 }
 
