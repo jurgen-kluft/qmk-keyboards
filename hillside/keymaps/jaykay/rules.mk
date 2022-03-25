@@ -39,7 +39,3 @@ ENCODER_ENABLE                  = no  # Ensure encoders are disabled unless set 
 OLED_ENABLE                     = no  # Enable OLEDs
 RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
 
-SRC += oneshot.c
-SRC += cushi.c
-SRC += cukey.c
-SRC += feature.c

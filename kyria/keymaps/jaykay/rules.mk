@@ -40,8 +40,3 @@ OLED_ENABLE                     = no  # Enable OLEDs
 RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
 
 SRC += oled.c
-SRC += oneshot.c
-SRC += cushi.c
-SRC += cukey.c
-SRC += feature.c
-SRC += cheng.c
