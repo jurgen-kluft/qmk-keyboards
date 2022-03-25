@@ -12,7 +12,7 @@ of how and when layers are turned on and off.
 
 The key KC_FNAV can basically turn off any feature by just pressing and releasing it.
 
-Pressing and releasing the KC_FSYM key will activate the _SYM layer in one-shot mode and allow one other key press after which 
+Pressing and releasing the KC_FSYM key will activate the _SYM layer in one-shot mode and allow one other key press after which
 the layer will turn off, it can be cancelled by pressing and releasing KC_SPACE, KC_BSPACE, KC_FCAPS, KC_FNUM.
 Pressing and releasing the KC_FNAV key while the _SYM layer is in one-shot mode will lock the _RAISE layer.
 
@@ -46,6 +46,11 @@ static uint8_t s_feature_state = 0;
 static inline bool features_active(uint8_t features) { return (s_feature_state & features) == features; }
 static inline bool features_active_any(uint8_t features) { return (s_feature_state & features) != 0; }
 
+static inline bool is_qwerty(void) {
+    uint16_t layers = layer_state;
+    return (layers & (1 << _QWERTY)) != 0;
+}
+
 bool process_feature_key(uint16_t keycode, keyrecord_t* record)
 {
     // if ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode)))
@@ -72,7 +77,17 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     if (features_active(FEATURE_CAPS))
                     {
                         s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
-                        layer_off(_QWERTY_CAPS);
+                        if (is_qwerty())
+                        {
+                            layer_off(_QWERTY_CAPS);
+                            layer_off(_RSTHD_CAPS);
+                        }
+                        else
+                        {
+                            layer_off(_QWERTY_CAPS);
+                            layer_off(_RSTHD_CAPS);
+                        }
+
                         if (keycode == KC_FCAPS)
                         {
                             return false;
@@ -164,7 +179,14 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     {
                         s_feature_state |= FEATURE_CAPS;
                         s_feature_state &= ~FEATURE_USED;
-                        layer_on(_QWERTY_CAPS);
+                        if (is_qwerty())
+                        {
+                            layer_on(_QWERTY_CAPS);
+                        }
+                        else
+                        {
+                            layer_on(_RSTHD_CAPS);
+                        }
                     }
                     break;
             }
