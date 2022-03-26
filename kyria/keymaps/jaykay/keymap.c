@@ -6,6 +6,7 @@
 #include "cukey.h"
 #include "feature.h"
 #include "cheng.h"
+#include "leader.h"
 
 #define KC_TRANS KC_TRANSPARENT
 #define ____     KC_TRANSPARENT
@@ -130,6 +131,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 #endif
 
     if (process_record_cheng(keycode, record))
+        return false;
+
+    if (process_record_leader(keycode, record))
         return false;
 
     switch (keycode)

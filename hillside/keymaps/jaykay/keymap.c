@@ -18,6 +18,7 @@
 static const char * const gSecrets[] = {  "test1",  "test2",  "test3",  "test4",  "test5",  "test6",  "test7",  "test8" };
 #endif
 
+// This is a LAYOUT that maps a Kyria layout to a Hillside layout
 #undef LAYOUT
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05,                     R06, R07, R08, R09, R10, R11, \
