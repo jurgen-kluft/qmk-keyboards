@@ -37,10 +37,6 @@ enum eCustomKeyCodes {
     KC_FSYM,
     KC_FNAV,
     
-    KC_SCAPS,
-    KC_SNUM,
-    KC_SSYM,
-
     KC_DCOLN,
 
 #include "cushi.def"

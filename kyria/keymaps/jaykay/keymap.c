@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include <version.h>
 #include "oled.h"
 #include "layers.h"
 #include "oneshot.h"
@@ -211,6 +212,173 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
     return true;
 };
+
+enum eleader_actions
+{
+    LA_VERSION = 1,
+    LA_PASSWORD,
+    LA_GMAIL,
+    LA_HOTMAIL,
+    LA_GT,
+    LA_GTE,
+    LA_LT,
+    LA_LTE,
+    LA_EQ,
+    LA_NEQ,
+    LA_KK,
+    LA_STRUCT,
+    LA_CLASS,
+    LA_RETURN,
+    LA_VOID,
+};
+
+int8_t process_leader_chain(uint8_t count, uint8_t* keycodes)
+{
+    if (keycodes[0] == KC_G)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_M)
+        {
+            return LA_GMAIL;
+        }
+        else if (keycodes[1] == KC_T)
+        {
+            if (count == 2)
+                return LA_GT;
+
+            if (keycodes[2] == KC_E)
+            {
+                return LA_GTE;
+            }
+        }
+    }
+    else if (keycodes[0] == KC_L)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_T)
+        {
+            if (count == 2)
+                return LA_GT;
+
+            if (keycodes[2] == KC_E)
+            {
+                return LA_GTE;
+            }
+        }
+    }
+    else if (keycodes[0] == KC_E)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_Q)
+        {
+            return LA_EQ;
+        }
+    }
+    else if (keycodes[0] == KC_N)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_E)
+        {
+            if (count == 2)
+                return 0;
+
+            if (keycodes[2] == KC_Q)
+            {
+                return LA_NEQ;
+            }
+        }
+    }
+    else if (keycodes[0] == KC_K)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_K)
+        {
+            return LA_KK;
+        }
+        if (keycodes[1] == KC_S)
+        {
+            return LA_STRUCT;
+        }
+        if (keycodes[1] == KC_C)
+        {
+            return LA_CLASS;
+        }
+        if (keycodes[1] == KC_R)
+        {
+            return LA_RETURN;
+        }
+        if (keycodes[1] == KC_V)
+        {
+            return LA_VOID;
+        }
+    }
+    else if (keycodes[0] == KC_P)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_W)
+        {
+            return LA_PASSWORD;
+        }
+    }
+    else if (keycodes[0] == KC_V)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_E)
+        {
+            return LA_VERSION;
+        }
+    }
+    else if (keycodes[0] == KC_H)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_M)
+        {
+            return LA_HOTMAIL;
+        }
+    }
+    return -1;
+}
+
+void execute_leader_action(uint8_t action)
+{
+    switch (action)
+    {
+        case LA_VERSION: SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " " __DATE__ ", " __TIME__ " @ " QMK_VERSION ":" QMK_BUILDDATE); break;
+        case LA_PASSWORD:
+            turnoff_oneshot_modifiers();
+            send_string_with_delay(gSecrets[4], MACRO_TIMER);
+            break;
+        case LA_GMAIL: send_string("jurgen.kluft@gmail.com"); break;
+        case LA_HOTMAIL: send_string("jurgen_kluft@hotmail.com"); break;
+        case LA_GT: send_string(" > "); break;
+        case LA_GTE: send_string(" >= "); break;
+        case LA_LT: send_string(" < "); break;
+        case LA_LTE: send_string(" <= "); break;
+        case LA_EQ: send_string(" == "); break;
+        case LA_NEQ: send_string(" != "); break;
+        case LA_KK: send_string_with_delay("www.kateandkimi.com", MACRO_TIMER); break;
+        case LA_STRUCT: send_string_with_delay("struct ", MACRO_TIMER); break;
+        case LA_CLASS: send_string_with_delay("class ", MACRO_TIMER); break;
+        case LA_RETURN: send_string_with_delay("return ", MACRO_TIMER); break;
+        case LA_VOID: send_string_with_delay("void ", MACRO_TIMER); break;
+    }
+}
 
 // Layer-specific encoder knob functions
 #ifdef ENCODER_ENABLE
