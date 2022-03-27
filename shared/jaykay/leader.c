@@ -16,6 +16,9 @@ Update: it has changed a little bit now, if the first key is part of a chain you
 the first key. However if a key is part of a chain that has multiple lengths ('gt', 'gte') then
 the 't' should be held if you want to get to the 'e' otherwise the 'gt' chain is recognized.
 
+Note: We can still take it one step further. When we have the leader 'active', pressing SYM could
+      change leader_mode for us. We could use that for lets say a 'accent' or 'vim' movement layer?
+
 e.g.
 FNAV -> g -> m = 'jurgen.kluft@gmail.com'
                  tap 'FNAV', quickly followed by a tap on 'g', you can now take your time to tap 'm'
