@@ -5,22 +5,27 @@
 /*
 Leader
 
-When pressing/releasing FNAV we start a timer and for the first incoming key.
+When pressing/releasing 'FNAV' we start a timer for the first incoming key.
 This leader implementation requires you to keep the first key pressed while you press the
 rest of the leader chain. You could however hold a second key and release the first, the
 main requirement is that you hold one or more keys of the full chain. Upon releasing all
 keys the leader chain will be executed.
-There is no timeout on finalizing the leader chain, only from FNAV and the next key.
+There is no timeout on finalizing the leader chain, only from FNAV to the first key.
+
+Update: it has changed a little bit now, if the first key is part of a chain you can release
+the first key. However if a key is part of a chain that has multiple lengths ('gt', 'gte') then
+the 't' should be held if you want to get to the 'e' otherwise the 'gt' chain is recognized.
 
 e.g.
-FNAV -> g -> m = jurgen.kluft@gmail.com
-FNAV -> h -> m = jurgen_kluft@hotmail.com
-FNAV -> p -> w = 608b7243a742-505a-9098
-FNAV -> c -> m = ,
-FNAV -> c -> l = :
-FNAV -> q -> m = ?
-FNAV -> e -> m = !
-FNAV -> e -> q = =
+FNAV -> g -> m = 'jurgen.kluft@gmail.com'
+                 tap 'FNAV', quickly followed by a tap on 'g', you can now take your time to tap 'm'
+FNAV -> h -> m = 'jurgen_kluft@hotmail.com'
+FNAV -> p -> w = '608b7243a742-505a-9098'
+FNAV -> g -> t = '>'
+                 tap 'FNAV', quickly followed by a tap on 'g', you can now take your time to tap 't'
+FNAV -> g -> t -> e = '>='
+                 tap 'FNAV', quickly followed by a tap on 'g', you should now hold 't' and tap 'e' then
+                 release 't'
 */
 __attribute__((weak)) int8_t process_leader_chain(uint8_t count, uint16_t* leader_chain) { return -1; }
 __attribute__((weak)) void   execute_leader_action(uint8_t action, uint8_t mode) {}
