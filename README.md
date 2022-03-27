@@ -1,12 +1,17 @@
 # Kyria
 
 My keymap uses the following features:
-- Callum style Oneshot Modifiers (a rewrite)
+- Callum style Oneshot Modifiers (a rewrite, `oneshot.c`)
   - plus a modification to allow double-tap to lock a modifier
-- Smart numbers 
-- Smart caps words
-- Custom normal/shift keycodes (cushi)
-- Custom OS keycodes to deal with Mac OS / Windows / Ubuntu (cukey)
+- Smart numbers (`feature.c`)
+- Smart caps words (`feature.c`)
+- SYM key can be tapped for a oneshot key from the SYM layer (`feature.c`)
+- RAISE layer can be activated by holding NAV and SYM like tri-layer.
+  It can also be activated/locked by first tapping SYM then tapping NAV.
+- Custom 'leader' implementation using NAV as leader key (`leader.c`)
+- Custom normal/shift/ctrl/alt keycodes (`cushi.c`)
+- Custom OS keycodes to deal with Mac OS / Windows / Ubuntu (`cukey.c`)
+  TODO: needs a trim/clean
 
 # Setup
 
