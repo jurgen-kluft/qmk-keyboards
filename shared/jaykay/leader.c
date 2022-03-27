@@ -22,33 +22,32 @@ FNAV -> q -> m = ?
 FNAV -> e -> m = !
 FNAV -> e -> q = =
 */
-__attribute__((weak)) int8_t process_leader_chain(uint8_t count, uint8_t* leader_chain) { return -1; }
-__attribute__((weak)) void   execute_leader_action(uint8_t action) {}
+__attribute__((weak)) int8_t process_leader_chain(uint8_t count, uint16_t* leader_chain) { return -1; }
+__attribute__((weak)) void   execute_leader_action(uint8_t action, uint8_t mode) {}
 
 #define LEADER_TIMEOUT   (200)
 #define LEADER_MAX_CHAIN (6)
 
 static uint8_t  leader_active                  = 0;
+static uint8_t  leader_mode                    = 0;
 static uint16_t leader_timer                   = 0;
 static uint8_t  leader_chain_recorded_pressed  = 0;
 static uint8_t  leader_chain_recorded_released = 0;
-static uint8_t  leader_chain[LEADER_MAX_CHAIN] = {0};
+static uint16_t leader_chain[LEADER_MAX_CHAIN] = {0};
 
-static void reset_leader(void)
+static void reset_leader(uint8_t active)
 {
-    leader_active                  = 0;
-    leader_timer                   = 0;
+    leader_mode                    = 0;
+    leader_active                  = active;
     leader_chain_recorded_pressed  = 0;
     leader_chain_recorded_released = 0;
+    leader_timer                   = timer_read();
 }
 
 bool process_record_leader(uint16_t keycode, keyrecord_t* record)
 {
     if (leader_active == 2)
     {
-        if (keycode < KC_A && keycode > 0x80)
-            return false;
-
         switch (keycode)
         {
             case OS_CTRL:
@@ -65,17 +64,25 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record)
     {
         if (keycode == KC_FNAV)
         {
-            leader_active                  = 1;
-            leader_timer                   = 0;
-            leader_chain_recorded_pressed  = 0;
-            leader_chain_recorded_released = 0;
-            leader_timer                   = timer_read();
+            if (leader_chain_recorded_pressed > 0)
+            {
+                reset_leader(0);
+            }
+            else if (leader_active == 2 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
+            {
+                // we pressed FNAV twice in a very short time, this triggers a mode change
+                leader_mode++;
+            }
+            else
+            {
+                reset_leader(1);
+            }
         }
         else if (leader_active == 2)
         {
-            if ((leader_chain_recorded_pressed == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
+            if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
             {
-                reset_leader();
+                reset_leader(0);
             }
             else
             {
@@ -88,6 +95,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record)
         }
         else
         {
+            leader_mode = 0;
             leader_active = 0;
         }
     }
@@ -95,8 +103,9 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record)
     {
         if (keycode == KC_FNAV)
         {
-            leader_active = leader_active << 1;
-            leader_timer  = timer_read();
+            if (leader_active == 1)
+                leader_active = 2;
+            leader_timer = timer_read();
         }
         else if (leader_active == 2)
         {
@@ -115,8 +124,8 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record)
                 uint8_t leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain);
                 if (leader_action > 0)
                 {
-                    execute_leader_action(leader_action);
-                    reset_leader();
+                    execute_leader_action(leader_action, leader_mode);
+                    reset_leader(0);
                 }
             }
         }

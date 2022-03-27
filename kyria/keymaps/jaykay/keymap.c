@@ -225,16 +225,85 @@ enum eleader_actions
     LA_LTE,
     LA_EQ,
     LA_NEQ,
-    LA_KK,
     LA_STRUCT,
     LA_CLASS,
     LA_RETURN,
     LA_VOID,
+    // vim
+    LA_EASYMOTION,
+    LA_CHANGE_WORD,
+    LA_CHANGE_LINE,
+    LA_CHANGE_INSIDE_WORD,
+    LA_DELETE_WORD,
+    LA_DELETE_LINE,
+    LA_DELETE_UNTIL_EOL,
+    LA_DELETE_UNTIL_BOL,
+    LA_CHANGE_INSIDE_BR,
 };
+static uint16_t leader_bracket = KC_NO;
 
-int8_t process_leader_chain(uint8_t count, uint8_t* keycodes)
+int8_t process_leader_chain(uint8_t count, uint16_t* keycodes)
 {
-    if (keycodes[0] == KC_G)
+    if (keycodes[0] == KC_C)
+    {
+        if (count == 1)
+            return 0;
+        if (keycodes[1] == KC_W)
+        {
+            return LA_CHANGE_WORD;
+        }
+        else if (keycodes[1] == KC_L)
+        {
+            return LA_CHANGE_LINE;
+        }
+        else if (keycodes[1] == KC_I)
+        {
+            if (count == 2)
+                return 0;
+
+            switch (keycodes[2])
+            {
+                case KC_W: return LA_CHANGE_INSIDE_WORD;
+                case KC_LCBR:
+                case KC_RCBR:
+                case KC_LBRC:
+                case KC_RBRC:
+                case KC_LABK:
+                case KC_RABK:
+                case KC_LPRN:
+                case KC_RPRN:
+                case KC_DQUO:
+                case KC_QUOT: leader_bracket = keycodes[2]; return LA_CHANGE_INSIDE_BR;
+            }
+        }
+    }
+    else if (keycodes[0] == KC_D)
+    {
+        if (count == 1)
+            return 0;
+        switch (keycodes[1])
+        {
+            case KC_E: return LA_DELETE_UNTIL_EOL;
+            case KC_B: return LA_DELETE_UNTIL_BOL;
+            case KC_W: return LA_DELETE_WORD;
+            case KC_L: return LA_DELETE_LINE;
+        }
+    }
+    else if (keycodes[0] == KC_E)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_Q)
+        {
+            return LA_EQ;
+        }
+    }
+    else if (keycodes[0] == KC_F)
+    {
+        return LA_EASYMOTION;
+    }
+    else if (keycodes[0] == KC_G)
     {
         if (count == 1)
             return 0;
@@ -243,7 +312,7 @@ int8_t process_leader_chain(uint8_t count, uint8_t* keycodes)
         {
             return LA_GMAIL;
         }
-        else if (keycodes[1] == KC_T)
+        if (keycodes[1] == KC_T)
         {
             if (count == 2)
                 return LA_GT;
@@ -252,6 +321,28 @@ int8_t process_leader_chain(uint8_t count, uint8_t* keycodes)
             {
                 return LA_GTE;
             }
+        }
+    }
+    else if (keycodes[0] == KC_H)
+    {
+        if (count == 1)
+            return 0;
+
+        if (keycodes[1] == KC_M)
+        {
+            return LA_HOTMAIL;
+        }
+    }
+    else if (keycodes[0] == KC_K)
+    {
+        if (count == 1)
+            return 0;
+        switch (keycodes[1])
+        {
+            case KC_S: return LA_STRUCT;
+            case KC_C: return LA_CLASS;
+            case KC_R: return LA_RETURN;
+            case KC_V: return LA_VOID;
         }
     }
     else if (keycodes[0] == KC_L)
@@ -270,16 +361,6 @@ int8_t process_leader_chain(uint8_t count, uint8_t* keycodes)
             }
         }
     }
-    else if (keycodes[0] == KC_E)
-    {
-        if (count == 1)
-            return 0;
-
-        if (keycodes[1] == KC_Q)
-        {
-            return LA_EQ;
-        }
-    }
     else if (keycodes[0] == KC_N)
     {
         if (count == 1)
@@ -294,32 +375,6 @@ int8_t process_leader_chain(uint8_t count, uint8_t* keycodes)
             {
                 return LA_NEQ;
             }
-        }
-    }
-    else if (keycodes[0] == KC_K)
-    {
-        if (count == 1)
-            return 0;
-
-        if (keycodes[1] == KC_K)
-        {
-            return LA_KK;
-        }
-        if (keycodes[1] == KC_S)
-        {
-            return LA_STRUCT;
-        }
-        if (keycodes[1] == KC_C)
-        {
-            return LA_CLASS;
-        }
-        if (keycodes[1] == KC_R)
-        {
-            return LA_RETURN;
-        }
-        if (keycodes[1] == KC_V)
-        {
-            return LA_VOID;
         }
     }
     else if (keycodes[0] == KC_P)
@@ -342,28 +397,31 @@ int8_t process_leader_chain(uint8_t count, uint8_t* keycodes)
             return LA_VERSION;
         }
     }
-    else if (keycodes[0] == KC_H)
-    {
-        if (count == 1)
-            return 0;
-
-        if (keycodes[1] == KC_M)
-        {
-            return LA_HOTMAIL;
-        }
-    }
     return -1;
 }
 
-void execute_leader_action(uint8_t action)
+#define send_taps2(tap1, tap2) \
+    tap_code16(tap1);          \
+    tap_code16(tap2)
+#define send_taps3(tap1, tap2, tap3) \
+    tap_code16(tap1);                \
+    tap_code16(tap2);                \
+    tap_code16(tap3)
+
+void execute_leader_action(uint8_t action, uint8_t mode)
 {
     switch (action)
     {
-        case LA_VERSION: SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " " __DATE__ ", " __TIME__ " @ " QMK_VERSION ":" QMK_BUILDDATE); break;
-        case LA_PASSWORD:
-            turnoff_oneshot_modifiers();
-            send_string_with_delay(gSecrets[4], MACRO_TIMER);
+        case LA_VERSION:
+            if (mode == 0)
+                send_string("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP);
+            else if (mode == 1)
+                send_string("build date " __DATE__ ", " __TIME__);
+            else if (mode == 2)
+                send_string("QMK version `" QMK_VERSION "`, build date " QMK_BUILDDATE);
             break;
+
+        case LA_PASSWORD: send_string_with_delay(gSecrets[4], MACRO_TIMER); break;
         case LA_GMAIL: send_string("jurgen.kluft@gmail.com"); break;
         case LA_HOTMAIL: send_string("jurgen_kluft@hotmail.com"); break;
         case LA_GT: send_string(" > "); break;
@@ -372,11 +430,19 @@ void execute_leader_action(uint8_t action)
         case LA_LTE: send_string(" <= "); break;
         case LA_EQ: send_string(" == "); break;
         case LA_NEQ: send_string(" != "); break;
-        case LA_KK: send_string_with_delay("www.kateandkimi.com", MACRO_TIMER); break;
         case LA_STRUCT: send_string_with_delay("struct ", MACRO_TIMER); break;
         case LA_CLASS: send_string_with_delay("class ", MACRO_TIMER); break;
         case LA_RETURN: send_string_with_delay("return ", MACRO_TIMER); break;
         case LA_VOID: send_string_with_delay("void ", MACRO_TIMER); break;
+        case LA_EASYMOTION: tap_code16(A(KC_S)); break;
+        case LA_CHANGE_INSIDE_WORD: tap_code16(A(KC_LEFT));
+        case LA_CHANGE_WORD:
+        case LA_DELETE_WORD: send_taps2(A(S(KC_RIGHT)), KC_DEL); break;
+        case LA_CHANGE_LINE:
+        case LA_DELETE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
+        case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
+        case LA_DELETE_UNTIL_BOL: send_taps2(S(KC_HOME), KC_DEL); break;
+        case LA_CHANGE_INSIDE_BR: send_taps3(G(KC_K), leader_bracket, KC_DEL); break;
     }
 }
 
