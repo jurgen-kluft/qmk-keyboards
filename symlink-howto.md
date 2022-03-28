@@ -2,9 +2,14 @@
 
 On Windows you can use `mklink`:
  
-In `"qmk_firmware\keyboards\moonlander\keymaps"`:
+In `"qmk_firmware\keyboards\splitkb\kyria\keymaps"`:
 
- `mklink /D jurgen-kluft E:\Dev.Go\src\github.com\jurgen-kluft\qmk-keyboards\moonlander\keymaps\jurgen-kluft\`
+ `mklink /D jaykay E:\Dev.Go\src\github.com\jurgen-kluft\qmk-keyboards\kyria\keymaps\jaykay\`
+
+In `"qmk_firmware\users"`:
+
+ `mklink /D jaykay E:\Dev.Go\src\github.com\jurgen-kluft\qmk-keyboards\shared\jaykay\`
+
  
 # Mac OS
 
