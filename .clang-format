@@ -15,7 +15,7 @@ AllowShortIfStatementsOnASingleLine: 'false'
 AllowShortLoopsOnASingleLine: 'false'
 BinPackParameters: 'false'
 BreakBeforeBraces: Allman
-ColumnLimit: '200'
+ColumnLimit: '256'
 CompactNamespaces: 'false'
 ConstructorInitializerAllOnOneLineOrOnePerLine: 'false'
 ConstructorInitializerIndentWidth: '4'

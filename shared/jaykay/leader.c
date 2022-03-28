@@ -30,10 +30,12 @@ FNAV -> g -> t -> e = '>='
                  tap 'FNAV', quickly followed by a tap on 'g', you should now hold 't' and tap 'e' then
                  release 't'
 */
-__attribute__((weak)) int8_t process_leader_chain(uint8_t count, uint16_t* leader_chain) { return -1; }
-__attribute__((weak)) void   execute_leader_action(uint8_t action, uint8_t mode) {}
 
-#define LEADER_TIMEOUT   (200)
+__attribute__((weak)) void   execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* leader_chain) {}
+
+static int8_t process_leader_chain(uint8_t count, uint16_t* leader_chain, leader_config_t* leader_config);
+
+#define LEADER_TIMEOUT   (250)
 #define LEADER_MAX_CHAIN (6)
 
 static uint8_t  leader_active                  = 0;
@@ -52,7 +54,7 @@ static void reset_leader(uint8_t active)
     leader_timer                   = timer_read();
 }
 
-bool process_record_leader(uint16_t keycode, keyrecord_t* record)
+bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_t* config)
 {
     if (leader_active == 2)
     {
@@ -67,7 +69,6 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record)
             case KC_FCAPS: return false;
         }
     }
-
     if (record->event.pressed)
     {
         if (keycode == KC_FNAV)
@@ -97,13 +98,13 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record)
                 leader_chain[leader_chain_recorded_pressed++] = keycode;
                 leader_timer                                  = timer_read();
 
-                uint8_t action = process_leader_chain(leader_chain_recorded_pressed, leader_chain);
-                return action != -1;
+                int8_t action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config);
+                return (action == -1) || (action >= 0);
             }
         }
         else
         {
-            leader_mode = 0;
+            leader_mode   = 0;
             leader_active = 0;
         }
     }
@@ -129,10 +130,10 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record)
 
             if (leader_chain_recorded_released == leader_chain_recorded_pressed)
             {
-                uint8_t leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain);
-                if (leader_action > 0)
+                int8_t leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config);
+                if (leader_action >= 0)
                 {
-                    execute_leader_action(leader_action, leader_mode);
+                    execute_leader_action(leader_action, leader_mode, leader_chain_recorded_pressed, leader_chain);
                     reset_leader(0);
                 }
             }
@@ -140,4 +141,67 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record)
     }
 
     return false;
+}
+
+int8_t process_leader_chain(uint8_t count, uint16_t* keycodes, leader_config_t* config)
+{
+    if (count == 1)
+    {
+        for (uint8_t i = 0; i < config->leader_range_count; i++)
+        {
+            if (keycodes[0] >= config->leader_range_array[i].start && keycodes[0] <= config->leader_range_array[i].end)
+            {
+                return i;
+            }
+        }
+        for (uint8_t i = 0; i < config->leader1_count; i++)
+        {
+            if (config->leader1_array[i].keycode1 == keycodes[0])
+            {
+                return i;
+            }
+        }
+        for (uint8_t i = 0; i < config->leader2_count; i++)
+        {
+            if (config->leader2_array[i].keycode1 == keycodes[0])
+            {
+                return -1;
+            }
+        }
+        for (uint8_t i = 0; i < config->leader3_count; i++)
+        {
+            if (config->leader3_array[i].keycode1 == keycodes[0])
+            {
+                return -1;
+            }
+        }
+    }
+    else if (count == 2)
+    {
+        for (uint8_t i = 0; i < config->leader2_count; i++)
+        {
+            if (config->leader2_array[i].keycode1 == keycodes[0] && config->leader2_array[i].keycode2 == keycodes[1])
+            {
+                return i;
+            }
+        }
+        for (uint8_t i = 0; i < config->leader3_count; i++)
+        {
+            if (config->leader3_array[i].keycode1 == keycodes[0] && config->leader3_array[i].keycode2 == keycodes[1])
+            {
+                return -1;
+            }
+        }
+    }
+    else if (count == 3)
+    {
+        for (uint8_t i = 0; i < config->leader3_count; i++)
+        {
+            if (config->leader3_array[i].keycode1 == keycodes[0] && config->leader3_array[i].keycode2 == keycodes[1] && config->leader3_array[i].keycode3 == keycodes[2])
+            {
+                return i;
+            }
+        }
+    }
+    return -2;
 }

@@ -125,6 +125,8 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 
 #endif
 
+static bool process_leader_user(uint16_t keycode, keyrecord_t* record);
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
 #ifdef OLED_DRIVER_ENABLE
@@ -134,7 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
     if (process_record_cheng(keycode, record))
         return false;
 
-    if (process_record_leader(keycode, record))
+    if (process_leader_user(keycode, record))
         return false;
 
     switch (keycode)
@@ -213,192 +215,96 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
     return true;
 };
 
-enum eleader_actions
+enum eleader_range
 {
-    LA_VERSION = 1,
-    LA_PASSWORD,
-    LA_GMAIL,
-    LA_HOTMAIL,
-    LA_GT,
-    LA_GTE,
-    LA_LT,
-    LA_LTE,
-    LA_EQ,
-    LA_NEQ,
-    LA_STRUCT,
-    LA_CLASS,
-    LA_RETURN,
-    LA_VOID,
-    // vim
-    LA_EASYMOTION,
-    LA_CHANGE_WORD,
-    LA_CHANGE_LINE,
-    LA_CHANGE_INSIDE_WORD,
-    LA_DELETE_WORD,
-    LA_DELETE_LINE,
-    LA_DELETE_UNTIL_EOL,
-    LA_DELETE_UNTIL_BOL,
-    LA_CHANGE_INSIDE_BR,
+    // abreviations
+    LA_DIGIT_TO_WORD = 0,
 };
-static uint16_t leader_bracket = KC_NO;
 
-int8_t process_leader_chain(uint8_t count, uint16_t* keycodes)
+static leader_range_t leader_range_array[] = {
+    [LA_DIGIT_TO_WORD] = {.start = KC_1, .end = KC_0},
+};
+
+enum eleader_one
 {
-    if (keycodes[0] == KC_C)
-    {
-        if (count == 1)
-            return 0;
-        if (keycodes[1] == KC_W)
-        {
-            return LA_CHANGE_WORD;
-        }
-        else if (keycodes[1] == KC_L)
-        {
-            return LA_CHANGE_LINE;
-        }
-        else if (keycodes[1] == KC_I)
-        {
-            if (count == 2)
-                return 0;
+    LA_EASYMOTION = 0,
+};
 
-            switch (keycodes[2])
-            {
-                case KC_W: return LA_CHANGE_INSIDE_WORD;
-                case KC_LCBR:
-                case KC_RCBR:
-                case KC_LBRC:
-                case KC_RBRC:
-                case KC_LABK:
-                case KC_RABK:
-                case KC_LPRN:
-                case KC_RPRN:
-                case KC_DQUO:
-                case KC_QUOT: leader_bracket = keycodes[2]; return LA_CHANGE_INSIDE_BR;
-            }
-        }
-    }
-    else if (keycodes[0] == KC_D)
-    {
-        if (count == 1)
-            return 0;
-        switch (keycodes[1])
-        {
-            case KC_E: return LA_DELETE_UNTIL_EOL;
-            case KC_B: return LA_DELETE_UNTIL_BOL;
-            case KC_W: return LA_DELETE_WORD;
-            case KC_L: return LA_DELETE_LINE;
-        }
-    }
-    else if (keycodes[0] == KC_E)
-    {
-        if (count == 1)
-            return 0;
+static leader1_t const leader1_array[] = {
+    [LA_EASYMOTION] = {KC_F},
+};
 
-        if (keycodes[1] == KC_Q)
-        {
-            return LA_EQ;
-        }
-    }
-    else if (keycodes[0] == KC_F)
-    {
-        return LA_EASYMOTION;
-    }
-    else if (keycodes[0] == KC_G)
-    {
-        if (count == 1)
-            return 0;
+enum eleader_two
+{
+    LA_CHANGE_LINE,      // cl
+    LA_CHANGE_WORD,      // cw
+    LA_DELETE_UNTIL_BOL, // db
+    LA_DELETE_UNTIL_EOL, // de
+    LA_DELETE_LINE,      // dl
+    LA_DELETE_WORD,      // dw
+    LA_EQ,               // eq
+    LA_GMAIL,            // gm
+    LA_GT,               // gt
+    LA_HOTMAIL,          // hm
+    LA_CLASS,            // kc
+    LA_RETURN,           // kr
+    LA_STRUCT,           // ks
+    LA_VOID,             // kv
+    LA_LT,               // lt
+    LA_PASSWORD,         // pw
+    LA_SCREENSHOT,       // ss
+    LA_VERSION,          // ve
+};
 
-        if (keycodes[1] == KC_M)
-        {
-            return LA_GMAIL;
-        }
-        if (keycodes[1] == KC_T)
-        {
-            if (count == 2)
-                return LA_GT;
+static leader2_t const leader2_array[] = {
+    [LA_CHANGE_LINE]      = {KC_C, KC_L},
+    [LA_CHANGE_WORD]      = {KC_C, KC_W},
+    [LA_DELETE_UNTIL_BOL] = {KC_D, KC_B},
+    [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
+    [LA_DELETE_LINE]      = {KC_D, KC_L},
+    [LA_DELETE_WORD]      = {KC_D, KC_W},
+    [LA_EQ]               = {KC_E, KC_Q},
+    [LA_GMAIL]            = {KC_G, KC_M},
+    [LA_GT]               = {KC_G, KC_T},
+    [LA_HOTMAIL]          = {KC_H, KC_M},
+    [LA_CLASS]            = {KC_K, KC_C},
+    [LA_RETURN]           = {KC_K, KC_R},
+    [LA_STRUCT]           = {KC_K, KC_S},
+    [LA_VOID]             = {KC_K, KC_V},
+    [LA_LT]               = {KC_L, KC_T},
+    [LA_PASSWORD]         = {KC_P, KC_W},
+    [LA_SCREENSHOT]       = {KC_S, KC_S},
+    [LA_VERSION]          = {KC_V, KC_E},
+};
 
-            if (keycodes[2] == KC_E)
-            {
-                return LA_GTE;
-            }
-        }
-    }
-    else if (keycodes[0] == KC_H)
-    {
-        if (count == 1)
-            return 0;
+enum eleader_three
+{
+    LA_CHANGE_INSIDE_ABK = 0,
+    LA_CHANGE_INSIDE_BRC,
+    LA_CHANGE_INSIDE_CBR,
+    LA_CHANGE_INSIDE_DQUOT,
+    LA_CHANGE_INSIDE_PRN,
+    LA_CHANGE_INSIDE_QUOT,
+    LA_CHANGE_INSIDE_TICKS,
+    LA_CHANGE_INSIDE_WORD,
+    LA_GTE,
+    LA_LTE,
+    LA_NEQ,
+};
 
-        if (keycodes[1] == KC_M)
-        {
-            return LA_HOTMAIL;
-        }
-    }
-    else if (keycodes[0] == KC_K)
-    {
-        if (count == 1)
-            return 0;
-        switch (keycodes[1])
-        {
-            case KC_S: return LA_STRUCT;
-            case KC_C: return LA_CLASS;
-            case KC_R: return LA_RETURN;
-            case KC_V: return LA_VOID;
-        }
-    }
-    else if (keycodes[0] == KC_L)
-    {
-        if (count == 1)
-            return 0;
-
-        if (keycodes[1] == KC_T)
-        {
-            if (count == 2)
-                return LA_GT;
-
-            if (keycodes[2] == KC_E)
-            {
-                return LA_GTE;
-            }
-        }
-    }
-    else if (keycodes[0] == KC_N)
-    {
-        if (count == 1)
-            return 0;
-
-        if (keycodes[1] == KC_E)
-        {
-            if (count == 2)
-                return 0;
-
-            if (keycodes[2] == KC_Q)
-            {
-                return LA_NEQ;
-            }
-        }
-    }
-    else if (keycodes[0] == KC_P)
-    {
-        if (count == 1)
-            return 0;
-
-        if (keycodes[1] == KC_W)
-        {
-            return LA_PASSWORD;
-        }
-    }
-    else if (keycodes[0] == KC_V)
-    {
-        if (count == 1)
-            return 0;
-
-        if (keycodes[1] == KC_E)
-        {
-            return LA_VERSION;
-        }
-    }
-    return -1;
-}
+static leader3_t const leader3_array[] = {
+    [LA_CHANGE_INSIDE_ABK]   = {KC_C, KC_I, KC_A},
+    [LA_CHANGE_INSIDE_BRC]   = {KC_C, KC_I, KC_B},
+    [LA_CHANGE_INSIDE_CBR]   = {KC_C, KC_I, KC_C},
+    [LA_CHANGE_INSIDE_DQUOT] = {KC_C, KC_I, KC_D},
+    [LA_CHANGE_INSIDE_PRN]   = {KC_C, KC_I, KC_P},
+    [LA_CHANGE_INSIDE_QUOT]  = {KC_C, KC_I, KC_Q},
+    [LA_CHANGE_INSIDE_TICKS] = {KC_C, KC_I, KC_T},
+    [LA_CHANGE_INSIDE_WORD]  = {KC_C, KC_I, KC_W},
+    [LA_GTE]                 = {KC_G, KC_T, KC_E},
+    [LA_LTE]                 = {KC_L, KC_T, KC_E},
+    [LA_NEQ]                 = {KC_N, KC_E, KC_Q},
+};
 
 #define send_taps2(tap1, tap2) \
     tap_code16(tap1);          \
@@ -408,41 +314,89 @@ int8_t process_leader_chain(uint8_t count, uint16_t* keycodes)
     tap_code16(tap2);                \
     tap_code16(tap3)
 
-void execute_leader_action(uint8_t action, uint8_t mode)
-{
-    switch (action)
-    {
-        case LA_VERSION:
-            if (mode == 0)
-                send_string("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP);
-            else if (mode == 1)
-                send_string("build date " __DATE__ ", " __TIME__);
-            else if (mode == 2)
-                send_string("QMK version `" QMK_VERSION "`, build date " QMK_BUILDDATE);
-            break;
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
-        case LA_PASSWORD: send_string_with_delay(gSecrets[4], MACRO_TIMER); break;
-        case LA_GMAIL: send_string("jurgen.kluft@gmail.com"); break;
-        case LA_HOTMAIL: send_string("jurgen_kluft@hotmail.com"); break;
-        case LA_GT: send_string(" > "); break;
-        case LA_GTE: send_string(" >= "); break;
-        case LA_LT: send_string(" < "); break;
-        case LA_LTE: send_string(" <= "); break;
-        case LA_EQ: send_string(" == "); break;
-        case LA_NEQ: send_string(" != "); break;
-        case LA_STRUCT: send_string_with_delay("struct ", MACRO_TIMER); break;
-        case LA_CLASS: send_string_with_delay("class ", MACRO_TIMER); break;
-        case LA_RETURN: send_string_with_delay("return ", MACRO_TIMER); break;
-        case LA_VOID: send_string_with_delay("void ", MACRO_TIMER); break;
-        case LA_EASYMOTION: tap_code16(A(KC_S)); break;
-        case LA_CHANGE_INSIDE_WORD: tap_code16(A(KC_LEFT));
-        case LA_CHANGE_WORD:
-        case LA_DELETE_WORD: send_taps2(A(S(KC_RIGHT)), KC_DEL); break;
-        case LA_CHANGE_LINE:
-        case LA_DELETE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
-        case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
-        case LA_DELETE_UNTIL_BOL: send_taps2(S(KC_HOME), KC_DEL); break;
-        case LA_CHANGE_INSIDE_BR: send_taps3(G(KC_K), leader_bracket, KC_DEL); break;
+static leader_config_t leader_config = {
+    .leader_range_array = leader_range_array,
+    .leader_range_count = ARRAY_SIZE(leader_range_array),
+    .leader1_array      = leader1_array,
+    .leader1_count      = ARRAY_SIZE(leader1_array),
+    .leader2_array      = leader2_array,
+    .leader2_count      = ARRAY_SIZE(leader2_array),
+    .leader3_array      = leader3_array,
+    .leader3_count      = ARRAY_SIZE(leader3_array),
+};
+
+bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config); }
+
+void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* keycodes)
+{
+    if (count == 1)
+    {
+        switch (action)
+        {
+            case LA_EASYMOTION: tap_code16(A(KC_S)); break;
+        }
+    }
+    else if (count == 2)
+    {
+        const char* str = NULL;
+        switch (action)
+        {
+            case LA_VERSION:
+                if (mode == 0)
+                    str = ("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP);
+                else if (mode == 1)
+                    str = ("build date " __DATE__ ", " __TIME__);
+                else if (mode == 2)
+                    str = ("QMK version `" QMK_VERSION "`, build date " QMK_BUILDDATE);
+                break;
+            case LA_SCREENSHOT: tap_code16(G(S(KC_4))); break;
+            case LA_PASSWORD: str = gSecrets[4]; break;
+            case LA_GMAIL: str = ("jurgen.kluft@gmail.com"); break;
+            case LA_HOTMAIL: str = ("jurgen_kluft@hotmail.com"); break;
+            case LA_GT: str = (" > "); break;
+            case LA_LT: str = (" < "); break;
+            case LA_EQ: str = (" == "); break;
+            case LA_STRUCT: str = ("struct "); break;
+            case LA_CLASS: str = ("class "); break;
+            case LA_RETURN: str = ("return "); break;
+            case LA_VOID: str = ("void "); break;
+            case LA_CHANGE_WORD:
+            case LA_DELETE_WORD: send_taps2(A(S(KC_RIGHT)), KC_DEL); break;
+            case LA_CHANGE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
+            case LA_DELETE_LINE: send_taps2(C(KC_D), KC_L); break;
+            case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
+            case LA_DELETE_UNTIL_BOL: send_taps2(S(KC_HOME), KC_DEL); break;
+        }
+        if (str != NULL)
+        {
+            send_string_with_delay(str, MACRO_TIMER);
+        }
+    }
+    else if (count == 3)
+    {
+        uint16_t bracket = KC_NO;
+        switch (action)
+        {
+            case LA_GTE: send_string(" >= "); break;
+            case LA_LTE: send_string(" <= "); break;
+            case LA_NEQ: send_string(" != "); break;
+            case LA_CHANGE_INSIDE_WORD: send_taps3(A(KC_LEFT), A(S(KC_RIGHT)), KC_DEL); break;
+            case LA_CHANGE_INSIDE_PRN: bracket = KC_LPRN; break;
+            case LA_CHANGE_INSIDE_CBR: bracket = KC_LCBR; break;
+            case LA_CHANGE_INSIDE_BRC: bracket = KC_LBRC; break;
+            case LA_CHANGE_INSIDE_ABK: bracket = KC_LABK; break;
+            case LA_CHANGE_INSIDE_QUOT: bracket = KC_QUOT; break;
+            case LA_CHANGE_INSIDE_DQUOT: bracket = KC_DQUO; break;
+            case LA_CHANGE_INSIDE_TICKS: bracket = KC_GRV; break;
+        }
+        if (bracket != KC_NO)
+        {
+            send_taps2(G(KC_K), bracket);
+            wait_ms(200);
+            tap_code16(KC_DEL);
+        }
     }
 }
 
