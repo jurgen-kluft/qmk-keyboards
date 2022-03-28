@@ -700,6 +700,7 @@ qmk-keyboard-format:json:begin
       "KC_PAUSE": "  ⎉  " ,
       "KC_BREAK": "  ⎊  " ,
       "KC_ENTER": "  ⏎  " ,
+      "KC_SPACE":  "  ␣  " ,
       "KC_BSPACE": "  ⌫  " ,
       "KC_DELETE": "  ⌦  " ,
       "KC_INSERT": " Ins " ,
