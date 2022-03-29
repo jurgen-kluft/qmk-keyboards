@@ -15,8 +15,8 @@ In `"qmk_firmware\users"`:
 
 On Mac OS you can use `ln` (-s is for symbolic link):
 
-`ln -s /Users/@user/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/kyria/keymaps/jurgen-kluft /Users/@user/dev.qmk/keyboards/kyria/keymaps`
+`ln -s /Users/@user/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/kyria/keymaps/jaykay /Users/@user/dev.qmk/keyboards/splitkb/kyria/keymaps`
 
-`ln -s /Users/@user/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/hillside/keymaps/jurgen-kluft /Users/@user/dev.qmk/keyboards/handwired/hillside/0_1/keymaps`
+`ln -s /Users/@user/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/hillside/keymaps/jaykay /Users/@user/dev.qmk/keyboards/handwired/hillside/0_1/keymaps`
 
 `ln -s /Users/@user/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/shared/jaykay /Users/@user/dev.qmk/users`
