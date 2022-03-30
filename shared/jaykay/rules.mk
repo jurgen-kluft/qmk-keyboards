@@ -4,3 +4,4 @@ SRC += $(USER_PATH)/cukey.c
 SRC += $(USER_PATH)/feature.c
 SRC += $(USER_PATH)/cheng.c
 SRC += $(USER_PATH)/leader.c
+SRC += $(USER_PATH)/leader_user.c

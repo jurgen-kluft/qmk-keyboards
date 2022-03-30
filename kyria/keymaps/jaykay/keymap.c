@@ -1,25 +1,36 @@
 #include QMK_KEYBOARD_H
-#include <version.h>
-#include "oled.h"
 #include "layers.h"
 #include "oneshot.h"
 #include "cushi.h"
 #include "cukey.h"
 #include "feature.h"
 #include "cheng.h"
-#include "leader.h"
+#include "leader_user.h"
+#include "layouts.h"
+
+#ifdef OLED_ENABLE
+#include "oled.h"
+#endif
 
 #define KC_TRANS KC_TRANSPARENT
 #define ____     KC_TRANSPARENT
 #define xxxx     KC_NO
 #define LT_MOS   TG(_MOUS)
-#define LT_STENO TG(_STENO)
-#define STENO_TIMING
 
 #if (__has_include("secrets.x") && !defined(NO_SECRETS))
 #include "secrets.x"
+static const char* gSecrets[] = {SECRET_1, SECRET_2, SECRET_3, SECRET_4, SECRET_5, SECRET_6, SECRET_7, SECRET_8};
 #else
-static const char* const gSecrets[] = {"test1", "test2", "test3", "test4", "test5", "test6", "test7", "test8"};
+static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4", "SECRET_5", "SECRET_6", "SECRET_7", "SECRET_8"};
+#endif
+
+// This is a LAYOUT that maps a Kyria layout to a Hillside layout.
+// I do this so that I can use the same keymap for both keyboards.
+// Next step is to actually share this keymap between keyboards.
+#ifdef KEYBOARD_HILLSIDE
+#include "layouts.h"
+#undef LAYOUT
+#define LAYOUT KYRIA_TO_HILLSIDE_LAYOUT
 #endif
 
 // Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~
@@ -30,19 +41,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                        KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx, 
     xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                        KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx, 
     xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
-                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_STENO                                   
+                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS                                   
   ),
   [_RSTHD] = LAYOUT(
     xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                        KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx, 
     xxxx, KC_R,    KC_S, KC_T,   KC_H,    KC_D,                                        KC_M,    KC_N,     KC_A,          KC_I,        KC_O,    xxxx, 
     xxxx, KC_SCLN, KC_V, KC_G,   KC_P,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_X,    KC_W,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
                          LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_FSYM, KC_FCAPS, LT_MOS                                     
-  ),
-  [_STENO] = LAYOUT(
-    xxxx, SC_Q, SC_W, SC_E, SC_R, SC_T,                               SC_Y, SC_U, SC_I,   SC_O,   SC_P,   xxxx, 
-    xxxx, SC_A, SC_S, SC_D, SC_F, SC_G,                               SC_H, SC_J, SC_K,   SC_L,   SC_SCN, xxxx, 
-    xxxx, SC_Z, SC_X, SC_C, SC_V, SC_B, ____,   xxxx,   xxxx, ____,   SC_N, SC_M, SC_CMA, SC_DOT, SC_SLS, xxxx, 
-                      ____, ____, ____, SC_SPC, xxxx,   xxxx, SC_BPC, ____, ____, ____                          
   ),
   [_QWERTY_CAPS] = LAYOUT(
     xxxx, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T),                           S(KC_Y), S(KC_U), S(KC_I),       S(KC_O),     S(KC_P), xxxx, 
@@ -63,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ____,     ____,     ____,     ____, xxxx,   xxxx, KC_BSPACE, ____, ____, ____                    
   ),
   [_MOUS] = LAYOUT(
-    xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
-    xxxx, OS_CMD,     OS_ALT,      OS_CTRL, OS_SHFT, RGB_HUD,                                    KC_MS_WH_DOWN, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    RGB_HUI, xxxx, 
-    xxxx, KC_OS_MODE, KC_OS_PMODE, ____,    ____,    RGB_VAD, ____,     xxxx,   xxxx, ____,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
-                                   ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
+    xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                      KC_MS_WH_UP,    KC_MS_BTN1,    KC_MS_UP,      KC_MS_BTN2,     RGB_SAI, xxxx, 
+    xxxx, OS_CMD,     OS_ALT,      OS_CTRL, OS_SHFT, RGB_HUD,                                      KC_MS_WH_DOWN,  KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,    RGB_HUI, xxxx, 
+    xxxx, ____,         ____,         ____,    ____, RGB_VAD,     ____,  xxxx,   xxxx,       ____,          ____,  KC_MS_WH_LEFT, KC_MS_BTN3,    KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
+                                      ____,    ____,    ____, KC_RSTHD,  xxxx,   xxxx,  KC_QWERTY,          ____,           ____,          ____                                       
   ),
   [_SYM] = LAYOUT(
     xxxx, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                           KC_GRV,  KC_QUOT, KC_DQUO, KC_HASH, KC_DLR,  xxxx, 
@@ -125,8 +130,6 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 
 #endif
 
-static bool process_leader_user(uint16_t keycode, keyrecord_t* record);
-
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
 #ifdef OLED_DRIVER_ENABLE
@@ -136,12 +139,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
     if (process_record_cheng(keycode, record))
         return false;
 
-    if (process_leader_user(keycode, record))
-        return false;
-
     switch (keycode)
     {
-        case KC_OS_MODE ... KC_OS_CLOSE:
+        case KC_OS_UNDO ... KC_OS_CLOSE:
         {
             if (!process_cushi_keys(keycode, record))
                 return false;
@@ -163,20 +163,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
             }
             return false;
             break;
-        case KC_DCOLN:
-            if (record->event.pressed)
-            {
-                tap_code16(KC_COLN);
-            }
-            else
-            {
-                tap_code16(KC_COLN);
-            }
-            break;
         case KC_OLED:
             if (record->event.pressed)
             {
+#ifdef OLED_ENABLE
                 toggle_display_oled();
+#endif
 #ifdef RGBLIGHT_ENABLE
                 rgblight_enable();
 #endif
@@ -212,192 +204,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
             break;
     }
 
+    if (process_leader_user(keycode, record))
+        return false;
+
     return true;
-};
-
-enum eleader_range
-{
-    // abreviations
-    LA_DIGIT_TO_WORD = 0,
-};
-
-static leader_range_t leader_range_array[] = {
-    [LA_DIGIT_TO_WORD] = {.start = KC_1, .end = KC_0},
-};
-
-enum eleader_one
-{
-    LA_EASYMOTION = 0,
-};
-
-static leader1_t const leader1_array[] = {
-    [LA_EASYMOTION] = {KC_F},
-};
-
-enum eleader_two
-{
-    LA_CHANGE_LINE,      // cl
-    LA_CHANGE_WORD,      // cw
-    LA_DELETE_UNTIL_BOL, // db
-    LA_DELETE_UNTIL_EOL, // de
-    LA_DELETE_LINE,      // dl
-    LA_DELETE_WORD,      // dw
-    LA_EQ,               // eq
-    LA_GMAIL,            // gm
-    LA_GT,               // gt
-    LA_HOTMAIL,          // hm
-    LA_CLASS,            // kc
-    LA_RETURN,           // kr
-    LA_STRUCT,           // ks
-    LA_VOID,             // kv
-    LA_LT,               // lt
-    LA_PASSWORD,         // pw
-    LA_SCREENSHOT,       // ss
-    LA_VERSION,          // ve
-};
-
-static leader2_t const leader2_array[] = {
-    [LA_CHANGE_LINE]      = {KC_C, KC_L},
-    [LA_CHANGE_WORD]      = {KC_C, KC_W},
-    [LA_DELETE_UNTIL_BOL] = {KC_D, KC_B},
-    [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
-    [LA_DELETE_LINE]      = {KC_D, KC_L},
-    [LA_DELETE_WORD]      = {KC_D, KC_W},
-    [LA_EQ]               = {KC_E, KC_Q},
-    [LA_GMAIL]            = {KC_G, KC_M},
-    [LA_GT]               = {KC_G, KC_T},
-    [LA_HOTMAIL]          = {KC_H, KC_M},
-    [LA_CLASS]            = {KC_K, KC_C},
-    [LA_RETURN]           = {KC_K, KC_R},
-    [LA_STRUCT]           = {KC_K, KC_S},
-    [LA_VOID]             = {KC_K, KC_V},
-    [LA_LT]               = {KC_L, KC_T},
-    [LA_PASSWORD]         = {KC_P, KC_W},
-    [LA_SCREENSHOT]       = {KC_S, KC_S},
-    [LA_VERSION]          = {KC_V, KC_E},
-};
-
-enum eleader_three
-{
-    LA_CHANGE_INSIDE_ABK = 0,
-    LA_CHANGE_INSIDE_BRC,
-    LA_CHANGE_INSIDE_CBR,
-    LA_CHANGE_INSIDE_DQUOT,
-    LA_CHANGE_INSIDE_PRN,
-    LA_CHANGE_INSIDE_QUOT,
-    LA_CHANGE_INSIDE_TICKS,
-    LA_CHANGE_INSIDE_WORD,
-    LA_GTE,
-    LA_LTE,
-    LA_NEQ,
-};
-
-static leader3_t const leader3_array[] = {
-    [LA_CHANGE_INSIDE_ABK]   = {KC_C, KC_I, KC_A},
-    [LA_CHANGE_INSIDE_BRC]   = {KC_C, KC_I, KC_B},
-    [LA_CHANGE_INSIDE_CBR]   = {KC_C, KC_I, KC_C},
-    [LA_CHANGE_INSIDE_DQUOT] = {KC_C, KC_I, KC_D},
-    [LA_CHANGE_INSIDE_PRN]   = {KC_C, KC_I, KC_P},
-    [LA_CHANGE_INSIDE_QUOT]  = {KC_C, KC_I, KC_Q},
-    [LA_CHANGE_INSIDE_TICKS] = {KC_C, KC_I, KC_T},
-    [LA_CHANGE_INSIDE_WORD]  = {KC_C, KC_I, KC_W},
-    [LA_GTE]                 = {KC_G, KC_T, KC_E},
-    [LA_LTE]                 = {KC_L, KC_T, KC_E},
-    [LA_NEQ]                 = {KC_N, KC_E, KC_Q},
-};
-
-#define send_taps2(tap1, tap2) \
-    tap_code16(tap1);          \
-    tap_code16(tap2)
-#define send_taps3(tap1, tap2, tap3) \
-    tap_code16(tap1);                \
-    tap_code16(tap2);                \
-    tap_code16(tap3)
-
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
-
-static leader_config_t leader_config = {
-    .leader_range_array = leader_range_array,
-    .leader_range_count = ARRAY_SIZE(leader_range_array),
-    .leader1_array      = leader1_array,
-    .leader1_count      = ARRAY_SIZE(leader1_array),
-    .leader2_array      = leader2_array,
-    .leader2_count      = ARRAY_SIZE(leader2_array),
-    .leader3_array      = leader3_array,
-    .leader3_count      = ARRAY_SIZE(leader3_array),
-};
-
-bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config); }
-
-void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* keycodes)
-{
-    if (count == 1)
-    {
-        switch (action)
-        {
-            case LA_EASYMOTION: tap_code16(A(KC_S)); break;
-        }
-    }
-    else if (count == 2)
-    {
-        const char* str = NULL;
-        switch (action)
-        {
-            case LA_VERSION:
-                if (mode == 0)
-                    str = ("-kb " QMK_KEYBOARD " -km " QMK_KEYMAP);
-                else if (mode == 1)
-                    str = ("build date " __DATE__ ", " __TIME__);
-                else if (mode == 2)
-                    str = ("QMK version `" QMK_VERSION "`, build date " QMK_BUILDDATE);
-                break;
-            case LA_SCREENSHOT: tap_code16(G(S(KC_4))); break;
-            case LA_PASSWORD: str = gSecrets[4]; break;
-            case LA_GMAIL: str = ("jurgen.kluft@gmail.com"); break;
-            case LA_HOTMAIL: str = ("jurgen_kluft@hotmail.com"); break;
-            case LA_GT: str = (" > "); break;
-            case LA_LT: str = (" < "); break;
-            case LA_EQ: str = (" == "); break;
-            case LA_STRUCT: str = ("struct "); break;
-            case LA_CLASS: str = ("class "); break;
-            case LA_RETURN: str = ("return "); break;
-            case LA_VOID: str = ("void "); break;
-            case LA_CHANGE_WORD:
-            case LA_DELETE_WORD: send_taps2(A(S(KC_RIGHT)), KC_DEL); break;
-            case LA_CHANGE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
-            case LA_DELETE_LINE: send_taps2(C(KC_D), KC_L); break;
-            case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
-            case LA_DELETE_UNTIL_BOL: send_taps2(S(KC_HOME), KC_DEL); break;
-        }
-        if (str != NULL)
-        {
-            send_string_with_delay(str, MACRO_TIMER);
-        }
-    }
-    else if (count == 3)
-    {
-        uint16_t bracket = KC_NO;
-        switch (action)
-        {
-            case LA_GTE: send_string(" >= "); break;
-            case LA_LTE: send_string(" <= "); break;
-            case LA_NEQ: send_string(" != "); break;
-            case LA_CHANGE_INSIDE_WORD: send_taps3(A(KC_LEFT), A(S(KC_RIGHT)), KC_DEL); break;
-            case LA_CHANGE_INSIDE_PRN: bracket = KC_LPRN; break;
-            case LA_CHANGE_INSIDE_CBR: bracket = KC_LCBR; break;
-            case LA_CHANGE_INSIDE_BRC: bracket = KC_LBRC; break;
-            case LA_CHANGE_INSIDE_ABK: bracket = KC_LABK; break;
-            case LA_CHANGE_INSIDE_QUOT: bracket = KC_QUOT; break;
-            case LA_CHANGE_INSIDE_DQUOT: bracket = KC_DQUO; break;
-            case LA_CHANGE_INSIDE_TICKS: bracket = KC_GRV; break;
-        }
-        if (bracket != KC_NO)
-        {
-            send_taps2(G(KC_K), bracket);
-            wait_ms(200);
-            tap_code16(KC_DEL);
-        }
-    }
 }
 
 // Layer-specific encoder knob functions

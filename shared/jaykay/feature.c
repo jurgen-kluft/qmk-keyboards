@@ -46,7 +46,8 @@ static uint8_t s_feature_state = 0;
 static inline bool features_active(uint8_t features) { return (s_feature_state & features) == features; }
 static inline bool features_active_any(uint8_t features) { return (s_feature_state & features) != 0; }
 
-static inline bool is_qwerty(void) {
+static inline bool is_qwerty(void)
+{
     uint16_t layers = layer_state | default_layer_state;
     return (layers & (1 << _QWERTY)) != 0;
 }
@@ -127,8 +128,7 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                 case KC_F1 ... KC_F12:
                 case KC_A ... KC_Z:
                 case KC_MINUS ... KC_SLASH:
-                case S(KC_MINUS)... S(KC_SLASH):
-                case KC_DCOLN: s_feature_state |= FEATURE_USED; break;
+                case S(KC_MINUS)... S(KC_SLASH): s_feature_state |= FEATURE_USED; break;
 
                 case KC_FNAV: // pressed
                     s_feature_state |= FEATURE_NAV;
@@ -211,7 +211,6 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                 case KC_A ... KC_Z:
                 case KC_MINUS ... KC_SLASH:
                 case S(KC_MINUS)... S(KC_SLASH):
-                case KC_DCOLN:
                 case KC_BSPACE:
                 case KC_SPACE:
                 case SH_TG:

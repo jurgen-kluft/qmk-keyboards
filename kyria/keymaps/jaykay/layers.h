@@ -5,7 +5,6 @@
 enum layers {
     _QWERTY = 0,
     _RSTHD,
-    _STENO,
     _QWERTY_CAPS,
     _RSTHD_CAPS,
     _NUM,

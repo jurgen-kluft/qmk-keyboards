@@ -50,3 +50,4 @@
 // every other tick, lower the resolution to 2.
 #define ENCODER_RESOLUTION 2
 
+#define KEYBOARD_KYRIA

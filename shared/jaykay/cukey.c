@@ -29,13 +29,6 @@
 #define KC_PC_CLOSE LCTL(KC_W)
 
 
-enum eOS
-{
-    OS_MAC     = 0,
-    OS_WINDOWS = 1,
-    OS_UBUNTU  = 2,
-};
-
 typedef union
 {
     uint32_t raw;
@@ -56,6 +49,15 @@ void eeconfig_init_user(void)
     user_config.raw = 0;
     eeconfig_update_user(user_config.raw);
 }
+void keyboard_set_os(uint8_t os)
+{
+    user_config.os = os;
+    eeconfig_update_user(user_config.raw);
+}
+uint8_t keyboard_get_os(void)
+{
+    return user_config.os;
+}
 
 uint16_t const kc_os_win[] = {KC_PC_UNDO, KC_PC_REDO, KC_PC_CUT, KC_PC_COPY, KC_PC_PASTE, KC_PC_NDT, KC_PC_PDT, KC_PC_CLOSE};
 uint16_t const kc_os_mac[] = {KC_MAC_UNDO, KC_MAC_REDO, KC_MAC_CUT, KC_MAC_COPY, KC_MAC_PASTE, KC_MAC_NDT, KC_MAC_PDT, KC_MAC_CLOSE};
@@ -63,48 +65,27 @@ uint16_t const kc_os_ubt[] = {KC_UBT_UNDO, KC_UBT_REDO, KC_UBT_CUT, KC_UBT_COPY,
 
 uint16_t process_cukey(uint16_t keycode)
 {
-    if (keycode == KC_OS_MODE)
+    switch (keycode)
     {
-        user_config.os += 1;
-        if (user_config.os > 2)
-            user_config.os = 0;
-        eeconfig_update_user(user_config.raw);
-        return KC_NO;
-    }
-    else if (keycode == KC_OS_PMODE)
-    {
-        switch (user_config.os)
+        case KC_OS_UNDO:
+        case KC_OS_REDO:
+        case KC_OS_CUT:
+        case KC_OS_COPY:
+        case KC_OS_PASTE:
+        case KC_OS_NDT:
+        case KC_OS_PDT:
+        case KC_OS_CLOSE:
         {
-            case OS_WINDOWS: SEND_STRING("win"); break;
-            case OS_MAC: SEND_STRING("mac"); break;
-            case OS_UBUNTU: SEND_STRING("ubt"); break;
-        }
-        return KC_NO;
-    }
-    else
-    {
-        switch (keycode)
-        {
-            case KC_OS_UNDO:
-            case KC_OS_REDO:
-            case KC_OS_CUT:
-            case KC_OS_COPY:
-            case KC_OS_PASTE:
-            case KC_OS_NDT:
-            case KC_OS_PDT:
-            case KC_OS_CLOSE:
+            uint8_t i = (uint8_t)(keycode - KC_OS_UNDO);
+            switch (user_config.os)
             {
-                uint8_t i = (uint8_t)(keycode - KC_OS_UNDO);
-                switch (user_config.os)
-                {
-                    case OS_WINDOWS: return (kc_os_win[i]);
-                    case OS_UBUNTU: return (kc_os_ubt[i]);
-                    default: break;
-                }
-                return (kc_os_mac[i]);
+                case OS_WINDOWS: return (kc_os_win[i]);
+                case OS_UBUNTU: return (kc_os_ubt[i]);
+                default: break;
             }
-            break;
+            return (kc_os_mac[i]);
         }
+        break;
     }
     return keycode;
 }

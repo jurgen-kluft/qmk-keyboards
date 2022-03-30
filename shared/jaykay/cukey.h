@@ -6,8 +6,7 @@ enum eCustomKeyCodes {
     KC_QWERTY = SAFE_RANGE,
     KC_RSTHD,
     KC_OLED,
-    KC_OS_MODE,
-    KC_OS_PMODE,
+
     KC_OS_UNDO,
     KC_OS_REDO,
     KC_OS_CUT,
@@ -37,8 +36,6 @@ enum eCustomKeyCodes {
     KC_FSYM,
     KC_FNAV,
     
-    KC_DCOLN,
-
 #include "cushi.def"
 
     KC_SMART_END,
@@ -81,4 +78,13 @@ enum eCustomKeyCodes {
 
 #undef CUSHI_ENTRY
 
+enum eOS
+{
+    OS_MAC     = 0,
+    OS_WINDOWS = 1,
+    OS_UBUNTU  = 2,
+};
+
+void keyboard_set_os(uint8_t os);
+uint8_t keyboard_get_os(void);
 uint16_t process_cukey(uint16_t keycode);
