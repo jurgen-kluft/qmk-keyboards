@@ -1,28 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "layers.h"
 #include "oneshot.h"
-#include "cushi.h"
 #include "cukey.h"
-#include "feature.h"
-#include "cheng.h"
-#include "leader_user.h"
 #include "layouts.h"
-
-#ifdef OLED_ENABLE
-#include "oled.h"
-#endif
-
-#define KC_TRANS KC_TRANSPARENT
-#define ____     KC_TRANSPARENT
-#define xxxx     KC_NO
-#define LT_MOS   TG(_MOUS)
-
-#if (__has_include("secrets.x") && !defined(NO_SECRETS))
-#include "secrets.x"
-static const char* gSecrets[] = {SECRET_1, SECRET_2, SECRET_3, SECRET_4, SECRET_5, SECRET_6, SECRET_7, SECRET_8};
-#else
-static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4", "SECRET_5", "SECRET_6", "SECRET_7", "SECRET_8"};
-#endif
 
 // This is a LAYOUT that maps a Kyria layout to a Hillside layout.
 // I do this so that I can use the same keymap for both keyboards.
@@ -33,15 +13,13 @@ static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4",
 #define LAYOUT KYRIA_TO_HILLSIDE_LAYOUT
 #endif
 
-// Symbols (C++) in order of frequency     space _ * , . ) ( ; - = / > " { & } : + # ` ] [ < % ! ' | ? @ $ ^ ~
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     xxxx, KC_Q, KC_W, KC_E,   KC_R,    KC_T,                                        KC_Y,    KC_U,     KC_I,          KC_O,        KC_P,    xxxx, 
     xxxx, KC_A, KC_S, KC_D,   KC_F,    KC_G,                                        KC_H,    KC_J,     KC_K,          KC_L,        KC_SCLN, xxxx, 
     xxxx, KC_Z, KC_X, KC_C,   KC_V,    KC_B,    KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, KC_N,    KC_M,     KC_COMMA_QUES, KC_DOT_EXCL, KC_UNDS, xxxx, 
-                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS                                   
+                      LT_MOS, KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, LT_MOS                                     
   ),
   [_RSTHD] = LAYOUT(
     xxxx, KC_J,    KC_C, KC_Y,   KC_F,    KC_K,                                        KC_Z,    KC_L,     KC_BSPACE,     KC_U,        KC_Q,    xxxx, 
@@ -68,10 +46,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ____,     ____,     ____,     ____, xxxx,   xxxx, KC_BSPACE, ____, ____, ____                    
   ),
   [_MOUS] = LAYOUT(
-    xxxx, KC_MPLY,    MU_TOG,      MU_MOD,  KC_OLED, RGB_SAD,                                      KC_MS_WH_UP,    KC_MS_BTN1,    KC_MS_UP,      KC_MS_BTN2,     RGB_SAI, xxxx, 
-    xxxx, OS_CMD,     OS_ALT,      OS_CTRL, OS_SHFT, RGB_HUD,                                      KC_MS_WH_DOWN,  KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,    RGB_HUI, xxxx, 
-    xxxx, ____,         ____,         ____,    ____, RGB_VAD,     ____,  xxxx,   xxxx,       ____,          ____,  KC_MS_WH_LEFT, KC_MS_BTN3,    KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
-                                      ____,    ____,    ____, KC_RSTHD,  xxxx,   xxxx,  KC_QWERTY,          ____,           ____,          ____                                       
+    xxxx, KC_MPLY, MU_TOG, MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
+    xxxx, OS_CMD,  OS_ALT, OS_CTRL, OS_SHFT, RGB_HUD,                                    KC_MS_WH_DOWN, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    RGB_HUI, xxxx, 
+    xxxx, ____,    ____,   ____,    ____,    RGB_VAD, ____,     xxxx,   xxxx, ____,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
+                           ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
   ),
   [_SYM] = LAYOUT(
     xxxx, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                           KC_GRV,  KC_QUOT, KC_DQUO, KC_HASH, KC_DLR,  xxxx, 
@@ -83,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                   KC_INSERT, KC_PGUP,   KC_HOME, KC_NO,    KC_NO, xxxx, 
     xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, KC_NO, xxxx, 
     xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     ____, xxxx,   xxxx, ____,      KC_TRANS,  KC_PGDOWN, KC_END,  KC_NO,    KC_NO, xxxx, 
-                                   ____,       ____,        ____,      ____, xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                           
+                                   ____,       ____,        ____,      ____, xxxx,   xxxx, KC_BSPACE, ____,      ____,      ____                            
   ),
   [_RAISE] = LAYOUT(
     xxxx, KC_SECRET_5, KC_SECRET_6, KC_SECRET_7, KC_SECRET_8, KC_4,                                KC_F12,    KC_F2,  KC_F3,  KC_F4, KC_F1, xxxx, 
@@ -94,196 +72,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef ENABLE_ONESHOT
-
-bool is_oneshot_modifier_cancel_key(uint16_t keycode, bool pressed)
-{
-    switch (keycode)
-    {
-        case KC_FNAV:
-        case KC_FCAPS: return pressed;
-    }
-    return false;
-}
-
-bool is_oneshot_modifier_ignored_key(uint16_t keycode, bool pressed)
-{
-    switch (keycode)
-    {
-        case KC_FNAV:
-        case KC_FSYM: return true;
-    }
-    return false;
-}
-
-oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
-{
-    switch (keycode)
-    {
-        case OS_CTRL:
-        case OS_SHFT:
-        case OS_ALT:
-        case OS_CMD: return (keycode - OS_CTRL) + ONESHOT_LCTL;
-    }
-    return ONESHOT_NONE;
-}
-
-#endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t* record)
-{
-#ifdef OLED_DRIVER_ENABLE
-    process_record_oled(keycode, record);
-#endif
-
-    if (process_record_cheng(keycode, record))
-        return false;
-
-    switch (keycode)
-    {
-        case KC_OS_UNDO ... KC_OS_CLOSE:
-        {
-            if (!process_cushi_keys(keycode, record))
-                return false;
-
-            if (record->event.pressed)
-            {
-                keycode = process_cukey(keycode);
-                if (keycode != KC_NO)
-                    tap_code16(keycode);
-            }
-
-            return false;
-        }
-        case KC_SECRET_1 ... KC_SECRET_8: // Secrets!  Externally defined strings, not stored in repo
-            if (!record->event.pressed)
-            {
-                turnoff_oneshot_modifiers();
-                send_string_with_delay(gSecrets[keycode - KC_SECRET_1], MACRO_TIMER);
-            }
-            return false;
-            break;
-        case KC_OLED:
-            if (record->event.pressed)
-            {
-#ifdef OLED_ENABLE
-                toggle_display_oled();
-#endif
-#ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-#endif
-            }
-            return true;
-    }
-
-    if (!process_feature_key(keycode, record))
-    {
-        return false;
-    }
-
-    if (!process_cushi_keys(keycode, record))
-    {
-        return false;
-    }
-
-    update_oneshot_modifiers(keycode, record);
-
-    switch (keycode)
-    {
-        case KC_QWERTY:
-            if (record->event.pressed)
-            {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            break;
-        case KC_RSTHD:
-            if (record->event.pressed)
-            {
-                set_single_persistent_default_layer(_RSTHD);
-            }
-            break;
-    }
-
-    if (process_leader_user(keycode, record))
-        return false;
-
-    return true;
-}
-
-// Layer-specific encoder knob functions
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise)
-{
-    uint16_t layers = (layer_state | default_layer_state);
-    if (index == 0)
-    { // left knob
-        switch (get_highest_layer(layers))
-        {
-            case _MOUS: // Underglow color
-#ifdef RGBLIGHT_ENABLE
-                if (clockwise)
-                {
-                    rgblight_increase_hue();
-                }
-                else
-                {
-                    rgblight_decrease_hue();
-                }
-#endif
-                break;
-            default: // Volume Up/Down
-                if (clockwise)
-                {
-                    tap_code(KC_VOLD);
-                }
-                else
-                {
-                    tap_code(KC_VOLU);
-                }
-                break;
-        }
-    }
-    else if (index == 1)
-    { // right knob
-        switch (get_highest_layer(layers))
-        {
-            case _NAV:
-                if (clockwise)
-                {
-                    tap_code(KC_MS_WH_DOWN);
-                }
-                else
-                {
-                    tap_code(KC_MS_WH_UP);
-                }
-                break;
-            case _MOUS: // Underglow brightness
-#ifdef RGBLIGHT_ENABLE
-                if (clockwise)
-                {
-                    rgblight_increase_val();
-                }
-                else
-                {
-                    rgblight_decrease_val();
-                }
-#endif
-                break;
-            default:
-                if (clockwise)
-                {
-                    tap_code(KC_BRIU);
-                }
-                else
-                {
-                    tap_code(KC_BRID);
-                }
-                break;
-        }
-    }
-    return false;
-}
-#endif
 
 /*
 qmk-keyboard-format:json:begin

@@ -40,3 +40,6 @@ OLED_ENABLE                     = no  # Enable OLEDs
 RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
 
 SRC += oled.c
+SRC += oneshot_user.c
+SRC += process_record_user.c
+SRC += encoder_update_user.c

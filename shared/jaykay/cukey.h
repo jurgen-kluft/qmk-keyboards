@@ -78,6 +78,12 @@ enum eCustomKeyCodes {
 
 #undef CUSHI_ENTRY
 
+#define KC_TRANS KC_TRANSPARENT
+#define ____     KC_TRANSPARENT
+#define xxxx     KC_NO
+#define LT_MOS   TG(_MOUS)
+
+
 enum eOS
 {
     OS_MAC     = 0,
