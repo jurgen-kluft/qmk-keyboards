@@ -28,7 +28,6 @@
 #define KC_PC_PDT   LCTL(LGUI(KC_LEFT))
 #define KC_PC_CLOSE LCTL(KC_W)
 
-
 typedef union
 {
     uint32_t raw;
@@ -54,10 +53,7 @@ void keyboard_set_os(uint8_t os)
     user_config.os = os;
     eeconfig_update_user(user_config.raw);
 }
-uint8_t keyboard_get_os(void)
-{
-    return user_config.os;
-}
+uint8_t keyboard_get_os(void) { return user_config.os; }
 
 uint16_t const kc_os_win[] = {KC_PC_UNDO, KC_PC_REDO, KC_PC_CUT, KC_PC_COPY, KC_PC_PASTE, KC_PC_NDT, KC_PC_PDT, KC_PC_CLOSE};
 uint16_t const kc_os_mac[] = {KC_MAC_UNDO, KC_MAC_REDO, KC_MAC_CUT, KC_MAC_COPY, KC_MAC_PASTE, KC_MAC_NDT, KC_MAC_PDT, KC_MAC_CLOSE};
@@ -79,11 +75,11 @@ uint16_t process_cukey(uint16_t keycode)
             uint8_t i = (uint8_t)(keycode - KC_OS_UNDO);
             switch (user_config.os)
             {
-                case OS_WINDOWS: return (kc_os_win[i]);
-                case OS_UBUNTU: return (kc_os_ubt[i]);
-                default: break;
+                case OS_WINDOWS: keycode = (kc_os_win[i]); break;
+                case OS_UBUNTU: keycode = (kc_os_ubt[i]); break;
+                case OS_MAC: keycode = (kc_os_mac[i]); break;
+                default: keyboard_set_os(OS_MAC); break;
             }
-            return (kc_os_mac[i]);
         }
         break;
     }

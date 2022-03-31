@@ -31,7 +31,7 @@ FNAV -> g -> t -> e = '>='
                  release 't'
 */
 
-__attribute__((weak)) void   execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* leader_chain) {}
+__attribute__((weak)) void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* leader_chain) {}
 
 static int8_t process_leader_chain(uint8_t count, uint16_t* leader_chain, leader_config_t* leader_config);
 

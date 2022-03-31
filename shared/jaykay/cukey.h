@@ -2,7 +2,8 @@
 
 #define CUSHI_ENTRY(custom_keycode, key_normal, key_shift, key_ctrl, key_alt, key_gui) custom_keycode,
 
-enum eCustomKeyCodes {
+enum eCustomKeyCodes
+{
     KC_QWERTY = SAFE_RANGE,
     KC_RSTHD,
     KC_OLED,
@@ -35,7 +36,7 @@ enum eCustomKeyCodes {
     KC_FNUM,
     KC_FSYM,
     KC_FNAV,
-    
+
 #include "user_cushi.def"
 
     KC_SMART_END,
@@ -83,7 +84,6 @@ enum eCustomKeyCodes {
 #define xxxx     KC_NO
 #define LT_MOS   TG(_MOUS)
 
-
 enum eOS
 {
     OS_MAC     = 0,
@@ -91,6 +91,6 @@ enum eOS
     OS_UBUNTU  = 2,
 };
 
-void keyboard_set_os(uint8_t os);
-uint8_t keyboard_get_os(void);
+void     keyboard_set_os(uint8_t os);
+uint8_t  keyboard_get_os(void);
 uint16_t process_cukey(uint16_t keycode);

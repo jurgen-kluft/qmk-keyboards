@@ -41,7 +41,7 @@ static bool s_osm_unapplied_mods_present = false;
 static int8_t s_osm_active = 0;
 
 // utility functions (implemented at the bottom of this file)
-static inline bool   all_modifiers_are_off(void) { return s_osm_active == 0; }
+static inline bool all_modifiers_are_off(void) { return s_osm_active == 0; }
 
 // implementation of utility functions
 
@@ -146,7 +146,7 @@ void update_oneshot_modifiers(uint16_t keycode, keyrecord_t* record)
         {
             return;
         }
-        
+
         if (record->event.pressed)
         {
             if (!all_modifiers_are_off())
@@ -174,6 +174,5 @@ void update_oneshot_modifiers(uint16_t keycode, keyrecord_t* record)
         }
     }
 }
-
 
 #endif
