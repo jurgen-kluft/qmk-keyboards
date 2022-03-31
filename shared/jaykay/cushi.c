@@ -20,10 +20,10 @@ bool process_cushi_keys(uint16_t keycode, keyrecord_t* record)
     uint16_t key_alt    = KC_NO;
     uint16_t key_gui    = KC_NO;
 
-    // @NOTE: Add your custom entries in cushi.def
+    // @NOTE: Add your custom entries in user_cushi.def
     switch (keycode)
     {
-#include "cushi.def"
+#include "user_cushi.def"
         default: return true;
     }
 

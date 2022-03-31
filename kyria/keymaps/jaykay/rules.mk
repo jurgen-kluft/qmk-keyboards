@@ -39,7 +39,6 @@ ENCODER_ENABLE                  = yes # Ensure encoders are disabled unless set 
 OLED_ENABLE                     = no  # Enable OLEDs
 RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
 
-SRC += oled.c
-SRC += oneshot_user.c
-SRC += process_record_user.c
-SRC += encoder_update_user.c
+ifeq ($(strip $(OLED_ENABLE)), yes)
+	SRC += oled.c
+endif
