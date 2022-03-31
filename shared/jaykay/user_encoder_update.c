@@ -2,7 +2,6 @@
 #include "layers.h"
 
 // Layer-specific encoder knob functions
-#ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
     uint16_t layers = (layer_state | default_layer_state);
@@ -74,4 +73,3 @@ bool encoder_update_user(uint8_t index, bool clockwise)
     }
     return false;
 }
-#endif
