@@ -6,5 +6,4 @@ WEBUSB_ENABLE = yes
 ORYX_ENABLE = yes
 TAP_DANCE_ENABLE = no
 
-SRC += smart.c
-SRC += oneshot.c
+SRC += rgb_lighting.c
