@@ -40,7 +40,7 @@ typedef union
 
 user_config_t user_config;
 
-void keyboard_post_init_user(void)
+void keyboard_init_cukey(void)
 { // Read the user config from EEPROM
     user_config.raw = eeconfig_read_user();
 }

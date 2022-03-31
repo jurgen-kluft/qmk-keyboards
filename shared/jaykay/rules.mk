@@ -9,6 +9,7 @@ SRC += $(USER_PATH)/leader.c
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
     SRC += $(USER_PATH)/user_encoder_update.c
 endif
+SRC += $(USER_PATH)/user_keyboard_init.c
 SRC += $(USER_PATH)/user_oneshot.c
 SRC += $(USER_PATH)/user_process_record.c
 SRC += $(USER_PATH)/user_leader.c
