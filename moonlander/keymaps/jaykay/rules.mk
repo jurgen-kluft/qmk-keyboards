@@ -6,4 +6,6 @@ WEBUSB_ENABLE = yes
 ORYX_ENABLE = yes
 TAP_DANCE_ENABLE = no
 
-SRC += rgb_lighting.c
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	SRC += rgb_lighting.c
+endif

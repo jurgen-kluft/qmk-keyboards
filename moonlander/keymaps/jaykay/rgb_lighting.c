@@ -3,10 +3,9 @@
 
 #define MOON_LED_LEVEL LED_LEVEL
 
-extern bool         g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 
-void keyboard_post_init_user(void) { rgb_matrix_enable(); }
+void keyboard_init_rgb_matrix(void) { rgb_matrix_enable(); }
 
 // clang-format off
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
@@ -50,7 +49,8 @@ void set_layer_color(int layer)
 
 void rgb_matrix_indicators_user(void)
 {
-    if (g_suspend_state || keyboard_config.disable_layer_led)
+    bool suspend_state = rgb_matrix_get_suspend_state();
+    if (suspend_state || keyboard_config.disable_layer_led)
     {
         return;
     }
