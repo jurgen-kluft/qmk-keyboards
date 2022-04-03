@@ -25,7 +25,7 @@ static leader1_t const leader1_array[] = {
 
 enum eleader_two
 {
-    LA_EASYMOTION = 0,
+    LA_EASYMOTION = 0,   // ff
     LA_CHANGE_LINE,      // cl
     LA_CHANGE_WORD,      // cw
     LA_DELETE_UNTIL_BOL, // db
@@ -184,14 +184,7 @@ bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process
 
 void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* keycodes)
 {
-    if (count == 1)
-    {
-        switch (action)
-        {
-            case LA_EASYMOTION: tap_code16(A(KC_S)); break;
-        }
-    }
-    else if (count == 2)
+    if (count == 2)
     {
         const char* str = NULL;
         switch (action)
@@ -211,6 +204,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
                     str = ("QMK=" QMK_VERSION ", build= " QMK_BUILDDATE);
                 }
                 break;
+
             case LA_SCREENSHOT: tap_code16(G(S(KC_4))); break;
             case LA_PASSWORD: str = SECRET_5; break;
             case LA_GMAIL: str = ("jurgen.kluft@gmail.com"); break;
@@ -224,6 +218,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
             case LA_DELETE_LINE: send_taps2(C(KC_D), KC_L); break;
             case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
             case LA_DELETE_UNTIL_BOL: send_taps2(S(KC_HOME), KC_DEL); break;
+            case LA_EASYMOTION: tap_code16(A(KC_S)); break;
 
             case LA_CPP_AUTO: str = "auto "; break;
             case LA_CPP_BREAK: str = "break; "; break;
