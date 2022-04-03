@@ -19,17 +19,13 @@ static leader_range_t leader_range_array[] = {
     [LA_DIGIT_TO_WORD] = {.start = KC_1, .end = KC_0},
 };
 
-enum eleader_one
-{
-    LA_EASYMOTION = 0,
-};
-
 static leader1_t const leader1_array[] = {
-    [LA_EASYMOTION] = {KC_F},
+    
 };
 
 enum eleader_two
 {
+    LA_EASYMOTION = 0,
     LA_CHANGE_LINE,      // cl
     LA_CHANGE_WORD,      // cw
     LA_DELETE_UNTIL_BOL, // db
@@ -41,13 +37,41 @@ enum eleader_two
     LA_GT,               // gt
     LA_HOTMAIL,          // hm
     LA_INFO,             // in
-    LA_CLASS,            // kc
-    LA_RETURN,           // kr
-    LA_STRUCT,           // ks
-    LA_VOID,             // kv
     LA_LT,               // lt
     LA_PASSWORD,         // pw
     LA_SCREENSHOT,       // ss
+    LA_CPP_AUTO,         // ao
+    LA_CPP_BREAK,        // bk
+    LA_CPP_CASE,         // ce
+    LA_CPP_CLASS,        // cs
+    LA_CPP_CONST,        // ct
+    LA_CPP_CONTINUE,     // co
+    LA_CPP_ELSE,         // ee
+    LA_CPP_ENUM,         // em
+    LA_CPP_EXTERN,       // en
+    LA_CPP_FOR,          // fo
+    LA_CPP_FRIEND,       // fi
+    LA_CPP_GOTO,         // go
+    LA_CPP_IF,           // if
+    LA_CPP_INLINE,       // ie
+    LA_CPP_OPERATOR,     // or
+    LA_CPP_PRIVATE,      // pe
+    LA_CPP_PROTECTED,    // pd
+    LA_CPP_PUBLIC,       // pc
+    LA_CPP_REGISTER,     // rr
+    LA_CPP_RETURN,       // rn
+    LA_CPP_SIZEOF,       // sf
+    LA_CPP_STATIC,       // sc
+    LA_CPP_STRUCT,       // st
+    LA_CPP_SWITCH,       // sh
+    LA_CPP_TEMPLATE,     // te
+    LA_CPP_THIS,         // ts
+    LA_CPP_TYPEDEF,      // ty
+    LA_CPP_UNION,        // un
+    LA_CPP_VIRTUAL,      // vl
+    LA_CPP_VOID,         // vd
+    LA_CPP_VOLATILE,     // ve
+    LA_CPP_WHILE,        // we
 };
 
 static leader2_t const leader2_array[] = {
@@ -62,13 +86,42 @@ static leader2_t const leader2_array[] = {
     [LA_GT]               = {KC_G, KC_T},
     [LA_HOTMAIL]          = {KC_H, KC_M},
     [LA_INFO]             = {KC_I, KC_N},
-    [LA_CLASS]            = {KC_K, KC_C},
-    [LA_RETURN]           = {KC_K, KC_R},
-    [LA_STRUCT]           = {KC_K, KC_S},
-    [LA_VOID]             = {KC_K, KC_V},
     [LA_LT]               = {KC_L, KC_T},
     [LA_PASSWORD]         = {KC_P, KC_W},
     [LA_SCREENSHOT]       = {KC_S, KC_S},
+    [LA_CPP_AUTO]         = {KC_A, KC_O},
+    [LA_CPP_BREAK]        = {KC_B, KC_K},
+    [LA_CPP_CASE]         = {KC_C, KC_E},
+    [LA_CPP_CLASS]        = {KC_C, KC_S},
+    [LA_CPP_CONST]        = {KC_C, KC_T},
+    [LA_CPP_CONTINUE]     = {KC_C, KC_O},
+    [LA_CPP_ELSE]         = {KC_E, KC_E},
+    [LA_CPP_ENUM]         = {KC_E, KC_M},
+    [LA_CPP_EXTERN]       = {KC_E, KC_N},
+    [LA_EASYMOTION]       = {KC_F, KC_F},
+    [LA_CPP_FOR]          = {KC_F, KC_O},
+    [LA_CPP_FRIEND]       = {KC_F, KC_I},
+    [LA_CPP_GOTO]         = {KC_G, KC_O},
+    [LA_CPP_IF]           = {KC_I, KC_F},
+    [LA_CPP_INLINE]       = {KC_I, KC_E},
+    [LA_CPP_OPERATOR]     = {KC_O, KC_R},
+    [LA_CPP_PRIVATE]      = {KC_P, KC_E},
+    [LA_CPP_PROTECTED]    = {KC_P, KC_D},
+    [LA_CPP_PUBLIC]       = {KC_P, KC_C},
+    [LA_CPP_REGISTER]     = {KC_R, KC_R},
+    [LA_CPP_RETURN]       = {KC_R, KC_N},
+    [LA_CPP_SIZEOF]       = {KC_S, KC_F},
+    [LA_CPP_STATIC]       = {KC_S, KC_C},
+    [LA_CPP_STRUCT]       = {KC_S, KC_T},
+    [LA_CPP_SWITCH]       = {KC_S, KC_H},
+    [LA_CPP_TEMPLATE]     = {KC_T, KC_E},
+    [LA_CPP_THIS]         = {KC_T, KC_S},
+    [LA_CPP_TYPEDEF]      = {KC_T, KC_Y},
+    [LA_CPP_UNION]        = {KC_U, KC_N},
+    [LA_CPP_VIRTUAL]      = {KC_V, KC_L},
+    [LA_CPP_VOID]         = {KC_V, KC_D},
+    [LA_CPP_VOLATILE]     = {KC_V, KC_E},
+    [LA_CPP_WHILE]        = {KC_W, KC_E},
 };
 
 enum eleader_three
@@ -165,16 +218,45 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
             case LA_GT: str = (" > "); break;
             case LA_LT: str = (" < "); break;
             case LA_EQ: str = (" == "); break;
-            case LA_STRUCT: str = ("struct "); break;
-            case LA_CLASS: str = ("class "); break;
-            case LA_RETURN: str = ("return "); break;
-            case LA_VOID: str = ("void "); break;
             case LA_CHANGE_WORD:
             case LA_DELETE_WORD: send_taps2(A(S(KC_RIGHT)), KC_DEL); break;
             case LA_CHANGE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
             case LA_DELETE_LINE: send_taps2(C(KC_D), KC_L); break;
             case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
             case LA_DELETE_UNTIL_BOL: send_taps2(S(KC_HOME), KC_DEL); break;
+
+            case LA_CPP_AUTO: str = "auto "; break;
+            case LA_CPP_BREAK: str = "break; "; break;
+            case LA_CPP_CASE: str = "case "; break;
+            case LA_CPP_CLASS: str = "class "; break;
+            case LA_CPP_CONST: str = "const "; break;
+            case LA_CPP_CONTINUE: str = "continue; "; break;
+            case LA_CPP_ELSE: str = "else "; break;
+            case LA_CPP_ENUM: str = "enum "; break;
+            case LA_CPP_EXTERN: str = "extern "; break;
+            case LA_CPP_FOR: str = "for (s32 i=0; i<"; break;
+            case LA_CPP_FRIEND: str = "friend "; break;
+            case LA_CPP_GOTO: str = "goto "; break;
+            case LA_CPP_IF: str = "if () {\n"; break;
+            case LA_CPP_INLINE: str = "inline "; break;
+            case LA_CPP_OPERATOR: str = "operator "; break;
+            case LA_CPP_PRIVATE: str = "private: "; break;
+            case LA_CPP_PROTECTED: str = "protected: "; break;
+            case LA_CPP_PUBLIC: str = "public: "; break;
+            case LA_CPP_REGISTER: str = "register "; break;
+            case LA_CPP_RETURN: str = "return "; break;
+            case LA_CPP_SIZEOF: str = "sizeof("; break;
+            case LA_CPP_STATIC: str = "static "; break;
+            case LA_CPP_STRUCT: str = "struct "; break;
+            case LA_CPP_SWITCH: str = "switch () {\n case "; break;
+            case LA_CPP_TEMPLATE: str = "template "; break;
+            case LA_CPP_THIS: str = "this "; break;
+            case LA_CPP_TYPEDEF: str = "typedef "; break;
+            case LA_CPP_UNION: str = "union "; break;
+            case LA_CPP_VIRTUAL: str = "virtual "; break;
+            case LA_CPP_VOID: str = "void"; break;
+            case LA_CPP_VOLATILE: str = "volatile"; break;
+            case LA_CPP_WHILE: str = "while (x) {\n"; break;
         }
         if (str != NULL)
         {

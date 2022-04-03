@@ -36,8 +36,8 @@ WPM_ENABLE                      = no
 SWAP_HANDS_ENABLE               = no
 
 ENCODER_ENABLE                  = yes # Ensure encoders are disabled unless set to true in a specific keymap
-OLED_ENABLE                     = no  # Enable OLEDs
-RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
+OLED_ENABLE                     = yes  # Enable OLEDs
+RGBLIGHT_ENABLE                 = yes  # Enable keyboard RGB underglow
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += oled.c
