@@ -17,3 +17,11 @@
     { R49, R48, R47, R46, R45, R33 }  \
 }
 
+
+// This is a LAYOUT that maps a Kyria layout to a Hillside layout.
+// I do this so that I can use the same keymap for both keyboards.
+// Next step is to actually share this keymap between keyboards.
+#ifdef KEYBOARD_HILLSIDE
+#undef LAYOUT
+#define LAYOUT KYRIA_TO_HILLSIDE_LAYOUT
+#endif

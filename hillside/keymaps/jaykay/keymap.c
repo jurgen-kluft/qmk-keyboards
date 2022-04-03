@@ -4,15 +4,6 @@
 #include "cukey.h"
 #include "layouts.h"
 
-// This is a LAYOUT that maps a Kyria layout to a Hillside layout.
-// I do this so that I can use the same keymap for both keyboards.
-// Next step is to actually share this keymap between keyboards.
-#ifdef KEYBOARD_HILLSIDE
-#include "layouts.h"
-#undef LAYOUT
-#define LAYOUT KYRIA_TO_HILLSIDE_LAYOUT
-#endif
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
