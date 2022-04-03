@@ -175,6 +175,13 @@ int8_t process_leader_chain(uint8_t count, uint16_t* keycodes, leader_config_t* 
                 return -1;
             }
         }
+        for (uint8_t i = 0; i < config->leader4_count; i++)
+        {
+            if (config->leader4_array[i].keycode1 == keycodes[0])
+            {
+                return -1;
+            }
+        }
     }
     else if (count == 2)
     {
@@ -192,12 +199,36 @@ int8_t process_leader_chain(uint8_t count, uint16_t* keycodes, leader_config_t* 
                 return -1;
             }
         }
+        for (uint8_t i = 0; i < config->leader4_count; i++)
+        {
+            if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1])
+            {
+                return -1;
+            }
+        }
     }
     else if (count == 3)
     {
         for (uint8_t i = 0; i < config->leader3_count; i++)
         {
             if (config->leader3_array[i].keycode1 == keycodes[0] && config->leader3_array[i].keycode2 == keycodes[1] && config->leader3_array[i].keycode3 == keycodes[2])
+            {
+                return i;
+            }
+        }
+        for (uint8_t i = 0; i < config->leader4_count; i++)
+        {
+            if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1] && config->leader4_array[i].keycode3 == keycodes[2])
+            {
+                return -1;
+            }
+        }
+    }
+    else if (count == 4)
+    {
+        for (uint8_t i = 0; i < config->leader4_count; i++)
+        {
+            if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1] && config->leader4_array[i].keycode3 == keycodes[2] && config->leader4_array[i].keycode4 == keycodes[3])
             {
                 return i;
             }

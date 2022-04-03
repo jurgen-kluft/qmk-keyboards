@@ -20,7 +20,7 @@ static leader_range_t leader_range_array[] = {
 };
 
 static leader1_t const leader1_array[] = {
-    
+
 };
 
 enum eleader_two
@@ -39,7 +39,6 @@ enum eleader_two
     LA_INFO,             // in
     LA_LT,               // lt
     LA_PASSWORD,         // pw
-    LA_SCREENSHOT,       // ss
     LA_CPP_AUTO,         // ao
     LA_CPP_BREAK,        // bk
     LA_CPP_CASE,         // ce
@@ -88,7 +87,6 @@ static leader2_t const leader2_array[] = {
     [LA_INFO]             = {KC_I, KC_N},
     [LA_LT]               = {KC_L, KC_T},
     [LA_PASSWORD]         = {KC_P, KC_W},
-    [LA_SCREENSHOT]       = {KC_S, KC_S},
     [LA_CPP_AUTO]         = {KC_A, KC_O},
     [LA_CPP_BREAK]        = {KC_B, KC_K},
     [LA_CPP_CASE]         = {KC_C, KC_E},
@@ -159,6 +157,15 @@ static leader3_t const leader3_array[] = {
     [LA_NEQ]                 = {KC_N, KC_E, KC_Q},
 };
 
+enum eleader_four
+{
+    LA_SCREENSHOT, // snip
+};
+
+static leader4_t const leader4_array[] = {
+    [LA_SCREENSHOT] = {KC_S, KC_N, KC_I, KC_P},
+};
+
 #define send_taps2(tap1, tap2) \
     tap_code16(tap1);          \
     tap_code16(tap2)
@@ -178,6 +185,8 @@ static leader_config_t leader_config = {
     .leader2_count      = ARRAY_SIZE(leader2_array),
     .leader3_array      = leader3_array,
     .leader3_count      = ARRAY_SIZE(leader3_array),
+    .leader4_array      = leader4_array,
+    .leader4_count      = ARRAY_SIZE(leader4_array),
 };
 
 bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config); }
@@ -205,7 +214,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
                 }
                 break;
 
-            case LA_SCREENSHOT: tap_code16(G(S(KC_4))); break;
             case LA_PASSWORD: str = SECRET_5; break;
             case LA_GMAIL: str = ("jurgen.kluft@gmail.com"); break;
             case LA_HOTMAIL: str = ("jurgen_kluft@hotmail.com"); break;
@@ -283,6 +291,13 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
             send_taps2(G(KC_K), bracket);
             wait_ms(200);
             tap_code16(KC_DEL);
+        }
+    }
+    else if (count == 4)
+    {
+        switch (action)
+        {
+            case LA_SCREENSHOT: tap_code16(G(S(KC_4))); break;
         }
     }
 }
