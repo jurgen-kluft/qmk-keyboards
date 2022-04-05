@@ -1,6 +1,7 @@
 #pragma once
 
 #define LAYER_STATE_16BIT
+#define MAX_LAYER 9
 
 #define NO_MUSIC_MODE
 #define NO_ACTION_ONESHOT
