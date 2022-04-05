@@ -1,7 +1,7 @@
 #pragma once
 
-
-enum layers {
+enum layers
+{
     _QWERTY = 0,
     _RSTHD,
     _QWERTY_CAPS,
@@ -15,5 +15,6 @@ enum layers {
     _GAMER
 };
 
-#pragma once
-
+#if MAX_LAYER < _NUM_LAYERS
+#error "MAX_LAYER must be at least _NUM_LAYERS"
+#endif
