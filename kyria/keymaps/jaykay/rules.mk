@@ -33,7 +33,7 @@ AUTO_SHIFT_ENABLE = no
 LTO_ENABLE = yes
 
 WPM_ENABLE                      = no
-SWAP_HANDS_ENABLE               = no
+SWAP_HANDS_ENABLE               = no # 
 
 ENCODER_ENABLE                  = yes # Ensure encoders are disabled unless set to true in a specific keymap
 OLED_ENABLE                     = no  # Enable OLEDs
