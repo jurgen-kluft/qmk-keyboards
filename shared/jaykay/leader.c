@@ -147,13 +147,6 @@ int8_t process_leader_chain(uint8_t count, uint16_t* keycodes, leader_config_t* 
 {
     if (count == 1)
     {
-        for (uint8_t i = 0; i < config->leader_range_count; i++)
-        {
-            if (keycodes[0] >= config->leader_range_array[i].start && keycodes[0] <= config->leader_range_array[i].end)
-            {
-                return i;
-            }
-        }
         for (uint8_t i = 0; i < config->leader1_count; i++)
         {
             if (config->leader1_array[i].keycode1 == keycodes[0])

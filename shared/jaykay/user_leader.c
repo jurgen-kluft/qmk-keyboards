@@ -3,25 +3,19 @@
 #include "leader.h"
 #include "cukey.h"
 
-#if (__has_include("secrets.x") && !defined(NO_SECRETS))
+#if !defined(NO_SECRETS)
 #include "secrets.x"
 #else
 #define SECRET_5 "test"
 #endif
 
-enum eleader_range
+
+enum eleader_one
 {
-    // abreviations
-    LA_DIGIT_TO_WORD = 0,
+    LA_DUMMY_ONE,
 };
 
-static leader_range_t leader_range_array[] = {
-    [LA_DIGIT_TO_WORD] = {.start = KC_1, .end = KC_0},
-};
-
-static leader1_t const leader1_array[] = {
-
-};
+static leader1_t const leader1_array[] = {};
 
 enum eleader_two
 {
@@ -74,52 +68,52 @@ enum eleader_two
 };
 
 static leader2_t const leader2_array[] = {
-    [LA_CHANGE_LINE]      = {KC_C, KC_L},
-    [LA_CHANGE_WORD]      = {KC_C, KC_W},
-    [LA_DELETE_UNTIL_BOL] = {KC_D, KC_B},
-    [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
-    [LA_DELETE_LINE]      = {KC_D, KC_L},
-    [LA_DELETE_WORD]      = {KC_D, KC_W},
-    [LA_EQ]               = {KC_E, KC_Q},
-    [LA_GMAIL]            = {KC_G, KC_M},
-    [LA_GT]               = {KC_G, KC_T},
-    [LA_HOTMAIL]          = {KC_H, KC_M},
-    [LA_INFO]             = {KC_I, KC_N},
-    [LA_LT]               = {KC_L, KC_T},
-    [LA_PASSWORD]         = {KC_P, KC_W},
-    [LA_CPP_AUTO]         = {KC_A, KC_O},
-    [LA_CPP_BREAK]        = {KC_B, KC_K},
-    [LA_CPP_CASE]         = {KC_C, KC_E},
-    [LA_CPP_CLASS]        = {KC_C, KC_S},
-    [LA_CPP_CONST]        = {KC_C, KC_T},
-    [LA_CPP_CONTINUE]     = {KC_C, KC_O},
-    [LA_CPP_ELSE]         = {KC_E, KC_E},
-    [LA_CPP_ENUM]         = {KC_E, KC_M},
-    [LA_CPP_EXTERN]       = {KC_E, KC_N},
-    [LA_EASYMOTION]       = {KC_F, KC_F},
-    [LA_CPP_FOR]          = {KC_F, KC_O},
-    [LA_CPP_FRIEND]       = {KC_F, KC_I},
-    [LA_CPP_GOTO]         = {KC_G, KC_O},
-    [LA_CPP_IF]           = {KC_I, KC_F},
-    [LA_CPP_INLINE]       = {KC_I, KC_E},
-    [LA_CPP_OPERATOR]     = {KC_O, KC_R},
-    [LA_CPP_PRIVATE]      = {KC_P, KC_E},
-    [LA_CPP_PROTECTED]    = {KC_P, KC_D},
-    [LA_CPP_PUBLIC]       = {KC_P, KC_C},
-    [LA_CPP_REGISTER]     = {KC_R, KC_R},
-    [LA_CPP_RETURN]       = {KC_R, KC_N},
-    [LA_CPP_SIZEOF]       = {KC_S, KC_F},
-    [LA_CPP_STATIC]       = {KC_S, KC_C},
-    [LA_CPP_STRUCT]       = {KC_S, KC_T},
-    [LA_CPP_SWITCH]       = {KC_S, KC_H},
-    [LA_CPP_TEMPLATE]     = {KC_T, KC_E},
-    [LA_CPP_THIS]         = {KC_T, KC_S},
-    [LA_CPP_TYPEDEF]      = {KC_T, KC_Y},
-    [LA_CPP_UNION]        = {KC_U, KC_N},
-    [LA_CPP_VIRTUAL]      = {KC_V, KC_L},
-    [LA_CPP_VOID]         = {KC_V, KC_D},
-    [LA_CPP_VOLATILE]     = {KC_V, KC_E},
-    [LA_CPP_WHILE]        = {KC_W, KC_E},
+    [LA_CPP_AUTO] = {KC_A, KC_O},
+      [LA_CPP_BREAK] = {KC_B, KC_K},
+      [LA_CPP_CASE] = {KC_C, KC_E},
+      [LA_CHANGE_LINE] = {KC_C, KC_L},
+      [LA_CPP_CONTINUE] = {KC_C, KC_O},
+    [LA_CPP_CLASS] = {KC_C, KC_S},
+      [LA_CPP_CONST] = {KC_C, KC_T},
+      [LA_CHANGE_WORD] = {KC_C, KC_W},
+      [LA_DELETE_UNTIL_BOL] = {KC_D, KC_B},
+      [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
+    [LA_DELETE_LINE] = {KC_D, KC_L},
+      [LA_DELETE_WORD] = {KC_D, KC_W},
+      [LA_CPP_ELSE] = {KC_E, KC_E},
+      [LA_CPP_ENUM] = {KC_E, KC_M},
+      [LA_CPP_EXTERN] = {KC_E, KC_N},
+    [LA_EQ] = {KC_E, KC_Q},
+      [LA_EASYMOTION] = {KC_F, KC_F},
+      [LA_CPP_FRIEND] = {KC_F, KC_I},
+      [LA_CPP_FOR] = {KC_F, KC_O},
+      [LA_GMAIL] = {KC_G, KC_M},
+    [LA_CPP_GOTO] = {KC_G, KC_O},
+      [LA_GT] = {KC_G, KC_T},
+      [LA_HOTMAIL] = {KC_H, KC_M},
+      [LA_CPP_INLINE] = {KC_I, KC_E},
+      [LA_CPP_IF] = {KC_I, KC_F},
+    [LA_INFO] = {KC_I, KC_N},
+      [LA_LT] = {KC_L, KC_T},
+      [LA_CPP_OPERATOR] = {KC_O, KC_R},
+      [LA_CPP_PUBLIC] = {KC_P, KC_C},
+      [LA_CPP_PROTECTED] = {KC_P, KC_D},
+    [LA_CPP_PRIVATE] = {KC_P, KC_E},
+      [LA_PASSWORD] = {KC_P, KC_W},
+      [LA_CPP_RETURN] = {KC_R, KC_N},
+      [LA_CPP_REGISTER] = {KC_R, KC_R},
+      [LA_CPP_STATIC] = {KC_S, KC_C},
+    [LA_CPP_SIZEOF] = {KC_S, KC_F},
+      [LA_CPP_SWITCH] = {KC_S, KC_H},
+      [LA_CPP_STRUCT] = {KC_S, KC_T},
+      [LA_CPP_TEMPLATE] = {KC_T, KC_E},
+      [LA_CPP_THIS] = {KC_T, KC_S},
+    [LA_CPP_TYPEDEF] = {KC_T, KC_Y},
+      [LA_CPP_UNION] = {KC_U, KC_N},
+      [LA_CPP_VOID] = {KC_V, KC_D},
+      [LA_CPP_VOLATILE] = {KC_V, KC_E},
+      [LA_CPP_VIRTUAL] = {KC_V, KC_L},
+    [LA_CPP_WHILE] = {KC_W, KC_E},
 };
 
 enum eleader_three
@@ -177,16 +171,14 @@ static leader4_t const leader4_array[] = {
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 static leader_config_t leader_config = {
-    .leader_range_array = leader_range_array,
-    .leader_range_count = ARRAY_SIZE(leader_range_array),
-    .leader1_array      = leader1_array,
-    .leader1_count      = ARRAY_SIZE(leader1_array),
-    .leader2_array      = leader2_array,
-    .leader2_count      = ARRAY_SIZE(leader2_array),
-    .leader3_array      = leader3_array,
-    .leader3_count      = ARRAY_SIZE(leader3_array),
-    .leader4_array      = leader4_array,
-    .leader4_count      = ARRAY_SIZE(leader4_array),
+    .leader1_array = leader1_array,
+    .leader1_count = ARRAY_SIZE(leader1_array),
+    .leader2_array = leader2_array,
+    .leader2_count = ARRAY_SIZE(leader2_array),
+    .leader3_array = leader3_array,
+    .leader3_count = ARRAY_SIZE(leader3_array),
+    .leader4_array = leader4_array,
+    .leader4_count = ARRAY_SIZE(leader4_array),
 };
 
 bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config); }

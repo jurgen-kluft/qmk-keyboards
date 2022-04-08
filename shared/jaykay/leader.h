@@ -2,12 +2,6 @@
 
 typedef struct
 {
-    uint16_t start;
-    uint16_t end;
-} leader_range_t;
-
-typedef struct
-{
     uint16_t keycode1;
 } leader1_t;
 
@@ -34,8 +28,6 @@ typedef struct
 
 typedef struct
 {
-    uint8_t               leader_range_count;
-    const leader_range_t* leader_range_array;
     uint8_t               leader1_count;
     const leader1_t*      leader1_array;
     uint8_t               leader2_count;
