@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
-#include "cukey.h"
+#include "feature.h"
 #include "oneshot.h"
+#include "user_oneshot.h"
 
 #ifdef ENABLE_ONESHOT
 

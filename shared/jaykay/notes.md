@@ -1,5 +1,38 @@
 # Notes
 
+## keyrecord_t
+
+Should also contain the layer number (uint8_t) that was used to take the keycode from.
+
+## shortcuts
+
+a = axis
+b = back
+c = cross
+d = down
+e = each
+f = for
+g = go
+h = horizontal
+i = inside
+j = jump
+k = know
+l = left
+m = move
+n = not
+o = origin
+p = position
+q = question
+r = right
+s = side
+t = the
+u = up
+v = vertical
+w = ward
+x = axis
+y = you
+z = . Shift (mode 1)
+
 ## Vim
 
 These are just some thoughts about a simple VIM like mode that could emit key combinations inside vscode for example.

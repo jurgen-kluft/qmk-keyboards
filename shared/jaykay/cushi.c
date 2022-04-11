@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "cukey.h"
+#include "user_cushi.h"
 
 static uint16_t cushi_registered_keycode = KC_NO;
 

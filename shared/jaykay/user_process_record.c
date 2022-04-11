@@ -4,8 +4,9 @@
 #include "cushi.h"
 #include "cukey.h"
 #include "feature.h"
-#include "cheng.h"
 #include "user_leader.h"
+#include "user_secrets.h"
+#include "user_keycodes.h"
 
 #ifdef OLED_ENABLE
 #include "oled.h"
@@ -23,9 +24,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 #ifdef OLED_DRIVER_ENABLE
     process_record_oled(keycode, record);
 #endif
-
-    if (process_record_cheng(keycode, record))
-        return false;
 
     switch (keycode)
     {

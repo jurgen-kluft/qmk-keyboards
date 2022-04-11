@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "oneshot.h"
+#include "user_oneshot.h"
 
 #ifdef ENABLE_ONESHOT
 
@@ -22,13 +23,8 @@ typedef enum
 // ONESHOT_STATE_QUEUED       => ONESHOT_STATE_LOCK          , 2 => 3
 // ONESHOT_STATE_LOCK         => ONESHOT_STATE_END_PRESSED   , 3 => 4
 // ONESHOT_STATE_END_PRESSED  => ONESHOT_STATE_OFF           , 4 => 0
-//
-// oneshot_state modifiers_state_transitions_normal[5] = {ONESHOT_STATE_PRESSED, ONESHOT_STATE_QUEUED, ONESHOT_STATE_LOCK, ONESHOT_STATE_END_PRESSED, ONESHOT_STATE_END_PRESSED};
-//
 
-static oneshot_state modifiers_with_state[ONESHOT_MOD_COUNT] = {
-    ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF,
-};
+static oneshot_state modifiers_with_state[ONESHOT_COUNT] = {0};
 
 // keycode of the last pressed 'normal' key which hasn't been released yet
 static uint16_t s_osm_repeating_normal_key = 0;
@@ -75,13 +71,13 @@ static void set_modifier_state(oneshot_mod osmod, oneshot_state new_state)
 
 static void set_modifier_state_all(oneshot_state new_state)
 {
-    for (int8_t i = 0; i < ONESHOT_MOD_COUNT; i++)
+    for (int8_t i = 0; i < ONESHOT_COUNT; i++)
         set_modifier_state(i, new_state);
 }
 
 static void set_modifier_state_all_from_to(oneshot_state oneshot_state_from, oneshot_state oneshot_state_to)
 {
-    for (int8_t i = 0; i < ONESHOT_MOD_COUNT; i++)
+    for (int8_t i = 0; i < ONESHOT_COUNT; i++)
     {
         if (modifiers_with_state[i] == oneshot_state_from)
         {

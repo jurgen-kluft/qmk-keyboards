@@ -9,6 +9,11 @@
 #define SECRET_5 "test"
 #endif
 
+// Thoughts:
+// Use a timer to deal with branching chains, e.g:
+// - eg, egt
+// For these you need to hold the 'g' key and press the 't' key to get to 'gte'
+
 
 enum eleader_one
 {
@@ -19,51 +24,52 @@ static leader1_t const leader1_array[] = {};
 
 enum eleader_two
 {
-    LA_EASYMOTION = 0,   // ff
-    LA_CHANGE_LINE,      // cl
-    LA_CHANGE_WORD,      // cw
-    LA_DELETE_UNTIL_BOL, // db
-    LA_DELETE_UNTIL_EOL, // de
-    LA_DELETE_LINE,      // dl
-    LA_DELETE_WORD,      // dw
-    LA_EQ,               // eq
-    LA_GMAIL,            // gm
-    LA_GT,               // gt
-    LA_HOTMAIL,          // hm
-    LA_INFO,             // in
-    LA_LT,               // lt
-    LA_PASSWORD,         // pw
     LA_CPP_AUTO,         // ao
     LA_CPP_BREAK,        // bk
     LA_CPP_CASE,         // ce
+    LA_CHANGE_LINE,      // cl
+    LA_CPP_CONTINUE,     // co
     LA_CPP_CLASS,        // cs
     LA_CPP_CONST,        // ct
-    LA_CPP_CONTINUE,     // co
+    LA_CHANGE_WORD,      // cw
+    LA_DELETE_WORD_BACK, // db
+    LA_DELETE_UNTIL_EOL, // de
+    LA_DELETE_LINE,      // dl
+    LA_DELETE_WORD,      // dw
+    LA_DELETE_UNTIL_SOL, // ds
     LA_CPP_ELSE,         // ee
     LA_CPP_ENUM,         // em
     LA_CPP_EXTERN,       // en
-    LA_CPP_FOR,          // fo
+    LA_EQ,               // eq
+    LA_EASYMOTION,       // ff
     LA_CPP_FRIEND,       // fi
+    LA_CPP_FOR,          // fo
+    LA_GMAIL,            // gm
     LA_CPP_GOTO,         // go
-    LA_CPP_IF,           // if
+    LA_GT,               // gt
+    LA_HOTMAIL,          // hm
     LA_CPP_INLINE,       // ie
+    LA_CPP_IF,           // if
+    LA_INFO,             // in
+    LA_LT,               // lt
     LA_CPP_OPERATOR,     // or
-    LA_CPP_PRIVATE,      // pe
-    LA_CPP_PROTECTED,    // pd
     LA_CPP_PUBLIC,       // pc
-    LA_CPP_REGISTER,     // rr
+    LA_CPP_PROTECTED,    // pd
+    LA_CPP_PRIVATE,      // pe
+    LA_PASSWORD,         // pw
     LA_CPP_RETURN,       // rn
-    LA_CPP_SIZEOF,       // sf
+    LA_CPP_REGISTER,     // rr
     LA_CPP_STATIC,       // sc
-    LA_CPP_STRUCT,       // st
+    LA_CPP_SIZEOF,       // sf
     LA_CPP_SWITCH,       // sh
+    LA_CPP_STRUCT,       // st
     LA_CPP_TEMPLATE,     // te
     LA_CPP_THIS,         // ts
     LA_CPP_TYPEDEF,      // ty
     LA_CPP_UNION,        // un
-    LA_CPP_VIRTUAL,      // vl
     LA_CPP_VOID,         // vd
     LA_CPP_VOLATILE,     // ve
+    LA_CPP_VIRTUAL,      // vl
     LA_CPP_WHILE,        // we
 };
 
@@ -76,10 +82,11 @@ static leader2_t const leader2_array[] = {
     [LA_CPP_CLASS] = {KC_C, KC_S},
       [LA_CPP_CONST] = {KC_C, KC_T},
       [LA_CHANGE_WORD] = {KC_C, KC_W},
-      [LA_DELETE_UNTIL_BOL] = {KC_D, KC_B},
+      [LA_DELETE_WORD_BACK] = {KC_D, KC_B},
       [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
     [LA_DELETE_LINE] = {KC_D, KC_L},
       [LA_DELETE_WORD] = {KC_D, KC_W},
+      [LA_DELETE_UNTIL_SOL] = {KC_D, KC_S},
       [LA_CPP_ELSE] = {KC_E, KC_E},
       [LA_CPP_ENUM] = {KC_E, KC_M},
       [LA_CPP_EXTERN] = {KC_E, KC_N},
@@ -214,10 +221,11 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
             case LA_EQ: str = (" == "); break;
             case LA_CHANGE_WORD:
             case LA_DELETE_WORD: send_taps2(A(S(KC_RIGHT)), KC_DEL); break;
+            case LA_DELETE_WORD_BACK: send_taps2(A(S(KC_LEFT)), KC_DEL); break;
             case LA_CHANGE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
             case LA_DELETE_LINE: send_taps2(C(KC_D), KC_L); break;
+            case LA_DELETE_UNTIL_SOL: send_taps2(S(KC_HOME), KC_DEL); break;
             case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
-            case LA_DELETE_UNTIL_BOL: send_taps2(S(KC_HOME), KC_DEL); break;
             case LA_EASYMOTION: tap_code16(A(KC_S)); break;
 
             case LA_CPP_AUTO: str = "auto "; break;

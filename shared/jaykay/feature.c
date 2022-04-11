@@ -1,7 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "layers.h"
 #include "feature.h"
-#include "cukey.h"
+#include "user_oneshot.h"
+#include "user_cushi.h"
 
 /*
 

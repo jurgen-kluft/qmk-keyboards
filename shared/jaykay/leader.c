@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "leader.h"
-#include "cukey.h"
+#include "feature.h"
+#include "user_oneshot.h"
 
 /*
 Leader
@@ -20,9 +21,6 @@ Note: We can still take it one step further. When we have the leader 'active', p
       change leader_mode for us. We could use that for lets say a 'accent' or 'vim' movement layer?
 
 e.g.
-FNAV -> g -> m = 'jurgen.kluft@gmail.com'
-                 tap 'FNAV', quickly followed by a tap on 'g', you can now take your time to tap 'm'
-FNAV -> h -> m = 'jurgen_kluft@hotmail.com'
 FNAV -> p -> w = '608b7243a742-505a-9098'
 FNAV -> g -> t = '>'
                  tap 'FNAV', quickly followed by a tap on 'g', you can now take your time to tap 't'
@@ -99,7 +97,12 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
                 leader_timer                                  = timer_read();
 
                 int8_t action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config);
-                return (action == -1) || (action >= 0);
+                if (action == -2)
+                {
+                    reset_leader(0);
+                    return false;
+                }
+                return true;
             }
         }
         else
