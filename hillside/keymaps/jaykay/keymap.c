@@ -2,7 +2,12 @@
 #include "layers.h"
 #include "oneshot.h"
 #include "cukey.h"
+#include "feature.h"
 #include "layouts.h"
+#include "user_keycodes.h"
+#include "user_cushi.h"
+#include "user_oneshot.h"
+#include "user_secrets.h"
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -39,8 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY, MU_TOG, MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
     xxxx, OS_CMD,  OS_ALT, OS_CTRL, OS_SHFT, RGB_HUD,                                    KC_MS_WH_DOWN, KC_MS_LEFT,    KC_MS_DOWN, KC_MS_RIGHT,    RGB_HUI, xxxx, 
-    xxxx, ____,    ____,   ____,    ____,    RGB_VAD, ____,     xxxx,   xxxx, ____,      ____,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
-                           ____,    ____,    ____,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, ____,          ____,          ____                                       
+    xxxx, xxxx,    xxxx,   xxxx,    xxxx,    RGB_VAD, xxxx,     xxxx,   xxxx, xxxx,      xxxx,          KC_MS_WH_LEFT, KC_MS_BTN3, KC_MS_WH_RIGHT, RGB_VAI, xxxx, 
+                           LT_MOS,  xxxx,    xxxx,    KC_RSTHD, xxxx,   xxxx, KC_QWERTY, xxxx,          xxxx,          LT_MOS                                     
   ),
   [_SYM] = LAYOUT(
     xxxx, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                                     KC_GRV,  KC_QUOT,  KC_DQUO, KC_HASH, KC_DLR,  xxxx, 
