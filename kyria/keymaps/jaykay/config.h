@@ -50,3 +50,9 @@
 #define ENCODER_RESOLUTION 2
 
 #define KEYBOARD_KYRIA
+
+// If you have encoders and want to not have them swap left/right when you plug USB to the other half
+// then define EE_HANDS and flash your sides with 'avrdude-split-left' and 'avrdude-split-right'.
+// This makes sure that the firmware on the left sides identifies itself as 'left' and the right side
+// identifies itself as 'right'.
+#define EE_HANDS
