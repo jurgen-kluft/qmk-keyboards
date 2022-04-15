@@ -14,7 +14,6 @@
 // - eg, egt
 // For these you need to hold the 'g' key and press the 't' key to get to 'gte'
 
-
 enum eleader_one
 {
     LA_DUMMY_ONE,
@@ -33,8 +32,8 @@ enum eleader_two
     LA_CPP_CONST,        // ct
     LA_CHANGE_WORD,      // cw
     LA_DELETE_WORD_BACK, // db
+    LA_DELETE_LINE,      // dd
     LA_DELETE_UNTIL_EOL, // de
-    LA_DELETE_LINE,      // dl
     LA_DELETE_WORD,      // dw
     LA_DELETE_UNTIL_SOL, // ds
     LA_CPP_ELSE,         // ee
@@ -52,6 +51,10 @@ enum eleader_two
     LA_CPP_IF,           // if
     LA_INFO,             // in
     LA_LT,               // lt
+    LA_WINDOW_NEXT,      // wn
+    LA_WINDOW_PREV,      // wp
+    LA_OPEN_LINE_ABOVE,  // oa
+    LA_OPEN_LINE_BELOW,  // oo
     LA_CPP_OPERATOR,     // or
     LA_CPP_PUBLIC,       // pc
     LA_CPP_PROTECTED,    // pd
@@ -74,53 +77,57 @@ enum eleader_two
 };
 
 static leader2_t const leader2_array[] = {
-    [LA_CPP_AUTO] = {KC_A, KC_O},
-      [LA_CPP_BREAK] = {KC_B, KC_K},
-      [LA_CPP_CASE] = {KC_C, KC_E},
-      [LA_CHANGE_LINE] = {KC_C, KC_L},
-      [LA_CPP_CONTINUE] = {KC_C, KC_O},
-    [LA_CPP_CLASS] = {KC_C, KC_S},
-      [LA_CPP_CONST] = {KC_C, KC_T},
-      [LA_CHANGE_WORD] = {KC_C, KC_W},
-      [LA_DELETE_WORD_BACK] = {KC_D, KC_B},
-      [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
-    [LA_DELETE_LINE] = {KC_D, KC_L},
-      [LA_DELETE_WORD] = {KC_D, KC_W},
-      [LA_DELETE_UNTIL_SOL] = {KC_D, KC_S},
-      [LA_CPP_ELSE] = {KC_E, KC_E},
-      [LA_CPP_ENUM] = {KC_E, KC_M},
-      [LA_CPP_EXTERN] = {KC_E, KC_N},
-    [LA_EQ] = {KC_E, KC_Q},
-      [LA_EASYMOTION] = {KC_F, KC_F},
-      [LA_CPP_FRIEND] = {KC_F, KC_I},
-      [LA_CPP_FOR] = {KC_F, KC_O},
-      [LA_GMAIL] = {KC_G, KC_M},
-    [LA_CPP_GOTO] = {KC_G, KC_O},
-      [LA_GT] = {KC_G, KC_T},
-      [LA_HOTMAIL] = {KC_H, KC_M},
-      [LA_CPP_INLINE] = {KC_I, KC_E},
-      [LA_CPP_IF] = {KC_I, KC_F},
-    [LA_INFO] = {KC_I, KC_N},
-      [LA_LT] = {KC_L, KC_T},
-      [LA_CPP_OPERATOR] = {KC_O, KC_R},
-      [LA_CPP_PUBLIC] = {KC_P, KC_C},
-      [LA_CPP_PROTECTED] = {KC_P, KC_D},
-    [LA_CPP_PRIVATE] = {KC_P, KC_E},
-      [LA_PASSWORD] = {KC_P, KC_W},
-      [LA_CPP_RETURN] = {KC_R, KC_N},
-      [LA_CPP_REGISTER] = {KC_R, KC_R},
-      [LA_CPP_STATIC] = {KC_S, KC_C},
-    [LA_CPP_SIZEOF] = {KC_S, KC_F},
-      [LA_CPP_SWITCH] = {KC_S, KC_H},
-      [LA_CPP_STRUCT] = {KC_S, KC_T},
-      [LA_CPP_TEMPLATE] = {KC_T, KC_E},
-      [LA_CPP_THIS] = {KC_T, KC_S},
-    [LA_CPP_TYPEDEF] = {KC_T, KC_Y},
-      [LA_CPP_UNION] = {KC_U, KC_N},
-      [LA_CPP_VOID] = {KC_V, KC_D},
-      [LA_CPP_VOLATILE] = {KC_V, KC_E},
-      [LA_CPP_VIRTUAL] = {KC_V, KC_L},
-    [LA_CPP_WHILE] = {KC_W, KC_E},
+    [LA_CPP_AUTO]         = {KC_A, KC_O},
+    [LA_CPP_BREAK]        = {KC_B, KC_K},
+    [LA_CPP_CASE]         = {KC_C, KC_E},
+    [LA_CHANGE_LINE]      = {KC_C, KC_L},
+    [LA_CPP_CONTINUE]     = {KC_C, KC_O},
+    [LA_CPP_CLASS]        = {KC_C, KC_S},
+    [LA_CPP_CONST]        = {KC_C, KC_T},
+    [LA_CHANGE_WORD]      = {KC_C, KC_W},
+    [LA_DELETE_WORD_BACK] = {KC_D, KC_B},
+    [LA_DELETE_LINE]      = {KC_D, KC_D},
+    [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
+    [LA_DELETE_WORD]      = {KC_D, KC_W},
+    [LA_DELETE_UNTIL_SOL] = {KC_D, KC_S},
+    [LA_CPP_ELSE]         = {KC_E, KC_E},
+    [LA_CPP_ENUM]         = {KC_E, KC_M},
+    [LA_CPP_EXTERN]       = {KC_E, KC_N},
+    [LA_EQ]               = {KC_E, KC_Q},
+    [LA_EASYMOTION]       = {KC_F, KC_F},
+    [LA_CPP_FRIEND]       = {KC_F, KC_I},
+    [LA_CPP_FOR]          = {KC_F, KC_O},
+    [LA_GMAIL]            = {KC_G, KC_M},
+    [LA_CPP_GOTO]         = {KC_G, KC_O},
+    [LA_GT]               = {KC_G, KC_T},
+    [LA_HOTMAIL]          = {KC_H, KC_M},
+    [LA_CPP_INLINE]       = {KC_I, KC_E},
+    [LA_CPP_IF]           = {KC_I, KC_F},
+    [LA_INFO]             = {KC_I, KC_N},
+    [LA_LT]               = {KC_L, KC_T},
+    [LA_OPEN_LINE_ABOVE]  = {KC_O, KC_A},
+    [LA_OPEN_LINE_BELOW]  = {KC_O, KC_O},
+    [LA_CPP_OPERATOR]     = {KC_O, KC_R},
+    [LA_CPP_PUBLIC]       = {KC_P, KC_C},
+    [LA_CPP_PROTECTED]    = {KC_P, KC_D},
+    [LA_CPP_PRIVATE]      = {KC_P, KC_E},
+    [LA_PASSWORD]         = {KC_P, KC_W},
+    [LA_CPP_RETURN]       = {KC_R, KC_N},
+    [LA_CPP_REGISTER]     = {KC_R, KC_R},
+    [LA_CPP_STATIC]       = {KC_S, KC_C},
+    [LA_CPP_SIZEOF]       = {KC_S, KC_F},
+    [LA_CPP_SWITCH]       = {KC_S, KC_H},
+    [LA_CPP_STRUCT]       = {KC_S, KC_T},
+    [LA_CPP_TEMPLATE]     = {KC_T, KC_E},
+    [LA_CPP_THIS]         = {KC_T, KC_S},
+    [LA_CPP_TYPEDEF]      = {KC_T, KC_Y},
+    [LA_CPP_UNION]        = {KC_U, KC_N},
+    [LA_CPP_VOID]         = {KC_V, KC_D},
+    [LA_CPP_VOLATILE]     = {KC_V, KC_E},
+    [LA_CPP_VIRTUAL]      = {KC_V, KC_L},
+    [LA_CPP_WHILE]        = {KC_W, KC_E},
+    [LA_WINDOW_NEXT]      = {KC_W, KC_N},
+    [LA_WINDOW_PREV]      = {KC_W, KC_P},
 };
 
 enum eleader_three
@@ -167,6 +174,8 @@ static leader4_t const leader4_array[] = {
     [LA_SCREENSHOT] = {KC_S, KC_N, KC_I, KC_P},
 };
 
+#define send_taps1(tap1) \
+    tap_code16(tap1)
 #define send_taps2(tap1, tap2) \
     tap_code16(tap1);          \
     tap_code16(tap2)
@@ -242,6 +251,8 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
             case LA_CPP_GOTO: str = "goto "; break;
             case LA_CPP_IF: str = "if () {\n"; break;
             case LA_CPP_INLINE: str = "inline "; break;
+            case LA_OPEN_LINE_ABOVE: send_taps3(KC_HOME, KC_ENTER, KC_UP); break;
+            case LA_OPEN_LINE_BELOW: send_taps2(KC_END, KC_ENTER); break;
             case LA_CPP_OPERATOR: str = "operator "; break;
             case LA_CPP_PRIVATE: str = "private: "; break;
             case LA_CPP_PROTECTED: str = "protected: "; break;
@@ -260,6 +271,8 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
             case LA_CPP_VOID: str = "void"; break;
             case LA_CPP_VOLATILE: str = "volatile"; break;
             case LA_CPP_WHILE: str = "while (x) {\n"; break;
+            case LA_WINDOW_NEXT: send_taps1(G(KC_GRV)); break;
+            case LA_WINDOW_PREV: send_taps1(G(S(KC_GRV))); break;
         }
         if (str != NULL)
         {
