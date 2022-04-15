@@ -36,10 +36,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             LT_MOS,  KC_FNUM, KC_FNAV, KC_SPACE,  xxxx,   xxxx, KC_E,      KC_FSYM, KC_FCAPS, LT_MOS                                     
   ),
   [_NUM] = LAYOUT(
-    xxxx, xxxx, xxxx, KC_MINUS, KC_PLUS,  xxxx,                                         xxxx,    KC_5,     KC_6,          KC_7,        KC_8, xxxx, 
-    xxxx, xxxx, xxxx, KC_9,     KC_0,     KC_EQUAL,                                     xxxx,    KC_1,     KC_2,          KC_3,        KC_4, xxxx, 
-    xxxx, xxxx, xxxx, KC_ASTR,  KC_SLASH, xxxx,     KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, xxxx,    xxxx,     KC_COMMA_QUES, KC_DOT_EXCL, xxxx, xxxx, 
-                      xxxx,     KC_FNUM,  KC_FNAV,  KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, xxxx                                    
+    xxxx, OS_CMD,  OS_ALT,   OS_CTRL, OS_SHFT,  xxxx,                                         xxxx,    KC_5,     KC_6,          KC_7,        KC_8, xxxx, 
+    xxxx, KC_PLUS, KC_MINUS, KC_9,    KC_0,     KC_EQUAL,                                     xxxx,    KC_1,     KC_2,          KC_3,        KC_4, xxxx, 
+    xxxx, xxxx,    xxxx,     KC_ASTR, KC_SLASH, xxxx,     KC_OS_PDT, xxxx,   xxxx, KC_OS_NDT, xxxx,    xxxx,     KC_COMMA_QUES, KC_DOT_EXCL, xxxx, xxxx, 
+                             xxxx,    KC_FNUM,  KC_FNAV,  KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM, KC_FCAPS, xxxx                                    
   ),
   [_MOUS] = LAYOUT(
     xxxx, KC_MPLY, MU_TOG, MU_MOD,  KC_OLED, RGB_SAD,                                    KC_MS_WH_UP,   KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,     RGB_SAI, xxxx, 
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     xxxx, KC_OS_REDO, KC_OS_CLOSE, KC_ESCAPE,  KC_ENTER,    KC_TAB,                                        KC_INSERT, KC_PGUP,   KC_HOME, KC_NO,    KC_NO, xxxx, 
     xxxx, OS_CMD,     OS_ALT,      OS_CTRL,    OS_SHFT,     KC_DELETE,                                     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, KC_NO, xxxx, 
     xxxx, KC_OS_UNDO, KC_OS_CUT,   KC_OS_COPY, KC_OS_PASTE, SH_TG,     KC_OS_NDT, xxxx,   xxxx, KC_OS_PDT, KC_TRANS,  KC_PGDOWN, KC_END,  KC_NO,    KC_NO, xxxx, 
-                                   xxxx,       KC_FNUM,     KC_FNAV,   KC_SPACE,  xxxx,   xxxx, KC_BSPACE, KC_FSYM,   KC_FCAPS,  xxxx                            
+                                   xxxx,       KC_FNUM,     KC_FNAV,   KC_SPACE,  xxxx,   xxxx, KC_DELETE, KC_FSYM,   KC_FCAPS,  xxxx                            
   ),
   [_RAISE] = LAYOUT(
     xxxx, KC_SECRET_5, KC_SECRET_6, KC_SECRET_7, KC_SECRET_8, KC_4,                                        KC_F12,  KC_F2,    KC_F3,  KC_F4, KC_F1, xxxx, 
