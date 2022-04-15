@@ -4,7 +4,7 @@ My keymap uses the following features:
 - Callum style Oneshot Modifiers (a rewrite, `oneshot.c`)
   - plus a modification to allow double-tap to lock a modifier
 - Smart numbers (`feature.c`)
-- Smart caps words (`feature.c`)
+- Smart caps words (`feature.c`) (can handle up to 4 seperator symbols)
 - SYM key can be tapped for a oneshot key from the SYM layer (`feature.c`)
 - RAISE layer can be activated by holding NAV and SYM like tri-layer.
   It can also be activated/locked by first tapping SYM then tapping NAV.
