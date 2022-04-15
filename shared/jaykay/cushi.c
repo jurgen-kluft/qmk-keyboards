@@ -13,7 +13,7 @@ static uint16_t cushi_registered_keycode = KC_NO;
         cmd;                                                \
         break;
 
-bool process_cushi_keys(uint16_t keycode, keyrecord_t* record)
+uint16_t process_cushi_keys(uint16_t keycode, keyrecord_t* record, bool simulate)
 {
     uint16_t key_normal = KC_NO;
     uint16_t key_shift  = KC_NO;
@@ -25,64 +25,54 @@ bool process_cushi_keys(uint16_t keycode, keyrecord_t* record)
     switch (keycode)
     {
 #include "user_cushi.def"
-        default: return true;
+        default: return keycode;
     }
 
-    if (record->event.pressed)
+    const uint8_t mods       = get_mods();
+    uint8_t       modmask    = 0;
+    cushi_registered_keycode = key_normal;
+    if ((key_shift != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_SHIFT) != 0))
     {
-        const uint8_t mods = get_mods();
+        modmask                  = MOD_MASK_SHIFT;
+        cushi_registered_keycode = key_shift;
+    }
+    else if ((key_ctrl != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_CTRL) != 0))
+    {
+        modmask                  = MOD_MASK_CTRL;
+        cushi_registered_keycode = key_ctrl;
+    }
+    else if ((key_alt != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_ALT) != 0))
+    {
+        modmask                  = MOD_MASK_ALT;
+        cushi_registered_keycode = key_alt;
+    }
+    else if ((key_gui != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_GUI) != 0))
+    {
+        modmask                  = MOD_MASK_GUI;
+        cushi_registered_keycode = key_gui;
+    }
 
-        // Release any registered key that we might have going on
-        if (cushi_registered_keycode != KC_NO)
+    if (!simulate)
+    {
+        if (modmask != 0)
         {
-            unregister_code16(cushi_registered_keycode);
-            cushi_registered_keycode = KC_NO;
-        }
-
-        cushi_registered_keycode = key_normal;
-        if ((key_shift != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_SHIFT) != 0))
-        {
-            del_mods(MOD_MASK_SHIFT);
-            del_weak_mods(MOD_MASK_SHIFT);
-            cushi_registered_keycode = key_shift;
-        }
-        else if ((key_ctrl != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_CTRL) != 0))
-        {
-            del_mods(MOD_MASK_CTRL);
-            del_weak_mods(MOD_MASK_CTRL);
-            cushi_registered_keycode = key_ctrl;
-        }
-        else if ((key_alt != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_ALT) != 0))
-        {
-            del_mods(MOD_MASK_ALT);
-            del_weak_mods(MOD_MASK_ALT);
-            cushi_registered_keycode = key_alt;
-        }
-        else if ((key_gui != KC_NO) && (((mods | get_weak_mods()) & MOD_MASK_GUI) != 0))
-        {
-            del_mods(MOD_MASK_GUI);
-            del_weak_mods(MOD_MASK_GUI);
-            cushi_registered_keycode = key_gui;
+            del_mods(modmask);
+            del_weak_mods(modmask);
         }
 
-        // this could be a custom keycode, so we need to translate it
-        cushi_registered_keycode = process_cukey(cushi_registered_keycode);
-        if (cushi_registered_keycode != KC_NO)
+        if (record->event.pressed)
         {
             register_code16(cushi_registered_keycode);
         }
-
-        set_mods(mods); // Restore the mods.
-    }
-    else
-    {
-        // Release any registered key that we might have going on
-        if (cushi_registered_keycode != KC_NO)
+        else
         {
             unregister_code16(cushi_registered_keycode);
-            cushi_registered_keycode = KC_NO;
+        }
+
+        if (modmask != 0)
+        {
+            set_mods(mods); // Restore the mods.
         }
     }
-
-    return true;
+    return cushi_registered_keycode;
 }
