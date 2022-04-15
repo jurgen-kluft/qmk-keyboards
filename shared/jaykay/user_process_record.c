@@ -29,14 +29,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
     {
         case KC_OS_UNDO ... KC_OS_CLOSE:
         {
-            if (!process_cushi_keys(keycode, record))
-                return false;
-
             if (record->event.pressed)
             {
                 keycode = process_cukey(keycode);
                 if (keycode != KC_NO)
-                    tap_code16(keycode);
+                    register_code16(keycode);
+            }
+            else
+            {
+                keycode = process_cukey(keycode);
+                if (keycode != KC_NO)
+                    unregister_code16(keycode);
             }
 
             return false;
@@ -62,15 +65,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
             return true;
     }
 
-    if (!process_feature_key(keycode, record))
+    uint16_t new_keycode = process_cushi_keys(keycode, record, true);
+    if (!process_feature_key(new_keycode, record))
     {
         return false;
     }
 
-    if (!process_cushi_keys(keycode, record))
-    {
-        return false;
-    }
+    keycode = process_cushi_keys(keycode, record, false);
 
     update_oneshot_modifiers(keycode, record);
 
