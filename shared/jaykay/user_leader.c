@@ -16,10 +16,16 @@
 
 enum eleader_one
 {
-    LA_DUMMY_ONE,
+    LA_COPY,  // j
+    LA_CUT,   // h
+    LA_PASTE, // k
 };
 
-static leader1_t const leader1_array[] = {};
+static leader1_t const leader1_array[] = {
+    [LA_COPY]  = {KC_J},
+    [LA_CUT]   = {KC_H},
+    [LA_PASTE] = {KC_K},
+};
 
 enum eleader_two
 {
@@ -43,16 +49,14 @@ enum eleader_two
     LA_EASYMOTION,       // ff
     LA_CPP_FRIEND,       // fi
     LA_CPP_FOR,          // fo
-    LA_GMAIL,            // gm
     LA_CPP_GOTO,         // go
     LA_GT,               // gt
-    LA_HOTMAIL,          // hm
     LA_CPP_INLINE,       // ie
     LA_CPP_IF,           // if
     LA_INFO,             // in
     LA_LT,               // lt
-    LA_WINDOW_NEXT,      // wn
-    LA_WINDOW_PREV,      // wp
+    LA_GMAIL,            // mg
+    LA_HOTMAIL,          // mh
     LA_OPEN_LINE_ABOVE,  // oa
     LA_OPEN_LINE_BELOW,  // oo
     LA_CPP_OPERATOR,     // or
@@ -74,6 +78,8 @@ enum eleader_two
     LA_CPP_VOLATILE,     // ve
     LA_CPP_VIRTUAL,      // vl
     LA_CPP_WHILE,        // we
+    LA_WINDOW_NEXT,      // wn
+    LA_WINDOW_PREV,      // wp
 };
 
 static leader2_t const leader2_array[] = {
@@ -97,14 +103,14 @@ static leader2_t const leader2_array[] = {
     [LA_EASYMOTION]       = {KC_F, KC_F},
     [LA_CPP_FRIEND]       = {KC_F, KC_I},
     [LA_CPP_FOR]          = {KC_F, KC_O},
-    [LA_GMAIL]            = {KC_G, KC_M},
     [LA_CPP_GOTO]         = {KC_G, KC_O},
     [LA_GT]               = {KC_G, KC_T},
-    [LA_HOTMAIL]          = {KC_H, KC_M},
     [LA_CPP_INLINE]       = {KC_I, KC_E},
     [LA_CPP_IF]           = {KC_I, KC_F},
     [LA_INFO]             = {KC_I, KC_N},
     [LA_LT]               = {KC_L, KC_T},
+    [LA_GMAIL]            = {KC_M, KC_G},
+    [LA_HOTMAIL]          = {KC_M, KC_H},
     [LA_OPEN_LINE_ABOVE]  = {KC_O, KC_A},
     [LA_OPEN_LINE_BELOW]  = {KC_O, KC_O},
     [LA_CPP_OPERATOR]     = {KC_O, KC_R},
@@ -174,8 +180,7 @@ static leader4_t const leader4_array[] = {
     [LA_SCREENSHOT] = {KC_S, KC_N, KC_I, KC_P},
 };
 
-#define send_taps1(tap1) \
-    tap_code16(tap1)
+#define send_taps1(tap1) tap_code16(tap1)
 #define send_taps2(tap1, tap2) \
     tap_code16(tap1);          \
     tap_code16(tap2)
@@ -201,7 +206,18 @@ bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process
 
 void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* keycodes)
 {
-    if (count == 2)
+    if (count == 1)
+    {
+        uint16_t keycode = KC_NO;
+        switch (action)
+        {
+            case LA_COPY: keycode = process_cukey(KC_OS_COPY); break;
+            case LA_CUT: keycode = process_cukey(KC_OS_CUT); break;
+            case LA_PASTE: keycode = process_cukey(KC_OS_PASTE); break;
+        }
+        send_taps1(keycode);
+    }
+    else if (count == 2)
     {
         const char* str = NULL;
         switch (action)
@@ -229,7 +245,10 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
             case LA_LT: str = (" < "); break;
             case LA_EQ: str = (" == "); break;
             case LA_CHANGE_WORD:
-            case LA_DELETE_WORD: send_taps2(A(S(KC_RIGHT)), KC_DEL); break;
+            case LA_DELETE_WORD:
+                // Visual Studio Code has an extension that does it better (cut/copy word, GUI+X/GUI+C)
+                send_taps2(A(S(KC_RIGHT)), KC_DEL);
+                break;
             case LA_DELETE_WORD_BACK: send_taps2(A(S(KC_LEFT)), KC_DEL); break;
             case LA_CHANGE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
             case LA_DELETE_LINE: send_taps2(C(KC_D), KC_L); break;
