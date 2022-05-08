@@ -23,6 +23,9 @@ void update_oneshot_modifiers(uint16_t keycode, keyrecord_t* record);
 // Call this to turn off (release) all modifiers
 void turnoff_oneshot_modifiers(void);
 
+void press_oneshot_modifier(oneshot_mod osmod);
+void release_oneshot_modifier(oneshot_mod osmod);
+
 // TO BE IMPLEMENTED BY THE USER
 // This function should return one of the oneshot_mod enumerations (see keymap.c implementation)
 oneshot_mod get_modifier_for_trigger_key(uint16_t keycode);

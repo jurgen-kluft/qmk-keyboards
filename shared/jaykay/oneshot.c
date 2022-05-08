@@ -89,6 +89,37 @@ static void set_modifier_state_all_from_to(oneshot_state oneshot_state_from, one
 
 void turnoff_oneshot_modifiers() { set_modifier_state_all(ONESHOT_STATE_OFF); }
 
+void press_oneshot_modifier(oneshot_mod osmod)
+{
+    oneshot_state state = modifiers_with_state[osmod];
+    if (state == ONESHOT_STATE_OFF)
+    {
+        s_osm_unapplied_mods_present = (s_osm_repeating_normal_key == 0);
+    }
+    oneshot_state tostate = (state + 1);
+    set_modifier_state(osmod, tostate);
+}
+
+void release_oneshot_modifier(oneshot_mod osmod)
+{
+    oneshot_state state = modifiers_with_state[osmod];
+    if (state == ONESHOT_STATE_PRESSED)
+    {
+        if (!s_osm_unapplied_mods_present)
+        {
+            set_modifier_state(osmod, ONESHOT_STATE_OFF);
+        }
+        else
+        {
+            set_modifier_state(osmod, ONESHOT_STATE_QUEUED);
+        }
+    }
+    else if (state >= ONESHOT_STATE_END_PRESSED)
+    {
+        set_modifier_state(osmod, ONESHOT_STATE_OFF);
+    }
+}
+
 // see comment in corresponding headerfile
 void update_oneshot_modifiers(uint16_t keycode, keyrecord_t* record)
 {
@@ -97,33 +128,13 @@ void update_oneshot_modifiers(uint16_t keycode, keyrecord_t* record)
     // trigger keys
     if (osmod != ONESHOT_NONE)
     {
-        oneshot_state state = modifiers_with_state[osmod];
         if (record->event.pressed)
         {
-            if (state == ONESHOT_STATE_OFF)
-            {
-                s_osm_unapplied_mods_present = (s_osm_repeating_normal_key == 0);
-            }
-            oneshot_state tostate = (state + 1);
-            set_modifier_state(osmod, tostate);
+            press_oneshot_modifier(osmod);
         }
         else
         {
-            if (state == ONESHOT_STATE_PRESSED)
-            {
-                if (!s_osm_unapplied_mods_present)
-                {
-                    set_modifier_state(osmod, ONESHOT_STATE_OFF);
-                }
-                else
-                {
-                    set_modifier_state(osmod, ONESHOT_STATE_QUEUED);
-                }
-            }
-            else if (state >= ONESHOT_STATE_END_PRESSED)
-            {
-                set_modifier_state(osmod, ONESHOT_STATE_OFF);
-            }
+            release_oneshot_modifier(osmod);
         }
     }
     // normal keys
