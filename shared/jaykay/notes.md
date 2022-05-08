@@ -4,36 +4,65 @@
 
 Should also contain the layer number (uint8_t) that was used to take the keycode from.
 
-## shortcuts
-
-a = axis
-b = back
-c = cross
-d = down
-e = each
-f = for
-g = go
-h = horizontal
-i = inside
-j = jump
-k = know
-l = left
-m = move
-n = not
-o = origin
-p = position
-q = question
-r = right
-s = side
-t = the
-u = up
-v = vertical
-w = ward
-x = axis
-y = you
-z = . Shift (mode 1)
-
 ## Vim
+
+[_VIM] = LAYOUT(
+   xxxx, xxxx,            KC_VIM_WORD,  KC_VIM_END,    KC_VIM_REDO,    KC_VIM_FIND,                                          KC_VIM_YANK,      KC_VIM_UNDO,      KC_VIM_INSIDE,  KC_VIM_LINE,       KC_VIM_PAGE, xxxx,
+   xxxx, KC_VIM_ADD,      KC_VIM_BEGIN, KC_VIM_DELETE, KC_VIM_SEARCH,  KC_VIM_GOTO,                                          KC_VIM_LEFT,      KC_VIM_DOWN,      KC_VIM_UP,      KC_VIM_RIGHT,      KC_VIM_MODE, xxxx,
+   xxxx, KC_VIM_DOCUMENT, KC_VIM_CUT,   KC_VIM_CHANGE, KC_VIM_VISUAL,  KC_VIM_BACK,  xxxx,         xxxx,      xxxx, xxxx,    KC_VIM_INSERT,    KC_VIM_DELI,      KC_VIM_CLEAR,   KC_VIM_REPEAT,     xxxx,        xxxx, 
+                                        xxxx,          xxxx,           KC_VIM_RAISE, KC_VIM_ENTER, xxxx,      xxxx, KC_FSYM, KC_VIM_RAISE,     xxxx,             xxxx
+)
+[_VIM_RAISE] = LAYOUT(
+   xxxx, xxxx,            KC_VIM_WORD,  KC_VIM_END,    KC_VIM_REDO,    KC_VIM_FIND,                                          KC_VIM_PASTE,     KC_VIM_UNDO,      KC_VIM_INSIDE,  KC_VIM_LINE,       KC_VIM_PAGE, xxxx,
+   xxxx, KC_VIM_ADD,      KC_VIM_BEGIN, KC_VIM_DELETE, KC_VIM_SEARCH,  KC_VIM_GOTO,                                          KC_VIM_MOVE_LEFT, KC_VIM_MOVE_DOWN, KC_VIM_MOVE_UP, KC_VIM_MOVE_RIGHT, KC_VIM_MODE, xxxx,
+   xxxx, KC_VIM_DOCUMENT, KC_VIM_CUT,   KC_VIM_CHANGE, KC_VIM_VISUAL,  KC_VIM_BACK,  xxxx,         xxxx,      xxxx, xxxx,    KC_VIM_INSERT,    KC_VIM_MATCH,     KC_VIM_CLEAR,   KC_VIM_REPEAT,     xxxx,        xxxx, 
+                                        xxxx,          xxxx,           KC_VIM_RAISE, KC_VIM_ENTER, xxxx,      xxxx, KC_FSYM, KC_VIM_RAISE,     xxxx,             xxxx
+)
+
+
+
+Modes:
+    KC_VIM_DOCUMENT    (Document)
+    KC_VIM_PAGE        (Page)
+    KC_VIM_LINE        (Line)
+    KC_VIM_WORD        (Word)
+    KC_VIM_MATCH       (Matching delimiters "",``,'',(),{},[],<>)
+    KC_VIM_INSIDE      (Inside Word/Line)
+    KC_VIM_SEARCH      (Search mode)
+
+Placement:
+    KC_VIM_BEGIN       (Begin)
+    KC_VIM_END         (End)
+
+Special:
+    KC_VIM_VISUAL      (Moving around with selection On)
+    KC_VIM_ESCAPE      (Escaping from Vim mode)
+    KC_VIM_CLEAR       (Reset mode to default; Character movement, Visual/Search OFF, Repeat cleared)
+    KC_VIM_RAISE       (Additional layer for more functionality)
+
+Actions:
+    KC_VIM_ADD         (In 'line' mode it will insert a line Below/Above based on Begin/End)
+    KC_VIM_CHANGE      (Change (Inside) (Begin/End) Word/Line)  
+    KC_VIM_DELETE      (Delete (Inside) (Begin/End) Word/Line/Match)
+    KC_VIM_ENTER       (Enter)
+    KC_VIM_GOTO        (Goto Line/Page/Document/Char/Match/Word)
+    KC_VIM_CUT         (Cut selection)
+    KC_VIM_YANK        (Copy selection)
+    KC_VIM_PASTE       (Paste selection)
+    KC_VIM_REDO        (Redo)
+    KC_VIM_REPEAT      (Repeat last action)
+    KC_VIM_UNDO        (Undo)
+    KC_VIM_UNTIL       (Easymotion find)
+
+Movement:
+    KC_VIM_MOVE_DOWN   (Move down Page/Line)
+    KC_VIM_MOVE_LEFT   (Move left Word/Char)
+    KC_VIM_MOVE_RIGHT  (Move right Word/Char)
+    KC_VIM_MOVE_UP     (Move up Page/Line)
+    KC_VIM_NEXT        (Next/Forwards Char/Word/Match/Line/Page)
+    KC_VIM_PREV        (Prev/Backwards Char/Word/Match/Line/Page)
+
+
 
 These are just some thoughts about a simple VIM like mode that could emit key combinations inside vscode for example.
 But knowing the key combinations they could be configured in many editors and even in the terminal.
