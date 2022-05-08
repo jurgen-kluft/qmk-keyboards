@@ -78,7 +78,10 @@ uint16_t process_cukey(uint16_t keycode)
                 case OS_WINDOWS: keycode = (kc_os_win[i]); break;
                 case OS_UBUNTU: keycode = (kc_os_ubt[i]); break;
                 case OS_MAC: keycode = (kc_os_mac[i]); break;
-                default: keyboard_set_os(OS_MAC); break;
+                default:
+                    keycode = (kc_os_mac[i]);
+                    keyboard_set_os(OS_MAC);
+                    break;
             }
         }
         break;
