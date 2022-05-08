@@ -15,5 +15,8 @@ enum efeature_keys
 #error "Not enough space for FEATURE keycodes"
 #endif
 
+void enable_smart_capslock(void);
+void enable_smart_camelcase(void);
+
 // ------ feature processing ----------
 bool process_feature_key(uint16_t keycode, keyrecord_t* record);

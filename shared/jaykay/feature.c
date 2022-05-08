@@ -77,8 +77,6 @@ static inline bool is_qwerty(void)
 bool process_feature_key(uint16_t keycode, keyrecord_t* record)
 {
     bool ret = true;
-
-    // if ((keycode < QK_MODS_MAX) && (!IS_MOD(keycode)))
     {
         if (record->event.pressed)
         {
@@ -89,73 +87,69 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     s_feature_state &= ~(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT | FEATURE_USED);
                     layer_off(_RAISE);
                 }
-                // else
-                // {
-                //     return true;
-                // }
             }
 
-            if (features_active_any(FEATURE_NUM | FEATURE_CAPS))
+            if (features_active(FEATURE_CAPS))
             {
                 const bool terminate_feature = (keycode == KC_FNUM || keycode == KC_FNAV || keycode == KC_FCAPS);
                 if (keycode == KC_SPACE || terminate_feature)
                 {
-                    if (features_active(FEATURE_CAPS))
+                    if (terminate_feature || s_smartcaps_state == SMART_CAPS_INIT || s_smartcaps_state == SMART_CAPS_DEFAULT)
                     {
-                        if (terminate_feature || s_smartcaps_state == SMART_CAPS_INIT || s_smartcaps_state == SMART_CAPS_DEFAULT)
+                        s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
+                        s_smartcaps_repeat = 0;
+                        s_smartcaps_state  = SMART_CAPS_OFF;
+
+                        if (is_qwerty())
                         {
-                            s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
-                            s_smartcaps_repeat = 0;
-                            s_smartcaps_state  = SMART_CAPS_OFF;
-
-                            if (is_qwerty())
-                            {
-                                layer_off(_QWERTY_CAPS);
-                                layer_off(_RSTHD_CAPS);
-                            }
-                            else
-                            {
-                                layer_off(_QWERTY_CAPS);
-                                layer_off(_RSTHD_CAPS);
-                            }
-
-                            if (keycode == KC_FCAPS)
-                            {
-                                // stop execution otherwise we will again turn on this feature below
-                                return false;
-                            }
-
-                            if (keycode == KC_FNAV)
-                            {
-                                // process_record_user should not execute any further otherwise the press/release of KC_FNAV will result in
-                                // the activation of 'leader'.
-                                // but we do want to continue execution below so that we activate the NAV layer
-                                ret = false;
-                            }
+                            layer_off(_QWERTY_CAPS);
+                            layer_off(_RSTHD_CAPS);
                         }
                         else
                         {
-                            if (s_smartcaps_state == SMART_CAPS_REPEAT)
-                            {
-                                // emit seperator(s)
-                                for (int8_t i = 0; i < s_smartcaps_repeat; ++i)
-                                {
-                                    tap_code16(s_smartcaps_separators[i]);
-                                }
-                                return false;
-                            }
+                            layer_off(_QWERTY_CAPS);
+                            layer_off(_RSTHD_CAPS);
                         }
-                    }
-                    if (features_active(FEATURE_NUM))
-                    {
-                        s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
-                        layer_off(_NUM);
 
-                        if (keycode == KC_FNUM)
+                        if (keycode == KC_FCAPS)
                         {
                             // stop execution otherwise we will again turn on this feature below
                             return false;
                         }
+
+                        if (keycode == KC_FNAV)
+                        {
+                            // process_record_user should not execute any further otherwise the press/release of KC_FNAV will result in
+                            // the activation of 'leader'.
+                            // but we do want to continue execution below so that we activate the NAV layer
+                            ret = false;
+                        }
+                    }
+                    else
+                    {
+                        if (s_smartcaps_state == SMART_CAPS_REPEAT)
+                        {
+                            // emit seperator(s)
+                            for (int8_t i = 0; i < s_smartcaps_repeat; ++i)
+                            {
+                                tap_code16(s_smartcaps_separators[i]);
+                            }
+                            return false;
+                        }
+                    }
+                }
+            }
+            if (features_active(FEATURE_NUM))
+            {
+                if (keycode == KC_SPACE || (keycode == KC_FNUM || keycode == KC_FNAV || keycode == KC_FCAPS))
+                {
+                    s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
+                    layer_off(_NUM);
+
+                    if (keycode == KC_FNUM)
+                    {
+                        // stop execution otherwise we will again turn on this feature below
+                        return false;
                     }
                 }
             }
