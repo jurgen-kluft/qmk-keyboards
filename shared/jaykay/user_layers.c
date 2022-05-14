@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
+#include "cukey.h"
 #include "user_layers.h"
 #include "user_keycodes.h"
 
@@ -44,10 +45,10 @@ static const uint8_t user_kb_layers[][40] = {
                             CC_FNUM,   CC_FNUM,   CC_FNAV,    TC_SPACE,                          TC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS
     },
     [LAYER_RAISE] = {
-        CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, CC_NO,                                                  TC_F12,  TC_F2,    TC_F3,  TC_F4, TC_F1, 
-        CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     CC_NO,                                                  TC_F5,   TC_F11,   TC_F10, TC_F9, CC_NO,  
-        CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_NO,    CC_PDT,                            CC_NDT,    CC_NO,   TC_F6,    TC_F7,  TC_F8, CC_NO,  
-                                  CC_FNUM,     CC_FNUM,     CC_FNAV,  TC_SPACE,                          TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS
+        CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, CC_NO,                                                   TC_F12,   TC_F2,    TC_F3,  TC_F4, TC_F1, 
+        CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     CC_NO,                                                   TC_F5,    TC_F11,   TC_F10, TC_F9, CC_NO,  
+        CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY, CC_PDT,                            CC_NDT,    CC_RSTHD, TC_F6,    TC_F7,  TC_F8, CC_NO,  
+                                  CC_FNUM,     CC_FNUM,     CC_FNAV,   TC_SPACE,                          TC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS
     },
     [LAYER_VIM] = {
         CC_VIM_CHAR,   CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_FIND,                                  CC_VIM_YANK,     CC_VIM_UNDO, CC_VIM_INSIDE, CC_VIM_LINE,   CC_VIM_PAGE,   
@@ -77,14 +78,14 @@ static const uint8_t user_kb_layers[][40] = {
 //
 
 static int8_t base_layer_mods = 0; // CC_SHIFT
-static int8_t base_layer      = LAYER_QWERTY;
 static int8_t current_layer   = LAYER_QWERTY;
+
 void user_layer_on(int8_t layer)
 {
     switch (layer)
     {
         case LAYER_RSTHD:
-        case LAYER_QWERTY: current_layer = base_layer; break;
+        case LAYER_QWERTY: current_layer = keyboard_get_layout(); break;
         case LAYER_SYMBOLS:
         case LAYER_NAVIGATION:
         case LAYER_NUMBERS:

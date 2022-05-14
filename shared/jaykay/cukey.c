@@ -36,6 +36,7 @@ typedef union
     struct
     {
         uint8_t os;
+        uint8_t layout;
     };
 } user_config_t;
 
@@ -56,6 +57,13 @@ void keyboard_set_os(uint8_t os)
     eeconfig_update_user(user_config.raw);
 }
 uint8_t keyboard_get_os(void) { return user_config.os; }
+
+void keyboard_set_layout(int8_t layout)
+{
+    user_config.layout = layout;
+    eeconfig_update_user(user_config.raw);
+}
+int8_t keyboard_get_layout() { return user_config.layout; }
 
 uint16_t const kc_os_win[] = {KC_PC_UNDO, KC_PC_REDO, KC_PC_CUT, KC_PC_COPY, KC_PC_PASTE, KC_PC_NDT, KC_PC_PDT, KC_PC_CLOSE};
 uint16_t const kc_os_mac[] = {KC_MAC_UNDO, KC_MAC_REDO, KC_MAC_CUT, KC_MAC_COPY, KC_MAC_PASTE, KC_MAC_NDT, KC_MAC_PDT, KC_MAC_CLOSE};

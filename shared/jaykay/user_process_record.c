@@ -84,7 +84,6 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             return true;
 #endif
     }
-
     if (vim_is_active())
     {
         process_vim(kc8, record);
@@ -105,13 +104,13 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             case CC_QWERTY:
                 if (record->event.pressed)
                 {
-                    set_single_persistent_default_layer(LAYER_QWERTY);
+                    keyboard_set_layout(LAYER_QWERTY);
                 }
                 break;
             case CC_RSTHD:
                 if (record->event.pressed)
                 {
-                    set_single_persistent_default_layer(LAYER_RSTHD);
+                    keyboard_set_layout(LAYER_RSTHD);
                 }
                 break;
         }

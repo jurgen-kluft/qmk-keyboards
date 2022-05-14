@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "user_layers.h"
 
 #ifdef RGB_MATRIX_ENABLE
 __attribute__((weak)) void keyboard_init_rgb_matrix(void);
@@ -11,4 +12,6 @@ void keyboard_post_init_user(void)
     keyboard_init_rgb_matrix();
 #endif
     keyboard_init_cukey();
+
+    user_layer_on(LAYER_BASE); // activate the base layer, QWERTY or RSTHD
 }

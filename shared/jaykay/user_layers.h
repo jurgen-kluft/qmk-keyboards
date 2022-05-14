@@ -11,8 +11,10 @@ enum ecustom_layers
     LAYER_VIM,
     LAYER_VIM_RAISE,
     LAYER_NONE = -1,
+    LAYER_BASE = LAYER_QWERTY,
 };
 
+void user_layer_base(int8_t layer);
 void user_layer_on(int8_t layer);
 int8_t user_layer(void);
 
