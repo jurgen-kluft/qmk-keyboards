@@ -1,8 +1,10 @@
 #include QMK_KEYBOARD_H
+#include "config.h"
 #include "layers.h"
-#include "feature.h"
-#include "user_oneshot.h"
 #include "user_cushi.h"
+#include "user_keycodes.h"
+#include "user_layers.h"
+#include "feature.h"
 
 /*
 
@@ -59,22 +61,15 @@ enum
     SMART_CAPS_DEFAULT        = 4,
     SMART_CAPS_MAX_SEPARATORS = 4,
 };
-static uint8_t  s_smartcaps_state                                 = SMART_CAPS_OFF;
-static uint16_t s_smartcaps_separators[SMART_CAPS_MAX_SEPARATORS] = {KC_NO};
-static int8_t   s_smartcaps_repeat                                = 0;
+static uint8_t s_smartcaps_state                                 = SMART_CAPS_OFF;
+static uint8_t s_smartcaps_separators[SMART_CAPS_MAX_SEPARATORS] = {CC_NO};
+static int8_t  s_smartcaps_repeat                                = 0;
 
-static uint8_t s_feature_state = 0;
+static uint8_t     s_feature_state = 0;
 static inline bool features_active(uint8_t features) { return (s_feature_state & features) == features; }
 static inline bool features_active_any(uint8_t features) { return (s_feature_state & features) != 0; }
 
-static inline bool is_qwerty(void)
-{
-    // Cast to uint8_t, we can do this because we know that the QWERTY layer is <=7
-    uint8_t layers = layer_state | default_layer_state;
-    return (layers & (1 << _QWERTY)) != 0;
-}
-
-bool process_feature_key(uint16_t keycode, keyrecord_t* record)
+bool process_feature_key(uint8_t keycode, keyrecord_t* record)
 {
     bool ret = true;
     {
@@ -82,17 +77,17 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
         {
             if (features_active(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT))
             {
-                if (keycode == KC_BSPACE || keycode == KC_SPACE || keycode == KC_FNUM || keycode == KC_FNAV || keycode == KC_FCAPS || keycode == KC_FSYM)
+                if (keycode == TC_BSPACE || keycode == TC_SPACE || keycode == CC_FNUM || keycode == CC_FNAV || keycode == CC_FCAPS || keycode == CC_FSYM)
                 {
                     s_feature_state &= ~(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT | FEATURE_USED);
-                    layer_off(_RAISE);
+                    user_layer_off(LAYER_RAISE);
                 }
             }
 
             if (features_active(FEATURE_CAPS))
             {
-                const bool terminate_feature = (keycode == KC_FNUM || keycode == KC_FNAV || keycode == KC_FCAPS);
-                if (keycode == KC_SPACE || terminate_feature)
+                const bool terminate_feature = (keycode == CC_FNUM || keycode == CC_FNAV || keycode == CC_FCAPS);
+                if (keycode == TC_SPACE || terminate_feature)
                 {
                     if (terminate_feature || s_smartcaps_state == SMART_CAPS_INIT || s_smartcaps_state == SMART_CAPS_DEFAULT)
                     {
@@ -100,24 +95,15 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                         s_smartcaps_repeat = 0;
                         s_smartcaps_state  = SMART_CAPS_OFF;
 
-                        if (is_qwerty())
-                        {
-                            layer_off(_QWERTY_CAPS);
-                            layer_off(_RSTHD_CAPS);
-                        }
-                        else
-                        {
-                            layer_off(_QWERTY_CAPS);
-                            layer_off(_RSTHD_CAPS);
-                        }
+                        user_smartshift_off();
 
-                        if (keycode == KC_FCAPS)
+                        if (keycode == CC_FCAPS)
                         {
                             // stop execution otherwise we will again turn on this feature below
                             return false;
                         }
 
-                        if (keycode == KC_FNAV)
+                        if (keycode == CC_FNAV)
                         {
                             // process_record_user should not execute any further otherwise the press/release of KC_FNAV will result in
                             // the activation of 'leader'.
@@ -132,7 +118,8 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                             // emit seperator(s)
                             for (int8_t i = 0; i < s_smartcaps_repeat; ++i)
                             {
-                                tap_code16(s_smartcaps_separators[i]);
+                                uint16_t kc = user_get_code16(s_smartcaps_separators[i]);
+                                tap_code16(kc);
                             }
                             return false;
                         }
@@ -141,12 +128,12 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
             }
             if (features_active(FEATURE_NUM))
             {
-                if (keycode == KC_SPACE || (keycode == KC_FNUM || keycode == KC_FNAV || keycode == KC_FCAPS))
+                if (keycode == TC_SPACE || (keycode == CC_FNUM || keycode == CC_FNAV || keycode == CC_FCAPS))
                 {
                     s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
-                    layer_off(_NUM);
+                    user_layer_off(LAYER_NUMBERS);
 
-                    if (keycode == KC_FNUM)
+                    if (keycode == CC_FNUM)
                     {
                         // stop execution otherwise we will again turn on this feature below
                         return false;
@@ -158,21 +145,13 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
             switch (keycode)
             {
                 // pressed
-                case OS_SHFT:
-                case OS_CTRL:
-                case OS_ALT:
-                case OS_CMD: break;
+                case CC_SHFT:
+                case CC_CTRL:
+                case CC_ALT:
+                case CC_CMD: break;
 
                 // pressed
-                case KC_COMMA_QUES:
-                case KC_DOT_EXCL: break;
-
-                // pressed
-                case SH_TG: break;
-
-                // pressed
-                case S(KC_A)... S(KC_Z):
-                case KC_A ... KC_Z:
+                case TC_A ... TC_Z:
                     if (features_active(FEATURE_CAPS))
                     {
                         if (s_smartcaps_repeat == 0)
@@ -186,11 +165,15 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                         s_feature_state |= FEATURE_USED;
                         break;
                     }
-                case KC_MINUS ... KC_SLASH:
-                case S(KC_1)... S(KC_0):
-                case S(KC_MINUS)... S(KC_SLASH):
+                case TC_AT ... TC_BSLASH:
                     if (features_active(FEATURE_CAPS))
                     {
+                        // override the semicolon -> underscore
+                        if (keycode == TC_SCLN)
+                        {
+                            keycode = TC_UNDS;
+                        }
+
                         s_feature_state |= FEATURE_USED;
                         if (s_smartcaps_state == SMART_CAPS_INIT)
                         {
@@ -215,28 +198,28 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                         break;
                     }
 
-                case KC_1 ... KC_0:
-                case KC_F1 ... KC_F12: s_feature_state |= FEATURE_USED; break;
+                case TC_0 ... TC_9:
+                case TC_F1 ... TC_F12: s_feature_state |= FEATURE_USED; break;
 
-                case KC_FNAV: // pressed
+                case CC_FNAV: // pressed
                     s_feature_state |= FEATURE_NAV;
                     s_feature_state &= ~FEATURE_USED;
                     if (features_active(FEATURE_NAV | FEATURE_SYM))
                     {
-                        layer_off(_SYM);
-                        layer_off(_NAV);
-                        layer_on(_RAISE);
+                        user_layer_off(LAYER_SYMBOLS);
+                        user_layer_off(LAYER_NAVIGATION);
+                        user_layer_on(LAYER_RAISE);
                     }
                     else
                     {
-                        layer_on(_NAV);
+                        user_layer_on(LAYER_NAVIGATION);
                     }
                     break;
-                case KC_FSYM: // pressed
+                case CC_FSYM: // pressed
                     if (features_active(FEATURE_SYM_ONESHOT))
                     {
                         s_feature_state &= ~(FEATURE_USED | FEATURE_SYM | FEATURE_SYM_ONESHOT);
-                        layer_off(_SYM);
+                        user_layer_off(LAYER_SYMBOLS);
                     }
                     else
                     {
@@ -244,25 +227,25 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                         s_feature_state &= ~FEATURE_USED;
                         if (features_active(FEATURE_SYM | FEATURE_NAV))
                         {
-                            layer_off(_SYM);
-                            layer_off(_NAV);
-                            layer_on(_RAISE);
+                            user_layer_off(LAYER_SYMBOLS);
+                            user_layer_off(LAYER_NAVIGATION);
+                            user_layer_on(LAYER_RAISE);
                         }
                         else
                         {
-                            layer_on(_SYM);
+                            user_layer_on(LAYER_SYMBOLS);
                         }
                     }
                     break;
-                case KC_FNUM: // pressed
+                case CC_FNUM: // pressed
                     if (!features_active(FEATURE_NAV | FEATURE_SYM))
                     {
                         s_feature_state |= FEATURE_NUM;
                         s_feature_state &= ~FEATURE_USED;
-                        layer_on(_NUM);
+                        user_layer_on(LAYER_NUMBERS);
                     }
                     break;
-                case KC_FCAPS: // pressed
+                case CC_FCAPS: // pressed
                     if (!features_active(FEATURE_NAV | FEATURE_SYM))
                     {
                         s_smartcaps_state  = SMART_CAPS_INIT;
@@ -270,14 +253,7 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
 
                         s_feature_state |= FEATURE_CAPS;
                         s_feature_state &= ~FEATURE_USED;
-                        if (is_qwerty())
-                        {
-                            layer_on(_QWERTY_CAPS);
-                        }
-                        else
-                        {
-                            layer_on(_RSTHD_CAPS);
-                        }
+                        user_smartshift_on();
                     }
                     break;
             }
@@ -286,38 +262,31 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
         {
             switch (keycode)
             {
-                case OS_SHFT:
-                case OS_CTRL:
-                case OS_ALT:
-                case OS_CMD: break;
+                case CC_SHFT:
+                case CC_CTRL:
+                case CC_ALT:
+                case CC_CMD: break;
 
                 // released
-                case KC_COMMA_QUES:
-                case KC_DOT_EXCL: break;
-
-                // released
-                case KC_1 ... KC_0:
-                case S(KC_1)... S(KC_0):
-                case KC_F1 ... KC_F12:
-                case KC_A ... KC_Z:
-                case KC_MINUS ... KC_SLASH:
-                case S(KC_MINUS)... S(KC_SLASH):
-                case KC_BSPACE:
-                case KC_SPACE:
-                case SH_TG:
+                case TC_AT ... TC_BSLASH:
+                case TC_0 ... TC_9:
+                case TC_F1 ... TC_F12:
+                case TC_A ... TC_Z:
+                case TC_BSPACE:
+                case TC_SPACE:
                     if (features_active(FEATURE_SYM_ONESHOT) && !features_active(FEATURE_NAV_ONESHOT))
                     {
                         s_feature_state &= ~FEATURE_SYM_ONESHOT;
-                        layer_off(_SYM);
+                        user_layer_off(LAYER_SYMBOLS);
                     }
                     break;
 
-                case KC_FNAV: // released
+                case CC_FNAV: // released
                     if (features_active(FEATURE_NAV | FEATURE_SYM))
                     {
-                        layer_off(_RAISE);
-                        layer_off(_NAV);
-                        layer_on(_SYM);
+                        user_layer_off(LAYER_RAISE);
+                        user_layer_off(LAYER_NAVIGATION);
+                        user_layer_on(LAYER_SYMBOLS);
                         s_feature_state |= FEATURE_USED;
                         s_feature_state &= ~FEATURE_NAV;
                     }
@@ -327,30 +296,30 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                         if (features_active(FEATURE_SYM_ONESHOT))
                         {
                             s_feature_state |= FEATURE_NAV_ONESHOT;
-                            layer_off(_SYM);
-                            layer_off(_NAV);
-                            layer_on(_RAISE);
+                            user_layer_off(LAYER_SYMBOLS);
+                            user_layer_off(LAYER_NAVIGATION);
+                            user_layer_on(LAYER_RAISE);
                         }
                         else
                         {
-                            layer_off(_NAV);
+                            user_layer_off(LAYER_NAVIGATION);
                         }
                     }
                     break;
 
-                case KC_FSYM: // released
+                case CC_FSYM: // released
                     if (features_active(FEATURE_NAV | FEATURE_SYM))
                     {
-                        layer_off(_RAISE);
-                        layer_on(_NAV);
-                        layer_off(_SYM);
+                        user_layer_off(LAYER_RAISE);
+                        user_layer_off(LAYER_SYMBOLS);
+                        user_layer_on(LAYER_NAVIGATION);
                         s_feature_state &= ~(FEATURE_SYM | FEATURE_USED | FEATURE_SYM_ONESHOT);
                     }
                     else if (features_active(FEATURE_SYM))
                     {
                         if (features_active(FEATURE_USED))
                         {
-                            layer_off(_SYM);
+                            user_layer_off(LAYER_SYMBOLS);
                             s_feature_state &= ~(FEATURE_SYM | FEATURE_USED | FEATURE_SYM_ONESHOT);
                         }
                         else
@@ -361,24 +330,24 @@ bool process_feature_key(uint16_t keycode, keyrecord_t* record)
                     }
                     break;
 
-                case KC_FNUM: // released
+                case CC_FNUM: // released
                     if (features_active(FEATURE_NUM))
                     {
                         if (features_active(FEATURE_USED))
                         {
                             s_feature_state &= ~FEATURE_NUM;
-                            layer_off(_NUM);
+                            user_layer_off(LAYER_NUMBERS);
                         }
                     }
                     break;
 
-                case KC_FCAPS: // released
+                case CC_FCAPS: // released
                     if (features_active(FEATURE_CAPS))
                     {
                         if (features_active(FEATURE_USED))
                         {
                             s_feature_state &= ~FEATURE_CAPS;
-                            layer_off(_QWERTY_CAPS);
+                            user_smartshift_off();
                         }
                     }
                     break;
