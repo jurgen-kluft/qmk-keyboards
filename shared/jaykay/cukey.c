@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
+#include "config.h"
 #include "cukey.h"
+#include "layers.h"
+#include "user_keycodes.h"
 
 #define KC_MAC_UNDO  LGUI(KC_Z)
 #define KC_MAC_REDO  LGUI(LSFT(KC_Z))
@@ -59,20 +62,20 @@ uint16_t const kc_os_win[] = {KC_PC_UNDO, KC_PC_REDO, KC_PC_CUT, KC_PC_COPY, KC_
 uint16_t const kc_os_mac[] = {KC_MAC_UNDO, KC_MAC_REDO, KC_MAC_CUT, KC_MAC_COPY, KC_MAC_PASTE, KC_MAC_NDT, KC_MAC_PDT, KC_MAC_CLOSE};
 uint16_t const kc_os_ubt[] = {KC_UBT_UNDO, KC_UBT_REDO, KC_UBT_CUT, KC_UBT_COPY, KC_UBT_PASTE, KC_UBT_NDT, KC_UBT_PDT, KC_UBT_CLOSE};
 
-uint16_t process_cukey(uint16_t keycode)
+uint16_t process_cukey(uint8_t keycode)
 {
     switch (keycode)
     {
-        case KC_OS_UNDO:
-        case KC_OS_REDO:
-        case KC_OS_CUT:
-        case KC_OS_COPY:
-        case KC_OS_PASTE:
-        case KC_OS_NDT:
-        case KC_OS_PDT:
-        case KC_OS_CLOSE:
+        case CC_UNDO:
+        case CC_REDO:
+        case CC_CUT:
+        case CC_COPY:
+        case CC_PASTE:
+        case CC_NDT:
+        case CC_PDT:
+        case CC_CLOSE:
         {
-            uint8_t i = (uint8_t)(keycode - KC_OS_UNDO);
+            uint8_t i = (uint8_t)(keycode - CC_UNDO);
             switch (user_config.os)
             {
                 case OS_WINDOWS: keycode = (kc_os_win[i]); break;

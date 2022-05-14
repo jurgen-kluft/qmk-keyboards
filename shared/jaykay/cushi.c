@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
+#include "config.h"
 #include "cukey.h"
 #include "user_cushi.h"
+#include "user_keycodes.h"
 
 static uint16_t cushi_registered_keycode = KC_NO;
 
@@ -13,13 +15,13 @@ static uint16_t cushi_registered_keycode = KC_NO;
         cmd;                                                \
         break;
 
-uint16_t process_cushi_keys(uint16_t keycode, keyrecord_t* record, bool simulate)
+uint8_t process_cushi_keys(uint8_t keycode, keyrecord_t* record, bool simulate)
 {
-    uint16_t key_normal = KC_NO;
-    uint16_t key_shift  = KC_NO;
-    uint16_t key_ctrl   = KC_NO;
-    uint16_t key_alt    = KC_NO;
-    uint16_t key_gui    = KC_NO;
+    uint8_t key_normal = CC_NO;
+    uint8_t key_shift  = CC_NO;
+    uint8_t key_ctrl   = CC_NO;
+    uint8_t key_alt    = CC_NO;
+    uint8_t key_gui    = CC_NO;
 
     // @NOTE: Add your custom entries in user_cushi.def
     switch (keycode)
@@ -62,11 +64,11 @@ uint16_t process_cushi_keys(uint16_t keycode, keyrecord_t* record, bool simulate
 
         if (record->event.pressed)
         {
-            register_code16(cushi_registered_keycode);
+            register_code16(user_get_code16(cushi_registered_keycode));
         }
         else
         {
-            unregister_code16(cushi_registered_keycode);
+            unregister_code16(user_get_code16(cushi_registered_keycode));
         }
 
         if (modmask != 0)
