@@ -1,7 +1,10 @@
 #include QMK_KEYBOARD_H
 #include <version.h>
+#include "config.h"
 #include "leader.h"
 #include "cukey.h"
+#include "layers.h"
+#include "user_keycodes.h"
 
 #if !defined(NO_SECRETS)
 #include "secrets.x"
@@ -19,12 +22,16 @@ enum eleader_one
     LA_COPY,  // j
     LA_CUT,   // h
     LA_PASTE, // k
+    // LA_INDENT,   // .
+    // LA_UNINDENT, // ,
 };
 
-static leader1_t const leader1_array[] = {
-    [LA_COPY]  = {KC_J},
-    [LA_CUT]   = {KC_H},
-    [LA_PASTE] = {KC_K},
+static const leader1_t leader1_array[] = {
+    [LA_COPY]  = {TC_J},
+    [LA_CUT]   = {TC_H},
+    [LA_PASTE] = {TC_K},
+    // [LA_INDENT]   = {KC_DOT},
+    // [LA_UNINDENT] = {KC_COMMA},
 };
 
 enum eleader_two
@@ -82,58 +89,58 @@ enum eleader_two
     LA_WINDOW_PREV,      // wp
 };
 
-static leader2_t const leader2_array[] = {
-    [LA_CPP_AUTO]         = {KC_A, KC_O},
-    [LA_CPP_BREAK]        = {KC_B, KC_K},
-    [LA_CPP_CASE]         = {KC_C, KC_E},
-    [LA_CHANGE_LINE]      = {KC_C, KC_L},
-    [LA_CPP_CONTINUE]     = {KC_C, KC_O},
-    [LA_CPP_CLASS]        = {KC_C, KC_S},
-    [LA_CPP_CONST]        = {KC_C, KC_T},
-    [LA_CHANGE_WORD]      = {KC_C, KC_W},
-    [LA_DELETE_WORD_BACK] = {KC_D, KC_B},
-    [LA_DELETE_LINE]      = {KC_D, KC_D},
-    [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
-    [LA_DELETE_WORD]      = {KC_D, KC_W},
-    [LA_DELETE_UNTIL_SOL] = {KC_D, KC_S},
-    [LA_CPP_ELSE]         = {KC_E, KC_E},
-    [LA_CPP_ENUM]         = {KC_E, KC_M},
-    [LA_CPP_EXTERN]       = {KC_E, KC_N},
-    [LA_EQ]               = {KC_E, KC_Q},
-    [LA_EASYMOTION]       = {KC_F, KC_F},
-    [LA_CPP_FRIEND]       = {KC_F, KC_I},
-    [LA_CPP_FOR]          = {KC_F, KC_O},
-    [LA_CPP_GOTO]         = {KC_G, KC_O},
-    [LA_GT]               = {KC_G, KC_T},
-    [LA_CPP_INLINE]       = {KC_I, KC_E},
-    [LA_CPP_IF]           = {KC_I, KC_F},
-    [LA_INFO]             = {KC_I, KC_N},
-    [LA_LT]               = {KC_L, KC_T},
-    [LA_GMAIL]            = {KC_M, KC_G},
-    [LA_HOTMAIL]          = {KC_M, KC_H},
-    [LA_OPEN_LINE_ABOVE]  = {KC_O, KC_A},
-    [LA_OPEN_LINE_BELOW]  = {KC_O, KC_O},
-    [LA_CPP_OPERATOR]     = {KC_O, KC_R},
-    [LA_CPP_PUBLIC]       = {KC_P, KC_C},
-    [LA_CPP_PROTECTED]    = {KC_P, KC_D},
-    [LA_CPP_PRIVATE]      = {KC_P, KC_E},
-    [LA_PASSWORD]         = {KC_P, KC_W},
-    [LA_CPP_RETURN]       = {KC_R, KC_N},
-    [LA_CPP_REGISTER]     = {KC_R, KC_R},
-    [LA_CPP_STATIC]       = {KC_S, KC_C},
-    [LA_CPP_SIZEOF]       = {KC_S, KC_F},
-    [LA_CPP_SWITCH]       = {KC_S, KC_H},
-    [LA_CPP_STRUCT]       = {KC_S, KC_T},
-    [LA_CPP_TEMPLATE]     = {KC_T, KC_E},
-    [LA_CPP_THIS]         = {KC_T, KC_S},
-    [LA_CPP_TYPEDEF]      = {KC_T, KC_Y},
-    [LA_CPP_UNION]        = {KC_U, KC_N},
-    [LA_CPP_VOID]         = {KC_V, KC_D},
-    [LA_CPP_VOLATILE]     = {KC_V, KC_E},
-    [LA_CPP_VIRTUAL]      = {KC_V, KC_L},
-    [LA_CPP_WHILE]        = {KC_W, KC_E},
-    [LA_WINDOW_NEXT]      = {KC_W, KC_N},
-    [LA_WINDOW_PREV]      = {KC_W, KC_P},
+static const leader2_t leader2_array[] = {
+    [LA_CPP_AUTO]         = {TC_A, TC_O},
+    [LA_CPP_BREAK]        = {TC_B, TC_K},
+    [LA_CPP_CASE]         = {TC_C, TC_E},
+    [LA_CHANGE_LINE]      = {TC_C, TC_L},
+    [LA_CPP_CONTINUE]     = {TC_C, TC_O},
+    [LA_CPP_CLASS]        = {TC_C, TC_S},
+    [LA_CPP_CONST]        = {TC_C, TC_T},
+    [LA_CHANGE_WORD]      = {TC_C, TC_W},
+    [LA_DELETE_WORD_BACK] = {TC_D, TC_B},
+    [LA_DELETE_LINE]      = {TC_D, TC_D},
+    [LA_DELETE_UNTIL_EOL] = {TC_D, TC_E},
+    [LA_DELETE_WORD]      = {TC_D, TC_W},
+    [LA_DELETE_UNTIL_SOL] = {TC_D, TC_S},
+    [LA_CPP_ELSE]         = {TC_E, TC_E},
+    [LA_CPP_ENUM]         = {TC_E, TC_M},
+    [LA_CPP_EXTERN]       = {TC_E, TC_N},
+    [LA_EQ]               = {TC_E, TC_Q},
+    [LA_EASYMOTION]       = {TC_F, TC_F},
+    [LA_CPP_FRIEND]       = {TC_F, TC_I},
+    [LA_CPP_FOR]          = {TC_F, TC_O},
+    [LA_CPP_GOTO]         = {TC_G, TC_O},
+    [LA_GT]               = {TC_G, TC_T},
+    [LA_CPP_INLINE]       = {TC_I, TC_E},
+    [LA_CPP_IF]           = {TC_I, TC_F},
+    [LA_INFO]             = {TC_I, TC_N},
+    [LA_LT]               = {TC_L, TC_T},
+    [LA_GMAIL]            = {TC_M, TC_G},
+    [LA_HOTMAIL]          = {TC_M, TC_H},
+    [LA_OPEN_LINE_ABOVE]  = {TC_O, TC_A},
+    [LA_OPEN_LINE_BELOW]  = {TC_O, TC_O},
+    [LA_CPP_OPERATOR]     = {TC_O, TC_R},
+    [LA_CPP_PUBLIC]       = {TC_P, TC_C},
+    [LA_CPP_PROTECTED]    = {TC_P, TC_D},
+    [LA_CPP_PRIVATE]      = {TC_P, TC_E},
+    [LA_PASSWORD]         = {TC_P, TC_W},
+    [LA_CPP_RETURN]       = {TC_R, TC_N},
+    [LA_CPP_REGISTER]     = {TC_R, TC_R},
+    [LA_CPP_STATIC]       = {TC_S, TC_C},
+    [LA_CPP_SIZEOF]       = {TC_S, TC_F},
+    [LA_CPP_SWITCH]       = {TC_S, TC_H},
+    [LA_CPP_STRUCT]       = {TC_S, TC_T},
+    [LA_CPP_TEMPLATE]     = {TC_T, TC_E},
+    [LA_CPP_THIS]         = {TC_T, TC_S},
+    [LA_CPP_TYPEDEF]      = {TC_T, TC_Y},
+    [LA_CPP_UNION]        = {TC_U, TC_N},
+    [LA_CPP_VOID]         = {TC_V, TC_D},
+    [LA_CPP_VOLATILE]     = {TC_V, TC_E},
+    [LA_CPP_VIRTUAL]      = {TC_V, TC_L},
+    [LA_CPP_WHILE]        = {TC_W, TC_E},
+    [LA_WINDOW_NEXT]      = {TC_W, TC_N},
+    [LA_WINDOW_PREV]      = {TC_W, TC_P},
 };
 
 enum eleader_three
@@ -154,21 +161,21 @@ enum eleader_three
     LA_KEYBOARD_WIN,
 };
 
-static leader3_t const leader3_array[] = {
-    [LA_CHANGE_INSIDE_ABK]   = {KC_C, KC_I, KC_A},
-    [LA_CHANGE_INSIDE_BRC]   = {KC_C, KC_I, KC_B},
-    [LA_CHANGE_INSIDE_CBR]   = {KC_C, KC_I, KC_C},
-    [LA_CHANGE_INSIDE_DQUOT] = {KC_C, KC_I, KC_D},
-    [LA_CHANGE_INSIDE_PRN]   = {KC_C, KC_I, KC_P},
-    [LA_CHANGE_INSIDE_QUOT]  = {KC_C, KC_I, KC_Q},
-    [LA_CHANGE_INSIDE_TICKS] = {KC_C, KC_I, KC_T},
-    [LA_CHANGE_INSIDE_WORD]  = {KC_C, KC_I, KC_W},
-    [LA_GTE]                 = {KC_G, KC_T, KC_E},
-    [LA_KEYBOARD_MAC]        = {KC_K, KC_B, KC_M},
-    [LA_KEYBOARD_UBUNTU]     = {KC_K, KC_B, KC_U},
-    [LA_KEYBOARD_WIN]        = {KC_K, KC_B, KC_W},
-    [LA_LTE]                 = {KC_L, KC_T, KC_E},
-    [LA_NEQ]                 = {KC_N, KC_E, KC_Q},
+static const leader3_t leader3_array[] = {
+    [LA_CHANGE_INSIDE_ABK]   = {TC_C, TC_I, TC_A},
+    [LA_CHANGE_INSIDE_BRC]   = {TC_C, TC_I, TC_B},
+    [LA_CHANGE_INSIDE_CBR]   = {TC_C, TC_I, TC_C},
+    [LA_CHANGE_INSIDE_DQUOT] = {TC_C, TC_I, TC_D},
+    [LA_CHANGE_INSIDE_PRN]   = {TC_C, TC_I, TC_P},
+    [LA_CHANGE_INSIDE_QUOT]  = {TC_C, TC_I, TC_Q},
+    [LA_CHANGE_INSIDE_TICKS] = {TC_C, TC_I, TC_T},
+    [LA_CHANGE_INSIDE_WORD]  = {TC_C, TC_I, TC_W},
+    [LA_GTE]                 = {TC_G, TC_T, TC_E},
+    [LA_KEYBOARD_MAC]        = {TC_K, TC_B, TC_M},
+    [LA_KEYBOARD_UBUNTU]     = {TC_K, TC_B, TC_U},
+    [LA_KEYBOARD_WIN]        = {TC_K, TC_B, TC_W},
+    [LA_LTE]                 = {TC_L, TC_T, TC_E},
+    [LA_NEQ]                 = {TC_N, TC_E, TC_Q},
 };
 
 enum eleader_four
@@ -177,7 +184,7 @@ enum eleader_four
 };
 
 static leader4_t const leader4_array[] = {
-    [LA_SCREENSHOT] = {KC_S, KC_N, KC_I, KC_P},
+    [LA_SCREENSHOT] = {TC_S, TC_N, TC_I, TC_P},
 };
 
 #define send_taps1(tap1) tap_code16(tap1)
@@ -204,16 +211,20 @@ static leader_config_t leader_config = {
 
 bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config); }
 
-void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* keycodes)
+void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t* keycodes)
 {
     if (count == 1)
     {
         uint16_t keycode = KC_NO;
         switch (action)
         {
-            case LA_COPY: keycode = process_cukey(KC_OS_COPY); break;
-            case LA_CUT: keycode = process_cukey(KC_OS_CUT); break;
-            case LA_PASTE: keycode = process_cukey(KC_OS_PASTE); break;
+            case LA_COPY: keycode = process_cukey(CC_COPY); break;
+            case LA_CUT: keycode = process_cukey(CC_CUT); break;
+            case LA_PASTE:
+                keycode = process_cukey(CC_PASTE);
+                break;
+                // case LA_INDENT: keycode = (KC_TAB); break;
+                // case LA_UNINDENT: keycode = S(KC_TAB); break;
         }
         send_taps1(keycode);
     }
@@ -251,10 +262,10 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
                 break;
             case LA_DELETE_WORD_BACK: send_taps2(A(S(KC_LEFT)), KC_DEL); break;
             case LA_CHANGE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
-            case LA_DELETE_LINE: send_taps2(C(KC_D), KC_L); break;
+            case LA_DELETE_LINE: send_taps1(C(S(KC_D))); break;
             case LA_DELETE_UNTIL_SOL: send_taps2(S(KC_HOME), KC_DEL); break;
             case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
-            case LA_EASYMOTION: tap_code16(A(KC_S)); break;
+            case LA_EASYMOTION: send_taps1(A(KC_S)); break;
 
             case LA_CPP_AUTO: str = "auto "; break;
             case LA_CPP_BREAK: str = "break; "; break;
@@ -322,14 +333,14 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t
         {
             send_taps2(G(KC_K), bracket);
             wait_ms(200);
-            tap_code16(KC_DEL);
+            send_taps1(KC_DEL);
         }
     }
     else if (count == 4)
     {
         switch (action)
         {
-            case LA_SCREENSHOT: tap_code16(G(S(KC_4))); break;
+            case LA_SCREENSHOT: send_taps1(G(S(KC_4))); break;
         }
     }
 }
