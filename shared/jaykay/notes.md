@@ -1,27 +1,10 @@
 # Notes
 
-## keyrecord_t
-
-Should also contain the layer number (uint8_t) that was used to take the keycode from.
-
 ## Vim
 
-[_VIM] = LAYOUT(
-   xxxx, xxxx,            KC_VIM_WORD,  KC_VIM_END,    KC_VIM_REDO,    KC_VIM_FIND,                                          KC_VIM_YANK,      KC_VIM_UNDO,      KC_VIM_INSIDE,  KC_VIM_LINE,       KC_VIM_PAGE, xxxx,
-   xxxx, KC_VIM_ADD,      KC_VIM_BEGIN, KC_VIM_DELETE, KC_VIM_SEARCH,  KC_VIM_GOTO,                                          KC_VIM_LEFT,      KC_VIM_DOWN,      KC_VIM_UP,      KC_VIM_RIGHT,      KC_VIM_MODE, xxxx,
-   xxxx, KC_VIM_DOCUMENT, KC_VIM_CUT,   KC_VIM_CHANGE, KC_VIM_VISUAL,  KC_VIM_BACK,  xxxx,         xxxx,      xxxx, xxxx,    KC_VIM_INSERT,    KC_VIM_DELI,      KC_VIM_CLEAR,   KC_VIM_REPEAT,     xxxx,        xxxx, 
-                                        xxxx,          xxxx,           KC_VIM_RAISE, KC_VIM_ENTER, xxxx,      xxxx, KC_FSYM, KC_VIM_RAISE,     xxxx,             xxxx
-)
-[_VIM_RAISE] = LAYOUT(
-   xxxx, xxxx,            KC_VIM_WORD,  KC_VIM_END,    KC_VIM_REDO,    KC_VIM_FIND,                                          KC_VIM_PASTE,     KC_VIM_UNDO,      KC_VIM_INSIDE,  KC_VIM_LINE,       KC_VIM_PAGE, xxxx,
-   xxxx, KC_VIM_ADD,      KC_VIM_BEGIN, KC_VIM_DELETE, KC_VIM_SEARCH,  KC_VIM_GOTO,                                          KC_VIM_MOVE_LEFT, KC_VIM_MOVE_DOWN, KC_VIM_MOVE_UP, KC_VIM_MOVE_RIGHT, KC_VIM_MODE, xxxx,
-   xxxx, KC_VIM_DOCUMENT, KC_VIM_CUT,   KC_VIM_CHANGE, KC_VIM_VISUAL,  KC_VIM_BACK,  xxxx,         xxxx,      xxxx, xxxx,    KC_VIM_INSERT,    KC_VIM_MATCH,     KC_VIM_CLEAR,   KC_VIM_REPEAT,     xxxx,        xxxx, 
-                                        xxxx,          xxxx,           KC_VIM_RAISE, KC_VIM_ENTER, xxxx,      xxxx, KC_FSYM, KC_VIM_RAISE,     xxxx,             xxxx
-)
-
-
-
 Modes:
+    KC_VIM_DESKTOP     (Desktop)
+    KC_VIM_APP         (Application)
     KC_VIM_DOCUMENT    (Document)
     KC_VIM_PAGE        (Page)
     KC_VIM_LINE        (Line)
