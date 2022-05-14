@@ -10,6 +10,8 @@ enum ecustom_layers
     LAYER_RAISE,
     LAYER_VIM,
     LAYER_VIM_RAISE,
+    LAYER_GAMEL,
+    LAYER_GAMER,
     LAYER_NONE = -1,
     LAYER_BASE = LAYER_QWERTY,
 };
