@@ -1,16 +1,17 @@
 #include QMK_KEYBOARD_H
 #include "layers.h"
+#include "user_layers.h"
 
 // Layer-specific encoder knob functions
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
-    uint16_t layers = (layer_state | default_layer_state);
+    uint16_t layer = user_current_layer();
     if (index == 0)
     { // left knob
-        switch (get_highest_layer(layers))
+        switch (layer)
         {
-            case _MOUS: // Underglow color
 #ifdef RGBLIGHT_ENABLE
+            case LAYER_MOUS: // Underglow color
                 if (clockwise)
                 {
                     rgblight_increase_hue();
@@ -19,8 +20,8 @@ bool encoder_update_user(uint8_t index, bool clockwise)
                 {
                     rgblight_decrease_hue();
                 }
-#endif
                 break;
+#endif
             default: // Volume Up/Down
                 if (clockwise)
                 {
@@ -35,9 +36,9 @@ bool encoder_update_user(uint8_t index, bool clockwise)
     }
     else if (index == 1)
     { // right knob
-        switch (get_highest_layer(layers))
+        switch (layer)
         {
-            case _NAV:
+            case LAYER_NAVIGATION:
                 if (clockwise)
                 {
                     tap_code(KC_MS_WH_DOWN);
@@ -47,8 +48,8 @@ bool encoder_update_user(uint8_t index, bool clockwise)
                     tap_code(KC_MS_WH_UP);
                 }
                 break;
-            case _MOUS: // Underglow brightness
 #ifdef RGBLIGHT_ENABLE
+            case LAYER_MOUS: // Underglow brightness
                 if (clockwise)
                 {
                     rgblight_increase_val();
@@ -57,8 +58,8 @@ bool encoder_update_user(uint8_t index, bool clockwise)
                 {
                     rgblight_decrease_val();
                 }
-#endif
                 break;
+#endif
             default:
                 if (clockwise)
                 {
