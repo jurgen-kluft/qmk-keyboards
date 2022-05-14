@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "layers.h"
+#include "user_layers.h"
 
 #define MOON_LED_LEVEL LED_LEVEL
 
@@ -54,10 +54,10 @@ void rgb_matrix_indicators_user(void)
     {
         return;
     }
-    int layer = biton32(layer_state);
+    int8_t layer = user_layer();
     switch (layer)
     {
-        case _QWERTY ... _GAMER: set_layer_color(layer); break;
+        case LAYER_QWERTY ... LAYER_GAMER: set_layer_color(layer); break;
         default:
             if (rgb_matrix_get_flags() == LED_FLAG_NONE)
                 rgb_matrix_set_color_all(0, 0, 0);

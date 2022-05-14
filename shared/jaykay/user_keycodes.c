@@ -98,7 +98,13 @@ static const uint16_t kb_keycodes[TC_RANGE_COUNT] = {
     [TC_DELETE] = KC_DELETE,
     [TC_ESCAPE] = KC_ESCAPE,
     [TC_INSERT] = KC_INSERT,
-    [TC_PGDOWN] = KC_PGDOWN
+    [TC_PGDOWN] = KC_PGDOWN,
+    [TC_LSHIFT] = KC_LSHIFT,
+    [TC_RSHIFT] = KC_RSHIFT,
+    [TC_LCTRL] = KC_LCTRL,
+    [TC_RCTRL] = KC_RCTRL,
+    [TC_LALT] = KC_LALT,
+    [TC_RALT] = KC_RALT,
 };
 // clang-format on
 
