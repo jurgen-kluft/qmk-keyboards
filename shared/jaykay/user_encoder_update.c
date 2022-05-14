@@ -4,7 +4,7 @@
 // Layer-specific encoder knob functions
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
-    uint16_t layer = user_current_layer();
+    int8_t const layer = user_layer();
     if (index == 0)
     { // left knob
         switch (layer)

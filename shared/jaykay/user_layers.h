@@ -13,9 +13,8 @@ enum ecustom_layers
     LAYER_NONE = -1,
 };
 
-void user_layer_on(uint8_t layer);
-void user_layer_off(uint8_t layer);
-uint8_t user_current_layer(void);
+void user_layer_on(int8_t layer);
+int8_t user_layer(void);
 
 void user_smartshift_on(void);
 void user_smartshift_off(void);

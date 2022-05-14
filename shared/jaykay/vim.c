@@ -42,8 +42,7 @@ void vim_enable()
 
 void vim_disable()
 {
-    user_layer_off(LAYER_VIM);
-    user_layer_off(LAYER_VIM_RAISE);
+    user_layer_on(LAYER_QWERTY);
     unregister_code(KC_LEFT_SHIFT);
     s_vim_enabled = 0;
 }
@@ -324,7 +323,7 @@ void process_vim(uint8_t keycode, keyrecord_t* record)
     {
         switch (keycode)
         {
-            case CC_VIM_RAISE: user_layer_off(LAYER_VIM_RAISE); break;
+            case CC_VIM_RAISE: user_layer_on(LAYER_VIM); break;
             case CC_VIM_SEARCH: tap_code16(G(KC_F)); break;
             case CC_VIM_ENTER: unregister_code(KC_ENTER); break;
             case CC_VIM_DELETE: break;

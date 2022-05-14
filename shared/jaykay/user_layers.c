@@ -64,87 +64,41 @@ static const uint8_t user_kb_layers[][40] = {
 };
 // clang-format on
 
-static int8_t base_layer       = LAYER_QWERTY;
-static int8_t base_layer_mods  = 0; // CC_SHIFT
-static int8_t mode_layer       = LAYER_NONE;
-static int8_t temporary_layer1 = LAYER_NONE;
-static int8_t temporary_layer2 = LAYER_NONE;
-static int8_t current_layer    = LAYER_QWERTY;
+// The possible change of layers:
+//
+//       base    <-> nav
+//       base    <-> symbols
+//       base    <-> numbers
+//       nav     <-> raise
+//       symbols <-> raise
+//       numbers <-> symbols
+//       base    <-> vim
+//       vim     <-> vim raise
+//
 
-static void kb_layer_on(int8_t layer)
+static int8_t base_layer_mods = 0; // CC_SHIFT
+static int8_t base_layer      = LAYER_QWERTY;
+static int8_t current_layer   = LAYER_QWERTY;
+void user_layer_on(int8_t layer)
 {
-    if (layer == current_layer)
+    switch (layer)
     {
-        return;
-    }
-
-    temporary_layer2 = LAYER_NONE;
-
-    if (layer == LAYER_RSTHD || layer == LAYER_QWERTY)
-    {
-        base_layer       = layer;
-        base_layer_mods  = 0;
-        mode_layer       = LAYER_NONE;
-        temporary_layer1 = LAYER_NONE;
-    }
-    else
-    {
-        switch (layer)
-        {
-            case LAYER_RAISE:
-            case LAYER_VIM:
-                mode_layer       = layer;
-                temporary_layer1 = LAYER_NONE;
-                break;
-            case LAYER_VIM_RAISE:
-            case LAYER_NAVIGATION:
-            case LAYER_NUMBERS: temporary_layer1 = layer; break;
-            case LAYER_SYMBOLS:
-                if (temporary_layer1 == LAYER_NUMBERS)
-                {
-                    temporary_layer2 = layer;
-                }
-                else
-                {
-                    temporary_layer1 = layer;
-                }
-                break;
-        }
-    }
-    current_layer = layer;
-}
-
-static void kb_layer_off(int8_t layer)
-{
-    if (temporary_layer2 == layer)
-    {
-        temporary_layer2 = LAYER_NONE;
-        current_layer    = temporary_layer1;
-    }
-    else if (temporary_layer1 == layer)
-    {
-        temporary_layer1 = LAYER_NONE;
-        if (mode_layer != LAYER_NONE)
-        {
-            current_layer = mode_layer;
-        }
-        else
-        {
-            current_layer = base_layer;
-        }
-    }
-    else if (mode_layer == layer)
-    {
-        mode_layer    = LAYER_NONE;
-        current_layer = base_layer;
+        case LAYER_RSTHD:
+        case LAYER_QWERTY: current_layer = base_layer; break;
+        case LAYER_SYMBOLS:
+        case LAYER_NAVIGATION:
+        case LAYER_NUMBERS:
+        case LAYER_RAISE:
+        case LAYER_VIM:
+        case LAYER_VIM_RAISE:
+        default: current_layer = layer; break;
     }
 }
 
-void    user_layer_on(uint8_t layer) { kb_layer_on(layer); }
-void    user_layer_off(uint8_t layer) { kb_layer_off(layer); }
-uint8_t user_current_layer(void) { return current_layer; }
-void    user_smartshift_on() { base_layer_mods = 1; }
-void    user_smartshift_off() { base_layer_mods = 0; }
+int8_t user_layer(void) { return current_layer; }
+
+void user_smartshift_on() { base_layer_mods = 1; }
+void user_smartshift_off() { base_layer_mods = 0; }
 
 uint16_t user_layer_get_code(uint16_t keycode, bool pressed)
 {
