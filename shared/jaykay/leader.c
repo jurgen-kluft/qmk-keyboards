@@ -1,7 +1,10 @@
 #include QMK_KEYBOARD_H
-#include "leader.h"
+#include "config.h"
 #include "feature.h"
-#include "user_oneshot.h"
+#include "vim.h"
+#include "user_keycodes.h"
+#include "layers.h"
+#include "leader.h"
 
 /*
 Leader
@@ -29,9 +32,8 @@ FNAV -> g -> t -> e = '>='
                  release 't'
 */
 
-__attribute__((weak)) void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint16_t* leader_chain) {}
-
-static int8_t process_leader_chain(uint8_t count, uint16_t* leader_chain, leader_config_t* leader_config);
+__attribute__((weak)) void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t* leader_chain) {}
+static int8_t              process_leader_chain(uint8_t count, uint8_t* keycodes, leader_config_t* config);
 
 #define LEADER_TIMEOUT   (250)
 #define LEADER_MAX_CHAIN (6)
@@ -41,7 +43,7 @@ static uint8_t  leader_mode                    = 0;
 static uint16_t leader_timer                   = 0;
 static uint8_t  leader_chain_recorded_pressed  = 0;
 static uint8_t  leader_chain_recorded_released = 0;
-static uint16_t leader_chain[LEADER_MAX_CHAIN] = {0};
+static uint8_t  leader_chain[LEADER_MAX_CHAIN] = {0};
 
 static void reset_leader(uint8_t active)
 {
@@ -52,24 +54,27 @@ static void reset_leader(uint8_t active)
     leader_timer                   = timer_read();
 }
 
-bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_t* config)
+bool leader_is_active() { return (leader_active == 2) && timer_elapsed(leader_timer) < LEADER_TIMEOUT; }
+void leader_disable() { reset_leader(0); }
+
+bool   process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config)
 {
     if (leader_active == 2)
     {
         switch (keycode)
         {
-            case OS_CTRL:
-            case OS_SHFT:
-            case OS_ALT:
-            case OS_CMD:
-            case KC_FSYM:
-            case KC_FNUM:
-            case KC_FCAPS: return false;
+            case CC_CTRL:
+            case CC_SHFT:
+            case CC_ALT:
+            case CC_CMD:
+            case CC_FNUM:
+            case CC_FCAPS: return false;
         }
     }
+
     if (record->event.pressed)
     {
-        if (keycode == KC_FNAV)
+        if (keycode == CC_FNAV)
         {
             if (leader_chain_recorded_pressed > 0)
             {
@@ -87,7 +92,21 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
         }
         else if (leader_active == 2)
         {
-            if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
+            // If KC_FSYM is tapped right after tapping KC_FNAV the mode changes into VIM mode
+            if (keycode == CC_FSYM)
+            {
+                if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) < LEADER_TIMEOUT))
+                {
+                    // VIM mode
+                    vim_enable();
+                    reset_leader(0);
+                }
+                else
+                {
+                    reset_leader(0);
+                }
+            }
+            else if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
             {
                 reset_leader(0);
             }
@@ -113,11 +132,15 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
     }
     else
     {
-        if (keycode == KC_FNAV)
+        if (keycode == CC_FNAV)
         {
             if (leader_active == 1)
                 leader_active = 2;
             leader_timer = timer_read();
+        }
+        else if (keycode == CC_FSYM)
+        {
+            // nop
         }
         else if (leader_active == 2)
         {
@@ -140,13 +163,14 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
                     reset_leader(0);
                 }
             }
+            return true;
         }
     }
 
     return false;
 }
 
-int8_t process_leader_chain(uint8_t count, uint16_t* keycodes, leader_config_t* config)
+int8_t process_leader_chain(uint8_t count, uint8_t* keycodes, leader_config_t* config)
 {
     if (count == 1)
     {

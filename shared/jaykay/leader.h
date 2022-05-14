@@ -1,29 +1,30 @@
 #pragma once
+#include "config.h"
 
 typedef struct
 {
-    uint16_t keycode1;
+    uint8_t keycode1;
 } leader1_t;
 
 typedef struct
 {
-    uint16_t keycode1;
-    uint16_t keycode2;
+    uint8_t keycode1;
+    uint8_t keycode2;
 } leader2_t;
 
 typedef struct
 {
-    uint16_t keycode1;
-    uint16_t keycode2;
-    uint16_t keycode3;
+    uint8_t keycode1;
+    uint8_t keycode2;
+    uint8_t keycode3;
 } leader3_t;
 
 typedef struct
 {
-    uint16_t keycode1;
-    uint16_t keycode2;
-    uint16_t keycode3;
-    uint16_t keycode4;
+    uint8_t keycode1;
+    uint8_t keycode2;
+    uint8_t keycode3;
+    uint8_t keycode4;
 } leader4_t;
 
 typedef struct
@@ -39,4 +40,6 @@ typedef struct
 } leader_config_t;
 
 // leader feature
-bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_t* leader_config);
+bool leader_is_active(void);
+void leader_disable(void);
+bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t * config);
