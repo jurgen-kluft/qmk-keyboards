@@ -1,6 +1,8 @@
 # Kyria
 
 My keymap uses the following features:
+- Custom layers & layer switching (Only 1 QMK layer)
+- Internally uses custom 8-bit keycodes
 - Callum style Oneshot Modifiers (a rewrite, `oneshot.c`)
   - plus a modification to allow double-tap to lock a modifier
 - Smart numbers (`feature.c`)
@@ -11,7 +13,12 @@ My keymap uses the following features:
 - Custom 'leader' implementation using NAV as leader key (`leader.c`)
 - Custom normal/shift/ctrl/alt keycodes (`cushi.c`)
 - Custom OS keycodes to deal with Mac OS / Windows / Ubuntu (`cukey.c`)
-  TODO: needs a trim/clean
+
+# Status
+
+- HillSide: OK
+- Kyria: OK
+- Moonlander: Broken (needs to be refactored now that we have custom layer logic)
 
 # Setup
 
