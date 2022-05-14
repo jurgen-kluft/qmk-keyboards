@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
 #include "cukey.h"
-#include "layers.h"
 #include "user_keycodes.h"
 
 #define KC_MAC_UNDO  LGUI(KC_Z)

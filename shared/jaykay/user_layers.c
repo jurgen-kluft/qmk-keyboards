@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
-#include "layers.h"
 #include "user_layers.h"
 #include "user_keycodes.h"
 

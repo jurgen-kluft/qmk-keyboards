@@ -3,7 +3,6 @@
 #include "feature.h"
 #include "oneshot.h"
 #include "user_keycodes.h"
-#include "layers.h"
 
 #ifdef ENABLE_ONESHOT
 

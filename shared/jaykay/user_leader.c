@@ -3,7 +3,6 @@
 #include "config.h"
 #include "leader.h"
 #include "cukey.h"
-#include "layers.h"
 #include "user_keycodes.h"
 
 #if !defined(NO_SECRETS)

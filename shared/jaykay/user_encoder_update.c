@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "layers.h"
 #include "user_layers.h"
 
 // Layer-specific encoder knob functions

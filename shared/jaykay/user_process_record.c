@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
-#include "layers.h"
 #include "oneshot.h"
 #include "cushi.h"
 #include "cukey.h"

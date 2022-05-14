@@ -3,7 +3,6 @@
 #include "feature.h"
 #include "vim.h"
 #include "user_keycodes.h"
-#include "layers.h"
 #include "leader.h"
 
 /*
