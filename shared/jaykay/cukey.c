@@ -63,6 +63,7 @@ uint16_t const kc_os_ubt[] = {KC_UBT_UNDO, KC_UBT_REDO, KC_UBT_CUT, KC_UBT_COPY,
 
 uint16_t process_cukey(uint8_t keycode)
 {
+    uint16_t kc = KC_NO;
     switch (keycode)
     {
         case CC_UNDO:
@@ -77,16 +78,16 @@ uint16_t process_cukey(uint8_t keycode)
             uint8_t i = (uint8_t)(keycode - CC_UNDO);
             switch (user_config.os)
             {
-                case OS_WINDOWS: keycode = (kc_os_win[i]); break;
-                case OS_UBUNTU: keycode = (kc_os_ubt[i]); break;
-                case OS_MAC: keycode = (kc_os_mac[i]); break;
+                case OS_WINDOWS: kc = (kc_os_win[i]); break;
+                case OS_UBUNTU: kc = (kc_os_ubt[i]); break;
+                case OS_MAC: kc = (kc_os_mac[i]); break;
                 default:
-                    keycode = (kc_os_mac[i]);
+                    kc = (kc_os_mac[i]);
                     keyboard_set_os(OS_MAC);
                     break;
             }
         }
         break;
     }
-    return keycode;
+    return kc;
 }

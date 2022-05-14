@@ -21,29 +21,29 @@ static const char* gSecrets[] = {SECRET_1, SECRET_2, SECRET_3, SECRET_4, SECRET_
 static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4", "SECRET_5", "SECRET_6", "SECRET_7", "SECRET_8"};
 #endif
 
-bool process_record_user(uint16_t _keycode, keyrecord_t* record)
+bool process_record_user(uint16_t kc16, keyrecord_t* record)
 {
-    uint16_t keycode = user_layer_get_code(_keycode, record->event.pressed);
+    uint8_t const kc8 = user_layer_get_code(kc16, record->event.pressed);
 
 #ifdef OLED_DRIVER_ENABLE
-    process_record_oled(_keycode, record);
+    process_record_oled(kc16, record);
 #endif
 
-    switch (keycode)
+    switch (kc8)
     {
         case CC_UNDO ... CC_CLOSE:
         {
             if (record->event.pressed)
             {
-                keycode = process_cukey(keycode);
-                if (keycode != KC_NO)
-                    register_code16(keycode);
+                kc16 = process_cukey(kc8);
+                if (kc16 != KC_NO)
+                    register_code16(kc16);
             }
             else
             {
-                keycode = process_cukey(keycode);
-                if (keycode != KC_NO)
-                    unregister_code16(keycode);
+                kc16 = process_cukey(kc8);
+                if (kc16 != KC_NO)
+                    unregister_code16(kc16);
             }
 
             return false;
@@ -52,7 +52,7 @@ bool process_record_user(uint16_t _keycode, keyrecord_t* record)
             if (!record->event.pressed)
             {
                 turnoff_oneshot_modifiers();
-                send_string_with_delay(gSecrets[keycode - CC_SECRET_1], MACRO_TIMER);
+                send_string_with_delay(gSecrets[kc8 - CC_SECRET_1], MACRO_TIMER);
             }
             return false;
             break;
@@ -87,20 +87,20 @@ bool process_record_user(uint16_t _keycode, keyrecord_t* record)
 
     if (vim_is_active())
     {
-        process_vim(keycode, record);
+        process_vim(kc8, record);
         return false;
     }
 
     if (!leader_is_active() && !vim_is_active())
     {
-        if (!process_feature_key(keycode, record))
+        if (!process_feature_key(kc8, record))
         {
             return false;
         }
 
-        update_oneshot_modifiers(keycode, record);
+        update_oneshot_modifiers(kc8, record);
 
-        switch (keycode)
+        switch (kc8)
         {
             case CC_QWERTY:
                 if (record->event.pressed)
@@ -117,9 +117,9 @@ bool process_record_user(uint16_t _keycode, keyrecord_t* record)
         }
     }
 
-    if (process_leader_user(keycode, record))
+    if (process_leader_user(kc8, record))
         return false;
 
-    user_apply_keycode(keycode, record->event.pressed);
+    user_apply_keycode(kc8, record->event.pressed);
     return false;
 }
