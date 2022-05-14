@@ -94,7 +94,7 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                         s_smartcaps_repeat = 0;
                         s_smartcaps_state  = SMART_CAPS_OFF;
 
-                        user_smartshift_off();
+                        user_smartcaps_off();
 
                         if (keycode == CC_FCAPS)
                         {
@@ -255,7 +255,7 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
 
                         s_feature_state |= FEATURE_CAPS;
                         s_feature_state &= ~FEATURE_USED;
-                        user_smartshift_on();
+                        user_smartcaps_on();
                     }
                     break;
             }
@@ -351,7 +351,7 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                         if (features_active(FEATURE_USED))
                         {
                             s_feature_state &= ~FEATURE_CAPS;
-                            user_smartshift_off();
+                            user_smartcaps_off();
                         }
                     }
                     break;

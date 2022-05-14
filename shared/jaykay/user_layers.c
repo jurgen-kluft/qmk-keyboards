@@ -97,8 +97,8 @@ void user_layer_on(int8_t layer)
 
 int8_t user_layer(void) { return current_layer; }
 
-void user_smartshift_on() { base_layer_mods = 1; }
-void user_smartshift_off() { base_layer_mods = 0; }
+void user_smartcaps_on() { base_layer_mods = 1; }
+void user_smartcaps_off() { base_layer_mods = 0; }
 
 uint16_t user_layer_get_code(uint16_t keycode, bool pressed)
 {
