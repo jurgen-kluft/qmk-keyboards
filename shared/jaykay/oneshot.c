@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
-
+#include "config.h"
 #include "oneshot.h"
-#include "user_oneshot.h"
+#include "user_keycodes.h"
 
 #ifdef ENABLE_ONESHOT
 
@@ -121,7 +121,7 @@ void release_oneshot_modifier(oneshot_mod osmod)
 }
 
 // see comment in corresponding headerfile
-void update_oneshot_modifiers(uint16_t keycode, keyrecord_t* record)
+void update_oneshot_modifiers(uint8_t keycode, keyrecord_t* record)
 {
     oneshot_mod osmod = get_modifier_for_trigger_key(keycode);
 
@@ -164,17 +164,17 @@ void update_oneshot_modifiers(uint16_t keycode, keyrecord_t* record)
                 }
                 else
                 {
-                    unregister_code(s_osm_repeating_normal_key);
+                    unregister_code16(s_osm_repeating_normal_key);
                     set_modifier_state_all_from_to(ONESHOT_STATE_QUEUED, ONESHOT_STATE_OFF);
                 }
             }
-            s_osm_repeating_normal_key = keycode;
+            s_osm_repeating_normal_key = user_get_code16(keycode);
         }
         else
         {
             if (!all_modifiers_are_off())
             {
-                unregister_code(keycode);
+                unregister_code16(user_get_code16(keycode));
                 set_modifier_state_all_from_to(ONESHOT_STATE_QUEUED, ONESHOT_STATE_OFF);
             }
             s_osm_repeating_normal_key = 0;
