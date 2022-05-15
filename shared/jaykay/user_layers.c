@@ -7,12 +7,12 @@
 #if defined(KEYBOARD_HILLSIDE) || defined(KEYBOARD_KYRIA)
 
 static uint8_t       user_kb_state[40] = {KC_NO};
-extern const uint8_t user_kb_layers[][40];
+extern const uint8_t PROGMEM user_kb_layers[][40];
 
 #elif defined(KEYBOARD_MOONLANDER)
 
 static uint8_t       user_kb_state[72] = {KC_NO};
-extern const uint8_t user_kb_layers[][72];
+extern const uint8_t PROGMEM user_kb_layers[][72];
 
 #endif
 
@@ -43,7 +43,8 @@ void user_smartcaps_off() { smartcaps_enabled = 0; }
 uint16_t user_layer_get_code(uint16_t keycode, bool pressed)
 {
     uint8_t const ti = keycode - KL_00;
-    keycode          = user_kb_layers[current_layer][ti];
+    keycode = pgm_read_byte(&user_kb_layers[(current_layer)][ti]);
+//    keycode          = user_kb_layers[current_layer][ti];
     if (pressed)
     {
         user_kb_state[ti] = keycode;

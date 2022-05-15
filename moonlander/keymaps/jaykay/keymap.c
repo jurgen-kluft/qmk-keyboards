@@ -17,7 +17,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-const uint8_t user_kb_layers[][72] = {
+// 72*10=720 bytes
+const uint8_t PROGMEM user_kb_layers[][72] = {
   [LAYER_QWERTY] = {
        CC_NO, CC_NO, CC_NO, CC_NO,   CC_NO,    CC_NO, CC_NO,       CC_NO,     CC_NO, CC_NO,     CC_NO,    CC_NO,  CC_NO,     CC_GAMEL, 
        CC_NO, TC_Q,  TC_W,  TC_E,    TC_R,     TC_T,  CC_NDT,      CC_PDT,    TC_Y,  TC_U,      TC_I,     TC_O,   TC_P,      CC_NO,    
@@ -35,12 +36,12 @@ const uint8_t user_kb_layers[][72] = {
                                        TC_SPACE, TC_BSPACE, CC_NO,       CC_NO,     CC_NO,     TC_E                                            
   },
   [LAYER_NUMBERS] = {
-       CC_NO, CC_NO, CC_NO, CC_NO,    CC_NO,    CC_NO,    CC_NO,   CC_NO, CC_NO, CC_NO, CC_NO, CC_NO, CC_NO, CC_NO, 
-       CC_NO, CC_NO, CC_NO, TC_MINUS, TC_PLUS,  CC_NO,    CC_NO,   CC_NO, CC_NO, TC_5,  TC_6,  TC_7,  TC_8,  CC_NO, 
-       CC_NO, CC_NO, CC_NO, TC_9,     TC_0,     TC_EQUAL, CC_NO,   CC_NO, CC_NO, TC_1,  TC_2,  TC_3,  TC_4,  CC_NO, 
-       CC_NO, CC_NO, CC_NO, TC_ASTR,  TC_SLASH, CC_NO,                    CC_NO, TC_0,  CC_NO, CC_NO, CC_NO, CC_NO, 
-       CC_NO, CC_NO, CC_NO, CC_FNUM,  CC_NO,    CC_NO,                    CC_NO, CC_NO, CC_NO, CC_NO, CC_NO, CC_NO, 
-                                      TC_SPACE, CC_NO,    CC_NO,   CC_NO, CC_NO, TC_BSPACE                              
+       CC_NO, CC_NO,   CC_NO,    CC_NO,    CC_NO,    CC_NO, CC_NO,       CC_NO, CC_NO, CC_NO,    CC_NO,    CC_NO,  CC_NO, CC_NO, 
+       CC_NO, TC_PLUS, TC_MINUS, TC_ASTR,  TC_SLASH, CC_NO, CC_NO,       CC_NO, TC_6,  TC_0,     TC_9,     TC_8,   TC_7,  CC_NO, 
+       CC_NO, TC_7,    TC_8,     TC_9,     TC_0,     TC_6,  CC_NO,       CC_NO, TC_5,  TC_1,     TC_2,     TC_3,   TC_4,  CC_NO, 
+       CC_NO, CC_CMD,  CC_ALT,   CC_CTRL,  CC_SHFT,  CC_NO,                     CC_NO, TC_EQUAL, TC_COMMA, TC_DOT, CC_NO, CC_NO, 
+       CC_NO, CC_NO,   CC_NO,    CC_FNUM,  CC_NO,    CC_NO,                     CC_NO, CC_NO,    CC_NO,    CC_NO,  CC_NO, CC_NO, 
+                                           TC_SPACE, CC_NO, CC_NO,       CC_NO, CC_NO, TC_BSPACE                              
   },
   [LAYER_SYMBOLS] = {
        CC_NO, CC_NO,   CC_NO,    CC_NO,   CC_NO,     CC_NO,    CC_NO,              CC_NO, CC_NO,    CC_NO,   CC_NO,   CC_NO,    CC_NO,   CC_NO, 
@@ -51,20 +52,20 @@ const uint8_t user_kb_layers[][72] = {
                                           TC_SPACE,  CC_NO,    CC_NO,              CC_NO, CC_NO,    TC_BSPACE
   },
   [LAYER_NAVIGATION] = {
-       CC_NO, CC_NO,      CC_NO,       CC_NO,      CC_NO,       CC_NO,     CC_NO,   CC_NO, CC_NO,     CC_NO,     CC_NO,   CC_NO,    CC_NO, CC_NO, 
-       CC_NO, CC_NO,      CC_CLOSE,    TC_ESCAPE,  TC_ENTER,    TC_TAB,    CC_NO,   CC_NO, TC_INSERT, TC_PGUP,   TC_HOME, CC_NO,    CC_NO, CC_NO, 
-       CC_NO, CC_CMD,     CC_ALT,      CC_CTRL,    CC_SHFT,     TC_DELETE, CC_NO,   CC_NO, TC_LEFT,   TC_DOWN,   TC_UP,   TC_RIGHT, CC_NO, CC_NO, 
-       CC_NO, CC_UNDO,    CC_CUT,      CC_COPY,    CC_PASTE,    TC_BSPACE,                 TC_DELETE, TC_PGDOWN, TC_END,  CC_NO,    CC_NO, CC_NO, 
-       CC_NO, CC_NO,      CC_NO,       CC_NO,      CC_FNAV,     CC_NO,                     CC_NO,     CC_FSYM,   CC_NO,   CC_NO,    CC_NO, CC_NO, 
-                                                   CC_NO,       CC_NO,     CC_NO,   CC_NO, CC_NO,     TC_BSPACE                                       
+       CC_NO, CC_NO,      CC_NO,       CC_NO,      CC_NO,       CC_NO,     CC_NO,               CC_NO, CC_NO,     CC_NO,     CC_NO,   CC_NO,    CC_NO, CC_NO, 
+       CC_NO, CC_NO,      CC_CLOSE,    TC_ESCAPE,  TC_ENTER,    TC_TAB,    CC_NO,               CC_NO, TC_INSERT, TC_PGUP,   TC_HOME, CC_NO,    CC_NO, CC_NO, 
+       CC_NO, CC_CMD,     CC_ALT,      CC_CTRL,    CC_SHFT,     TC_DELETE, CC_NO,               CC_NO, TC_LEFT,   TC_DOWN,   TC_UP,   TC_RIGHT, CC_NO, CC_NO, 
+       CC_NO, CC_UNDO,    CC_CUT,      CC_COPY,    CC_PASTE,    TC_BSPACE,                             TC_DELETE, TC_PGDOWN, TC_END,  CC_NO,    CC_NO, CC_NO, 
+       CC_NO, CC_NO,      CC_NO,       CC_NO,      CC_FNAV,        CC_NO,                           CC_NO,     CC_FSYM,   CC_NO,   CC_NO,    CC_NO, CC_NO, 
+                                                      CC_NO,       CC_NO,     CC_NO,         CC_NO, CC_NO,     TC_BSPACE                                       
   },
   [LAYER_RAISE] = {
-       CC_NO, CC_NO,  CC_NO,  CC_NO,  CC_NO, CC_NO, CC_NO,   CC_NO, CC_NO, CC_NO,   CC_NO,   CC_NO,  CC_NO,  CC_NO, 
-       CC_NO, TC_F12, TC_F11, TC_F10, TC_F9, CC_NO, CC_NO,   CC_NO, CC_NO, CC_NO,   CC_NO,   CC_NO,  CC_NO,  CC_NO, 
-       CC_NO, TC_F8,  TC_F7,  TC_F6,  TC_F5, CC_NO, CC_NO,   CC_NO, CC_NO, CC_SHFT, CC_CTRL, CC_ALT, CC_CMD, CC_NO, 
-       CC_NO, TC_F4,  TC_F3,  TC_F2,  TC_F1, CC_NO,                 CC_NO, CC_NO,   CC_NO,   CC_NO,  CC_NO,  CC_NO, 
-       CC_NO, CC_NO,  CC_NO,  CC_NO,  CC_NO, CC_NO,                 CC_NO, CC_NO,   CC_NO,   CC_NO,  CC_NO,  CC_NO, 
-                                      CC_NO, CC_NO, CC_NO,   CC_NO, CC_NO, CC_NO                                    
+       CC_NO, CC_NO,       CC_NO,       CC_NO,       CC_NO,       CC_NO,    CC_NO,                                    CC_NO, CC_NO,    CC_NO,    CC_NO,  CC_NO, CC_NO, CC_NO, 
+       CC_NO, CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, CC_NO,    CC_NO,                                    CC_NO, TC_F12,   TC_F2,    TC_F3,  TC_F4, TC_F1, CC_NO, 
+       CC_NO, CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     CC_NO,    CC_NO,                                    CC_NO, TC_F5,    TC_F11,   TC_F10, TC_F9, CC_NO, CC_NO, 
+       CC_NO, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY,                                                 CC_RSTHD, TC_F6,    TC_F7,  TC_F8, CC_NO, CC_NO, 
+       CC_NO, CC_NO,       CC_NO,       CC_NO,       CC_NO,       CC_NO,                                                  CC_NO,       CC_NO,    CC_NO,  CC_NO, CC_NO, CC_NO, 
+                                                           CC_NO, CC_NO, CC_NO,                                    CC_NO, CC_NO, CC_NO                                    
   },
   [LAYER_VIM] = {
        CC_NO, CC_NO,         CC_NO,        CC_NO,         CC_NO,          CC_NO,         CC_NO,                  CC_NO, CC_NO,           CC_NO,       CC_NO,         CC_NO,         CC_NO,           CC_NO, 

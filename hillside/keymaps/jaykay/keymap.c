@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-const uint8_t user_kb_layers[][40] = {
+const uint8_t PROGMEM user_kb_layers[][40] = {
     [LAYER_QWERTY] = {
         TC_Q, TC_W, TC_E,    TC_R,    TC_T,                                                  TC_Y,    TC_U,     TC_I,          TC_O,        TC_P,    
         TC_A, TC_S, TC_D,    TC_F,    TC_G,                                                  TC_H,    TC_J,     TC_K,          TC_L,        TC_SCLN, 
