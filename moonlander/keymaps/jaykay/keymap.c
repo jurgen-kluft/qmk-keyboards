@@ -84,7 +84,7 @@ const uint8_t PROGMEM user_kb_layers[][72] = {
                                                           CC_VIM_RAISE,   CC_NO,         CC_NO,                  CC_NO, CC_NO,           CC_VIM_RAISE,
   },
   [LAYER_GAMEL] = {
-       CC_NO,     TC_1,  TC_2,       TC_3,     TC_4,     TC_5,      CC_NO,   TC_0,  TC_6,  TC_7,    TC_8,      TC_9,   CC_NO,     CC_NO, 
+       CC_NO,     TC_1,  TC_2,       TC_3,     TC_4,     TC_5,      CC_NO,   TC_0,  TC_6,  TC_7,    TC_8,      TC_9,   CC_NO,     CC_GAMEL, 
        TC_TAB,    TC_Q,  TC_W,       TC_E,     TC_R,     TC_T,      CC_NO,   CC_NO, TC_Y,  TC_U,    TC_I,      TC_O,   TC_P,      CC_NO, 
        TC_ESCAPE, TC_A,  TC_S,       TC_D,     TC_F,     TC_G,      CC_NO,   CC_NO, TC_H,  TC_J,    TC_K,      TC_L,   TC_SCLN,   CC_NO, 
        TC_LSHIFT, TC_Z,  TC_X,       TC_C,     TC_V,     TC_B,                      TC_N,  TC_M,    TC_COMMA,  TC_DOT, TC_SLASH,  CC_NO, 

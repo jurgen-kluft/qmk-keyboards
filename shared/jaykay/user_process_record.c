@@ -31,6 +31,32 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
 
     switch (kc8)
     {
+#ifdef KEYBOARD_MOONLANDER
+        case CC_GAMEL:
+            if (record->event.pressed)
+            {
+                if (user_layer() == LAYER_GAMEL)
+                {
+                    user_layer_on(LAYER_BASE);
+                }
+                else
+                {
+                    user_layer_on(LAYER_GAMEL);
+                }
+            }
+            return false;
+
+        case CC_GAMER:
+            if (record->event.pressed)
+            {
+                user_layer_on(LAYER_GAMER);
+            }
+            else
+            {
+                user_layer_on(LAYER_GAMEL);
+            }
+            return false;
+#endif
         case CC_UNDO ... CC_CLOSE:
         {
             if (record->event.pressed)
