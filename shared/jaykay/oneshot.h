@@ -25,6 +25,7 @@ void turnoff_oneshot_modifiers(void);
 
 void press_oneshot_modifier(oneshot_mod osmod);
 void release_oneshot_modifier(oneshot_mod osmod);
+void tap_oneshot_modifier(oneshot_mod osmod);
 
 // TO BE IMPLEMENTED BY THE USER
 // This function should return one of the oneshot_mod enumerations (see keymap.c implementation)

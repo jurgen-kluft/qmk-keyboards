@@ -120,6 +120,12 @@ void release_oneshot_modifier(oneshot_mod osmod)
     }
 }
 
+void tap_oneshot_modifier(oneshot_mod osmod)
+{
+    press_oneshot_modifier(osmod);
+    release_oneshot_modifier(osmod);
+}
+
 // see comment in corresponding headerfile
 void update_oneshot_modifiers(uint8_t keycode, keyrecord_t* record)
 {
