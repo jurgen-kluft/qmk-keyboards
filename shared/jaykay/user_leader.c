@@ -3,6 +3,7 @@
 #include "config.h"
 #include "leader.h"
 #include "cukey.h"
+#include "oneshot.h"
 #include "user_keycodes.h"
 
 #if !defined(NO_SECRETS)
@@ -18,23 +19,21 @@
 
 enum eleader_one
 {
-    LA_COPY,  // j
-    LA_CUT,   // h
-    LA_PASTE, // k
-    LA_INDENT,   // .
-    LA_UNINDENT, // ,
+    LA_COPY,          // j
+    LA_CUT,           // h
+    LA_PASTE,         // k
+    LA_INDENT,        // i
+    LA_UNINDENT,      // u
+    LA_DOTSPACESHIFT, // . (shift)
 };
 
 static const leader1_t leader1_array[] = {
-    [LA_COPY]  = {TC_J},
-    [LA_CUT]   = {TC_H},
-    [LA_PASTE] = {TC_K},
-    [LA_INDENT]   = {TC_DOT},
-    [LA_UNINDENT] = {TC_COMMA},
+    [LA_COPY] = {TC_J}, [LA_CUT] = {TC_H}, [LA_PASTE] = {TC_K}, [LA_INDENT] = {TC_I}, [LA_UNINDENT] = {TC_U}, [LA_DOTSPACESHIFT] = {TC_DOT},
 };
 
 enum eleader_two
 {
+    LA_BUILD,            // bl
     LA_CHANGE_LINE,      // cl
     LA_CHANGE_WORD,      // cw
     LA_DELETE_WORD_BACK, // db
@@ -45,7 +44,6 @@ enum eleader_two
     LA_EQ,               // eq
     LA_EASYMOTION,       // ff
     LA_GT,               // gt
-    LA_INFO,             // in
     LA_LT,               // lt
     LA_GMAIL,            // mg
     LA_HOTMAIL,          // mh
@@ -57,6 +55,7 @@ enum eleader_two
 };
 
 static const leader2_t leader2_array[] = {
+    [LA_BUILD]            = {TC_B, TC_L},
     [LA_CHANGE_LINE]      = {TC_C, TC_L},
     [LA_CHANGE_WORD]      = {TC_C, TC_W},
     [LA_DELETE_WORD_BACK] = {TC_D, TC_B},
@@ -67,7 +66,6 @@ static const leader2_t leader2_array[] = {
     [LA_EQ]               = {TC_E, TC_Q},
     [LA_EASYMOTION]       = {TC_F, TC_F},
     [LA_GT]               = {TC_G, TC_T},
-    [LA_INFO]             = {TC_I, TC_N},
     [LA_LT]               = {TC_L, TC_T},
     [LA_GMAIL]            = {TC_M, TC_G},
     [LA_HOTMAIL]          = {TC_M, TC_H},
@@ -155,20 +153,26 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         {
             case LA_COPY: keycode = process_cukey(CC_COPY); break;
             case LA_CUT: keycode = process_cukey(CC_CUT); break;
-            case LA_PASTE:
-                keycode = process_cukey(CC_PASTE);
-                break;
-                case LA_INDENT: keycode = (KC_TAB); break;
-                case LA_UNINDENT: keycode = S(KC_TAB); break;
+            case LA_PASTE: keycode = process_cukey(CC_PASTE); break;
+            case LA_INDENT: keycode = (KC_TAB); break;
+            case LA_UNINDENT: keycode = S(KC_TAB); break;
+            case LA_DOTSPACESHIFT: keycode = KC_DOT; break;
         }
         send_taps1(keycode);
+        switch (action)
+        {
+            case LA_DOTSPACESHIFT:
+                send_taps1(KC_SPACE);
+                tap_oneshot_modifier(ONESHOT_LSFT);
+                break;
+        }
     }
     else if (count == 2)
     {
         const char* str = NULL;
         switch (action)
         {
-            case LA_INFO:
+            case LA_BUILD:
                 if (mode == 0)
                 {
                     if (keyboard_get_os() == OS_MAC)
