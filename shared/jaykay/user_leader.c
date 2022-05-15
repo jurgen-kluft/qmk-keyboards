@@ -79,7 +79,7 @@ enum eleader_two
     LA_CPP_TEMPLATE,     // te
     LA_CPP_THIS,         // ts
     LA_CPP_TYPEDEF,      // ty
-    LA_CPP_UNION,        // un
+    LA_UNREAL_ENGINE,    // un
     LA_CPP_VOID,         // vd
     LA_CPP_VOLATILE,     // ve
     LA_CPP_VIRTUAL,      // vl
@@ -133,7 +133,7 @@ static const leader2_t leader2_array[] = {
     [LA_CPP_TEMPLATE]     = {TC_T, TC_E},
     [LA_CPP_THIS]         = {TC_T, TC_S},
     [LA_CPP_TYPEDEF]      = {TC_T, TC_Y},
-    [LA_CPP_UNION]        = {TC_U, TC_N},
+    [LA_UNREAL_ENGINE]    = {TC_U, TC_N},
     [LA_CPP_VOID]         = {TC_V, TC_D},
     [LA_CPP_VOLATILE]     = {TC_V, TC_E},
     [LA_CPP_VIRTUAL]      = {TC_V, TC_L},
@@ -295,7 +295,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
             case LA_CPP_TEMPLATE: str = "template "; break;
             case LA_CPP_THIS: str = "this "; break;
             case LA_CPP_TYPEDEF: str = "typedef "; break;
-            case LA_CPP_UNION: str = "union "; break;
+            case LA_UNREAL_ENGINE: str = "Unreal Engine "; break;
             case LA_CPP_VIRTUAL: str = "virtual "; break;
             case LA_CPP_VOID: str = "void"; break;
             case LA_CPP_VOLATILE: str = "volatile"; break;
