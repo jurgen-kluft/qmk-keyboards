@@ -18,17 +18,18 @@ My keymap uses the following features:
 
 - HillSide: OK
 - Kyria: OK
-- Moonlander: Broken (needs to be refactored now that we have custom layer logic)
+- Moonlander: OK
 
 # Setup
 
 - Clone the QMK repository and install/setup
 - Symlink, see `symlink-howto.md`
 
-Then compile Kyria or Hillside:
+Then compile Kyria, Hillside or Moonlander:
 
-- `qmk compile -kb splitkb/kyria/rev1 -km jaykay`
-- `qmk compile -kb handwired/hillside/0_1 -km jaykay`
+- `make splitkb/kyria/rev1:jaykay`
+- `make handwired/hillside/0_1:jaykay`
+- `make moonlander:jaykay`
 
 # Keymap
 
