@@ -22,13 +22,14 @@ enum eleader_one
     LA_COPY,          // j
     LA_CUT,           // h
     LA_PASTE,         // k
-    LA_INDENT,        // i
-    LA_UNINDENT,      // u
     LA_DOTSPACESHIFT, // . (shift)
 };
 
 static const leader1_t leader1_array[] = {
-    [LA_COPY] = {TC_J}, [LA_CUT] = {TC_H}, [LA_PASTE] = {TC_K}, [LA_INDENT] = {TC_I}, [LA_UNINDENT] = {TC_U}, [LA_DOTSPACESHIFT] = {TC_DOT},
+    [LA_COPY]          = {TC_J},
+    [LA_CUT]           = {TC_H},
+    [LA_PASTE]         = {TC_K},
+    [LA_DOTSPACESHIFT] = {TC_DOT},
 };
 
 enum eleader_two
@@ -154,8 +155,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
             case LA_COPY: keycode = process_cukey(CC_COPY); break;
             case LA_CUT: keycode = process_cukey(CC_CUT); break;
             case LA_PASTE: keycode = process_cukey(CC_PASTE); break;
-            case LA_INDENT: keycode = (KC_TAB); break;
-            case LA_UNINDENT: keycode = S(KC_TAB); break;
             case LA_DOTSPACESHIFT: keycode = KC_DOT; break;
         }
         send_taps1(keycode);
