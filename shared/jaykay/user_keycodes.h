@@ -149,7 +149,12 @@ enum ecustomkeycodes
     CC_PASTE,
     CC_NDT,
     CC_PDT,
+    CC_NAPP,
+    CC_PAPP,
+    CC_NDOC,
+    CC_PDOC,
     CC_CLOSE,
+    
     // secrets
     CC_SECRET_1,
     CC_SECRET_2,
