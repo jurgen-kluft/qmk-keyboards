@@ -35,13 +35,13 @@ const uint8_t PROGMEM user_kb_layers[][40] = {
     [LAYER_SYMBOLS] = {
          TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD,                                               TC_GRV,   TC_QUOT,  TC_DQUO, TC_HASH, TC_DLR,   
          TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC,                                               TC_LABK,  TC_LPRN,  TC_LCBR, TC_RABK, TC_COLN,  
-         TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC, CC_NDT,                            CC_PDT,    CC_NO,    TC_RPRN,  TC_RCBR, TC_QUES, TC_AT,   
+         TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC, CC_NDOC,                           CC_PDOC,   CC_NO,    TC_RPRN,  TC_RCBR, TC_QUES, TC_AT,   
                             CC_FNUM, CC_FNUM,   CC_FNAV, TC_SPACE,                          TC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS
     },
     [LAYER_NAVIGATION] = {
          CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER,  TC_TAB,                                                   TC_INSERT, TC_PGUP,   TC_HOME, CC_NO,    CC_NO,  
          CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,   TC_DELETE,                                                TC_LEFT,   TC_DOWN,   TC_UP,   TC_RIGHT, CC_NO,  
-         CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE,  TC_SPACE,   CC_NDT,                            CC_PDT,    TC_SPACE,  TC_PGDOWN, TC_END,  CC_NO,    CC_NO,  
+         CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE,  TC_SPACE,   CC_NAPP,                           CC_PAPP,   TC_SPACE,  TC_PGDOWN, TC_END,  CC_NO,    CC_NO,  
                             CC_FNUM,   CC_FNUM,   CC_FNAV,    TC_SPACE,                          TC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS
     },
     [LAYER_RAISE] = {
