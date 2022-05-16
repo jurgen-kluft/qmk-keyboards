@@ -48,7 +48,7 @@ const uint8_t PROGMEM user_kb_layers[][72] = {
        CC_NO, TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD,  CC_NO,              CC_NO, TC_GRV,   TC_QUOT,  TC_DQUO, TC_HASH, TC_DLR,  CC_NO, 
        CC_NO, TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC,  CC_NO,              CC_NO, TC_LABK,  TC_LPRN,  TC_LCBR, TC_RABK, TC_COLN, CC_NO, 
        CC_NO, TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC,                             CC_NO,    TC_RPRN,  TC_RCBR, TC_QUES, TC_AT,   CC_NO, 
-       CC_NO, CC_NO,   CC_NO,    CC_FNUM, CC_FNAV,   CC_PDT,                              CC_NDT,   CC_FSYM,  CC_FCAPS, CC_NO,  CC_NO,   CC_QWERTY, 
+       CC_NO, CC_NO,   CC_NO,    CC_FNUM, CC_FNAV,   CC_PAPP,                             CC_NAPP,  CC_FSYM,  CC_FCAPS, CC_NO,  CC_NO,   CC_QWERTY, 
                                           TC_SPACE,  CC_NO,    CC_NO,              CC_NO, CC_NO,    TC_BSPACE
   },
   [LAYER_NAVIGATION] = {
@@ -56,8 +56,8 @@ const uint8_t PROGMEM user_kb_layers[][72] = {
        CC_NO, CC_NO,      CC_CLOSE,    TC_ESCAPE,  TC_ENTER,    TC_TAB,    CC_NO,               CC_NO, TC_INSERT, TC_PGUP,   TC_HOME, CC_NO,    CC_NO, CC_NO, 
        CC_NO, CC_CMD,     CC_ALT,      CC_CTRL,    CC_SHFT,     TC_DELETE, CC_NO,               CC_NO, TC_LEFT,   TC_DOWN,   TC_UP,   TC_RIGHT, CC_NO, CC_NO, 
        CC_NO, CC_UNDO,    CC_CUT,      CC_COPY,    CC_PASTE,    TC_BSPACE,                             TC_DELETE, TC_PGDOWN, TC_END,  CC_NO,    CC_NO, CC_NO, 
-       CC_NO, CC_NO,      CC_NO,       CC_NO,      CC_FNAV,        CC_NO,                           CC_NO,     CC_FSYM,   CC_NO,   CC_NO,    CC_NO, CC_NO, 
-                                                      CC_NO,       CC_NO,     CC_NO,         CC_NO, CC_NO,     TC_BSPACE                                       
+       CC_NO, CC_NO,      CC_NO,       CC_NO,      CC_FNAV,        CC_PDOC,                         CC_NDOC,      CC_FSYM,   CC_NO,   CC_NO,    CC_NO, CC_NO, 
+                                                      CC_NO,       CC_NO,     CC_NO,         CC_NO, CC_NO,        TC_BSPACE                                       
   },
   [LAYER_RAISE] = {
        CC_NO, CC_NO,       CC_NO,       CC_NO,       CC_NO,       CC_NO,    CC_NO,                                    CC_NO, CC_NO,    CC_NO,    CC_NO,  CC_NO, CC_NO, CC_NO, 
