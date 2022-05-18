@@ -173,6 +173,8 @@ enum ecustomkeycodes
     CC_GAMEL,
     CC_GAMER,
 
+    CC_VIM,
+
     // Vim keycodes
     CC_VIM_DESKTOP,
     CC_VIM_APP,
@@ -185,16 +187,17 @@ enum ecustomkeycodes
     CC_VIM_INSIDE,
     CC_VIM_SEARCH,
     CC_VIM_FIND,
+    CC_VIM_ZOOM,
     CC_VIM_BEGIN,
     CC_VIM_END,
     CC_VIM_VISUAL,
     CC_VIM_ESCAPE,
     CC_VIM_CLEAR,
     CC_VIM_RAISE,
+    CC_VIM_ADD,
     CC_VIM_INSERT,
     CC_VIM_CHANGE,
     CC_VIM_DELETE,
-    CC_VIM_DELETE_LINE,
     CC_VIM_ENTER,
     CC_VIM_GOTO,
     CC_VIM_CUT,
@@ -215,6 +218,8 @@ enum ecustomkeycodes
 
     CC_NO,
     CC_RANGE_END = CC_NO,
+    CC_RANGE_VIM_START = CC_VIM_DESKTOP,
+    CC_RANGE_VIM_END = CC_VIM_UNINDENT,
 };
 
 uint16_t user_get_code16(uint16_t keycode);
