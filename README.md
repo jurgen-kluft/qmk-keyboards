@@ -5,14 +5,16 @@ My keymap uses the following features:
 - Internally uses custom 8-bit keycodes
 - Callum style Oneshot Modifiers (a rewrite, `oneshot.c`)
   - plus a modification to allow double-tap to lock a modifier
-- Smart numbers (`feature.c`)
-- Smart caps words (`feature.c`) (can handle up to 4 seperator symbols)
+- Smart Numbers (`feature.c`)
+- Smart Caps (`feature.c`) (can handle up to 4 seperator symbols)
+- Camel Case (leader c-c)
 - SYM key can be tapped for a oneshot key from the SYM layer (`feature.c`)
 - RAISE layer can be activated by holding NAV and SYM like tri-layer.
   It can also be activated/locked by first tapping SYM then tapping NAV.
 - Custom 'leader' implementation using NAV as leader key (`leader.c`)
 - Custom normal/shift/ctrl/alt keycodes (`cushi.c`)
 - Custom OS keycodes to deal with Mac OS / Windows / Ubuntu (`cukey.c`)
+- VIM basic features (`vim.c`)
 
 # Status
 

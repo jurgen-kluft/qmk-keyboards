@@ -6,13 +6,14 @@
 // 50*2=100 bytes
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-    xxxx,  KL_00, KL_01, KL_02, KL_03,                     KL_04, KL_05, KL_06, KL_07, KL_08, 
-    KL_09, xxxx,  xxxx,  KL_10, KL_11,                     KL_12, KL_13, KL_14, KL_15, KL_16, 
-    KL_17, KL_18, KL_19, xxxx,  xxxx,  KL_20,       KL_21, KL_22, KL_23, KL_24, KL_25, xxxx,  
-                  xxxx,  KL_26, KL_27, KL_28,       KL_29, KL_30, KL_31, xxxx                 
+    xxxx, KL_00,  KL_01, KL_02, KL_03, KL_04,                                 KL_05,  KL_06, KL_07, KL_08, KL_09, xxxx,
+    xxxx, KL_10,  KL_11, KL_12, KL_13, KL_14,                                 KL_15,  KL_16, KL_17, KL_18, KL_19, xxxx,
+    xxxx, KL_20,  KL_21, KL_22, KL_23, KL_24, KL_25, xxxx,       xxxx, KL_26, KL_27,  KL_28, KL_29, KL_30, KL_31, xxxx,
+                         KL_32, KL_33, KL_34, KL_35, xxxx,       xxxx, KL_36, KL_37,  KL_38, KL_39
   )
 };
 
+#undef LAYOUT
 #define LAYOUT( \
     L00, L01, L02, L03, L04,                        L05, L06, L07, L08, L09, \
     L10, L11, L12, L13, L14,                        L15, L16, L17, L18, L19, \
