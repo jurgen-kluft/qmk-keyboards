@@ -68,6 +68,39 @@ static uint8_t     s_feature_state = 0;
 static inline bool features_active(uint8_t features) { return (s_feature_state & features) == features; }
 static inline bool features_active_any(uint8_t features) { return (s_feature_state & features) != 0; }
 
+void enable_smart_capslock(void)
+{
+    if (!features_active(FEATURE_NAV | FEATURE_SYM))
+    {
+        s_smartcaps_state  = SMART_CAPS_INIT;
+        s_smartcaps_repeat = 0;
+
+        s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
+        s_feature_state |= FEATURE_CAPS;
+        s_feature_state &= ~FEATURE_USED;
+        user_smartcaps_on();
+    }
+}
+
+void enable_smart_numbers(void)
+{
+    if (!features_active(FEATURE_NAV | FEATURE_SYM))
+    {
+        if (features_active(FEATURE_CAPS))
+        {
+            s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
+            s_smartcaps_repeat = 0;
+            s_smartcaps_state  = SMART_CAPS_OFF;
+            user_smartcaps_off();
+        }
+
+        s_feature_state |= FEATURE_NUM;
+        s_feature_state &= ~FEATURE_USED;
+        user_layer_on(LAYER_NUMBERS);
+    }
+}
+
+
 bool process_feature_key(uint8_t keycode, keyrecord_t* record)
 {
     bool ret = true;
@@ -93,7 +126,6 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                         s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
                         s_smartcaps_repeat = 0;
                         s_smartcaps_state  = SMART_CAPS_OFF;
-
                         user_smartcaps_off();
 
                         if (keycode == CC_FCAPS)

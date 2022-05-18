@@ -9,7 +9,6 @@ enum ecustom_layers
     LAYER_NAVIGATION,
     LAYER_RAISE,
     LAYER_VIM,
-    LAYER_VIM_RAISE,
     LAYER_GAMEL,
     LAYER_GAMER,
     LAYER_NONE = -1,
@@ -22,6 +21,8 @@ int8_t user_layer(void);
 
 void user_smartcaps_on(void);
 void user_smartcaps_off(void);
+
+void user_camelcase_toggle(void);
 
 uint16_t user_layer_get_code(uint16_t keycode, bool pressed);
 void user_apply_keycode(uint16_t keycode, bool pressed);

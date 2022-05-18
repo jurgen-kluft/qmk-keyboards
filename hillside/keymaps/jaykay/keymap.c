@@ -14,54 +14,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint8_t PROGMEM user_kb_layers[][40] = {
-    [LAYER_QWERTY] = {
-        TC_Q, TC_W, TC_E,    TC_R,    TC_T,                                                  TC_Y,    TC_U,     TC_I,          TC_O,        TC_P,    
-        TC_A, TC_S, TC_D,    TC_F,    TC_G,                                                  TC_H,    TC_J,     TC_K,          TC_L,        TC_SCLN, 
-        TC_Z, TC_X, TC_C,    TC_V,    TC_B,    CC_PDT,                            CC_NDT,    TC_N,    TC_M,     TC_COMMA,      TC_DOT,      TC_AT,
-                    CC_FNUM, CC_FNUM, CC_FNAV, TC_SPACE,                          TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS
-    },
-    [LAYER_RSTHD] = {
-        TC_J,    TC_C, TC_Y,    TC_F,    TC_K,                                               TC_Z,     TC_L,     TC_BSPACE,     TC_U,        TC_Q,    
-        TC_R,    TC_S, TC_T,    TC_H,    TC_D,                                               TC_M,     TC_N,     TC_A,          TC_I,        TC_O, 
-        TC_SCLN, TC_V, TC_G,    TC_P,    TC_B,    CC_PDT,                            CC_NDT, TC_X,     TC_W,     TC_COMMA,      TC_DOT,      TC_AT,
-                       CC_FNUM, CC_FNUM, CC_FNAV, TC_SPACE,                          TC_E,   CC_FSYM,  CC_FCAPS, CC_FCAPS
-    },
-    [LAYER_NUMBERS] = {
-         TC_PLUS, TC_MINUS, TC_ASTR, TC_SLASH, CC_NO,                                                 TC_6,    TC_0,     TC_9,          TC_8,        TC_7,  
-         TC_7,    TC_8,     TC_9,    TC_0,     TC_6,                                                  TC_5,    TC_1,     TC_2,          TC_3,        TC_4,  
-         CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  CC_NO,   CC_NO,                             CC_NO,     CC_NO,   TC_EQUAL, TC_COMMA,      TC_DOT,      CC_NO,
-                            CC_FNUM, CC_FNUM,  CC_FNAV, TC_SPACE,                          TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS
-    },
-    [LAYER_SYMBOLS] = {
-         TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD,                                               TC_GRV,   TC_QUOT,  TC_DQUO, TC_HASH, TC_DLR,   
-         TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC,                                               TC_LABK,  TC_LPRN,  TC_LCBR, TC_RABK, TC_COLN,  
-         TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC, CC_NDOC,                           CC_PDOC,   CC_NO,    TC_RPRN,  TC_RCBR, TC_QUES, TC_AT,   
-                            CC_FNUM, CC_FNUM,   CC_FNAV, TC_SPACE,                          TC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS
-    },
-    [LAYER_NAVIGATION] = {
-         CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER,  TC_TAB,                                                   TC_INSERT, TC_PGUP,   TC_HOME, CC_NO,    CC_NO,  
-         CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,   TC_DELETE,                                                TC_LEFT,   TC_DOWN,   TC_UP,   TC_RIGHT, CC_NO,  
-         CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE,  TC_SPACE,   CC_NAPP,                           CC_PAPP,   TC_SPACE,  TC_PGDOWN, TC_END,  CC_NO,    CC_NO,  
-                            CC_FNUM,   CC_FNUM,   CC_FNAV,    TC_SPACE,                          TC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS
-    },
-    [LAYER_RAISE] = {
-        CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, CC_NO,                                                   TC_F12,   TC_F2,    TC_F3,  TC_F4, TC_F1, 
-        CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     CC_NO,                                                   TC_F5,    TC_F11,   TC_F10, TC_F9, CC_NO,  
-        CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY, CC_PDT,                            CC_NDT,    CC_RSTHD, TC_F6,    TC_F7,  TC_F8, CC_NO,  
-                                  CC_FNUM,     CC_FNUM,     CC_FNAV,   TC_SPACE,                          TC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS
-    },
-    [LAYER_VIM] = {
-        CC_VIM_CHAR,   CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_FIND,                                  CC_VIM_YANK,     CC_VIM_UNDO, CC_VIM_INSIDE, CC_VIM_LINE,   CC_VIM_PAGE,   
-        CC_VIM_INSERT, CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_SEARCH, CC_VIM_GOTO,                                  CC_VIM_LEFT,     CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  CC_VIM_APP,    
-        CC_VIM_DOCU,   CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, CC_VIM_INDENT,  CC_NO,                 CC_NO, CC_VIM_UNINDENT, CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, CC_VIM_DESKTOP,
-                                     CC_NO,         CC_NO,         CC_VIM_RAISE,   CC_NO,                 CC_NO, CC_VIM_RAISE,    CC_NO,       CC_NO
-    },
-    [LAYER_VIM_RAISE] = {
-        CC_NO, CC_VIM_CHAR, CC_VIM_EXIT,        CC_VIM_ENTER,  CC_NO,                                      TC_6,          TC_0,  TC_9,  TC_8,  TC_7,
-        CC_NO, CC_NO,       CC_VIM_DELETE_LINE, CC_NO,         CC_NO,                                      TC_5,          TC_1,  TC_2,  TC_3,  TC_4,
-        CC_NO, CC_NO,       CC_NO,              CC_VIM_PASTE,  CC_NO,        CC_NO,                 CC_NO, CC_NO,         CC_NO, CC_NO, CC_NO, CC_NO,
-                            CC_NO,              CC_NO,         CC_VIM_RAISE, CC_NO,                 CC_NO, CC_VIM_RAISE,  CC_NO, CC_NO
-    },
+    [LAYER_QWERTY] = LAYOUT(
+    TC_Q, TC_W, TC_E,    TC_R,    TC_T,                               TC_Y,    TC_U,     TC_I,     TC_O,   TC_P,    
+    TC_A, TC_S, TC_D,    TC_F,    TC_G,                               TC_H,    TC_J,     TC_K,     TC_L,   TC_SCLN, 
+    TC_Z, TC_X, TC_C,    TC_V,    TC_B,    CC_PDT,         CC_NDT,    TC_N,    TC_M,     TC_COMMA, TC_DOT, TC_AT,   
+                CC_FNUM, CC_FNUM, CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                   
+    ),
+    [LAYER_RSTHD] = LAYOUT(
+    TC_J,    TC_C, TC_Y,    TC_F,    TC_K,                            TC_Z,    TC_L,     TC_BSPACE, TC_U,   TC_Q,  
+    TC_R,    TC_S, TC_T,    TC_H,    TC_D,                            TC_M,    TC_N,     TC_A,      TC_I,   TC_O,  
+    TC_SCLN, TC_V, TC_G,    TC_P,    TC_B,    CC_PDT,         CC_NDT, TC_X,    TC_W,     TC_COMMA,  TC_DOT, TC_AT, 
+                   CC_FNUM, CC_FNUM, CC_FNAV, TC_SPACE,       TC_E,   CC_FSYM, CC_FCAPS, CC_FCAPS                  
+    ),
+    [LAYER_NUMBERS] = LAYOUT(
+    TC_PLUS, TC_MINUS, TC_ASTR, TC_SLASH, CC_NO,                              TC_6,    TC_0,     TC_9,     TC_8,   TC_7,  
+    TC_7,    TC_8,     TC_9,    TC_0,     TC_6,                               TC_5,    TC_1,     TC_2,     TC_3,   TC_4,  
+    CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  CC_NO,   CC_NO,          CC_NO,     CC_NO,   TC_EQUAL, TC_COMMA, TC_DOT, CC_NO, 
+                       CC_FNUM, CC_FNUM,  CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                 
+    ),
+    [LAYER_SYMBOLS] = LAYOUT(
+    TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD,                            TC_GRV,  TC_QUOT,  TC_DQUO,  TC_HASH, TC_DLR,  
+    TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC,                            TC_LABK, TC_LPRN,  TC_LCBR,  TC_RABK, TC_COLN, 
+    TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC, CC_NDOC,        CC_PDOC,   CC_NO,   TC_RPRN,  TC_RCBR,  TC_QUES, TC_AT,   
+                       CC_FNUM, CC_FNUM,   CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                    
+    ),
+    [LAYER_NAVIGATION] = LAYOUT(
+    CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,                               TC_INSERT, TC_PGUP,   TC_HOME,  CC_NO,    CC_NO, 
+    CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  TC_DELETE,                            TC_LEFT,   TC_DOWN,   TC_UP,    TC_RIGHT, CC_NO, 
+    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, CC_VIM,    CC_NAPP,        CC_PAPP,   CC_VIM,    TC_PGDOWN, TC_END,   CC_NO,    CC_NO, 
+                       CC_FNUM,   CC_FNUM,  CC_FNAV,   TC_SPACE,       TC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS                   
+    ),
+    [LAYER_RAISE] = LAYOUT(
+    CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, CC_NO,                                TC_F12,   TC_F2,    TC_F3,    TC_F4, TC_F1, 
+    CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     CC_NO,                                TC_F5,    TC_F11,   TC_F10,   TC_F9, CC_NO, 
+    CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY, CC_PDT,         CC_NDT,    CC_RSTHD, TC_F6,    TC_F7,    TC_F8, CC_NO, 
+                              CC_FNUM,     CC_FNUM,     CC_FNAV,   TC_SPACE,       TC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS                
+    ),
+    [LAYER_VIM] = LAYOUT(
+    CC_VIM_CHAR, CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_INSIDE,                       CC_VIM_YANK,  CC_VIM_UNDO, CC_VIM_INSERT, CC_VIM_LINE,   CC_VIM_PAGE, 
+    CC_VIM_ADD,  CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_FIND,   CC_VIM_GOTO,                         CC_VIM_LEFT,  CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  CC_NO,       
+    CC_VIM_ZOOM, CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, CC_VIM_RAISE,  CC_VIM,       CC_VIM, CC_VIM_RAISE, CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, CC_NO,       
+                               CC_FNUM,       CC_FNUM,       CC_FNAV,       CC_VIM,       CC_VIM, CC_FSYM,      CC_FCAPS,    CC_FCAPS                                   
+    )
 };
 // clang-format on
 
