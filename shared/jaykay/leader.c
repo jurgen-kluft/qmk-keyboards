@@ -96,8 +96,7 @@ bool   process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config
             {
                 if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) < LEADER_TIMEOUT))
                 {
-                    // VIM mode
-                    vim_enable();
+                    // unused
                     reset_leader(0);
                 }
                 else

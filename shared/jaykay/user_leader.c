@@ -2,8 +2,10 @@
 #include <version.h>
 #include "config.h"
 #include "leader.h"
+#include "feature.h"
 #include "cukey.h"
 #include "oneshot.h"
+#include "user_layers.h"
 #include "user_keycodes.h"
 
 #if !defined(NO_SECRETS)
@@ -23,6 +25,7 @@ enum eleader_one
     LA_CUT,           // h
     LA_PASTE,         // k
     LA_DOTSPACESHIFT, // . (shift)
+    LA_CENTER,        // z
 };
 
 static const leader1_t leader1_array[] = {
@@ -30,11 +33,13 @@ static const leader1_t leader1_array[] = {
     [LA_CUT]           = {TC_H},
     [LA_PASTE]         = {TC_K},
     [LA_DOTSPACESHIFT] = {TC_DOT},
+    [LA_CENTER]        = {TC_Z},
 };
 
 enum eleader_two
 {
     LA_BUILD,            // bl
+    LA_CAMEL_CASE,       // cc
     LA_CHANGE_LINE,      // cl
     LA_CHANGE_WORD,      // cw
     LA_DELETE_WORD_BACK, // db
@@ -44,10 +49,10 @@ enum eleader_two
     LA_DELETE_UNTIL_SOL, // ds
     LA_EQ,               // eq
     LA_EASYMOTION,       // ff
-    LA_GT,               // gt
+    LA_TOP_OF_FILE,      // gg
+    LA_BOTTOM_OF_FILE,   // gb
     LA_LT,               // lt
-    LA_GMAIL,            // mg
-    LA_HOTMAIL,          // mh
+    LA_NUM,              // nn
     LA_OPEN_LINE_ABOVE,  // oa
     LA_OPEN_LINE_BELOW,  // oo
     LA_UNREAL_ENGINE,    // un
@@ -57,6 +62,7 @@ enum eleader_two
 
 static const leader2_t leader2_array[] = {
     [LA_BUILD]            = {TC_B, TC_L},
+    [LA_CAMEL_CASE]       = {TC_C, TC_C},
     [LA_CHANGE_LINE]      = {TC_C, TC_L},
     [LA_CHANGE_WORD]      = {TC_C, TC_W},
     [LA_DELETE_WORD_BACK] = {TC_D, TC_B},
@@ -66,10 +72,10 @@ static const leader2_t leader2_array[] = {
     [LA_DELETE_UNTIL_SOL] = {TC_D, TC_S},
     [LA_EQ]               = {TC_E, TC_Q},
     [LA_EASYMOTION]       = {TC_F, TC_F},
-    [LA_GT]               = {TC_G, TC_T},
+    [LA_TOP_OF_FILE]      = {TC_G, TC_G},
+    [LA_BOTTOM_OF_FILE]   = {TC_G, TC_B},
     [LA_LT]               = {TC_L, TC_T},
-    [LA_GMAIL]            = {TC_M, TC_G},
-    [LA_HOTMAIL]          = {TC_M, TC_H},
+    [LA_NUM]              = {TC_N, TC_N},
     [LA_OPEN_LINE_ABOVE]  = {TC_O, TC_A},
     [LA_OPEN_LINE_BELOW]  = {TC_O, TC_O},
     [LA_UNREAL_ENGINE]    = {TC_U, TC_N},
@@ -156,6 +162,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
             case LA_CUT: keycode = process_cukey(CC_CUT); break;
             case LA_PASTE: keycode = process_cukey(CC_PASTE); break;
             case LA_DOTSPACESHIFT: keycode = KC_DOT; break;
+            case LA_CENTER: keycode = A(KC_M); break;
         }
         send_taps1(keycode);
         switch (action)
@@ -186,12 +193,10 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                     str = ("QMK=" QMK_VERSION ", build= " QMK_BUILDDATE);
                 }
                 break;
-
-            case LA_GMAIL: str = ("jurgen.kluft@gmail.com"); break;
-            case LA_HOTMAIL: str = ("jurgen_kluft@hotmail.com"); break;
-            case LA_GT: str = (" > "); break;
-            case LA_LT: str = (" < "); break;
-            case LA_EQ: str = (" == "); break;
+            case LA_NUM: enable_smart_numbers(); break;
+            case LA_TOP_OF_FILE: send_taps1(G(KC_UP)); break;
+            case LA_BOTTOM_OF_FILE: send_taps1(G(KC_DOWN)); break;
+            case LA_CAMEL_CASE: user_camelcase_toggle(); break;
             case LA_CHANGE_WORD:
             case LA_DELETE_WORD:
                 // Visual Studio Code has an extension that does it better (cut/copy word, GUI+X/GUI+C)
