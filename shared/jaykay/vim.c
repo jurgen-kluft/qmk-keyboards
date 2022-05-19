@@ -376,20 +376,19 @@ bool process_vim(uint8_t keycode, keyrecord_t* record)
                 // Commands
                 case CC_VIM_CUT:
                     unregister_code(KC_LEFT_SHIFT);
-                    vim_register1(G(KC_X), press);
+                    send_taps1(G(KC_X));
                     break;
                 case CC_VIM_YANK:
                     if (s_vim_raise)
                     {
-                        vim_register1(G(KC_V), press);
+                        send_taps1(G(KC_V));
                     }
                     else
                     {
                         unregister_code(KC_LEFT_SHIFT);
-                        vim_register1(G(KC_C), press);
+                        send_taps1(G(KC_C));
                     }
                     break;
-                case CC_VIM_ENTER: vim_register1(KC_ENTER, press); break;
             }
 
             return false;
@@ -404,12 +403,12 @@ bool process_vim(uint8_t keycode, keyrecord_t* record)
                     {
                         case VIM_SCOPE_WORD: CMD_MOVE_LEFT_WORD(press); break;
                         case VIM_SCOPE_PAGE:
-                        case VIM_SCOPE_LINE: tap_code16(C(KC_G)); break;
+                        case VIM_SCOPE_LINE: send_taps1(C(KC_G)); break;
                         default:
-                        case VIM_SCOPE_CHAR: tap_code16(A(KC_S)); break;
+                        case VIM_SCOPE_CHAR: send_taps1(A(KC_S)); break;
                     }
 
-                    tap_code16(G(KC_F));
+                    send_taps1(G(KC_F));
                     break;
             }
 

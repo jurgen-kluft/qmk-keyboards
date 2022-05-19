@@ -69,8 +69,8 @@ const uint8_t PROGMEM user_kb_layers[][40] = {
     [LAYER_VIM] = LAYOUT(
     CC_VIM_CHAR, CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_INSIDE,                       CC_VIM_YANK,  CC_VIM_UNDO, CC_VIM_INSERT, CC_VIM_LINE,   CC_VIM_PAGE, 
     CC_VIM_ADD,  CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_FIND,   CC_VIM_GOTO,                         CC_VIM_LEFT,  CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  CC_NO,       
-    CC_VIM_ZOOM, CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, CC_VIM_RAISE,  CC_VIM,       CC_VIM, CC_VIM_RAISE, CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, CC_NO,       
-                               CC_FNUM,       CC_FNUM,       CC_FNAV,       CC_VIM,       CC_VIM, CC_FSYM,      CC_FCAPS,    CC_FCAPS                                   
+    CC_VIM_ZOOM, CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, CC_NO,         CC_VIM,       CC_VIM, CC_NO,        CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, CC_NO,       
+                               CC_FNUM,       CC_FNUM,       CC_VIM_RAISE,  CC_VIM,       CC_VIM, CC_VIM_RAISE, CC_FCAPS,    CC_FCAPS                                   
     )
 };
 
