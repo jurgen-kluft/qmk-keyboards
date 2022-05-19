@@ -1,8 +1,14 @@
 #pragma once
 #include "config.h"
 
-void vim_enable(void);
-void vim_disable(void);
-bool vim_is_active(void);
+enum evim_mode
+{
+    VIM_MODE_NORMAL = 0,
+    VIM_MODE_INSERT = 1,
+};
 
-void process_vim(uint8_t keycode, keyrecord_t* record);
+void      vim_mode_toggle(void);
+int8_t    vim_mode(void);
+bool      vim_raise(void);
+
+bool process_vim(uint8_t keycode, keyrecord_t* record);

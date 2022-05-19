@@ -62,7 +62,11 @@ uint16_t user_layer_get_code(uint16_t keycode, bool pressed)
     uint8_t const ti = keycode - KL_00;
     if (pressed)
     {
-        if ((current_layer == keyboard_get_layout()) && vim_mode() == VIM_MODE_NORMAL)
+        if (current_layer == LAYER_SYMBOLS || current_layer == LAYER_NUMBERS)
+        {
+            keycode = pgm_read_byte(&user_kb_layers[(current_layer)][ti]);
+        }
+        else if (vim_mode() == VIM_MODE_NORMAL)
         {
             keycode = pgm_read_byte(&user_kb_layers[(LAYER_VIM)][ti]);
         }

@@ -57,6 +57,12 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             }
             return false;
 #endif
+        case CC_VIM:
+            if (record->event.pressed)
+            {
+                vim_mode_toggle();
+            }
+            return false;
         case CC_UNDO ... CC_CLOSE:
         {
             if (record->event.pressed)
@@ -110,13 +116,11 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             return true;
 #endif
     }
-    if (vim_is_active())
-    {
-        process_vim(kc8, record);
-        return false;
-    }
 
-    if (!leader_is_active() && !vim_is_active())
+    if (!process_vim(kc8, record))
+        return false;
+
+    if (!leader_is_active())
     {
         if (!process_feature_key(kc8, record))
         {
