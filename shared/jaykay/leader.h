@@ -42,4 +42,4 @@ typedef struct
 // leader feature
 bool leader_is_active(void);
 void leader_disable(void);
-bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t * config);
+bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t * config0, leader_config_t * config1);

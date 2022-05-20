@@ -56,7 +56,7 @@ static void reset_leader(uint8_t active)
 bool leader_is_active() { return (leader_active == 2) && timer_elapsed(leader_timer) < LEADER_TIMEOUT; }
 void leader_disable() { reset_leader(0); }
 
-bool   process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config)
+bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config0, leader_config_t* config1)
 {
     if (leader_active == 2)
     {
@@ -113,7 +113,15 @@ bool   process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config
                 leader_chain[leader_chain_recorded_pressed++] = keycode;
                 leader_timer                                  = timer_read();
 
-                int8_t action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config);
+                int8_t action;
+                if (leader_mode == 1)
+                {
+                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config1);
+                }
+                else
+                {
+                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config0);
+                }
                 if (action == -2)
                 {
                     reset_leader(0);
@@ -154,7 +162,16 @@ bool   process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config
 
             if (leader_chain_recorded_released == leader_chain_recorded_pressed)
             {
-                int8_t leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config);
+                int8_t leader_action;
+                if (leader_mode == 1)
+                {
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config1);
+                }
+                else
+                {
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config0);
+                }
+
                 if (leader_action >= 0)
                 {
                     execute_leader_action(leader_action, leader_mode, leader_chain_recorded_pressed, leader_chain);
@@ -172,83 +189,113 @@ int8_t process_leader_chain(uint8_t count, uint8_t* keycodes, leader_config_t* c
 {
     if (count == 1)
     {
-        for (uint8_t i = 0; i < config->leader1_count; i++)
+        if (config->leader1_array != NULL)
         {
-            if (config->leader1_array[i].keycode1 == keycodes[0])
+            for (uint8_t i = 0; i < config->leader1_count; i++)
             {
-                return i;
+                if (config->leader1_array[i].keycode1 == keycodes[0])
+                {
+                    return i;
+                }
             }
         }
-        for (uint8_t i = 0; i < config->leader2_count; i++)
+        if (config->leader2_array != NULL)
         {
-            if (config->leader2_array[i].keycode1 == keycodes[0])
+            for (uint8_t i = 0; i < config->leader2_count; i++)
             {
-                return -1;
+                if (config->leader2_array[i].keycode1 == keycodes[0])
+                {
+                    return -1;
+                }
             }
         }
-        for (uint8_t i = 0; i < config->leader3_count; i++)
+        if (config->leader3_array != NULL)
         {
-            if (config->leader3_array[i].keycode1 == keycodes[0])
+            for (uint8_t i = 0; i < config->leader3_count; i++)
             {
-                return -1;
+                if (config->leader3_array[i].keycode1 == keycodes[0])
+                {
+                    return -1;
+                }
             }
         }
-        for (uint8_t i = 0; i < config->leader4_count; i++)
+        if (config->leader4_array != NULL)
         {
-            if (config->leader4_array[i].keycode1 == keycodes[0])
+            for (uint8_t i = 0; i < config->leader4_count; i++)
             {
-                return -1;
+                if (config->leader4_array[i].keycode1 == keycodes[0])
+                {
+                    return -1;
+                }
             }
         }
     }
     else if (count == 2)
     {
-        for (uint8_t i = 0; i < config->leader2_count; i++)
+        if (config->leader2_array != NULL)
         {
-            if (config->leader2_array[i].keycode1 == keycodes[0] && config->leader2_array[i].keycode2 == keycodes[1])
+            for (uint8_t i = 0; i < config->leader2_count; i++)
             {
-                return i;
+                if (config->leader2_array[i].keycode1 == keycodes[0] && config->leader2_array[i].keycode2 == keycodes[1])
+                {
+                    return i;
+                }
             }
         }
-        for (uint8_t i = 0; i < config->leader3_count; i++)
+        if (config->leader3_array != NULL)
         {
-            if (config->leader3_array[i].keycode1 == keycodes[0] && config->leader3_array[i].keycode2 == keycodes[1])
+            for (uint8_t i = 0; i < config->leader3_count; i++)
             {
-                return -1;
+                if (config->leader3_array[i].keycode1 == keycodes[0] && config->leader3_array[i].keycode2 == keycodes[1])
+                {
+                    return -1;
+                }
             }
         }
-        for (uint8_t i = 0; i < config->leader4_count; i++)
+        if (config->leader4_array != NULL)
         {
-            if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1])
+            for (uint8_t i = 0; i < config->leader4_count; i++)
             {
-                return -1;
+                if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1])
+                {
+                    return -1;
+                }
             }
         }
     }
     else if (count == 3)
     {
-        for (uint8_t i = 0; i < config->leader3_count; i++)
+        if (config->leader3_array != NULL)
         {
-            if (config->leader3_array[i].keycode1 == keycodes[0] && config->leader3_array[i].keycode2 == keycodes[1] && config->leader3_array[i].keycode3 == keycodes[2])
+            for (uint8_t i = 0; i < config->leader3_count; i++)
             {
-                return i;
+                if (config->leader3_array[i].keycode1 == keycodes[0] && config->leader3_array[i].keycode2 == keycodes[1] && config->leader3_array[i].keycode3 == keycodes[2])
+                {
+                    return i;
+                }
             }
         }
-        for (uint8_t i = 0; i < config->leader4_count; i++)
+        if (config->leader4_array != NULL)
         {
-            if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1] && config->leader4_array[i].keycode3 == keycodes[2])
+            for (uint8_t i = 0; i < config->leader4_count; i++)
             {
-                return -1;
+                if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1] && config->leader4_array[i].keycode3 == keycodes[2])
+                {
+                    return -1;
+                }
             }
         }
     }
     else if (count == 4)
     {
-        for (uint8_t i = 0; i < config->leader4_count; i++)
+        if (config->leader4_array != NULL)
         {
-            if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1] && config->leader4_array[i].keycode3 == keycodes[2] && config->leader4_array[i].keycode4 == keycodes[3])
+            for (uint8_t i = 0; i < config->leader4_count; i++)
             {
-                return i;
+                if (config->leader4_array[i].keycode1 == keycodes[0] && config->leader4_array[i].keycode2 == keycodes[1] && config->leader4_array[i].keycode3 == keycodes[2] && config->leader4_array[i].keycode4 == keycodes[3])
+                {
+                    return i;
+                }
             }
         }
     }
