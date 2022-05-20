@@ -114,6 +114,7 @@ const uint8_t PROGMEM user_kb_layers[][72] = {
   )
 };
 
+/*
 qmk-keyboard-format:json:begin
 {
     "name": "moonlander",
@@ -253,3 +254,4 @@ qmk-keyboard-format:json:begin
     }
 }
 qmk-keyboard-format:json:end
+*/
