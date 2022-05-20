@@ -86,20 +86,11 @@ void enable_smart_numbers(void)
 {
     if (!features_active(FEATURE_NAV | FEATURE_SYM))
     {
-        if (features_active(FEATURE_CAPS))
-        {
-            s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
-            s_smartcaps_repeat = 0;
-            s_smartcaps_state  = SMART_CAPS_OFF;
-            user_smartcaps_off();
-        }
-
         s_feature_state |= FEATURE_NUM;
         s_feature_state &= ~FEATURE_USED;
         user_layer_on(LAYER_NUMBERS);
     }
 }
-
 
 bool process_feature_key(uint8_t keycode, keyrecord_t* record)
 {
@@ -180,6 +171,7 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                 case CC_CTRL:
                 case CC_ALT:
                 case CC_CMD: break;
+                case CC_NDOC ... CC_PDOC: s_feature_state |= FEATURE_USED; break;
 
                 // pressed
                 case TC_A ... TC_Z:
@@ -271,25 +263,8 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                         }
                     }
                     break;
-                case CC_FNUM: // pressed
-                    if (!features_active(FEATURE_NAV | FEATURE_SYM))
-                    {
-                        s_feature_state |= FEATURE_NUM;
-                        s_feature_state &= ~FEATURE_USED;
-                        user_layer_on(LAYER_NUMBERS);
-                    }
-                    break;
-                case CC_FCAPS: // pressed
-                    if (!features_active(FEATURE_NAV | FEATURE_SYM))
-                    {
-                        s_smartcaps_state  = SMART_CAPS_INIT;
-                        s_smartcaps_repeat = 0;
-
-                        s_feature_state |= FEATURE_CAPS;
-                        s_feature_state &= ~FEATURE_USED;
-                        user_smartcaps_on();
-                    }
-                    break;
+                case CC_FNUM: enable_smart_numbers(); break;
+                case CC_FCAPS: enable_smart_capslock(); break;
             }
         }
         else
@@ -302,6 +277,7 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                 case CC_CMD: break;
 
                 // released
+                case CC_NDOC ... CC_PDOC:
                 case TC_AT ... TC_BSLASH:
                 case TC_0 ... TC_9:
                 case TC_F1 ... TC_F12:
