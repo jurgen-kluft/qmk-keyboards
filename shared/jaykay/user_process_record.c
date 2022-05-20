@@ -77,8 +77,7 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
                 if (kc16 != KC_NO)
                     unregister_code16(kc16);
             }
-
-            return false;
+            break;
         }
         case CC_SECRET_1 ... CC_SECRET_8:
             if (!record->event.pressed)
@@ -87,7 +86,6 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
                 send_string_with_delay(gSecrets[kc8 - CC_SECRET_1], MACRO_TIMER);
             }
             return false;
-            break;
         case CC_SPIFT:
             if (record->event.pressed)
             {
@@ -99,7 +97,7 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
                 unregister_code(KC_SPACE);
                 release_oneshot_modifier(ONESHOT_LSFT);
             }
-            break;
+            return false;
 #if defined(OLED_ENABLE)
         case CC_OLED:
             if (record->event.pressed)
