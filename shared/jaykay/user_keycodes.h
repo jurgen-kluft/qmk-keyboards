@@ -176,8 +176,6 @@ enum ecustomkeycodes
     CC_VIM,
 
     // Vim keycodes
-    CC_VIM_DESKTOP,
-    CC_VIM_APP,
     CC_VIM_DOCU,
     CC_VIM_PAGE,
     CC_VIM_LINE,
@@ -198,11 +196,9 @@ enum ecustomkeycodes
     CC_VIM_INSERT,
     CC_VIM_CHANGE,
     CC_VIM_DELETE,
-    CC_VIM_ENTER,
     CC_VIM_GOTO,
     CC_VIM_CUT,
     CC_VIM_YANK,
-    CC_VIM_PASTE,
     CC_VIM_REDO,
     CC_VIM_REPEAT,
     CC_VIM_UNDO,
@@ -211,14 +207,12 @@ enum ecustomkeycodes
     CC_VIM_LEFT,
     CC_VIM_RIGHT,
     CC_VIM_UP,
-    CC_VIM_EXIT,
-    CC_VIM_MODE,
     CC_VIM_INDENT,
     CC_VIM_UNINDENT,
 
     CC_NO,
     CC_RANGE_END = CC_NO,
-    CC_RANGE_VIM_START = CC_VIM_DESKTOP,
+    CC_RANGE_VIM_START = CC_VIM_DOCU,
     CC_RANGE_VIM_END = CC_VIM_UNINDENT,
 };
 
