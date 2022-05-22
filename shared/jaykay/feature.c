@@ -60,9 +60,9 @@ enum
     SMART_CAPS_DEFAULT        = 4,
     SMART_CAPS_MAX_SEPARATORS = 4,
 };
-static uint8_t s_smartcaps_state                                 = SMART_CAPS_OFF;
-static uint8_t s_smartcaps_separators[SMART_CAPS_MAX_SEPARATORS] = {CC_NO};
-static int8_t  s_smartcaps_repeat                                = 0;
+static uint8_t s_smartcaps_state                               = SMART_CAPS_OFF;
+static uint8_t s_smartcaps_arr_seps[SMART_CAPS_MAX_SEPARATORS] = {CC_NO};
+static int8_t  s_smartcaps_num_seps                            = 0;
 
 static uint8_t     s_feature_state = 0;
 static inline bool features_active(uint8_t features) { return (s_feature_state & features) == features; }
@@ -72,8 +72,8 @@ void enable_smart_capslock(void)
 {
     if (!features_active(FEATURE_NAV | FEATURE_SYM))
     {
-        s_smartcaps_state  = SMART_CAPS_INIT;
-        s_smartcaps_repeat = 0;
+        s_smartcaps_state    = SMART_CAPS_INIT;
+        s_smartcaps_num_seps = 0;
 
         s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
         s_feature_state |= FEATURE_CAPS;
@@ -115,8 +115,8 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                     if (terminate_feature || s_smartcaps_state == SMART_CAPS_INIT || s_smartcaps_state == SMART_CAPS_DEFAULT)
                     {
                         s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
-                        s_smartcaps_repeat = 0;
-                        s_smartcaps_state  = SMART_CAPS_OFF;
+                        s_smartcaps_num_seps = 0;
+                        s_smartcaps_state    = SMART_CAPS_OFF;
                         user_smartcaps_off();
 
                         if (keycode == CC_FCAPS)
@@ -138,9 +138,9 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                         if (s_smartcaps_state == SMART_CAPS_REPEAT)
                         {
                             // emit seperator(s)
-                            for (int8_t i = 0; i < s_smartcaps_repeat; ++i)
+                            for (int8_t i = 0; i < s_smartcaps_num_seps; ++i)
                             {
-                                uint16_t kc = user_get_code16(s_smartcaps_separators[i]);
+                                uint16_t kc = user_get_code16(s_smartcaps_arr_seps[i]);
                                 tap_code16(kc);
                             }
                             return false;
@@ -177,7 +177,7 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                 case TC_A ... TC_Z:
                     if (features_active(FEATURE_CAPS))
                     {
-                        if (s_smartcaps_repeat == 0)
+                        if (s_smartcaps_num_seps == 0)
                         {
                             s_smartcaps_state = SMART_CAPS_DEFAULT;
                         }
@@ -200,17 +200,17 @@ bool process_feature_key(uint8_t keycode, keyrecord_t* record)
                         s_feature_state |= FEATURE_USED;
                         if (s_smartcaps_state == SMART_CAPS_INIT)
                         {
-                            s_smartcaps_state         = SMART_CAPS_COUNT;
-                            s_smartcaps_separators[0] = keycode;
-                            s_smartcaps_repeat        = 1;
-                            ret                       = false;
+                            s_smartcaps_state       = SMART_CAPS_COUNT;
+                            s_smartcaps_arr_seps[0] = keycode;
+                            s_smartcaps_num_seps    = 1;
+                            ret                     = false;
                         }
                         else if (s_smartcaps_state == SMART_CAPS_COUNT)
                         {
-                            if (s_smartcaps_repeat < SMART_CAPS_MAX_SEPARATORS)
+                            if (s_smartcaps_num_seps < SMART_CAPS_MAX_SEPARATORS)
                             {
-                                s_smartcaps_separators[s_smartcaps_repeat] = keycode;
-                                s_smartcaps_repeat++;
+                                s_smartcaps_arr_seps[s_smartcaps_num_seps] = keycode;
+                                s_smartcaps_num_seps++;
                                 ret = false;
                             }
                             else

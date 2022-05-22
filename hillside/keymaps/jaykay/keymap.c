@@ -46,13 +46,13 @@ const uint8_t PROGMEM user_kb_layers[][40] = {
     TC_PLUS, TC_MINUS, TC_ASTR, TC_SLASH, CC_NO,                              TC_6,    TC_0,     TC_9,     TC_8,   TC_7,  
     TC_7,    TC_8,     TC_9,    TC_0,     TC_6,                               TC_5,    TC_1,     TC_2,     TC_3,   TC_4,  
     CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  CC_NO,   CC_NO,          CC_NO,     CC_NO,   TC_EQUAL, TC_COMMA, TC_DOT, CC_NO, 
-                       CC_FNUM, CC_FNUM,  CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                 
+                       CC_FCNT, CC_FCNT,  CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCNT,  CC_FCNT
     ),
     [LAYER_SYMBOLS] = LAYOUT(
     TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD,                            TC_GRV,  TC_QUOT,  TC_DQUO,  TC_HASH, TC_DLR,  
     TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC,                            TC_LABK, TC_LPRN,  TC_LCBR,  TC_RABK, TC_COLN, 
     TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC, CC_NDOC,        CC_PDOC,   TC_RABK, TC_RPRN,  TC_RCBR,  TC_QUES, TC_AT,   
-                       CC_FNUM, CC_FNUM,   CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                    
+                       CC_FCNT, CC_FCNT,   CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                    
     ),
     [LAYER_NAVIGATION] = LAYOUT(
     CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,                               TC_INSERT, TC_PGUP,   TC_HOME,  CC_NO,    CC_NO, 

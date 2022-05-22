@@ -19,6 +19,7 @@ extern const uint8_t PROGMEM user_kb_layers[][72];
 #endif
 
 static int8_t smartcaps_enabled = 0;
+static int8_t smart_repeat      = 1;
 static int8_t current_layer     = LAYER_QWERTY;
 
 void user_layer_on(int8_t layer)
@@ -41,7 +42,7 @@ int8_t user_layer(void) { return current_layer; }
 void user_smartcaps_on() { smartcaps_enabled = 1; }
 void user_smartcaps_off() { smartcaps_enabled = 0; }
 
-void user_camelcase_toggle(void) 
+void user_camelcase_toggle(void)
 {
     if (smartcaps_enabled == 2)
     {
@@ -51,7 +52,7 @@ void user_camelcase_toggle(void)
     {
         smartcaps_enabled = 2;
         tap_oneshot_modifier(ONESHOT_LSFT);
-    } 
+    }
 }
 
 uint16_t user_layer_get_code(uint16_t keycode, bool pressed)
@@ -90,66 +91,69 @@ void user_apply_keycode(uint16_t keycode, bool pressed)
     if (vim_mode() == VIM_MODE_NORMAL)
         return;
 
+    if (keycode == CC_FCNT)
+    {
+        if (pressed)
+        {
+            smart_repeat += 1;
+        }
+    }
+
     if (keycode >= TC_RANGE_START && keycode <= TC_RANGE_END)
     {
-        uint16_t kc = user_get_code16(keycode);
-        if (kc != KC_NO)
+        uint16_t qmk_keycode = user_get_code16(keycode);
+        if (qmk_keycode != KC_NO)
         {
             if (pressed)
             {
                 if (smartcaps_enabled == 1)
                 {
-                    if (kc >= KC_A && kc <= KC_Z)
+                    if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
                     {
-                        kc = LSFT(kc);
+                        qmk_keycode = LSFT(qmk_keycode);
                     }
                     else
                     {
-                        if (kc == KC_SCLN)
+                        if (qmk_keycode == KC_SCLN)
                         {
-                            kc = KC_UNDS;
+                            qmk_keycode = KC_UNDS;
                         }
                     }
-                    register_code16(kc);
                 }
-                else if (smartcaps_enabled == 2)
+
+                while (smart_repeat > 1)
                 {
-                    register_code16(kc);
+                    tap_code16(qmk_keycode);
+                    smart_repeat--;
                 }
-                else
-                {
-                    register_code16(kc);
-                }
+
+                register_code16(qmk_keycode);
             }
             else
             {
                 if (smartcaps_enabled == 1)
                 {
-                    if (kc >= KC_A && kc <= KC_Z)
+                    if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
                     {
-                        kc = LSFT(kc);
+                        qmk_keycode = LSFT(qmk_keycode);
                     }
                     else
                     {
-                        if (kc == KC_SCLN)
+                        if (qmk_keycode == KC_SCLN)
                         {
-                            kc = KC_UNDS;
+                            qmk_keycode = KC_UNDS;
                         }
                     }
-                    unregister_code16(kc);
                 }
-                else if (smartcaps_enabled == 2)
+
+                unregister_code16(qmk_keycode);
+
+                if (smartcaps_enabled == 2 && keycode == TC_SPACE)
                 {
-                    unregister_code16(kc);
-                    if (keycode == TC_SPACE)
-                    {
-                        tap_oneshot_modifier(ONESHOT_LSFT);
-                    }
+                    tap_oneshot_modifier(ONESHOT_LSFT);
                 }
-                else
-                {
-                    unregister_code16(kc);
-                }
+
+                smart_repeat = 1;
             }
         }
     }
