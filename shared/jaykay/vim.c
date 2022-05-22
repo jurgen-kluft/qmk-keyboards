@@ -64,7 +64,6 @@ static void vim_register1(uint16_t k1, bool press)
     }
 }
 
-
 #define send_taps1(tap1) tap_code16(tap1)
 #define send_taps2(tap1, tap2) \
     tap_code16(tap1);          \
@@ -73,7 +72,6 @@ static void vim_register1(uint16_t k1, bool press)
     tap_code16(tap1);                \
     tap_code16(tap2);                \
     tap_code16(tap3)
-
 
 #define CMD_MOVE_LEFT_CHAR(press)     vim_register1(KC_LEFT, press)
 #define CMD_MOVE_LEFT_WORD(press)     vim_register1(A(KC_LEFT), press)
@@ -97,12 +95,12 @@ static void vim_register1(uint16_t k1, bool press)
 #define CMD_MOVE_END_DOCU(press)      vim_register1(G(KC_DOWN), press)
 #define CMD_DELETE_LINE(press)        vim_register1(C(S(KC_D)), press) // Delete Line = Ctrl-Shift-D
 
-#define CMD_DELETE_LEFT_LINE          send_taps2(S(KC_HOME), KC_DELETE)
-#define CMD_DELETE_RIGHT_LINE         send_taps2(S(KC_END), KC_DELETE)
-#define CMD_CHANGE_LINE               send_taps3(KC_END, S(KC_HOME), KC_DELETE)
-#define CMD_DELETE_LEFT_WORD          send_taps2(S(A(KC_LEFT)), KC_DELETE)
-#define CMD_DELETE_RIGHT_WORD         send_taps2(S(A(KC_RIGHT)), KC_DELETE)
-#define CMD_DELETE_INSIDE_WORD        send_taps3(A(KC_LEFT), A(S(KC_RIGHT)), KC_DEL)
+#define CMD_DELETE_LEFT_LINE   send_taps2(S(KC_HOME), KC_DELETE)
+#define CMD_DELETE_RIGHT_LINE  send_taps2(S(KC_END), KC_DELETE)
+#define CMD_CHANGE_LINE        send_taps3(KC_END, S(KC_HOME), KC_DELETE)
+#define CMD_DELETE_LEFT_WORD   send_taps2(S(A(KC_LEFT)), KC_DELETE)
+#define CMD_DELETE_RIGHT_WORD  send_taps2(S(A(KC_RIGHT)), KC_DELETE)
+#define CMD_DELETE_INSIDE_WORD send_taps3(A(KC_LEFT), A(S(KC_RIGHT)), KC_DEL)
 
 static void vim_insert(bool press)
 {
@@ -335,6 +333,7 @@ bool process_vim(uint8_t keycode, keyrecord_t* record)
             }
         }
 
+        bool reverse = s_vim_raise;
         switch (keycode)
         {
             case CC_VIM_GOTO: vim_goto(press); break;
@@ -346,11 +345,28 @@ bool process_vim(uint8_t keycode, keyrecord_t* record)
             case CC_VIM_INDENT: vim_register1(KC_TAB, press); break;
             case CC_VIM_UNINDENT: vim_register1(S(KC_TAB), press); break;
 
-            case CC_VIM_LEFT: vim_move_left(press); break;
-            case CC_VIM_RIGHT: vim_move_right(press); break;
-            case CC_VIM_UP: vim_move_up(press); break;
-            case CC_VIM_DOWN: vim_move_down(press); break;
-
+            case CC_VIM_RIGHT: reverse = !reverse;
+            case CC_VIM_LEFT:
+                if (reverse)
+                {
+                    vim_move_right(press);
+                }
+                else
+                {
+                    vim_move_left(press);
+                }
+                break;
+            case CC_VIM_UP: reverse = !reverse;
+            case CC_VIM_DOWN: 
+                if (reverse)
+                {
+                    vim_move_up(press);
+                }
+                else
+                {
+                    vim_move_down(press);
+                }
+                break;
             case CC_VIM_CHANGE: vim_change(press); break;
             case CC_VIM_DELETE: vim_delete(press); break;
         }
