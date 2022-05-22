@@ -90,10 +90,10 @@ const uint8_t PROGMEM user_kb_layers[][72] = {
   ),
   [LAYER_VIM] = LAYOUT(
    CC_NO, CC_NO,         CC_NO,        CC_NO,         CC_NO,         CC_NO,         CC_NO,   CC_NO, CC_NO,           CC_NO,       CC_NO,         CC_NO,         CC_NO,          CC_NO,    
-   CC_NO, CC_VIM_CHAR,   CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_FIND,   CC_NO,   CC_NO, CC_VIM_YANK,     CC_VIM_UNDO, CC_VIM_INSIDE, CC_VIM_LINE,   CC_VIM_PAGE,    CC_NO,    
-   CC_NO, CC_VIM_INSERT, CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_SEARCH, CC_VIM_GOTO,   CC_NO,   CC_NO, CC_VIM_LEFT,     CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  CC_VIM_APP,     CC_NO,    
-   CC_NO, CC_VIM_DOCU,   CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, CC_VIM_INDENT,                 CC_VIM_UNINDENT, CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, CC_VIM_DESKTOP, CC_NO,    
-   CC_NO, CC_NO,         CC_NO,        CC_FNUM,       CC_FNAV,       CC_PDT,                        CC_NDT,          CC_FSYM,     CC_FCAPS,      CC_NO,         CC_NO,          CC_RSTHD, 
+   CC_NO, CC_VIM_CHAR,   CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_INSIDE, CC_NO,   CC_NO, CC_VIM_YANK,     CC_VIM_UNDO, CC_VIM_INSERT, CC_VIM_LINE,   CC_VIM_PAGE,    CC_NO,    
+   CC_NO, CC_VIM_ADD,    CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_FIND,   CC_VIM_GOTO,   CC_NO,   CC_NO, CC_VIM_LEFT,     CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  CC_NO,          CC_NO,    
+   CC_NO, CC_VIM_ZOOM,   CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, CC_NO,                         CC_NO,           CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, CC_NO,          CC_NO,    
+   CC_NO, CC_NO,         CC_NO,        CC_FNUM,       CC_VIM_RAISE,  CC_PDT,                        CC_NDT,          CC_VIM_RAISE,CC_FCAPS,      CC_NO,         CC_NO,          CC_RSTHD, 
                                                       CC_VIM,        CC_NO,         CC_NO,   CC_NO, CC_NO,           CC_VIM                                                               
   ),
   [LAYER_GAMEL] = LAYOUT(
