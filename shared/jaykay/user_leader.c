@@ -25,11 +25,13 @@ static const leader1_t leader10_array[] = {
 
 enum eleader_11
 {
+    LA_AND,             // a, ' && '
     LA_BUILD1,          // b
-    LA_EQ,              // e
-    LA_GAE,             // g
-    LA_LAE,             // l
-    LA_NEQ,             // n
+    LA_EQ,              // e, ' == ' 
+    LA_GAE,             // g, ' >= '
+    LA_LAE,             // l, ' <= '
+    LA_NEQ,             // n, ' != '
+    LA_OR,              // o, ' || '
     LA_KEYBOARD_MAC,    // m
     LA_KEYBOARD_UBUNTU, // u
     LA_KEYBOARD_WIN,    // w
@@ -38,11 +40,13 @@ enum eleader_11
 
 // clang-format off
 static const leader1_t leader11_array[] = {
+    [LA_AND]                 = { TC_A },
     [LA_BUILD1]              = { TC_B },
     [LA_EQ]                  = { TC_E },
     [LA_GAE]                 = { TC_G },
     [LA_LAE]                 = { TC_L },
     [LA_NEQ]                 = { TC_N },
+    [LA_OR]                  = { TC_O },
     [LA_KEYBOARD_MAC]        = { TC_M },
     [LA_KEYBOARD_UBUNTU]     = { TC_U },
     [LA_KEYBOARD_WIN]        = { TC_W },
@@ -158,14 +162,12 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
     {
         if (mode == 0)
         {
-            uint16_t keycode = KC_NO;
             switch (action)
             {
                 case LA_BUILD0: send_string_with_delay("QMK=" QMK_VERSION ", build= " QMK_BUILDDATE, MACRO_TIMER);
-                case LA_DOTSPACESHIFT: keycode = KC_DOT; break;
-                case LA_CENTER: keycode = A(KC_M); break;
+                case LA_DOTSPACESHIFT: send_taps1(KC_DOT); break;
+                case LA_CENTER: send_taps1(KC_M); break;
             }
-            send_taps1(keycode);
             switch (action)
             {
                 case LA_DOTSPACESHIFT:
@@ -180,7 +182,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
             switch (action)
             {
                 case LA_BUILD1:
-                    break;
                     if (keyboard_get_os() == OS_MAC)
                         str = ("kb=" QMK_KEYBOARD ", km=" QMK_KEYMAP ", build= " __DATE__ "/" __TIME__ " (Mac)");
                     else if (keyboard_get_os() == OS_WINDOWS)
@@ -188,10 +189,12 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                     else if (keyboard_get_os() == OS_UBUNTU)
                         str = ("kb=" QMK_KEYBOARD ", km=" QMK_KEYMAP ", build= " __DATE__ "/" __TIME__ " (Ubuntu)");
                     break;
+                case LA_AND: str = " && "; break;
                 case LA_EQ: str = " == "; break;
                 case LA_GAE: str = " >= "; break;
                 case LA_LAE: str = " <= "; break;
                 case LA_NEQ: str = " != "; break;
+                case LA_OR: str = " || "; break;
                 case LA_KEYBOARD_MAC: keyboard_set_os(OS_MAC); break;
                 case LA_KEYBOARD_WIN: keyboard_set_os(OS_WINDOWS); break;
                 case LA_KEYBOARD_UBUNTU: keyboard_set_os(OS_UBUNTU); break;
