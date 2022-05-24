@@ -20,7 +20,7 @@ bool is_oneshot_modifier_ignored_key(uint8_t keycode, bool pressed)
 {
     if (keycode >= CC_RANGE_START && keycode <= CC_RANGE_END)
         return true;
-    return false;
+    return keycode == KC_SPACE;
 }
 
 oneshot_mod get_modifier_for_trigger_key(uint8_t keycode)

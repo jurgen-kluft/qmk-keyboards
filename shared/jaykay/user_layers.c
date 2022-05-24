@@ -119,15 +119,28 @@ void user_apply_keycode(uint16_t keycode, bool pressed)
                             qmk_keycode = KC_UNDS;
                         }
                     }
+                    register_code16(qmk_keycode);
                 }
-
-                while (smart_repeat > 1)
+                else if (smartcaps_enabled == 2)
                 {
-                    tap_code16(qmk_keycode);
-                    smart_repeat--;
+                    if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
+                    {
+                        register_code16(qmk_keycode);
+                    }
+                    else if (qmk_keycode == KC_SPACE || qmk_keycode == KC_BSPACE)
+                    {
+                        register_code16(qmk_keycode);
+                    }
                 }
-
-                register_code16(qmk_keycode);
+                else
+                {
+                    while (smart_repeat > 1)
+                    {
+                        tap_code16(qmk_keycode);
+                        smart_repeat--;
+                    }
+                    register_code16(qmk_keycode);
+                }
             }
             else
             {
@@ -144,13 +157,35 @@ void user_apply_keycode(uint16_t keycode, bool pressed)
                             qmk_keycode = KC_UNDS;
                         }
                     }
+                    unregister_code16(qmk_keycode);
                 }
-
-                unregister_code16(qmk_keycode);
-
-                if (smartcaps_enabled == 2 && keycode == TC_SPACE)
+                else if (smartcaps_enabled == 2)
                 {
-                    tap_oneshot_modifier(ONESHOT_LSFT);
+                    if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
+                    {
+                        unregister_code16(qmk_keycode);
+                    }
+                    else if (qmk_keycode == KC_BSPACE)
+                    {
+                        unregister_code16(qmk_keycode);
+                    }
+                    else if (qmk_keycode == KC_SPACE)
+                    {
+                        unregister_code16(qmk_keycode);
+                        tap_oneshot_modifier(ONESHOT_LSFT);
+                    }
+                    else if (qmk_keycode == KC_COMMA)
+                    {
+                        tap_oneshot_modifier(ONESHOT_LSFT);
+                    }
+                    else
+                    {
+                        smartcaps_enabled = 0;
+                    }
+                }
+                else
+                {
+                    unregister_code16(qmk_keycode);
                 }
 
                 smart_repeat = 1;
