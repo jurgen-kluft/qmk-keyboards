@@ -166,7 +166,8 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
             {
                 case LA_BUILD0: send_string_with_delay("QMK=" QMK_VERSION ", build= " QMK_BUILDDATE, MACRO_TIMER);
                 case LA_DOTSPACESHIFT: send_taps1(KC_DOT); break;
-                case LA_CENTER: send_taps1(KC_M); break;
+                case LA_CENTER: send_taps1(A(KC_M)); break;
+                case LA_EASYMOTION: send_taps1(A(KC_S)); break;
             }
             switch (action)
             {
