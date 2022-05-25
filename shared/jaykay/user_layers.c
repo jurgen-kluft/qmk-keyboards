@@ -20,73 +20,85 @@ extern const uint8_t PROGMEM user_kb_layers[][72];
 
 static int8_t smartcaps_enabled = 0;
 static int8_t smart_repeat      = 1;
-static int8_t current_layer     = LAYER_QWERTY;
 
-void user_layer_on(int8_t layer)
+enum esmartcaps
+{
+    SMARTCAPS_OFF               = 0,
+    SMARTCAPS_ON                = 1,
+    SMARTCAPS_CAMELCASE         = 2,
+    SMARTCAPS_CAMELCASE_SHIFT   = 3,
+    SMARTCAPS_CAMELCASE_SHIFTED = 4,
+};
+
+void user_smartcaps_on(void) { smartcaps_enabled = SMARTCAPS_ON; }
+void user_smartcaps_off(void) { smartcaps_enabled = SMARTCAPS_OFF; }
+
+void user_camelcase_toggle(void)
+{
+    if (smartcaps_enabled >= SMARTCAPS_CAMELCASE)
+    {
+        smartcaps_enabled = SMARTCAPS_OFF;
+    }
+    else
+    {
+        smartcaps_enabled = SMARTCAPS_CAMELCASE_SHIFT;
+    }
+}
+
+static int8_t current_layer = LAYER_QWERTY;
+void          user_layer_on(int8_t layer)
 {
     switch (layer)
     {
-        case LAYER_RSTHD:
-        case LAYER_QWERTY: current_layer = keyboard_get_layout(); break;
+        case LAYER_VIM:
+        case LAYER_NUMBERS:
         case LAYER_SYMBOLS:
         case LAYER_NAVIGATION:
-        case LAYER_NUMBERS:
+            smartcaps_enabled = SMARTCAPS_OFF;
+            current_layer     = layer;
+            break;
+        case LAYER_RSTHD:
+        case LAYER_QWERTY: current_layer = keyboard_get_layout(); break;
         case LAYER_RAISE:
-        case LAYER_VIM:
         default: current_layer = layer; break;
     }
 }
 
 int8_t user_layer(void) { return current_layer; }
 
-void user_smartcaps_on() { smartcaps_enabled = 1; }
-void user_smartcaps_off() { smartcaps_enabled = 0; }
-
-void user_camelcase_toggle(void)
-{
-    if (smartcaps_enabled == 2)
-    {
-        smartcaps_enabled = 0;
-    }
-    else if (smartcaps_enabled == 0)
-    {
-        smartcaps_enabled = 2;
-        tap_oneshot_modifier(ONESHOT_LSFT);
-    }
-}
-
-uint16_t user_layer_get_code(uint16_t keycode, bool pressed)
+uint8_t user_layer_get_code(uint16_t keycode, bool pressed)
 {
     // Here we need to check the status of VIM, if VIM is active and
     // in NORMAL mode we should read from LAYER_VIM. If VIM is active
     // and in NORMAL_RAISE mode we should read from LAYER_VIM_RAISE.
     uint8_t const ti = keycode - KL_00;
+    uint8_t       tc;
     if (pressed)
     {
         if (current_layer == LAYER_SYMBOLS || current_layer == LAYER_NUMBERS)
         {
-            keycode = pgm_read_byte(&user_kb_layers[(current_layer)][ti]);
+            tc = pgm_read_byte(&user_kb_layers[(current_layer)][ti]);
         }
         else if (vim_mode() == VIM_MODE_NORMAL)
         {
-            keycode = pgm_read_byte(&user_kb_layers[(LAYER_VIM)][ti]);
+            tc = pgm_read_byte(&user_kb_layers[(LAYER_VIM)][ti]);
         }
         else
         {
-            keycode = pgm_read_byte(&user_kb_layers[(current_layer)][ti]);
+            tc = pgm_read_byte(&user_kb_layers[(current_layer)][ti]);
         }
 
-        user_kb_state[ti] = keycode;
+        user_kb_state[ti] = tc;
     }
     else
     {
-        keycode           = user_kb_state[ti];
+        tc                = user_kb_state[ti];
         user_kb_state[ti] = KC_NO;
     }
-    return keycode;
+    return tc;
 }
 
-void user_apply_keycode(uint16_t keycode, bool pressed)
+void user_apply_keycode(uint8_t keycode, bool pressed)
 {
     if (vim_mode() == VIM_MODE_NORMAL)
         return;
@@ -106,7 +118,7 @@ void user_apply_keycode(uint16_t keycode, bool pressed)
         {
             if (pressed)
             {
-                if (smartcaps_enabled == 1)
+                if (smartcaps_enabled == SMARTCAPS_ON)
                 {
                     if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
                     {
@@ -121,11 +133,19 @@ void user_apply_keycode(uint16_t keycode, bool pressed)
                     }
                     register_code16(qmk_keycode);
                 }
-                else if (smartcaps_enabled == 2)
+                else if (smartcaps_enabled >= SMARTCAPS_CAMELCASE)
                 {
                     if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
                     {
-                        register_code16(qmk_keycode);
+                        if (smartcaps_enabled == SMARTCAPS_CAMELCASE_SHIFT)
+                        {
+                            tap_code16(LSFT(qmk_keycode));
+                            smartcaps_enabled = SMARTCAPS_CAMELCASE;
+                        }
+                        else
+                        {
+                            register_code16(qmk_keycode);
+                        }
                     }
                     else if (qmk_keycode == KC_SPACE || qmk_keycode == KC_BSPACE)
                     {
@@ -144,7 +164,7 @@ void user_apply_keycode(uint16_t keycode, bool pressed)
             }
             else
             {
-                if (smartcaps_enabled == 1)
+                if (smartcaps_enabled == SMARTCAPS_ON)
                 {
                     if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
                     {
@@ -159,7 +179,7 @@ void user_apply_keycode(uint16_t keycode, bool pressed)
                     }
                     unregister_code16(qmk_keycode);
                 }
-                else if (smartcaps_enabled == 2)
+                else if (smartcaps_enabled >= SMARTCAPS_CAMELCASE)
                 {
                     if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
                     {
@@ -172,15 +192,15 @@ void user_apply_keycode(uint16_t keycode, bool pressed)
                     else if (qmk_keycode == KC_SPACE)
                     {
                         unregister_code16(qmk_keycode);
-                        tap_oneshot_modifier(ONESHOT_LSFT);
+                        smartcaps_enabled = SMARTCAPS_CAMELCASE_SHIFT;
                     }
                     else if (qmk_keycode == KC_COMMA)
                     {
-                        tap_oneshot_modifier(ONESHOT_LSFT);
+                        smartcaps_enabled = SMARTCAPS_CAMELCASE_SHIFT;
                     }
                     else
                     {
-                        smartcaps_enabled = 0;
+                        smartcaps_enabled = SMARTCAPS_OFF;
                     }
                 }
                 else

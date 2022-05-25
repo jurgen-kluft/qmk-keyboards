@@ -24,5 +24,5 @@ void user_smartcaps_off(void);
 
 void user_camelcase_toggle(void);
 
-uint16_t user_layer_get_code(uint16_t keycode, bool pressed);
-void user_apply_keycode(uint16_t keycode, bool pressed);
+uint8_t user_layer_get_code(uint16_t keycode, bool pressed);
+void user_apply_keycode(uint8_t keycode, bool pressed);
