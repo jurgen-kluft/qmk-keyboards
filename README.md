@@ -27,19 +27,21 @@ Examples:
 
 single tap leader chains
 
-- leader f, this will activate 'easy motion' (vscode)
-- leader z, this will center the cursor in the middle of the screen (vscode)
-- leader d d, this will execute a 'delete line' command
-- leader o o, this will execute a 'insert line below' command
-- leader g g, this will put the cursor at the top of the document
-- leader c i w, this will execute a 'change inside word' command
+- `leader f`, this will activate *easy motion* (vscode)
+- `leader z`, this will center the cursor in the middle of the screen (vscode)
+- `leader d d`, this will execute a *delete line* command
+- `leader o o`, this will execute a *insert line below* command
+- `leader g g`, this will put the cursor at the top of the document
+- `leader c i w`, this will execute a *change inside word* command
+- etc.. see `user_leader.c` for the full list
 
 
 double tap leader chains
 
-- leader leader n, this will print ' != ' (without the ')
-- leader leader a, this will print ' && ' (without the ')
-- leader leader o, this will print ' || ' (without the ')
+- `leader leader n`, this will print ` != `
+- `leader leader a`, this will print ` && `
+- `leader leader o`, this will print ` || `
+- etc.. see `user_leader.c` for the full list
 
 # Status
 
