@@ -25,7 +25,7 @@ there is also a third set of chains, also not time bound, that can be activated 
 
 Examples:
 
-single tap leader chains
+## Single tap leader chains
 
 - `leader f`, this will activate *easy motion* (vscode)
 - `leader z`, this will center the cursor in the middle of the screen (vscode)
@@ -36,7 +36,7 @@ single tap leader chains
 - etc.. see `user_leader.c` for the full list
 
 
-double tap leader chains
+## Double tap leader chains
 
 - `leader leader n`, this will print ` != `
 - `leader leader a`, this will print ` && `
@@ -45,9 +45,9 @@ double tap leader chains
 
 # Status
 
-- HillSide: OK
-- Kyria: OK
-- Moonlander: OK
+- HillSide: **OK**
+- Kyria: **OK**
+- Moonlander: **OK**
 
 # Setup
 
