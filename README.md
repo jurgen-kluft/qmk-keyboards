@@ -19,9 +19,9 @@ My keymap uses the following features:
 # Leader
 
 The leader key is the same key that activates the NAVIGATION layer (hold), however we treat it as a leader when it is tapped.
-When it is a single tap the user has 250 ms to tap the first letter in the chain, the letter following are not time bound.
-Tapping the leader twice means that a second set of chains will be used, also entering the chain is not time bound. Then
-there is also a third set of chains, also not time bound, that can be activated by tapping leader three times.
+When it is a single tap the user has `250 ms` to tap the first letter in the chain, the letter(s) following are not time bound.
+Tapping the leader twice means that a second set of chains will be used, entering the chain is not time bound. Then
+there is also a third set of chains, not time bound, that can be activated by tapping leader three times.
 
 Examples:
 
