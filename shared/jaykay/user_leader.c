@@ -8,53 +8,94 @@
 #include "user_layers.h"
 #include "user_keycodes.h"
 
-enum eleader_10
+/*
+
+a = and
+b = back
+c = cross
+d = down
+e = east
+f = -> easymotion
+g = go
+h = horizontal
+i = inside
+j = jump
+k = know
+l = left
+m = move
+n = north
+o = origin
+p = position
+q = question
+r = right
+s = south
+t = the
+u = up
+v = vertical
+w = west
+x = axis
+y = you
+z = -> center
+
+
+*/
+
+enum eleader_1t1
 {
-    LA_BUILD0,        // b
     LA_EASYMOTION,    // f
     LA_CENTER,        // z
     LA_DOTSPACESHIFT, // . (shift)
 };
 
-static const leader1_t leader10_array[] = {
-    [LA_BUILD0]        = {TC_B},
+static const leader1_t leader1t1_array[] = {
     [LA_EASYMOTION]    = {TC_F},
     [LA_CENTER]        = {TC_Z},
     [LA_DOTSPACESHIFT] = {TC_DOT},
 };
 
-enum eleader_11
+enum eleader_1t2
 {
     LA_AND,             // a, ' && '
-    LA_BUILD1,          // b
     LA_EQ,              // e, ' == ' 
     LA_GAE,             // g, ' >= '
     LA_LAE,             // l, ' <= '
     LA_NEQ,             // n, ' != '
     LA_OR,              // o, ' || '
-    LA_KEYBOARD_MAC,    // m
-    LA_KEYBOARD_UBUNTU, // u
-    LA_KEYBOARD_WIN,    // w
-    LA_UNREAL_ENGINE,   // y
+    LA_UNREAL_ENGINE,   // u
 };
 
 // clang-format off
-static const leader1_t leader11_array[] = {
+static const leader1_t leader1t2_array[] = {
     [LA_AND]                 = { TC_A },
-    [LA_BUILD1]              = { TC_B },
     [LA_EQ]                  = { TC_E },
     [LA_GAE]                 = { TC_G },
     [LA_LAE]                 = { TC_L },
     [LA_NEQ]                 = { TC_N },
     [LA_OR]                  = { TC_O },
-    [LA_KEYBOARD_MAC]        = { TC_M },
-    [LA_KEYBOARD_UBUNTU]     = { TC_U },
-    [LA_KEYBOARD_WIN]        = { TC_W },
-    [LA_UNREAL_ENGINE]       = { TC_Y },
+    [LA_UNREAL_ENGINE]       = { TC_U },
 };
 // clang-format on
 
-enum eleader_two
+enum eleader_1t3
+{
+    LA_BUILD0,
+    LA_BUILD1,
+    LA_KEYBOARD_MAC,
+    LA_KEYBOARD_UBUNTU,
+    LA_KEYBOARD_WIN,
+};
+
+// clang-format off
+static const leader1_t leader1t3_array[] = {
+    [LA_BUILD0]              = { TC_B },
+    [LA_BUILD1]              = { TC_D },
+    [LA_KEYBOARD_MAC]        = { TC_M },
+    [LA_KEYBOARD_UBUNTU]     = { TC_U },
+    [LA_KEYBOARD_WIN]        = { TC_W },
+};
+// clang-format on
+
+enum eleader_2t1
 {
     LA_CAMEL_CASE,       // cc
     LA_CHANGE_LINE,      // cl
@@ -72,7 +113,7 @@ enum eleader_two
 };
 
 // clang-format off
-static const leader2_t leader20_array[] = {
+static const leader2_t leader2t1_array[] = {
     [LA_CAMEL_CASE]       = {TC_C, TC_C},
     [LA_CHANGE_LINE]      = {TC_C, TC_L},
     [LA_CHANGE_WORD]      = {TC_C, TC_W},
@@ -89,7 +130,7 @@ static const leader2_t leader20_array[] = {
 };
 // clang-format on
 
-enum eleader_three
+enum eleader_3t1
 {
     LA_CHANGE_INSIDE_ABK = 0, // cia
     LA_CHANGE_INSIDE_BRC,     // cib
@@ -101,23 +142,25 @@ enum eleader_three
     LA_CHANGE_INSIDE_WORD,    // ciw
 };
 
-static const leader3_t leader30_array[] = {
-    [LA_CHANGE_INSIDE_ABK] = {TC_C, TC_I, TC_A},
-      [LA_CHANGE_INSIDE_BRC] = {TC_C, TC_I, TC_B},
-      [LA_CHANGE_INSIDE_CBR] = {TC_C, TC_I, TC_C},
-      [LA_CHANGE_INSIDE_DQUOT] = {TC_C, TC_I, TC_D},
-    [LA_CHANGE_INSIDE_PRN] = {TC_C, TC_I, TC_P},
-      [LA_CHANGE_INSIDE_QUOT] = {TC_C, TC_I, TC_Q},
-      [LA_CHANGE_INSIDE_TICKS] = {TC_C, TC_I, TC_T},
-      [LA_CHANGE_INSIDE_WORD] = {TC_C, TC_I, TC_W},
+// clang-format off
+static const leader3_t leader3t1_array[] = {
+    [LA_CHANGE_INSIDE_ABK]   = {TC_C, TC_I, TC_A},
+    [LA_CHANGE_INSIDE_BRC]   = {TC_C, TC_I, TC_B},
+    [LA_CHANGE_INSIDE_CBR]   = {TC_C, TC_I, TC_C},
+    [LA_CHANGE_INSIDE_DQUOT] = {TC_C, TC_I, TC_D},
+    [LA_CHANGE_INSIDE_PRN]   = {TC_C, TC_I, TC_P},
+    [LA_CHANGE_INSIDE_QUOT]  = {TC_C, TC_I, TC_Q},
+    [LA_CHANGE_INSIDE_TICKS] = {TC_C, TC_I, TC_T},
+    [LA_CHANGE_INSIDE_WORD]  = {TC_C, TC_I, TC_W},
 };
+// clang-format on
 
-enum eleader_four
+enum eleader_4t1
 {
     LA_SCREENSHOT, // snip
 };
 
-static leader4_t const leader40_array[] = {
+static leader4_t const leader4t1_array[] = {
     [LA_SCREENSHOT] = {TC_S, TC_N, TC_I, TC_P},
 };
 
@@ -132,20 +175,20 @@ static leader4_t const leader40_array[] = {
 
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
-static leader_config_t leader_config0 = {
-    .leader1_array = leader10_array,
-    .leader1_count = ARRAY_SIZE(leader10_array),
-    .leader2_array = leader20_array,
-    .leader2_count = ARRAY_SIZE(leader20_array),
-    .leader3_array = leader30_array,
-    .leader3_count = ARRAY_SIZE(leader30_array),
-    .leader4_array = leader40_array,
-    .leader4_count = ARRAY_SIZE(leader40_array),
+static leader_config_t leader_config_t1 = {
+    .leader1_array = leader1t1_array,
+    .leader1_count = ARRAY_SIZE(leader1t1_array),
+    .leader2_array = leader2t1_array,
+    .leader2_count = ARRAY_SIZE(leader2t1_array),
+    .leader3_array = leader3t1_array,
+    .leader3_count = ARRAY_SIZE(leader3t1_array),
+    .leader4_array = leader4t1_array,
+    .leader4_count = ARRAY_SIZE(leader4t1_array),
 };
 
-static leader_config_t leader_config1 = {
-    .leader1_array = leader11_array,
-    .leader1_count = ARRAY_SIZE(leader11_array),
+static leader_config_t leader_config_t2 = {
+    .leader1_array = leader1t2_array,
+    .leader1_count = ARRAY_SIZE(leader1t2_array),
     .leader2_array = NULL,
     .leader2_count = 0,
     .leader3_array = NULL,
@@ -154,7 +197,18 @@ static leader_config_t leader_config1 = {
     .leader4_count = 0,  
 };
 
-bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config0, &leader_config1); }
+static leader_config_t leader_config_t3 = {
+    .leader1_array = leader1t3_array,
+    .leader1_count = ARRAY_SIZE(leader1t3_array),
+    .leader2_array = NULL,
+    .leader2_count = 0,
+    .leader3_array = NULL,
+    .leader3_count = 0,
+    .leader4_array = NULL,
+    .leader4_count = 0,  
+};
+
+bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config_t1, &leader_config_t2, &leader_config_t3); }
 
 void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t* keycodes)
 {
@@ -164,7 +218,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         {
             switch (action)
             {
-                case LA_BUILD0: send_string_with_delay("QMK=" QMK_VERSION ", build= " QMK_BUILDDATE, MACRO_TIMER);
                 case LA_DOTSPACESHIFT: send_taps1(KC_DOT); break;
                 case LA_CENTER: send_taps1(A(KC_M)); break;
                 case LA_EASYMOTION: send_taps1(A(KC_S)); break;
@@ -182,6 +235,24 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
             const char* str = NULL;
             switch (action)
             {
+                case LA_AND: str = " && "; break;
+                case LA_EQ: str = " == "; break;
+                case LA_GAE: str = " >= "; break;
+                case LA_LAE: str = " <= "; break;
+                case LA_NEQ: str = " != "; break;
+                case LA_OR: str = " || "; break;
+                case LA_UNREAL_ENGINE: str = "Unreal Engine "; break;
+            }
+            if (str != NULL)
+            {
+                send_string_with_delay(str, MACRO_TIMER);
+            }
+        }
+        else if (mode == 2) {
+            const char* str = NULL;
+            switch (action)
+            {
+                case LA_BUILD0: str = "QMK=" QMK_VERSION ", build= " QMK_BUILDDATE; break;
                 case LA_BUILD1:
                     if (keyboard_get_os() == OS_MAC)
                         str = ("kb=" QMK_KEYBOARD ", km=" QMK_KEYMAP ", build= " __DATE__ "/" __TIME__ " (Mac)");
@@ -190,16 +261,9 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                     else if (keyboard_get_os() == OS_UBUNTU)
                         str = ("kb=" QMK_KEYBOARD ", km=" QMK_KEYMAP ", build= " __DATE__ "/" __TIME__ " (Ubuntu)");
                     break;
-                case LA_AND: str = " && "; break;
-                case LA_EQ: str = " == "; break;
-                case LA_GAE: str = " >= "; break;
-                case LA_LAE: str = " <= "; break;
-                case LA_NEQ: str = " != "; break;
-                case LA_OR: str = " || "; break;
                 case LA_KEYBOARD_MAC: keyboard_set_os(OS_MAC); break;
                 case LA_KEYBOARD_WIN: keyboard_set_os(OS_WINDOWS); break;
                 case LA_KEYBOARD_UBUNTU: keyboard_set_os(OS_UBUNTU); break;
-                case LA_UNREAL_ENGINE: str = "Unreal Engine "; break;
             }
             if (str != NULL)
             {

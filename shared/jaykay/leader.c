@@ -56,7 +56,7 @@ static void reset_leader(uint8_t active)
 bool leader_is_active() { return (leader_active == 2) && timer_elapsed(leader_timer) < LEADER_TIMEOUT; }
 void leader_disable() { reset_leader(0); }
 
-bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config0, leader_config_t* config1)
+bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3)
 {
     if (leader_active == 2)
     {
@@ -114,13 +114,17 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
                 leader_timer                                  = timer_read();
 
                 int8_t action;
-                if (leader_mode == 1)
+                if (leader_mode == 2)
                 {
-                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config1);
+                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
+                }
+                else if (leader_mode == 1)
+                {
+                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
                 }
                 else
                 {
-                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config0);
+                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
                 }
                 if (action == -2)
                 {
@@ -163,13 +167,17 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
             if (leader_chain_recorded_released == leader_chain_recorded_pressed)
             {
                 int8_t leader_action;
-                if (leader_mode == 1)
+                if (leader_mode == 2)
                 {
-                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config1);
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
+                }
+                else if (leader_mode == 1)
+                {
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
                 }
                 else
                 {
-                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config0);
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
                 }
 
                 if (leader_action >= 0)
