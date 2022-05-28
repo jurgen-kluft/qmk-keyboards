@@ -56,7 +56,7 @@ static void reset_leader(uint8_t active)
 bool leader_is_active() { return (leader_active == 2) && timer_elapsed(leader_timer) < LEADER_TIMEOUT; }
 void leader_disable() { reset_leader(0); }
 
-bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3)
+bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3, leader_config_t * config_tx)
 {
     if (leader_active == 2)
     {
@@ -91,13 +91,13 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
         }
         else if (leader_active == 2)
         {
-            // If KC_FSYM is tapped right after tapping KC_FNAV the mode changes into VIM mode
+            // If KC_FSYM is tapped right after tapping KC_FNAV the mode changes to 4.
             if (keycode == CC_FSYM)
             {
                 if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) < LEADER_TIMEOUT))
                 {
                     // unused
-                    reset_leader(0);
+                    leader_mode = 4;
                 }
                 else
                 {
@@ -114,7 +114,11 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
                 leader_timer                                  = timer_read();
 
                 int8_t action;
-                if (leader_mode == 2)
+                if (leader_mode == 4)
+                {
+                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_tx);
+                }
+                else if (leader_mode == 2)
                 {
                     action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
                 }
@@ -167,7 +171,11 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
             if (leader_chain_recorded_released == leader_chain_recorded_pressed)
             {
                 int8_t leader_action;
-                if (leader_mode == 2)
+                if (leader_mode == 4)
+                {
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_tx);
+                }
+                else if (leader_mode == 2)
                 {
                     leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
                 }
