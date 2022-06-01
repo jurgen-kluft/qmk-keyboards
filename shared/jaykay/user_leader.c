@@ -2,7 +2,6 @@
 #include <version.h>
 #include "config.h"
 #include "leader.h"
-#include "feature.h"
 #include "cukey.h"
 #include "oneshot.h"
 #include "user_layers.h"
@@ -127,7 +126,6 @@ static const leader1_t leader1t3_array[] = {
 
 enum eleader_2t1
 {
-    LA_CAMEL_CASE,       // cc
     LA_CHANGE_LINE,      // cl
     LA_CHANGE_WORD,      // cw
     LA_DELETE_WORD_BACK, // db
@@ -137,14 +135,12 @@ enum eleader_2t1
     LA_DELETE_UNTIL_SOL, // ds
     LA_TOP_OF_FILE,      // gg
     LA_BOTTOM_OF_FILE,   // gb
-    LA_NUM,              // nn
     LA_OPEN_LINE_ABOVE,  // oa
     LA_OPEN_LINE_BELOW,  // oo
 };
 
 // clang-format off
 static const leader2_t leader2t1_array[] = {
-    [LA_CAMEL_CASE]       = {TC_C, TC_C},
     [LA_CHANGE_LINE]      = {TC_C, TC_L},
     [LA_CHANGE_WORD]      = {TC_C, TC_W},
     [LA_DELETE_WORD_BACK] = {TC_D, TC_B},
@@ -154,7 +150,6 @@ static const leader2_t leader2t1_array[] = {
     [LA_DELETE_UNTIL_SOL] = {TC_D, TC_S},
     [LA_TOP_OF_FILE]      = {TC_G, TC_G},
     [LA_BOTTOM_OF_FILE]   = {TC_G, TC_B},
-    [LA_NUM]              = {TC_N, TC_N},
     [LA_OPEN_LINE_ABOVE]  = {TC_O, TC_A},
     [LA_OPEN_LINE_BELOW]  = {TC_O, TC_O},
 };
@@ -342,10 +337,8 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         {
             switch (action)
             {
-                case LA_NUM: enable_smart_numbers(); break;
                 case LA_TOP_OF_FILE: send_taps1(G(KC_UP)); break;
                 case LA_BOTTOM_OF_FILE: send_taps1(G(KC_DOWN)); break;
-                case LA_CAMEL_CASE: user_camelcase_toggle(); break;
                 case LA_CHANGE_WORD:
                 case LA_DELETE_WORD:
                     // Visual Studio Code has an extension that does it better (cut/copy word, GUI+X/GUI+C)
