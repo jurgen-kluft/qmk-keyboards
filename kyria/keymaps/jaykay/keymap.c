@@ -43,9 +43,9 @@ const uint8_t PROGMEM user_kb_layers[][40] = {
                    CC_FNUM, CC_FNUM, CC_FNAV, TC_SPACE,       TC_E,   CC_FSYM, CC_FCAPS, CC_FCAPS                  
     ),
     [LAYER_NUMBERS] = LAYOUT(
-    TC_PLUS, TC_MINUS, TC_ASTR, TC_SLASH, CC_NO,                              TC_6,    TC_0,     TC_9,     TC_8,   TC_7,  
+    TC_PLUS, TC_MINUS, TC_ASTR, TC_SLASH, TC_NO,                              TC_6,    TC_0,     TC_9,     TC_8,   TC_7,  
     TC_7,    TC_8,     TC_9,    TC_0,     TC_6,                               TC_5,    TC_1,     TC_2,     TC_3,   TC_4,  
-    CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  CC_NO,   CC_NO,          CC_NO,     CC_NO,   TC_EQUAL, TC_COMMA, TC_DOT, CC_NO, 
+    CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  TC_NO,   TC_NO,          TC_NO,     TC_NO,   TC_EQUAL, TC_COMMA, TC_DOT, TC_NO, 
                        CC_FNUM, CC_FNUM,  CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                 
     ),
     [LAYER_SYMBOLS] = LAYOUT(
@@ -55,21 +55,21 @@ const uint8_t PROGMEM user_kb_layers[][40] = {
                        CC_FCNT, CC_FCNT,   CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCNT,  CC_FCNT
     ),
     [LAYER_NAVIGATION] = LAYOUT(
-    CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,                               TC_INSERT, TC_PGUP,   TC_HOME,  CC_NO,    CC_NO, 
-    CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  TC_DELETE,                            TC_LEFT,   TC_DOWN,   TC_UP,    TC_RIGHT, CC_NO, 
-    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, CC_VIM,    CC_NAPP,        CC_PAPP,   CC_VIM,    TC_PGDOWN, TC_END,   CC_NO,    CC_NO, 
+    CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,                               TC_INSERT, TC_PGUP,   TC_HOME,  TC_NO,    TC_NO, 
+    CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  TC_DELETE,                            TC_LEFT,   TC_DOWN,   TC_UP,    TC_RIGHT, TC_NO, 
+    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, CC_VIM,    CC_NAPP,        CC_PAPP,   CC_VIM,    TC_PGDOWN, TC_END,   TC_NO,    TC_NO, 
                        CC_FNUM,   CC_FNUM,  CC_FNAV,   TC_SPACE,       TC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS                   
     ),
     [LAYER_RAISE] = LAYOUT(
-    CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, CC_NO,                                TC_F12,   TC_F2,    TC_F3,    TC_F4, TC_F1, 
-    CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     CC_NO,                                TC_F5,    TC_F11,   TC_F10,   TC_F9, CC_NO, 
-    CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY, CC_PDT,         CC_NDT,    CC_RSTHD, TC_F6,    TC_F7,    TC_F8, CC_NO, 
+    CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, TC_NO,                                TC_F12,   TC_F2,    TC_F3,    TC_F4, TC_F1, 
+    CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     TC_NO,                                TC_F5,    TC_F11,   TC_F10,   TC_F9, TC_NO, 
+    CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY, CC_PDT,         CC_NDT,    CC_RSTHD, TC_F6,    TC_F7,    TC_F8, TC_NO, 
                               CC_FNUM,     CC_FNUM,     CC_FNAV,   TC_SPACE,       TC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS                
     ),
     [LAYER_VIM] = LAYOUT(
     CC_VIM_CHAR, CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_INSIDE,                       CC_VIM_YANK,  CC_VIM_UNDO, CC_VIM_INSERT, CC_VIM_LINE,   CC_VIM_PAGE, 
-    CC_VIM_ADD,  CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_FIND,   CC_VIM_GOTO,                         CC_VIM_LEFT,  CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  CC_NO,       
-    CC_VIM_ZOOM, CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, CC_NO,         CC_VIM,       CC_VIM, CC_NO,        CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, CC_NO,       
+    CC_VIM_ADD,  CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_FIND,   CC_VIM_GOTO,                         CC_VIM_LEFT,  CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  TC_NO,       
+    CC_VIM_ZOOM, CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, TC_NO,         CC_VIM,       CC_VIM, TC_NO,        CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, TC_NO,       
                                CC_FNUM,       CC_FNUM,       CC_VIM_RAISE,  CC_VIM,       CC_VIM, CC_VIM_RAISE, CC_FCAPS,    CC_FCAPS                                   
     )
 };

@@ -41,76 +41,76 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // 72*10=720 bytes
 const uint8_t PROGMEM user_kb_layers[][72] = {
   [LAYER_QWERTY] = LAYOUT(
-   CC_NO, CC_NO, CC_NO, CC_NO,   CC_NO,    CC_NO,  CC_NO,    CC_NO,  CC_NO,  CC_NO,     CC_NO,    CC_NO,  CC_NO,    CC_GAMEL, 
-   CC_NO, TC_Q,  TC_W,  TC_E,    TC_R,     TC_T,   CC_NDT,   CC_PDT, TC_Y,   TC_U,      TC_I,     TC_O,   TC_P,     CC_NO,    
-   CC_NO, TC_A,  TC_S,  TC_D,    TC_F,     TC_G,   CC_PDT,   CC_NDT, TC_H,   TC_J,      TC_K,     TC_L,   TC_SCLN,  CC_NO,    
-   CC_NO, TC_Z,  TC_X,  TC_C,    TC_V,     TC_B,                     TC_N,   TC_M,      TC_COMMA, TC_DOT, TC_SLASH, CC_NO,    
-   CC_NO, CC_NO, CC_NO, CC_FNUM, CC_FNAV,  CC_PDT,                   CC_NDT, CC_FSYM,   CC_FCAPS, CC_NO,  CC_NO,    CC_RSTHD, 
-                                 TC_SPACE, CC_NO,  CC_NO,    CC_NO,  CC_NO,  TC_BSPACE                                        
+   TC_NO, TC_NO, TC_NO, TC_NO,   TC_NO,    TC_NO,  TC_NO,    TC_NO,  TC_NO,  TC_NO,     TC_NO,    TC_NO,  TC_NO,    CC_GAMEL, 
+   TC_NO, TC_Q,  TC_W,  TC_E,    TC_R,     TC_T,   CC_NDT,   CC_PDT, TC_Y,   TC_U,      TC_I,     TC_O,   TC_P,     TC_NO,    
+   TC_NO, TC_A,  TC_S,  TC_D,    TC_F,     TC_G,   CC_PDT,   CC_NDT, TC_H,   TC_J,      TC_K,     TC_L,   TC_SCLN,  TC_NO,    
+   TC_NO, TC_Z,  TC_X,  TC_C,    TC_V,     TC_B,                     TC_N,   TC_M,      TC_COMMA, TC_DOT, TC_SLASH, TC_NO,    
+   TC_NO, TC_NO, TC_NO, CC_FNUM, CC_FNAV,  CC_PDT,                   CC_NDT, CC_FSYM,   CC_FCAPS, TC_NO,  TC_NO,    CC_RSTHD, 
+                                 TC_SPACE, TC_NO,  TC_NO,    TC_NO,  TC_NO,  TC_BSPACE                                        
   ),
   [LAYER_RSTHD] = LAYOUT(
-   CC_NO, CC_NO,   CC_NO, CC_NO,   CC_NO,    CC_NO,     CC_NO,    CC_NO,  CC_NO,  CC_NO,   CC_NO,     CC_NO,  CC_NO,   CC_GAMEL,  
-   CC_NO, TC_J,    TC_C,  TC_Y,    TC_F,     TC_K,      CC_NDT,   CC_PDT, TC_Z,   TC_L,    TC_BSPACE, TC_U,   TC_Q,    CC_NO,     
-   CC_NO, TC_R,    TC_S,  TC_T,    TC_H,     TC_D,      CC_PDT,   CC_NDT, TC_M,   TC_N,    TC_A,      TC_I,   TC_O,    CC_NO,     
-   CC_NO, TC_UNDS, TC_V,  TC_G,    TC_P,     TC_B,                        TC_X,   TC_W,    TC_COMMA,  TC_DOT, TC_SCLN, CC_NO,     
-   CC_NO, CC_NO,   CC_NO, CC_FNUM, CC_FNAV,  CC_PDT,                      CC_NDT, CC_FSYM, CC_FCAPS,  CC_NO,  CC_NO,   CC_QWERTY, 
-                                   TC_SPACE, TC_BSPACE, CC_NO,    CC_NO,  CC_NO,  TC_E                                            
+   TC_NO, TC_NO,   TC_NO, TC_NO,   TC_NO,    TC_NO,     TC_NO,    TC_NO,  TC_NO,  TC_NO,   TC_NO,     TC_NO,  TC_NO,   CC_GAMEL,  
+   TC_NO, TC_J,    TC_C,  TC_Y,    TC_F,     TC_K,      CC_NDT,   CC_PDT, TC_Z,   TC_L,    TC_BSPACE, TC_U,   TC_Q,    TC_NO,     
+   TC_NO, TC_R,    TC_S,  TC_T,    TC_H,     TC_D,      CC_PDT,   CC_NDT, TC_M,   TC_N,    TC_A,      TC_I,   TC_O,    TC_NO,     
+   TC_NO, TC_UNDS, TC_V,  TC_G,    TC_P,     TC_B,                        TC_X,   TC_W,    TC_COMMA,  TC_DOT, TC_SCLN, TC_NO,     
+   TC_NO, TC_NO,   TC_NO, CC_FNUM, CC_FNAV,  CC_PDT,                      CC_NDT, CC_FSYM, CC_FCAPS,  TC_NO,  TC_NO,   CC_QWERTY, 
+                                   TC_SPACE, TC_BSPACE, TC_NO,    TC_NO,  TC_NO,  TC_E                                            
   ),
   [LAYER_NUMBERS] = LAYOUT(
-   CC_NO, CC_NO,   CC_NO,    CC_NO,   CC_NO,    CC_NO, CC_NO,   CC_NO, CC_NO, CC_NO,     CC_NO,    CC_NO,  CC_NO, CC_NO, 
-   CC_NO, TC_PLUS, TC_MINUS, TC_ASTR, TC_SLASH, CC_NO, CC_NO,   CC_NO, TC_6,  TC_0,      TC_9,     TC_8,   TC_7,  CC_NO, 
-   CC_NO, TC_7,    TC_8,     TC_9,    TC_0,     TC_6,  CC_NO,   CC_NO, TC_5,  TC_1,      TC_2,     TC_3,   TC_4,  CC_NO, 
-   CC_NO, CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  CC_NO,                 CC_NO, TC_EQUAL,  TC_COMMA, TC_DOT, CC_NO, CC_NO, 
-   CC_NO, CC_NO,   CC_NO,    CC_FNUM, CC_NO,    CC_NO,                 CC_NO, CC_NO,     CC_NO,    CC_NO,  CC_NO, CC_NO, 
-                                      TC_SPACE, CC_NO, CC_NO,   CC_NO, CC_NO, TC_BSPACE                                  
+   TC_NO, TC_NO,   TC_NO,    TC_NO,   TC_NO,    TC_NO, TC_NO,   TC_NO, TC_NO, TC_NO,     TC_NO,    TC_NO,  TC_NO, TC_NO, 
+   TC_NO, TC_PLUS, TC_MINUS, TC_ASTR, TC_SLASH, TC_NO, TC_NO,   TC_NO, TC_6,  TC_0,      TC_9,     TC_8,   TC_7,  TC_NO, 
+   TC_NO, TC_7,    TC_8,     TC_9,    TC_0,     TC_6,  TC_NO,   TC_NO, TC_5,  TC_1,      TC_2,     TC_3,   TC_4,  TC_NO, 
+   TC_NO, CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  TC_NO,                 TC_NO, TC_EQUAL,  TC_COMMA, TC_DOT, TC_NO, TC_NO, 
+   TC_NO, TC_NO,   TC_NO,    CC_FNUM, TC_NO,    TC_NO,                 TC_NO, TC_NO,     TC_NO,    TC_NO,  TC_NO, TC_NO, 
+                                      TC_SPACE, TC_NO, TC_NO,   TC_NO, TC_NO, TC_BSPACE                                  
   ),
   [LAYER_SYMBOLS] = LAYOUT(
-   CC_NO, CC_NO,   CC_NO,    CC_NO,   CC_NO,     CC_NO,   CC_NO,   CC_NO, CC_NO,   CC_NO,     CC_NO,    CC_NO,   CC_NO,   CC_NO,     
-   CC_NO, TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD, CC_NO,   CC_NO, TC_GRV,  TC_QUOT,   TC_DQUO,  TC_HASH, TC_DLR,  CC_NO,     
-   CC_NO, TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC, CC_NO,   CC_NO, TC_LABK, TC_LPRN,   TC_LCBR,  TC_RABK, TC_COLN, CC_NO,     
-   CC_NO, TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC,                 CC_NO,   TC_RPRN,   TC_RCBR,  TC_QUES, TC_AT,   CC_NO,     
-   CC_NO, CC_NO,   CC_NO,    CC_FNUM, CC_FNAV,   CC_PAPP,                 CC_NAPP, CC_FSYM,   CC_FCAPS, CC_NO,   CC_NO,   CC_QWERTY, 
-                                      TC_SPACE,  CC_NO,   CC_NO,   CC_NO, CC_NO,   TC_BSPACE                                         
+   TC_NO, TC_NO,   TC_NO,    TC_NO,   TC_NO,     TC_NO,   TC_NO,   TC_NO, TC_NO,   TC_NO,     TC_NO,    TC_NO,   TC_NO,   TC_NO,     
+   TC_NO, TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD, TC_NO,   TC_NO, TC_GRV,  TC_QUOT,   TC_DQUO,  TC_HASH, TC_DLR,  TC_NO,     
+   TC_NO, TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC, TC_NO,   TC_NO, TC_LABK, TC_LPRN,   TC_LCBR,  TC_RABK, TC_COLN, TC_NO,     
+   TC_NO, TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC,                 TC_NO,   TC_RPRN,   TC_RCBR,  TC_QUES, TC_AT,   TC_NO,     
+   TC_NO, TC_NO,   TC_NO,    CC_FNUM, CC_FNAV,   CC_PAPP,                 CC_NAPP, CC_FSYM,   CC_FCAPS, TC_NO,   TC_NO,   CC_QWERTY, 
+                                      TC_SPACE,  TC_NO,   TC_NO,   TC_NO, TC_NO,   TC_BSPACE                                         
   ),
   [LAYER_NAVIGATION] = LAYOUT(
-   CC_NO, CC_NO,   CC_NO,    CC_NO,     CC_NO,    CC_NO,     CC_NO,   CC_NO, CC_NO,     CC_NO,     CC_NO,   CC_NO,    CC_NO, CC_NO, 
-   CC_NO, CC_NO,   CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,    CC_NO,   CC_NO, TC_INSERT, TC_PGUP,   TC_HOME, CC_NO,    CC_NO, CC_NO, 
-   CC_NO, CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  TC_DELETE, CC_NO,   CC_NO, TC_LEFT,   TC_DOWN,   TC_UP,   TC_RIGHT, CC_NO, CC_NO, 
-   CC_NO, CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, CC_VIM,                    TC_DELETE, TC_PGDOWN, TC_END,  CC_NO,    CC_NO, CC_NO, 
-   CC_NO, CC_NO,   CC_NO,    CC_NO,     CC_FNAV,  CC_PDOC,                   CC_NDOC,   CC_FSYM,   CC_NO,   CC_NO,    CC_NO, CC_NO, 
-                                        CC_NO,    CC_NO,     CC_NO,   CC_NO, CC_NO,     TC_BSPACE                                   
+   TC_NO, TC_NO,   TC_NO,    TC_NO,     TC_NO,    TC_NO,     TC_NO,   TC_NO, TC_NO,     TC_NO,     TC_NO,   TC_NO,    TC_NO, TC_NO, 
+   TC_NO, TC_NO,   CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,    TC_NO,   TC_NO, TC_INSERT, TC_PGUP,   TC_HOME, TC_NO,    TC_NO, TC_NO, 
+   TC_NO, CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  TC_DELETE, TC_NO,   TC_NO, TC_LEFT,   TC_DOWN,   TC_UP,   TC_RIGHT, TC_NO, TC_NO, 
+   TC_NO, CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, CC_VIM,                    TC_DELETE, TC_PGDOWN, TC_END,  TC_NO,    TC_NO, TC_NO, 
+   TC_NO, TC_NO,   TC_NO,    TC_NO,     CC_FNAV,  CC_PDOC,                   CC_NDOC,   CC_FSYM,   TC_NO,   TC_NO,    TC_NO, TC_NO, 
+                                        TC_NO,    TC_NO,     TC_NO,   TC_NO, TC_NO,     TC_BSPACE                                   
   ),
   [LAYER_RAISE] = LAYOUT(
-   CC_NO, CC_NO,       CC_NO,       CC_NO,       CC_NO,       CC_NO,     CC_NO,   CC_NO, CC_NO,    CC_NO,  CC_NO,  CC_NO, CC_NO, CC_NO, 
-   CC_NO, CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, CC_NO,     CC_NO,   CC_NO, TC_F12,   TC_F2,  TC_F3,  TC_F4, TC_F1, CC_NO, 
-   CC_NO, CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     CC_NO,     CC_NO,   CC_NO, TC_F5,    TC_F11, TC_F10, TC_F9, CC_NO, CC_NO, 
-   CC_NO, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY,                 CC_RSTHD, TC_F6,  TC_F7,  TC_F8, CC_NO, CC_NO, 
-   CC_NO, CC_NO,       CC_NO,       CC_NO,       CC_NO,       CC_NO,                     CC_NO,    CC_NO,  CC_NO,  CC_NO, CC_NO, CC_NO, 
-                                                 CC_NO,       CC_NO,     CC_NO,   CC_NO, CC_NO,    CC_NO                                
+   TC_NO, TC_NO,       TC_NO,       TC_NO,       TC_NO,       TC_NO,     TC_NO,   TC_NO, TC_NO,    TC_NO,  TC_NO,  TC_NO, TC_NO, TC_NO, 
+   TC_NO, CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, TC_NO,     TC_NO,   TC_NO, TC_F12,   TC_F2,  TC_F3,  TC_F4, TC_F1, TC_NO, 
+   TC_NO, CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     TC_NO,     TC_NO,   TC_NO, TC_F5,    TC_F11, TC_F10, TC_F9, TC_NO, TC_NO, 
+   TC_NO, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY,                 CC_RSTHD, TC_F6,  TC_F7,  TC_F8, TC_NO, TC_NO, 
+   TC_NO, TC_NO,       TC_NO,       TC_NO,       TC_NO,       TC_NO,                     TC_NO,    TC_NO,  TC_NO,  TC_NO, TC_NO, TC_NO, 
+                                                 TC_NO,       TC_NO,     TC_NO,   TC_NO, TC_NO,    TC_NO                                
   ),
   [LAYER_VIM] = LAYOUT(
-   CC_NO, CC_NO,         CC_NO,        CC_NO,         CC_NO,         CC_NO,         CC_NO,   CC_NO, CC_NO,           CC_NO,       CC_NO,         CC_NO,         CC_NO,          CC_NO,    
-   CC_NO, CC_VIM_CHAR,   CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_INSIDE, CC_NO,   CC_NO, CC_VIM_YANK,     CC_VIM_UNDO, CC_VIM_INSERT, CC_VIM_LINE,   CC_VIM_PAGE,    CC_NO,    
-   CC_NO, CC_VIM_ADD,    CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_FIND,   CC_VIM_GOTO,   CC_NO,   CC_NO, CC_VIM_LEFT,     CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  CC_NO,          CC_NO,    
-   CC_NO, CC_VIM_ZOOM,   CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, CC_NO,                         CC_NO,           CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, CC_NO,          CC_NO,    
-   CC_NO, CC_NO,         CC_NO,        CC_FNUM,       CC_VIM_RAISE,  CC_PDT,                        CC_NDT,          CC_VIM_RAISE,CC_FCAPS,      CC_NO,         CC_NO,          CC_RSTHD, 
-                                                      CC_VIM,        CC_NO,         CC_NO,   CC_NO, CC_NO,           CC_VIM                                                               
+   TC_NO, TC_NO,         TC_NO,        TC_NO,         TC_NO,         TC_NO,         TC_NO,   TC_NO, TC_NO,           TC_NO,       TC_NO,         TC_NO,         TC_NO,          TC_NO,    
+   TC_NO, CC_VIM_CHAR,   CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_INSIDE, TC_NO,   TC_NO, CC_VIM_YANK,     CC_VIM_UNDO, CC_VIM_INSERT, CC_VIM_LINE,   CC_VIM_PAGE,    TC_NO,    
+   TC_NO, CC_VIM_ADD,    CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_FIND,   CC_VIM_GOTO,   TC_NO,   TC_NO, CC_VIM_LEFT,     CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  TC_NO,          TC_NO,    
+   TC_NO, CC_VIM_ZOOM,   CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, TC_NO,                         TC_NO,           CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, TC_NO,          TC_NO,    
+   TC_NO, TC_NO,         TC_NO,        CC_FNUM,       CC_VIM_RAISE,  CC_PDT,                        CC_NDT,          CC_VIM_RAISE,CC_FCAPS,      TC_NO,         TC_NO,          CC_RSTHD, 
+                                                      CC_VIM,        TC_NO,         TC_NO,   TC_NO, TC_NO,           CC_VIM                                                               
   ),
   [LAYER_GAMEL] = LAYOUT(
-   CC_NO,     TC_1,  TC_2,     TC_3,     TC_4,     TC_5,      CC_NO,   TC_0,  TC_6,  TC_7,    TC_8,      TC_9,   CC_NO,    CC_GAMEL, 
-   TC_TAB,    TC_Q,  TC_W,     TC_E,     TC_R,     TC_T,      CC_NO,   CC_NO, TC_Y,  TC_U,    TC_I,      TC_O,   TC_P,     CC_NO,    
-   TC_ESCAPE, TC_A,  TC_S,     TC_D,     TC_F,     TC_G,      CC_NO,   CC_NO, TC_H,  TC_J,    TC_K,      TC_L,   TC_SCLN,  CC_NO,    
-   TC_LSHIFT, TC_Z,  TC_X,     TC_C,     TC_V,     TC_B,                      TC_N,  TC_M,    TC_COMMA,  TC_DOT, TC_SLASH, CC_NO,    
-   CC_NO,     CC_NO, CC_GAMER, TC_LCTRL, TC_LALT,  TC_ENTER,                  CC_NO, TC_LALT, TC_LSHIFT, CC_NO,  CC_NO,    CC_NO,    
-                                         TC_SPACE, TC_BSPACE, CC_NO,   CC_NO, CC_NO, CC_NO                                           
+   TC_NO,     TC_1,  TC_2,     TC_3,     TC_4,     TC_5,      TC_NO,   TC_0,  TC_6,  TC_7,    TC_8,      TC_9,   TC_NO,    CC_GAMEL, 
+   TC_TAB,    TC_Q,  TC_W,     TC_E,     TC_R,     TC_T,      TC_NO,   TC_NO, TC_Y,  TC_U,    TC_I,      TC_O,   TC_P,     TC_NO,    
+   TC_ESCAPE, TC_A,  TC_S,     TC_D,     TC_F,     TC_G,      TC_NO,   TC_NO, TC_H,  TC_J,    TC_K,      TC_L,   TC_SCLN,  TC_NO,    
+   TC_LSHIFT, TC_Z,  TC_X,     TC_C,     TC_V,     TC_B,                      TC_N,  TC_M,    TC_COMMA,  TC_DOT, TC_SLASH, TC_NO,    
+   TC_NO,     TC_NO, CC_GAMER, TC_LCTRL, TC_LALT,  TC_ENTER,                  TC_NO, TC_LALT, TC_LSHIFT, TC_NO,  TC_NO,    TC_NO,    
+                                         TC_SPACE, TC_BSPACE, TC_NO,   TC_NO, TC_NO, TC_NO                                           
   ),
   [LAYER_GAMER] = LAYOUT(
-   CC_NO,     TC_0,     TC_9,   TC_8,     TC_7,     TC_6,      CC_NO,   TC_0,  TC_6,  TC_7,    TC_8,     TC_9,   CC_NO,    CC_NO,     
-   CC_NO,     TC_P,     TC_O,   TC_I,     TC_U,     TC_Y,      CC_NO,   CC_NO, TC_Y,  TC_U,    TC_I,     TC_O,   TC_P,     CC_NO,     
-   TC_ESCAPE, TC_SCLN,  TC_L,   TC_K,     TC_J,     TC_H,      CC_NO,   CC_NO, TC_H,  TC_J,    TC_K,     TC_L,   TC_SCLN,  CC_NO,     
+   TC_NO,     TC_0,     TC_9,   TC_8,     TC_7,     TC_6,      TC_NO,   TC_0,  TC_6,  TC_7,    TC_8,     TC_9,   TC_NO,    TC_NO,     
+   TC_NO,     TC_P,     TC_O,   TC_I,     TC_U,     TC_Y,      TC_NO,   TC_NO, TC_Y,  TC_U,    TC_I,     TC_O,   TC_P,     TC_NO,     
+   TC_ESCAPE, TC_SCLN,  TC_L,   TC_K,     TC_J,     TC_H,      TC_NO,   TC_NO, TC_H,  TC_J,    TC_K,     TC_L,   TC_SCLN,  TC_NO,     
    TC_LSHIFT, TC_SLASH, TC_DOT, TC_COMMA, TC_M,     TC_N,                      TC_N,  TC_M,    TC_COMMA, TC_DOT, TC_SLASH, TC_RSHIFT, 
-   CC_NO,     CC_NO,    CC_NO,  TC_LCTRL, TC_LALT,  TC_ENTER,                  CC_NO, TC_LALT, TC_LCTRL, CC_NO,  CC_NO,    CC_NO,     
-                                          TC_SPACE, TC_BSPACE, CC_NO,   CC_NO, CC_NO, CC_NO                                           
+   TC_NO,     TC_NO,    TC_NO,  TC_LCTRL, TC_LALT,  TC_ENTER,                  TC_NO, TC_LALT, TC_LCTRL, TC_NO,  TC_NO,    TC_NO,     
+                                          TC_SPACE, TC_BSPACE, TC_NO,   TC_NO, TC_NO, TC_NO                                           
   )
 };
 
