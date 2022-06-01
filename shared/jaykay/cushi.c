@@ -17,11 +17,11 @@ static uint16_t cushi_registered_keycode = KC_NO;
 
 uint8_t process_cushi_keys(uint8_t keycode, keyrecord_t* record, bool simulate)
 {
-    uint8_t key_normal = CC_NO;
-    uint8_t key_shift  = CC_NO;
-    uint8_t key_ctrl   = CC_NO;
-    uint8_t key_alt    = CC_NO;
-    uint8_t key_gui    = CC_NO;
+    uint8_t key_normal = TC_NO;
+    uint8_t key_shift  = TC_NO;
+    uint8_t key_ctrl   = TC_NO;
+    uint8_t key_alt    = TC_NO;
+    uint8_t key_gui    = TC_NO;
 
     // @NOTE: Add your custom entries in user_cushi.def
     switch (keycode)
