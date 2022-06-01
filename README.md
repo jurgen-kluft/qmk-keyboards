@@ -26,7 +26,7 @@ My keymap uses the following features:
   - `leader`, mode = 1
   - `leader` `leader`, mode = 2
   - `leader` `leader` `leader`, mode = 3
-  - `leader` `**SYM**`, mode = 4
+  - `leader` **`SYM`**, mode = 4
 - Custom normal/shift/ctrl/alt keycodes (`cushi.c`)
 - Custom OS keycodes to deal with `Mac OS` / `Windows` / `Ubuntu` (`cukey.c`)
 - **VIM** basic features (`vim.c`)
