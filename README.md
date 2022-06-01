@@ -23,10 +23,10 @@ My keymap uses the following features:
 - **RAISE** layer can be activated by holding **NAV** and **SYM** like tri-layer. (`feature.c`)
 - **RAISE** layer can also be activated/locked by first tapping **SYM** then tapping **NAV** (`feature.c`)
 - Custom `leader` implementation using **NAV** as leader key (`leader.c`, `user_leader.c`)
-  - `leader, mode = 1
+  - `leader`, mode = 1
   - `leader` `leader`, mode = 2
   - `leader` `leader` `leader`, mode = 3
-  - `leader` **SYM**, mode = 4
+  - `leader` `**SYM**`, mode = 4
 - Custom normal/shift/ctrl/alt keycodes (`cushi.c`)
 - Custom OS keycodes to deal with `Mac OS` / `Windows` / `Ubuntu` (`cukey.c`)
 - **VIM** basic features (`vim.c`)
