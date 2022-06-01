@@ -9,11 +9,13 @@ My keymap uses the following features:
   - will end when pressing *space*
 - Smart Caps (`feature.c`)
   - pressing `Smart Caps` will go through `Normal/Repeat -> Camel Case`
+- Smart Caps (`feature.c`), Normal mode
   - will end when pressing *space*
 - Smart Caps (`feature.c`), Repeat mode
   - first enter some symbols that should be the delimiters
   - then start with typing letters
   - space will emit the entered delimiters (maximum 4)
+  - will end when pressing **NAV**
 - Smart Caps (`feature.c`), Camel Case
   - start with typing letters
   - space will emit a space and set the next letter to be shifted

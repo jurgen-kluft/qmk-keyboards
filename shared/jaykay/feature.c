@@ -89,11 +89,8 @@ void enable_smart_capslock(void)
 
 void disable_smart_capslock(void)
 {
-    if (!smartcaps_active_all(SMART_CAPS_HOLD))
-    {
-        s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
-        s_smartcaps_state &= ~(SMART_CAPS_ON);
-    }
+    s_feature_state &= ~(FEATURE_CAPS | FEATURE_USED);
+    s_smartcaps_state = 0;
 }
 
 void enable_smart_numbers(void)
@@ -118,43 +115,6 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 {
                     s_feature_state &= ~(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT | FEATURE_USED);
                     user_layer_on(LAYER_QWERTY);
-                }
-            }
-
-            if (features_active_all(FEATURE_CAPS))
-            {
-                const bool terminate_feature = (tc == CC_FNUM || tc == CC_FNAV || tc == CC_FCAPS);
-                if (terminate_feature)
-                {
-                    disable_smart_capslock();
-
-                    if (tc == CC_FCAPS)
-                    {
-                        // stop execution otherwise we will again turn on this feature below
-                        return false;
-                    }
-
-                    if (tc == CC_FNAV)
-                    {
-                        // process_record_user should not execute any further otherwise the press/release of KC_FNAV will result in
-                        // the activation of 'leader'.
-                        // but we do want to continue execution below so that we activate the NAV layer
-                        ret = false;
-                    }
-                }
-            }
-            if (features_active_all(FEATURE_NUM))
-            {
-                if (tc == TC_SPACE || (tc == CC_FNUM || tc == CC_FNAV || tc == CC_FCAPS))
-                {
-                    s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
-                    user_layer_on(LAYER_QWERTY);
-
-                    if (tc == CC_FNUM)
-                    {
-                        // stop execution otherwise we will again turn on this feature below
-                        return false;
-                    }
                 }
             }
 
@@ -218,6 +178,16 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 case TC_F1 ... TC_F12: s_feature_state |= FEATURE_USED; break;
 
                 case CC_FNAV: // pressed
+                    if (features_active_all(FEATURE_CAPS))
+                    {
+                        disable_smart_capslock();
+                    }
+                    else if (features_active_all(FEATURE_NUM))
+                    {
+                        s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
+                        user_layer_on(LAYER_QWERTY);
+                    }
+
                     s_feature_state |= FEATURE_NAV;
                     s_feature_state &= ~FEATURE_USED;
                     if (features_active_all(FEATURE_NAV | FEATURE_SYM))
@@ -256,10 +226,42 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                         }
                     }
                     break;
-                case CC_FNUM: enable_smart_numbers(); break;
+                case CC_FNUM:
+                    if (features_active_all(FEATURE_CAPS))
+                    {
+                        disable_smart_capslock();
+                    }
+                    else if (features_active_all(FEATURE_NUM))
+                    {
+                        s_feature_state &= ~(FEATURE_NUM | FEATURE_USED);
+                        user_layer_on(LAYER_QWERTY);
+                    }
+                    else
+                    {
+                        enable_smart_numbers();
+                    }
+                    break;
                 case CC_FCAPS:
-                    enable_smart_capslock();
-                    s_smartcaps_state |= SMART_CAPS_HOLD;
+                    if (features_active_all(FEATURE_CAPS))
+                    {
+                        if (smartcaps_active_any(SMART_CAPS_CAMEL))
+                        {
+                            disable_smart_capslock();
+                        }
+                        else
+                        {
+                            s_feature_state &= ~FEATURE_USED;
+                            s_smartcaps_state &= ~(SMART_CAPS_REPEAT | SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL);
+                            s_smartcaps_state |= SMART_CAPS_CAMEL;
+                            s_smartcaps_state |= SMART_CAPS_SHIFT;
+                        }
+                    }
+                    else
+                    {
+                        enable_smart_capslock();
+                        s_feature_state &= ~FEATURE_USED;
+                        s_smartcaps_state |= SMART_CAPS_HOLD;
+                    }
                     break;
             }
         }
@@ -439,7 +441,16 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                             register_keycode_press(ti, tc);
                         }
                     }
-                    else if (tc == TC_SPACE || tc == TC_BSPACE)
+                    else if (tc == TC_SPACE)
+                    {
+                        register_keycode_press(ti, tc);
+                        s_smartcaps_state |= SMART_CAPS_SHIFT;
+                    }
+                    else if (tc == TC_COMMA)
+                    {
+                        s_smartcaps_state ^= SMART_CAPS_SHIFT;
+                    }
+                    else if (tc == TC_BSPACE)
                     {
                         register_keycode_press(ti, tc);
                     }
@@ -454,7 +465,10 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 {
                     if (tc == TC_SPACE)
                     {
-                        disable_smart_capslock();
+                        if (!smartcaps_active_all(SMART_CAPS_HOLD))
+                        {
+                            disable_smart_capslock();
+                        }
                     }
                 }
                 else if (smartcaps_active_all(SMART_CAPS_REPEAT))
@@ -475,15 +489,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 }
                 else if (smartcaps_active_all(SMART_CAPS_CAMEL))
                 {
-                    if (tc == TC_SPACE)
-                    {
-                        s_smartcaps_state |= SMART_CAPS_SHIFT;
-                    }
-                    else if (tc == TC_COMMA)
-                    {
-                        s_smartcaps_state |= SMART_CAPS_SHIFT;
-                    }
-                    else if (tc == TC_DOT)
+                    if (tc == TC_DOT)
                     {
                         disable_smart_capslock();
                     }
