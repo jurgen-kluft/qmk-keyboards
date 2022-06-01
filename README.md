@@ -4,17 +4,32 @@ My keymap uses the following features:
 - Custom layers & layer switching (Only 1 QMK layer, `user_layers.c`)
 - Internally uses custom 8-bit keycodes
 - Callum style Oneshot Modifiers (a rewrite, `oneshot.c`, `user_oneshot.c`)
-  - plus a modification to allow double-tap to lock a modifier
+  - double-tap to lock a modifier
 - Smart Numbers (`feature.c`)
-- Smart Caps (`feature.c`) (can handle up to 4 seperator symbols)
-- Camel Case (leader c-c) (`user_leader.c`)
-- SYM key can be tapped for a oneshot key from the SYM layer (`feature.c`)
-- RAISE layer can be activated by holding NAV and SYM like tri-layer. (`feature.c`)
-- RAISE layer can also be activated/locked by first tapping SYM then tapping NAV (`feature.c`)
-- Custom 'leader' implementation using NAV as leader key (`leader.c`, `user_leader.c`)
+  - will end when pressing *space*
+- Smart Caps (`feature.c`), Normal mode
+  - will end when pressing *space*
+- Smart Caps (`feature.c`), Repeat mode
+  - first enter some symbols that should be the delimiters
+  - then start with typing letters
+  - space will emit the entered delimiters (maximum 4)
+- Smart Caps (`feature.c`), Camel Case
+  - start with typing letters
+  - space will emit a space and set the next letter to be shifted
+  - you can use `,` to activate shift manually
+  - tap `.` to deactivate
+- **SYM** key can be tapped for a oneshot key from the **SYM** layer (`feature.c`)
+  - **SYM** key can also be hold
+- **RAISE** layer can be activated by holding **NAV** and **SYM** like tri-layer. (`feature.c`)
+- **RAISE** layer can also be activated/locked by first tapping **SYM** then tapping **NAV** (`feature.c`)
+- Custom `leader` implementation using **NAV** as leader key (`leader.c`, `user_leader.c`)
+  - `leader, mode = 1
+  - `leader` `leader`, mode = 2
+  - `leader` `leader` `leader`, mode = 3
+  - `leader` **SYM**, mode = 4
 - Custom normal/shift/ctrl/alt keycodes (`cushi.c`)
-- Custom OS keycodes to deal with Mac OS / Windows / Ubuntu (`cukey.c`)
-- VIM basic features (`vim.c`)
+- Custom OS keycodes to deal with `Mac OS` / `Windows` / `Ubuntu` (`cukey.c`)
+- **VIM** basic features (`vim.c`)
 
 # Leader
 
