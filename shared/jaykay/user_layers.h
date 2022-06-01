@@ -19,10 +19,12 @@ void user_layer_base(int8_t layer);
 void user_layer_on(int8_t layer);
 int8_t user_layer(void);
 
-void user_smartcaps_on(void);
-void user_smartcaps_off(void);
+uint8_t get_keycode_index(uint16_t kcb);
+uint8_t get_keycode_code(uint8_t ti, bool pressed);
 
-void user_camelcase_toggle(void);
+void register_keycode_press(uint8_t ti, uint8_t tc);
+void register_keycode_press_with_shift(uint8_t ti, uint8_t tc);
+void register_keycode_release(uint8_t ti, uint8_t tc);
 
-uint8_t user_layer_get_code(uint16_t keycode, bool pressed);
-void user_apply_keycode(uint8_t keycode, bool pressed);
+void register_keycode_tap(uint8_t ti, uint8_t tc);
+void register_keycode_tap_with_shift(uint8_t ti, uint8_t tc);

@@ -1,7 +1,4 @@
 #pragma once
 
-void enable_smart_capslock(void);
-void enable_smart_numbers(void);
-
 // ------ feature processing ----------
-bool process_feature_key(uint8_t keycode, keyrecord_t* record);
+bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record);

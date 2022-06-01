@@ -8,57 +8,31 @@
 
 #if defined(KEYBOARD_HILLSIDE) || defined(KEYBOARD_KYRIA)
 
-static uint8_t               user_kb_state[40] = {KC_NO};
+static uint8_t               user_kb_state[40] = {TC_NO};
+static uint16_t              qmk_kb_state[40]  = {KC_NO};
 extern const uint8_t PROGMEM user_kb_layers[][40];
 
 #elif defined(KEYBOARD_MOONLANDER)
 
-static uint8_t               user_kb_state[72] = {KC_NO};
+static uint8_t               user_kb_state[72] = {TC_NO};
+static uint16_t              qmk_kb_state[72]  = {KC_NO};
 extern const uint8_t PROGMEM user_kb_layers[][72];
 
 #endif
 
-static int8_t smartcaps_enabled = 0;
-static int8_t smart_repeat      = 1;
-
-enum esmartcaps
-{
-    SMARTCAPS_OFF               = 0,
-    SMARTCAPS_ON                = 1,
-    SMARTCAPS_CAMELCASE         = 2,
-    SMARTCAPS_CAMELCASE_SHIFT   = 3,
-    SMARTCAPS_CAMELCASE_SHIFTED = 4,
-};
-
-void user_smartcaps_on(void) { smartcaps_enabled = SMARTCAPS_ON; }
-void user_smartcaps_off(void) { smartcaps_enabled = SMARTCAPS_OFF; }
-
-void user_camelcase_toggle(void)
-{
-    if (smartcaps_enabled >= SMARTCAPS_CAMELCASE)
-    {
-        smartcaps_enabled = SMARTCAPS_OFF;
-    }
-    else
-    {
-        smartcaps_enabled = SMARTCAPS_CAMELCASE_SHIFT;
-    }
-}
-
+static int8_t smart_repeat  = 1;
 static int8_t current_layer = LAYER_QWERTY;
 void          user_layer_on(int8_t layer)
 {
     switch (layer)
     {
+        case LAYER_RSTHD:
+        case LAYER_QWERTY: current_layer = keyboard_get_layout(); break;
+
         case LAYER_VIM:
         case LAYER_NUMBERS:
         case LAYER_SYMBOLS:
         case LAYER_NAVIGATION:
-            smartcaps_enabled = SMARTCAPS_OFF;
-            current_layer     = layer;
-            break;
-        case LAYER_RSTHD:
-        case LAYER_QWERTY: current_layer = keyboard_get_layout(); break;
         case LAYER_RAISE:
         default: current_layer = layer; break;
     }
@@ -66,13 +40,13 @@ void          user_layer_on(int8_t layer)
 
 int8_t user_layer(void) { return current_layer; }
 
-uint8_t user_layer_get_code(uint16_t keycode, bool pressed)
+uint8_t get_keycode_index(uint16_t kcb) { return kcb - KL_00; }
+uint8_t get_keycode_code(uint8_t ti, bool pressed)
 {
     // Here we need to check the status of VIM, if VIM is active and
     // in NORMAL mode we should read from LAYER_VIM. If VIM is active
     // and in NORMAL_RAISE mode we should read from LAYER_VIM_RAISE.
-    uint8_t const ti = keycode - KL_00;
-    uint8_t       tc;
+    uint8_t tc;
     if (pressed)
     {
         if (current_layer == LAYER_SYMBOLS || current_layer == LAYER_NUMBERS)
@@ -93,123 +67,88 @@ uint8_t user_layer_get_code(uint16_t keycode, bool pressed)
     else
     {
         tc                = user_kb_state[ti];
-        user_kb_state[ti] = KC_NO;
+        user_kb_state[ti] = TC_NO;
     }
     return tc;
 }
 
-void user_apply_keycode(uint8_t keycode, bool pressed)
+void register_keycode_press(uint8_t ti, uint8_t tc)
 {
-    if (vim_mode() == VIM_MODE_NORMAL)
-        return;
-
-    if (keycode == CC_FCNT)
+    if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
     {
-        if (pressed)
-        {
-            smart_repeat += 1;
-        }
-    }
-
-    if (keycode >= TC_RANGE_START && keycode <= TC_RANGE_END)
-    {
-        uint16_t qmk_keycode = user_get_code16(keycode);
+        uint16_t qmk_keycode = user_get_code16(tc);
         if (qmk_keycode != KC_NO)
         {
-            if (pressed)
+            while (smart_repeat > 1)
             {
-                if (smartcaps_enabled == SMARTCAPS_ON)
-                {
-                    if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
-                    {
-                        qmk_keycode = LSFT(qmk_keycode);
-                    }
-                    else
-                    {
-                        if (qmk_keycode == KC_SCLN)
-                        {
-                            qmk_keycode = KC_UNDS;
-                        }
-                    }
-                    register_code16(qmk_keycode);
-                }
-                else if (smartcaps_enabled >= SMARTCAPS_CAMELCASE)
-                {
-                    if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
-                    {
-                        if (smartcaps_enabled == SMARTCAPS_CAMELCASE_SHIFT)
-                        {
-                            tap_code16(LSFT(qmk_keycode));
-                            smartcaps_enabled = SMARTCAPS_CAMELCASE;
-                        }
-                        else
-                        {
-                            register_code16(qmk_keycode);
-                        }
-                    }
-                    else if (qmk_keycode == KC_SPACE || qmk_keycode == KC_BSPACE)
-                    {
-                        register_code16(qmk_keycode);
-                    }
-                }
-                else
-                {
-                    while (smart_repeat > 1)
-                    {
-                        tap_code16(qmk_keycode);
-                        smart_repeat--;
-                    }
-                    register_code16(qmk_keycode);
-                }
+                tap_code16(qmk_keycode);
+                smart_repeat--;
             }
-            else
-            {
-                if (smartcaps_enabled == SMARTCAPS_ON)
-                {
-                    if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
-                    {
-                        qmk_keycode = LSFT(qmk_keycode);
-                    }
-                    else
-                    {
-                        if (qmk_keycode == KC_SCLN)
-                        {
-                            qmk_keycode = KC_UNDS;
-                        }
-                    }
-                    unregister_code16(qmk_keycode);
-                }
-                else if (smartcaps_enabled >= SMARTCAPS_CAMELCASE)
-                {
-                    if (qmk_keycode >= KC_A && qmk_keycode <= KC_Z)
-                    {
-                        unregister_code16(qmk_keycode);
-                    }
-                    else if (qmk_keycode == KC_BSPACE)
-                    {
-                        unregister_code16(qmk_keycode);
-                    }
-                    else if (qmk_keycode == KC_SPACE)
-                    {
-                        unregister_code16(qmk_keycode);
-                        smartcaps_enabled = SMARTCAPS_CAMELCASE_SHIFT;
-                    }
-                    else if (qmk_keycode == KC_COMMA)
-                    {
-                        smartcaps_enabled = SMARTCAPS_CAMELCASE_SHIFT;
-                    }
-                    else
-                    {
-                        smartcaps_enabled = SMARTCAPS_OFF;
-                    }
-                }
-                else
-                {
-                    unregister_code16(qmk_keycode);
-                }
-
-                smart_repeat = 1;
-            }
+            register_code16(qmk_keycode);
+            qmk_kb_state[ti] = qmk_keycode;
         }
+    }
+    else if (tc == CC_FCNT)
+    {
+        smart_repeat += 1;
+    }
+}
+
+void register_keycode_press_with_shift(uint8_t ti, uint8_t tc)
+{
+    if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
+    {
+        uint16_t qmk_keycode = user_get_code16(tc);
+        if (qmk_keycode != KC_NO)
+        {
+            if (tc >= TC_A && tc <= TC_Z)
+            {
+                qmk_keycode = LSFT(qmk_keycode);
+            }
+
+            while (smart_repeat > 1)
+            {
+                tap_code16(qmk_keycode);
+                smart_repeat--;
+            }
+            register_code16(qmk_keycode);
+            qmk_kb_state[ti] = qmk_keycode;
+        }
+    }
+    else if (tc == CC_FCNT)
+    {
+        smart_repeat += 1;
+    }
+}
+
+void register_keycode_release(uint8_t ti, uint8_t tc)
+{
+    if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
+    {
+        uint16_t qmk_keycode = qmk_kb_state[ti];
+        if (qmk_keycode != KC_NO)
+        {
+            unregister_code16(qmk_keycode);
+        }
+        qmk_kb_state[ti] = KC_NO;
+    }
+}
+
+void register_keycode_tap(uint8_t ti, uint8_t tc)
+{
+    if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
+    {
+        uint16_t qmk_keycode = user_get_code16(tc);
+        tap_code16(qmk_keycode);
+    }
+}
+
+void register_keycode_tap_with_shift(uint8_t ti, uint8_t tc)
+{
+    if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
+    {
+        uint16_t qmk_keycode = user_get_code16(tc);
+        qmk_keycode          = LSFT(qmk_keycode);
+        tap_code16(qmk_keycode);
     }
 }

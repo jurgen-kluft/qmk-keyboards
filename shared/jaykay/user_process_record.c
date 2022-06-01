@@ -23,13 +23,14 @@ static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4",
 
 bool process_record_user(uint16_t kc16, keyrecord_t* record)
 {
-    uint8_t const kc8 = user_layer_get_code(kc16, record->event.pressed);
+    uint8_t const ti = get_keycode_index(kc16);
+    uint8_t const tc = get_keycode_code(ti, record->event.pressed);
 
 #ifdef OLED_DRIVER_ENABLE
     process_record_oled(kc16, record);
 #endif
 
-    switch (kc8)
+    switch (tc)
     {
 #ifdef KEYBOARD_MOONLANDER
         case CC_GAMEL:
@@ -67,15 +68,15 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
         {
             if (record->event.pressed)
             {
-                kc16 = process_cukey(kc8);
-                if (kc16 != KC_NO)
-                    register_code16(kc16);
+                uint16_t const keycode = process_cukey(tc);
+                if (keycode != KC_NO)
+                    register_code16(keycode);
             }
             else
             {
-                kc16 = process_cukey(kc8);
-                if (kc16 != KC_NO)
-                    unregister_code16(kc16);
+                uint16_t const keycode = process_cukey(tc);
+                if (keycode != KC_NO)
+                    unregister_code16(keycode);
             }
             break;
         }
@@ -83,7 +84,7 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             if (!record->event.pressed)
             {
                 turnoff_oneshot_modifiers();
-                send_string_with_delay(gSecrets[kc8 - CC_SECRET_1], MACRO_TIMER);
+                send_string_with_delay(gSecrets[tc - CC_SECRET_1], MACRO_TIMER);
             }
             return false;
         case CC_SPIFT:
@@ -115,19 +116,21 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
 #endif
     }
 
-    if (!process_vim(kc8, record))
+    if (!process_vim(tc, record))
+    {
         return false;
+    }
 
     if (!leader_is_active())
     {
-        if (!process_feature_key(kc8, record))
+        if (!process_feature_key(ti, tc, record))
         {
             return false;
         }
 
-        update_oneshot_modifiers(kc8, record);
+        update_oneshot_modifiers(tc, record);
 
-        switch (kc8)
+        switch (tc)
         {
             case CC_QWERTY:
                 if (record->event.pressed)
@@ -144,9 +147,16 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
         }
     }
 
-    if (process_leader_user(kc8, record))
+    if (process_leader_user(tc, record))
         return false;
 
-    user_apply_keycode(kc8, record->event.pressed);
+    if (record->event.pressed)
+    {
+        register_keycode_press(ti, tc);
+    }
+    else
+    {
+        register_keycode_release(ti, tc);
+    }
     return false;
 }
