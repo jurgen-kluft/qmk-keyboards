@@ -22,13 +22,6 @@ the 't' should be held if you want to get to the 'e' otherwise the 'gt' chain is
 Note: We can still take it one step further. When we have the leader 'active', pressing SYM could
       change leader_mode for us. We could use that for lets say a 'accent' or 'vim' movement layer?
 
-e.g.
-FNAV -> p -> w = '608b7243a742-505a-9098'
-FNAV -> g -> t = '>'
-                 tap 'FNAV', quickly followed by a tap on 'g', you can now take your time to tap 't'
-FNAV -> g -> t -> e = '>='
-                 tap 'FNAV', quickly followed by a tap on 'g', you should now hold 't' and tap 'e' then
-                 release 't'
 */
 
 __attribute__((weak)) void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t* leader_chain) {}

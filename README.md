@@ -7,7 +7,8 @@ My keymap uses the following features:
   - double-tap to lock a modifier
 - Smart Numbers (`feature.c`)
   - will end when pressing *space*
-- Smart Caps (`feature.c`), Normal mode
+- Smart Caps (`feature.c`)
+  - pressing `Smart Caps` will go through `Normal/Repeat -> Camel Case`
   - will end when pressing *space*
 - Smart Caps (`feature.c`), Repeat mode
   - first enter some symbols that should be the delimiters
