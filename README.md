@@ -8,13 +8,14 @@ My keymap uses the following features:
 - Smart Numbers (`feature.c`)
   - will end when pressing *space*
 - Smart Caps (`feature.c`)
-  - pressing `Smart Caps` will go through `Normal/Repeat -> Camel Case`
+  - pressing `Smart Caps` will go through `Normal/Repeat -> Camel Case -> Off`
 - Smart Caps (`feature.c`), Normal mode
+  - start typing letters
   - will end when pressing *space*
 - Smart Caps (`feature.c`), Repeat mode
   - first enter some symbols that should be the delimiters
-  - then start with typing letters
-  - space will emit the entered delimiters (maximum 4)
+  - then start typing letters
+  - space will emit the delimiters (maximum 4)
   - will end when pressing **NAV**
 - Smart Caps (`feature.c`), Camel Case
   - start with typing letters
@@ -22,7 +23,7 @@ My keymap uses the following features:
   - you can use `,` to activate shift manually
   - tap `.` to deactivate
 - **SYM** key can be tapped for a oneshot key from the **SYM** layer (`feature.c`)
-  - **SYM** key can also be hold
+  - **SYM** key can also be held
 - **RAISE** layer can be activated by holding **NAV** and **SYM** like tri-layer. (`feature.c`)
 - **RAISE** layer can also be activated/locked by first tapping **SYM** then tapping **NAV** (`feature.c`)
 - Custom `leader` implementation using **NAV** as leader key (`leader.c`, `user_leader.c`)
