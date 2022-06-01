@@ -1,6 +1,6 @@
 #pragma once
 
-#define xxxx     KC_NO
+#define xxxx KC_NO
 
 enum euser_keycodes
 {
@@ -88,8 +88,8 @@ enum euser_keycodes
 
 // clang-format off
 enum ebasekeycodes {
-    TC_0=0,
-    TC_1,TC_2,TC_3,TC_4,TC_5,TC_6,TC_7,TC_8,TC_9,
+    TC_NO = 0,
+    TC_0,TC_1,TC_2,TC_3,TC_4,TC_5,TC_6,TC_7,TC_8,TC_9,
     TC_A,TC_B,TC_C,TC_D,TC_E,TC_F,TC_G,TC_H,TC_I,TC_J,TC_K,TC_L,TC_M,
     TC_N,TC_O,TC_P,TC_Q,TC_R,TC_S,TC_T,TC_U,TC_V,TC_W,TC_X,TC_Y,TC_Z,
     TC_F1,TC_F2,TC_F3,TC_F4,TC_F5,TC_F6,TC_F7,TC_F8,TC_F9,TC_F10,TC_F11,TC_F12,
@@ -137,7 +137,7 @@ enum ecustomkeycodes
     CC_FNAV,
     CC_FSYM,
     CC_FCNT,
-    
+
     // oneshot
     CC_CTRL,
     CC_SHFT,
@@ -156,7 +156,7 @@ enum ecustomkeycodes
     CC_NDOC,
     CC_PDOC,
     CC_CLOSE,
-    
+
     // secrets
     CC_SECRET_1,
     CC_SECRET_2,
@@ -212,10 +212,9 @@ enum ecustomkeycodes
     CC_VIM_INDENT,
     CC_VIM_UNINDENT,
 
-    CC_NO,
-    CC_RANGE_END = CC_NO,
+    CC_RANGE_END       = CC_VIM_UNINDENT,
     CC_RANGE_VIM_START = CC_VIM_DOCU,
-    CC_RANGE_VIM_END = CC_VIM_UNINDENT,
+    CC_RANGE_VIM_END   = CC_VIM_UNINDENT,
 };
 
 uint16_t user_get_code16(uint16_t keycode);

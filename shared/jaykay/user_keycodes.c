@@ -4,6 +4,7 @@
 
 // clang-format off
 static const uint16_t kb_keycodes[TC_RANGE_COUNT] = {
+    [TC_NO] = KC_NO,
     [TC_0] = KC_0,
     [TC_1] = KC_1,
     [TC_2] = KC_2,
