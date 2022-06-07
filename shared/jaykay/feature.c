@@ -186,6 +186,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 case CC_FNUM:
                     if (features_active_all(FEATURE_CAPS))
                     {
+                        s_feature_state &= ~FEATURE_CAPS;
                         s_smartcaps_state = 0;
                         s_smartcaps_num_seps = 0;
                     }
@@ -320,7 +321,18 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
         }
     }
 
-    if (features_active_all(FEATURE_CAPS))
+    if (features_active_all(FEATURE_NUM))
+    {
+        if (tc == TC_SPACE)
+        {
+            if (record->event.pressed)
+            {
+                s_feature_state &= ~FEATURE_NUM;
+                user_layer_on(LAYER_QWERTY);
+            }
+        }
+    }
+    else if (features_active_all(FEATURE_CAPS))
     {
         if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
         {
