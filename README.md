@@ -8,7 +8,7 @@ My keymap uses the following features:
 - Smart Numbers (`feature.c`)
   - will end when pressing *space*
 - Smart Caps (`feature.c`)
-  - pressing `Smart Caps` will go through `Normal/Repeat -> Camel Case -> Off`
+  - pressing `Smart Caps` will go through `Normal/Repeat -> Camel Case -> Snake Case -> Off`
 - Smart Caps (`feature.c`), Normal mode
   - start typing letters
   - will end when pressing *space*
@@ -22,6 +22,10 @@ My keymap uses the following features:
   - space will emit a space and set the next letter to be shifted
   - you can use `,` to activate shift manually
   - tap `.` to deactivate
+- Smart Caps (`feature.c`), Snake Case
+  - start with typing letters
+  - space will emit an underscore
+  - you can use `,` to activate shift manually
 - **SYM** key can be tapped for a oneshot key from the **SYM** layer (`feature.c`)
   - **SYM** key can also be held
 - **RAISE** layer can be activated by holding **NAV** and **SYM** like tri-layer. (`feature.c`)
