@@ -28,7 +28,7 @@ __attribute__((weak)) void execute_leader_action(uint8_t action, uint8_t mode, u
 static int8_t              process_leader_chain(uint8_t count, uint8_t* keycodes, leader_config_t* config);
 
 #define LEADER_TIMEOUT   (250)
-#define LEADER_MAX_CHAIN (6)
+#define LEADER_MAX_CHAIN (5)
 
 static uint8_t  leader_active                  = 0;
 static uint8_t  leader_mode                    = 0;
@@ -49,7 +49,7 @@ static void reset_leader(uint8_t active)
 bool leader_is_active() { return (leader_active == 2) && timer_elapsed(leader_timer) < LEADER_TIMEOUT; }
 void leader_disable() { reset_leader(0); }
 
-bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3, leader_config_t * config_tx)
+bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3, leader_config_t* config_tx)
 {
     if (leader_active == 2)
     {
@@ -74,8 +74,9 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
             }
             else if (leader_active == 2 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
             {
-                // we pressed FNAV twice in a very short time, this triggers a mode change
+                // we pressed FNAV twice in a short time, this triggers a mode increase
                 leader_mode++;
+                leader_timer = timer_read();
             }
             else
             {
@@ -133,17 +134,25 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
         }
         else
         {
-            leader_mode   = 0;
-            leader_active = 0;
+            reset_leader(0);
         }
     }
     else
     {
         if (keycode == CC_FNAV)
         {
-            if (leader_active == 1)
-                leader_active = 2;
-            leader_timer = timer_read();
+            if (timer_elapsed(leader_timer) < LEADER_TIMEOUT)
+            {
+                if (leader_active == 1)
+                {
+                    leader_active = 2;
+                }
+                leader_timer = timer_read();
+            }
+            else
+            {
+                reset_leader(0);
+            }
         }
         else if (keycode == CC_FSYM)
         {
