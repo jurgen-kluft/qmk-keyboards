@@ -4,11 +4,21 @@
 // Layer-specific encoder knob functions
 bool encoder_update_user(uint8_t index, bool clockwise)
 {
-    int8_t const layer = user_layer();
+    int8_t const layer = user_layer_current();
     if (index == 0)
     { // left knob
         switch (layer)
         {
+            case LAYER_SYMBOLS:
+                if (clockwise)
+                {
+                    tap_code16(G(KC_PLUS));
+                }
+                else
+                {
+                    tap_code16(G(KC_MINUS));
+                }
+                break;
 #ifdef RGBLIGHT_ENABLE
             case LAYER_MOUS: // Underglow color
                 if (clockwise)
