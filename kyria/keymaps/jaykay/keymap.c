@@ -50,7 +50,7 @@ const uint8_t PROGMEM user_kb_layers[][40] = {
     ),
     [LAYER_SYMBOLS] = LAYOUT(
     TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD,                            TC_GRV,  TC_QUOT,  TC_DQUO,  TC_HASH, TC_DLR,  
-    TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC,                            TC_LABK, TC_LPRN,  TC_LCBR,  TC_RABK, TC_COLN, 
+    TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC,                            TC_LABK, TC_LPRN,  TC_LCBR,  TC_SCLN, TC_COLN, 
     TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC, CC_NDOC,        CC_PDOC,   TC_RABK, TC_RPRN,  TC_RCBR,  TC_QUES, TC_AT,   
                        CC_FCNT, CC_FCNT,   CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCNT,  CC_FCNT
     ),
