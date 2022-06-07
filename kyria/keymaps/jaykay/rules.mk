@@ -1,7 +1,7 @@
 # Disable unused features
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
 COMBO_ENABLE = no       # Key combo support
-MOUSEKEY_ENABLE = yes	# Mouse keys (~2KB)
+MOUSEKEY_ENABLE = no	# Mouse keys (~2KB)
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no  	# Console for debug
 COMMAND_ENABLE = no     # Commands for debug and configuration
@@ -30,7 +30,7 @@ GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 
-LTO_ENABLE = yes
+# LTO_ENABLE = yes
 
 WPM_ENABLE                      = no
 SWAP_HANDS_ENABLE               = no # 
