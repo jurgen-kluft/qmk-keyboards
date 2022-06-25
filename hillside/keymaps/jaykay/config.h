@@ -25,12 +25,13 @@
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 
 #define USB_POLLING_INTERVAL_MS 1
-#define DEBOUNCE 4
-#define SPLIT_USB_DETECT
+#undef DEBOUNCE
+#define DEBOUNCE 5
+//#define SPLIT_USB_DETECT
 #define KEYBOARD_HILLSIDE
 
 // If you have encoders and want to not have them swap left/right when you plug USB to the other half
 // then define EE_HANDS and flash your sides with 'avrdude-split-left' and 'avrdude-split-right'.
 // This makes sure that the firmware on the left sides identifies itself as 'left' and the right side
 // identifies itself as 'right'.
-// #define EE_HANDS
+#define EE_HANDS
