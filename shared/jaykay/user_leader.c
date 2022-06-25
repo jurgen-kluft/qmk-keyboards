@@ -90,7 +90,6 @@ enum eleader_1t2
     LA_LAE,           // l, ' <= '
     LA_NEQ,           // n, ' != '
     LA_OR,            // o, ' || '
-    LA_UNREAL_ENGINE, // u, 'Unreal Engine 4 '
 };
 
 // clang-format off
@@ -101,7 +100,29 @@ static const leader1_t leader1t2_array[] = {
     [LA_LAE]                 = { TC_L },
     [LA_NEQ]                 = { TC_N },
     [LA_OR]                  = { TC_O },
-    [LA_UNREAL_ENGINE]       = { TC_U },
+};
+// clang-format on
+
+enum eleader_2t2
+{
+    LA_UNREAL_ENGINE, // ue, 'Unreal Engine 4 '
+    LA_XBOX_ONE,      // xo, 'Xbox One '
+    LA_XBOX_SERIES,   // xs, 'Xbox Series '
+    LA_PS4,           // ps, 'PS4 '
+    LA_PS5,           // pp, 'PS5 '
+    LA_NINTENDO,      // sw, 'Nintendo Switch '
+    LA_MGSIV,         // mg, 'Metal Gear Solid IV '
+};
+
+// clang-format off
+static const leader2_t leader2t2_array[] = {
+    [LA_UNREAL_ENGINE]       = { TC_U, TC_E },
+    [LA_XBOX_ONE]            = { TC_X, TC_O },
+    [LA_XBOX_SERIES]         = { TC_X, TC_S },
+    [LA_PS4]                 = { TC_P, TC_S },
+    [LA_PS5]                 = { TC_P, TC_P },
+    [LA_NINTENDO]            = { TC_S, TC_W },
+    [LA_MGSIV]               = { TC_M, TC_G },
 };
 // clang-format on
 
@@ -109,18 +130,22 @@ enum eleader_1t3
 {
     LA_BUILD0,
     LA_BUILD1,
+    LA_ENGLISH_MODE,
     LA_KEYBOARD_MAC,
     LA_KEYBOARD_UBUNTU,
     LA_KEYBOARD_WIN,
+    LA_KEYBOARD_RESET,
 };
 
 // clang-format off
 static const leader1_t leader1t3_array[] = {
     [LA_BUILD0]              = { TC_B },
     [LA_BUILD1]              = { TC_D },
+    [LA_ENGLISH_MODE]        = { TC_E },
     [LA_KEYBOARD_MAC]        = { TC_M },
     [LA_KEYBOARD_UBUNTU]     = { TC_U },
     [LA_KEYBOARD_WIN]        = { TC_W },
+    [LA_KEYBOARD_RESET]      = { TC_R },
 };
 // clang-format on
 
@@ -214,8 +239,8 @@ static leader_config_t leader_config_t1 = {
 static leader_config_t leader_config_t2 = {
     .leader1_array = leader1t2_array,
     .leader1_count = ARRAY_SIZE(leader1t2_array),
-    .leader2_array = NULL,
-    .leader2_count = 0,
+    .leader2_array = leader2t2_array,
+    .leader2_count = ARRAY_SIZE(leader2t2_array),
     .leader3_array = NULL,
     .leader3_count = 0,
     .leader4_array = NULL,
@@ -277,7 +302,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_LAE: str = " <= "; break;
                 case LA_NEQ: str = " != "; break;
                 case LA_OR: str = " || "; break;
-                case LA_UNREAL_ENGINE: str = "Unreal Engine 4 "; break;
             }
         }
         else if (mode == 2)
@@ -293,9 +317,11 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                     else if (keyboard_get_os() == OS_UBUNTU)
                         str = ("kb=" QMK_KEYBOARD ", km=" QMK_KEYMAP ", build= " __DATE__ "/" __TIME__ " (Ubuntu)");
                     break;
+                case LA_ENGLISH_MODE: toggle_english_mode();
                 case LA_KEYBOARD_MAC: keyboard_set_os(OS_MAC); break;
                 case LA_KEYBOARD_WIN: keyboard_set_os(OS_WINDOWS); break;
                 case LA_KEYBOARD_UBUNTU: keyboard_set_os(OS_UBUNTU); break;
+                case LA_KEYBOARD_RESET: reset_keyboard(); break;
             }
         }
         else if (mode == 4)
@@ -333,7 +359,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
     }
     else if (count == 2)
     {
-        if (mode == 0 || mode == 1)
+        if (mode == 0)
         {
             switch (action)
             {
@@ -352,6 +378,19 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
 
                 case LA_OPEN_LINE_ABOVE: send_taps3(KC_HOME, KC_ENTER, KC_UP); break;
                 case LA_OPEN_LINE_BELOW: send_taps2(KC_END, KC_ENTER); break;
+            }
+        }
+        else if (mode == 1) 
+        {
+            switch (action)
+            {
+                case LA_UNREAL_ENGINE: str = "Unreal Engine 4 "; break;
+                case LA_XBOX_ONE: str = "Xbox One "; break;
+                case LA_XBOX_SERIES: str = "Xbox Series "; break;
+                case LA_PS4: str = "PS4 "; break;
+                case LA_PS5: str = "PS5 "; break;
+                case LA_NINTENDO: str = "Nintendo Switch "; break;
+                case LA_MGSIV: str = "Metal Gear Solid IV "; break;
             }
         }
     }
