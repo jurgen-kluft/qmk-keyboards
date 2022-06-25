@@ -118,8 +118,15 @@
 
 #define KEYBOARD_KYRIA
 
+// USB activity will determine which half is master
+// RP2040 seems to need a bit more time to boot up
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 3500
+
 // If you have encoders and want to not have them swap left/right when you plug USB to the other half
 // then define EE_HANDS and flash your sides with 'avrdude-split-left' and 'avrdude-split-right'.
 // This makes sure that the firmware on the left sides identifies itself as 'left' and the right side
 // identifies itself as 'right'.
+
+// RP2040 doesn't work yet with EEPROM
 //#define EE_HANDS
