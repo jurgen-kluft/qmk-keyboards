@@ -20,6 +20,7 @@ extern const uint8_t PROGMEM user_kb_layers[][72];
 
 #endif
 
+
 static int8_t smart_repeat  = 1;
 static int8_t current_layer = LAYER_QWERTY;
 void          user_layer_on(int8_t layer)
@@ -38,7 +39,7 @@ void          user_layer_on(int8_t layer)
     }
 }
 
-int8_t user_layer(void) { return current_layer; }
+int8_t user_layer_current(void) { return current_layer; }
 
 uint8_t get_keycode_index(uint16_t kcb) { return kcb - KL_00; }
 uint8_t get_keycode_code(uint8_t ti, bool pressed)
@@ -85,8 +86,8 @@ void register_keycode_press(uint8_t ti, uint8_t tc)
                 smart_repeat--;
             }
             register_code16(qmk_keycode);
-            qmk_kb_state[ti] = qmk_keycode;
         }
+        qmk_kb_state[ti] = qmk_keycode;
     }
     else if (tc == CC_FCNT)
     {

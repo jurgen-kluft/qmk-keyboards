@@ -17,7 +17,7 @@ enum ecustom_layers
 
 void user_layer_base(int8_t layer);
 void user_layer_on(int8_t layer);
-int8_t user_layer(void);
+int8_t user_layer_current(void);
 
 uint8_t get_keycode_index(uint16_t kcb);
 uint8_t get_keycode_code(uint8_t ti, bool pressed);

@@ -130,7 +130,6 @@ enum eleader_1t3
 {
     LA_BUILD0,
     LA_BUILD1,
-    LA_ENGLISH_MODE,
     LA_KEYBOARD_MAC,
     LA_KEYBOARD_UBUNTU,
     LA_KEYBOARD_WIN,
@@ -141,7 +140,6 @@ enum eleader_1t3
 static const leader1_t leader1t3_array[] = {
     [LA_BUILD0]              = { TC_B },
     [LA_BUILD1]              = { TC_D },
-    [LA_ENGLISH_MODE]        = { TC_E },
     [LA_KEYBOARD_MAC]        = { TC_M },
     [LA_KEYBOARD_UBUNTU]     = { TC_U },
     [LA_KEYBOARD_WIN]        = { TC_W },
@@ -317,7 +315,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                     else if (keyboard_get_os() == OS_UBUNTU)
                         str = ("kb=" QMK_KEYBOARD ", km=" QMK_KEYMAP ", build= " __DATE__ "/" __TIME__ " (Ubuntu)");
                     break;
-                case LA_ENGLISH_MODE: toggle_english_mode();
                 case LA_KEYBOARD_MAC: keyboard_set_os(OS_MAC); break;
                 case LA_KEYBOARD_WIN: keyboard_set_os(OS_WINDOWS); break;
                 case LA_KEYBOARD_UBUNTU: keyboard_set_os(OS_UBUNTU); break;
