@@ -259,7 +259,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                     }
                     else if (features_active_all(FEATURE_NAV))
                     {
-                        s_feature_state &= ~FEATURE_NAV;
+                        s_feature_state &= ~(FEATURE_NAV|FEATURE_NUM|FEATURE_CAPS);
                         if (features_active_all(FEATURE_SYM_ONESHOT))
                         {
                             s_feature_state |= FEATURE_NAV_ONESHOT;
@@ -280,18 +280,18 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                     }
                     else if (features_active_all(FEATURE_SYM))
                     {
+                        s_feature_state &= ~(FEATURE_SYM | FEATURE_SYM_ONESHOT);
                         if (features_active_all(FEATURE_USED))
                         {
+                            s_feature_state &= ~FEATURE_USED;
                             user_layer_on(LAYER_QWERTY);
                             if (features_active_all(FEATURE_NUM))
                             {
                                 user_layer_on(LAYER_NUMBERS);
                             }
-                            s_feature_state &= ~(FEATURE_SYM | FEATURE_USED | FEATURE_SYM_ONESHOT);
                         }
                         else
                         {
-                            s_feature_state &= ~(FEATURE_SYM | FEATURE_USED | FEATURE_SYM_ONESHOT);
                             s_feature_state |= FEATURE_SYM_ONESHOT;
                         }
                     }
@@ -327,12 +327,12 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
         {
             if (record->event.pressed)
             {
-                s_feature_state &= ~FEATURE_NUM;
+                s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
                 user_layer_on(LAYER_QWERTY);
             }
         }
     }
-    else if (features_active_all(FEATURE_CAPS))
+    else if (features_active_all((FEATURE_CAPS)))
     {
         if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
         {
@@ -358,6 +358,13 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                         if (s_smartcaps_num_seps == 0)
                         {
                             register_keycode_press(ti, tc);
+
+                            if (!smartcaps_active_all(SMART_CAPS_HOLD))
+                            {
+                                s_feature_state &= ~FEATURE_CAPS;
+                                s_smartcaps_state = 0;
+                                s_smartcaps_num_seps = 0;
+                            }                            
                         }
                     }
                     else
@@ -420,12 +427,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                     {
                         if (s_smartcaps_num_seps == 0)
                         {
-                            if (!smartcaps_active_all(SMART_CAPS_HOLD))
-                            {
-                                s_feature_state &= ~FEATURE_CAPS;
-                                s_smartcaps_state = 0;
-                                s_smartcaps_num_seps = 0;
-                            }
+
                         }
                         else
                         {
