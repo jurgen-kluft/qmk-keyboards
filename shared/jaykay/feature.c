@@ -14,7 +14,7 @@ enum
     FEATURE_NAV         = 0x10,
     FEATURE_NAV_ONESHOT = 0x20,
     FEATURE_USED        = 0x40,
-
+};
 
 enum
 {
