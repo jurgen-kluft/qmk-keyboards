@@ -1,14 +1,15 @@
-# Kyria
+# Keymap for Kyria/Hillside and Moonlander
 
-My keymap uses the following features:
+With the following features:
 - Custom layers & layer switching (Only 1 QMK layer, `user_layers.c`)
 - Internally uses custom 8-bit keycodes
-- Callum style Oneshot Modifiers (a rewrite, `oneshot.c`, `user_oneshot.c`)
+- Callum style Oneshot Modifiers (*rewrite*, `oneshot.c`, `user_oneshot.c`)
   - double-tap to lock a modifier
 - Smart Numbers (`feature.c`)
   - will end when pressing *space*
 - Smart Caps (`feature.c`)
-  - pressing `Smart Caps` will go through `Normal/Repeat -> Camel Case -> Snake Case -> Off`
+  - holding `Smart Caps` and repeatedly tapping **NAV** will cycle:
+    - `Normal/Repeat -> Camel Case -> Snake Case -> Off`
 - Smart Caps (`feature.c`), Normal mode
   - start typing letters
   - will end when pressing *space*

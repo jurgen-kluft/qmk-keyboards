@@ -72,7 +72,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
 
                 case CC_NDOC ... CC_PDOC: s_feature_state |= FEATURE_USED; break;
 
-                // pressed
+                
                 case TC_A ... TC_Z:
                     s_feature_state |= FEATURE_USED;
                     s_smartcaps_state |= SMART_CAPS_USED;

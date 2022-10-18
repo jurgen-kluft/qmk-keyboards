@@ -16,7 +16,6 @@
   #define RGBLIGHT_LIMIT_VAL 150 // Clamp max LED brightness (if you experience 'weird' issues; sudden unresponsiveness, OLED/LEDs suddenly turning off)
   #define RGBLIGHT_LAYERS
   #define RGBLIGHT_MAX_LAYERS 16
-  #define RGBLIGHT_TIMEOUT_MINS 5    // in minutes (<=5)
 #endif
 
 #define LAYER_STATE_8BIT
