@@ -84,12 +84,12 @@ static const leader1_t leader1t1_array[] = {
 
 enum eleader_1t2
 {
-    LA_AND,           // a, ' && '
-    LA_EQ,            // e, ' == '
-    LA_GAE,           // g, ' >= '
-    LA_LAE,           // l, ' <= '
-    LA_NEQ,           // n, ' != '
-    LA_OR,            // o, ' || '
+    LA_AND, // a, ' && '
+    LA_EQ,  // e, ' == '
+    LA_GAE, // g, ' >= '
+    LA_LAE, // l, ' <= '
+    LA_NEQ, // n, ' != '
+    LA_OR,  // o, ' || '
 };
 
 // clang-format off
@@ -360,14 +360,41 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         {
             switch (action)
             {
-                case LA_TOP_OF_FILE: send_taps1(G(KC_UP)); break;
-                case LA_BOTTOM_OF_FILE: send_taps1(G(KC_DOWN)); break;
+                case LA_TOP_OF_FILE:
+                    if (keyboard_get_os() == OS_WINDOWS)
+                    {
+                        send_taps1(C(KC_HOME));
+                    }
+                    else
+                    {
+                        send_taps1(G(KC_HOME));
+                    }
+                    break;
+                case LA_BOTTOM_OF_FILE:
+                    if (keyboard_get_os() == OS_WINDOWS)
+                    {
+                        send_taps1(C(KC_END));
+                    }
+                    else
+                    {
+                        send_taps1(G(KC_END));
+                    }
+                    break;
                 case LA_CHANGE_WORD:
                 case LA_DELETE_WORD:
                     // Visual Studio Code has an extension that does it better (cut/copy word, GUI+X/GUI+C)
                     send_taps2(A(S(KC_RIGHT)), KC_DEL);
                     break;
-                case LA_DELETE_WORD_BACK: send_taps2(A(S(KC_LEFT)), KC_DEL); break;
+                case LA_DELETE_WORD_BACK:
+                    if (keyboard_get_os() == OS_MAC)
+                    {
+                        send_taps2(A(S(KC_LEFT)), KC_DEL);
+                    }
+                    else
+                    {
+                        send_taps2(C(S(KC_LEFT)), KC_DEL);
+                    }
+                    break;
                 case LA_CHANGE_LINE: send_taps3(KC_END, S(KC_HOME), KC_DEL); break;
                 case LA_DELETE_LINE: send_taps1(C(S(KC_D))); break;
                 case LA_DELETE_UNTIL_SOL: send_taps2(S(KC_HOME), KC_DEL); break;
@@ -377,7 +404,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_OPEN_LINE_BELOW: send_taps2(KC_END, KC_ENTER); break;
             }
         }
-        else if (mode == 1) 
+        else if (mode == 1)
         {
             switch (action)
             {
@@ -396,7 +423,16 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         uint16_t bracket = KC_NO;
         switch (action)
         {
-            case LA_CHANGE_INSIDE_WORD: send_taps3(A(KC_LEFT), A(S(KC_RIGHT)), KC_DEL); break;
+            case LA_CHANGE_INSIDE_WORD:
+                if (keyboard_get_os() == OS_MAC)
+                {
+                    send_taps3(A(KC_LEFT), A(S(KC_RIGHT)), KC_DEL);
+                }
+                else
+                {
+                    send_taps3(C(KC_LEFT), C(S(KC_RIGHT)), KC_DEL);
+                }
+                break;
             case LA_CHANGE_INSIDE_PRN: bracket = KC_LPRN; break;
             case LA_CHANGE_INSIDE_CBR: bracket = KC_LCBR; break;
             case LA_CHANGE_INSIDE_BRC: bracket = KC_LBRC; break;
@@ -407,7 +443,14 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         }
         if (bracket != KC_NO)
         {
-            send_taps2(G(KC_K), bracket);
+            if (keyboard_get_os() == OS_MAC)
+            {
+                send_taps2(G(KC_K), bracket);
+            }
+            else
+            {
+                send_taps2(C(KC_K), bracket);
+            }
             wait_ms(200);
             send_taps1(KC_DEL);
         }
