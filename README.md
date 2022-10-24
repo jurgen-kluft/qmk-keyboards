@@ -1,4 +1,16 @@
-# Keymap for Kyria/Hillside and Moonlander
+# SplitKeyboards
+
+So now that I have two 34 key split keyboards on the way I have to start figuring out how to reduce my thumb cluster to only allow for 2 thumb keys per side while still being able to easily access `Smart Caps` and `Smart Numbers`.
+
+## Keyboards
+
+- [Kyria](https://splitkb.com/collections/keyboard-kits/products/kyria-pcb-kit)
+- [Hillside](https://github.com/mmccoyd/hillside)
+- On the way => [Sweep](https://splitkb.com/collections/keyboard-kits/products/aurora-sweep-pcb-kit)
+- On the way => [Dilemma](https://bastardkb.com/dilemma/)
+- [Moonlander](https://www.zsa.io/moonlander/)
+
+## Keymap
 
 With the following features:
 - Custom layers & layer switching (Only 1 QMK layer, `user_layers.c`)
@@ -40,7 +52,7 @@ With the following features:
 - Custom OS keycodes to deal with `Mac OS` / `Windows` / `Ubuntu` (`cukey.c`)
 - **VIM** basic features (`vim.c`)
 
-# Leader
+## Leader
 
 The leader key is the same key that activates the NAVIGATION layer (hold), however we treat it as a leader when it is tapped.
 When it is a single tap the user has `250 ms` to tap the first letter in the chain, the letter(s) following are not time bound.
@@ -49,7 +61,7 @@ there is also a third set of chains, not time bound, that can be activated by ta
 
 Examples:
 
-## Single tap leader chains
+### Single tap leader chains
 
 - `leader f`, this will activate *easy motion* (vscode)
 - `leader z`, this will center the cursor in the middle of the screen (vscode)
@@ -59,21 +71,20 @@ Examples:
 - `leader c i w`, this will execute a *change inside word* command
 - etc.. see `user_leader.c` for the full list
 
-
-## Double tap leader chains
+### Double tap leader chains
 
 - `leader leader n`, this will print ` != `
 - `leader leader a`, this will print ` && `
 - `leader leader o`, this will print ` || `
 - etc.. see `user_leader.c` for the full list
 
-# Status
+## Status
 
 - HillSide: **OK**
 - Kyria: **OK**
 - Moonlander: **OK**
 
-# Setup
+## Setup
 
 - Clone the QMK repository and install/setup
 - Symlink, see `symlink-howto.md`
@@ -84,7 +95,7 @@ Then compile Kyria, Hillside or Moonlander:
 - `make handwired/hillside/0_1:jaykay`
 - `make moonlander:jaykay`
 
-# Keymap
+## Visual Keymap
 
 (Generated with `https://github.com/jurgen-kluft/go-qmk-keymap`)
 
