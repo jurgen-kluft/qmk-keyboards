@@ -27,6 +27,22 @@ enum
     SMART_CAPS_SNAKE  = 0x80,
 };
 
+/*
+Possible combiniations with NAV and SYM:
+- Tap NAV  +  Tap SYM    = unused
+- Tap SYM  +  Tap NAV    = RAISE Layer lock
+- Hold NAV +  Tap SYM    = SmartNum
+- Hold SYM +  Tap NAV    = SmartCaps
+- Hold NAV +  Hold SYM   = RAISE Layer
+
+Hold NAV -> Tap SYM will put the keyboard in SMARTNUM mode.
+  - When you release NAV withouth having typed anything it will stay in SMARTNUM mode.
+  - When you hold NAV and you type some numbers and then release NAV it will exit SMARTNUM mode.
+
+Hold SYM -> Tap NAV will put the keyboard in SMARTCAPS mode, tapping NAV again will cycle to the next SMARTCAPS mode.
+
+*/
+
 #define SMART_CAPS_MAX_SEPARATORS 4
 
 static uint8_t     s_smartcaps_state                               = 0;
@@ -270,13 +286,31 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                             user_layer_on(LAYER_QWERTY);
                         }
                     }
+                    else if (features_active_all(FEATURE_NUM))
+                    {
+                        if (features_active_all(FEATURE_USED))
+                        {
+                            s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
+                            user_layer_on(LAYER_QWERTY);
+                        }
+                    }
                     break;
 
                 case CC_FSYM: // released
                     if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                     {
-                        user_layer_on(LAYER_NAVIGATION);
-                        s_feature_state &= ~(FEATURE_SYM | FEATURE_USED | FEATURE_SYM_ONESHOT);
+                        // Hold NAV + Tap SYM ?
+                        if (!features_active_all(FEATURE_USED))
+                        {
+                            s_feature_state &= ~FEATURE_NAV;
+                            s_feature_state &= ~FEATURE_USED;
+                            enable_smart_numbers();
+                        }
+                        else
+                        {
+                            user_layer_on(LAYER_NAVIGATION);
+                            s_feature_state &= ~(FEATURE_SYM | FEATURE_USED | FEATURE_SYM_ONESHOT);
+                        }
                     }
                     else if (features_active_all(FEATURE_SYM))
                     {
@@ -339,13 +373,19 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
             if (record->event.pressed)
             {
                 // Normal Caps, all letters are emitted in 'upper' case.
-                // The ';' symbol is handled to be converted to the '_' symbol.
+                // The ';' symbol is emitted as the '_' symbol.
+                // When pressing 'comma' we emit a 'space'
+                // When pressing 'dot' we cycle to the next mode
                 // When 'space' is pressed smart capslock is disabled.
 
-                // Camel Case, when pressing 'space' we mark the next key to be registered with 'shift' and we
-                // also register 'space'.
+                // Camel Case, when pressing ';' we register space and mark the next key to be registered with 'shift'.
                 // When pressing 'comma' we mark the next key to be registered with 'shift'.
-                // When pressing 'dot' we disable smart capslock.
+                // When pressing 'dot' we cycle to the next mode
+                // When 'space' is pressed smart capslock is disabled.
+
+                // Snake Case, when pressing ';' we register a '_' and continue
+                // When pressing 'dot' we cycle to the next mode
+                // When 'space' is pressed smart capslock is disabled.
 
                 if (smartcaps_active_all(SMART_CAPS_NORMAL))
                 {

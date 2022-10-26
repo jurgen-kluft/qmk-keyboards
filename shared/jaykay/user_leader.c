@@ -7,68 +7,6 @@
 #include "user_layers.h"
 #include "user_keycodes.h"
 
-// NAV tap, SYM tap leader chains
-enum eleader_1tx
-{
-    LA_WORD_AND,
-    LA_WORD_BACK,
-    LA_WORD_CROSS,
-    LA_WORD_DOWN,
-    LA_WORD_EAST,
-    LA_WORD_FORWARD,
-    LA_WORD_GO,
-    LA_WORD_HORIZONTAL,
-    LA_WORD_INSIDE,
-    LA_WORD_JUMP,
-    LA_WORD_KNOW,
-    LA_WORD_LEFT,
-    LA_WORD_MOVE,
-    LA_WORD_NORTH,
-    LA_WORD_ORIGIN,
-    LA_WORD_POSITION,
-    LA_WORD_QUESTION,
-    LA_WORD_RIGHT,
-    LA_WORD_SOUTH,
-    LA_WORD_THE,
-    LA_WORD_UP,
-    LA_WORD_VERTICAL,
-    LA_WORD_WEST,
-    LA_WORD_AXIS,
-    LA_WORD_YOU,
-    LA_WORD_CENTER,
-};
-
-// clang-format off
-static const leader1_t leader1tx_array[] = {
-    [LA_WORD_AND]         = {TC_A},
-    [LA_WORD_BACK]        = {TC_B},
-    [LA_WORD_CROSS]       = {TC_C},
-    [LA_WORD_DOWN]        = {TC_D},
-    [LA_WORD_EAST]        = {TC_E},
-    [LA_WORD_FORWARD]     = {TC_F},
-    [LA_WORD_GO]          = {TC_G},
-    [LA_WORD_HORIZONTAL]  = {TC_H},
-    [LA_WORD_INSIDE]      = {TC_I},
-    [LA_WORD_JUMP]        = {TC_J},
-    [LA_WORD_KNOW]        = {TC_K},
-    [LA_WORD_LEFT]        = {TC_L},
-    [LA_WORD_MOVE]        = {TC_M},
-    [LA_WORD_NORTH]       = {TC_N},
-    [LA_WORD_ORIGIN]      = {TC_O},
-    [LA_WORD_POSITION]    = {TC_P},
-    [LA_WORD_QUESTION]    = {TC_Q},
-    [LA_WORD_RIGHT]       = {TC_R},
-    [LA_WORD_SOUTH]       = {TC_S},
-    [LA_WORD_THE]         = {TC_T},
-    [LA_WORD_UP]          = {TC_U},
-    [LA_WORD_VERTICAL]    = {TC_V},
-    [LA_WORD_WEST]        = {TC_W},
-    [LA_WORD_AXIS]        = {TC_X},
-    [LA_WORD_YOU]         = {TC_Y},
-    [LA_WORD_CENTER]      = {TC_Z},
-};
-// clang-format on
-
 enum eleader_1t1
 {
     LA_EASYMOTION,    // f
@@ -256,18 +194,7 @@ static leader_config_t leader_config_t3 = {
     .leader4_count = 0,
 };
 
-static leader_config_t leader_config_tx = {
-    .leader1_array = leader1tx_array,
-    .leader1_count = ARRAY_SIZE(leader1tx_array),
-    .leader2_array = NULL,
-    .leader2_count = 0,
-    .leader3_array = NULL,
-    .leader3_count = 0,
-    .leader4_array = NULL,
-    .leader4_count = 0,
-};
-
-bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config_t1, &leader_config_t2, &leader_config_t3, &leader_config_tx); }
+bool process_leader_user(uint16_t keycode, keyrecord_t* record) { return process_record_leader(keycode, record, &leader_config_t1, &leader_config_t2, &leader_config_t3); }
 
 void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t* keycodes)
 {
@@ -323,35 +250,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         }
         else if (mode == 4)
         {
-            switch (action)
-            {
-                case LA_WORD_AND: str = "and "; break;
-                case LA_WORD_BACK: str = "back "; break;
-                case LA_WORD_CROSS: str = "cross "; break;
-                case LA_WORD_DOWN: str = "down "; break;
-                case LA_WORD_EAST: str = "east "; break;
-                case LA_WORD_FORWARD: str = "forward "; break;
-                case LA_WORD_GO: str = "go "; break;
-                case LA_WORD_HORIZONTAL: str = "horizontal "; break;
-                case LA_WORD_INSIDE: str = "inside "; break;
-                case LA_WORD_JUMP: str = "jump "; break;
-                case LA_WORD_KNOW: str = "know "; break;
-                case LA_WORD_LEFT: str = "left "; break;
-                case LA_WORD_MOVE: str = "move "; break;
-                case LA_WORD_NORTH: str = "north "; break;
-                case LA_WORD_ORIGIN: str = "origin "; break;
-                case LA_WORD_POSITION: str = "position "; break;
-                case LA_WORD_QUESTION: str = "question "; break;
-                case LA_WORD_RIGHT: str = "right "; break;
-                case LA_WORD_SOUTH: str = "south "; break;
-                case LA_WORD_THE: str = "the "; break;
-                case LA_WORD_UP: str = "up "; break;
-                case LA_WORD_VERTICAL: str = "vertical "; break;
-                case LA_WORD_WEST: str = "west "; break;
-                case LA_WORD_AXIS: str = "axis "; break;
-                case LA_WORD_YOU: str = "you "; break;
-                case LA_WORD_CENTER: str = "center "; break;
-            }
+           
         }
     }
     else if (count == 2)

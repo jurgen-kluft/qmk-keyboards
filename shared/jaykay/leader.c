@@ -49,7 +49,7 @@ static void reset_leader(uint8_t active)
 bool leader_is_active() { return (leader_active == 2) && timer_elapsed(leader_timer) < LEADER_TIMEOUT; }
 void leader_disable() { reset_leader(0); }
 
-bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3, leader_config_t* config_tx)
+bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3)
 {
     if (leader_active == 2)
     {
@@ -90,7 +90,7 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
             {
                 if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) < LEADER_TIMEOUT))
                 {
-                    // unused
+                    // TODO unused
                     leader_mode = 4;
                 }
                 else
@@ -110,7 +110,7 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
                 int8_t action;
                 if (leader_mode == 4)
                 {
-                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_tx);
+                    action = -2;
                 }
                 else if (leader_mode == 2)
                 {
