@@ -172,10 +172,10 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
 
             if (leader_chain_recorded_released == leader_chain_recorded_pressed)
             {
-                int8_t leader_action;
+                int8_t leader_action = -1;
                 if (leader_mode == 4)
                 {
-                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_tx);
+                    
                 }
                 else if (leader_mode == 2)
                 {
