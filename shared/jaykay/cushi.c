@@ -62,6 +62,7 @@ uint8_t process_cushi_keys(uint8_t keycode, keyrecord_t* record, bool simulate)
             del_weak_mods(modmask);
         }
 
+        // TODO should use custom registration
         if (record->event.pressed)
         {
             register_code16(user_get_code16(cushi_registered_keycode));

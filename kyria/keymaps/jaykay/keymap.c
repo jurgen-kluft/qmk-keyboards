@@ -55,15 +55,15 @@ const uint8_t PROGMEM user_kb_layers[][40] = {
                        CC_FCNT, CC_FCNT,   CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCNT,  CC_FCNT
     ),
     [LAYER_NAVIGATION] = LAYOUT(
-    CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,                               TC_INSERT, TC_PGUP,   TC_HOME,  TC_NO,    TC_NO, 
+    CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,                               TC_INSERT, CC_PGUP,   TC_HOME,  TC_NO,    TC_NO, 
     CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  TC_DELETE,                            TC_LEFT,   TC_DOWN,   TC_UP,    TC_RIGHT, TC_NO, 
-    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, CC_VIM,    CC_NAPP,        CC_PAPP,   CC_VIM,    TC_PGDOWN, TC_END,   TC_NO,    TC_NO, 
+    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, CC_NAPP,   CC_NAPP,        CC_PAPP,   CC_PAPP,   CC_PGDOWN, TC_END,   TC_NO,    TC_NO, 
                        CC_FNUM,   CC_FNUM,  CC_FNAV,   TC_SPACE,       TC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS                   
     ),
     [LAYER_RAISE] = LAYOUT(
     CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, TC_NO,                                TC_F12,   TC_F2,    TC_F3,    TC_F4, TC_F1, 
     CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     TC_NO,                                TC_F5,    TC_F11,   TC_F10,   TC_F9, TC_NO, 
-    CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY, CC_PDT,         CC_NDT,    CC_RSTHD, TC_F6,    TC_F7,    TC_F8, TC_NO, 
+    CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_PDT,    CC_PDT,         CC_NDT,    CC_RSTHD, TC_F6,    TC_F7,    TC_F8, TC_NO, 
                               CC_FNUM,     CC_FNUM,     CC_FNAV,   TC_SPACE,       TC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS                
     ),
     [LAYER_VIM] = LAYOUT(

@@ -143,7 +143,7 @@ enum ecustomkeycodes
     CC_SHFT,
     CC_ALT,
     CC_CMD,
-    // cukey
+    // cukey-start
     CC_UNDO,
     CC_REDO,
     CC_CUT,
@@ -156,6 +156,10 @@ enum ecustomkeycodes
     CC_NDOC,
     CC_PDOC,
     CC_CLOSE,
+    // cukey-end
+
+    CC_PGUP,
+    CC_PGDOWN,
 
     // secrets
     CC_SECRET_1,

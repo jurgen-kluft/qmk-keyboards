@@ -269,9 +269,26 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 case CC_FNAV: // released
                     if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                     {
-                        user_layer_on(LAYER_SYMBOLS);
-                        s_feature_state |= FEATURE_USED;
-                        s_feature_state &= ~FEATURE_NAV;
+                        if (features_active_all(FEATURE_USED))
+                        {
+                            user_layer_on(LAYER_SYMBOLS);
+                            s_feature_state |= FEATURE_USED;
+                            s_feature_state &= ~FEATURE_NAV;
+                        }
+                        else
+                        {
+                            s_feature_state &= ~FEATURE_NAV;
+                            s_feature_state &= ~FEATURE_SYM;
+                            if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE) == false)
+                            {
+                                s_smartcaps_state = SMART_CAPS_NORMAL;
+                                s_smartcaps_num_seps = 0;
+                            }
+                            s_smartcaps_state &= ~SMART_CAPS_USED;
+                            s_smartcaps_state |= SMART_CAPS_HOLD;
+                            s_feature_state |= FEATURE_CAPS;
+                            user_layer_on(LAYER_QWERTY);
+                        }
                     }
                     else if (features_active_all(FEATURE_NAV))
                     {
@@ -327,6 +344,16 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                         else
                         {
                             s_feature_state |= FEATURE_SYM_ONESHOT;
+                        }
+                    }
+                    else
+                    {
+                        s_smartcaps_state &= ~SMART_CAPS_HOLD;
+                        if (smartcaps_active_any(SMART_CAPS_USED))
+                        {
+                            s_feature_state &= ~FEATURE_CAPS;
+                            s_smartcaps_state = 0;
+                            s_smartcaps_num_seps = 0;
                         }
                     }
                     break;
