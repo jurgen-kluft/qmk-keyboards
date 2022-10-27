@@ -117,23 +117,12 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             return false;
         }
 
-        update_oneshot_modifiers(tc, record);
-
-        switch (tc)
+        if (!process_cushi_keys(ti, tc, record))
         {
-            case CC_QWERTY:
-                if (record->event.pressed)
-                {
-                    keyboard_set_layout(LAYER_QWERTY);
-                }
-                break;
-            case CC_RSTHD:
-                if (record->event.pressed)
-                {
-                    keyboard_set_layout(LAYER_RSTHD);
-                }
-                break;
+            return false;
         }
+
+        update_oneshot_modifiers(tc, record);
     }
 
     if (process_leader_user(tc, record))

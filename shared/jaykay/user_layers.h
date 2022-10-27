@@ -24,6 +24,7 @@ uint8_t get_keycode_code(uint8_t ti, bool pressed);
 
 void register_keycode_press(uint8_t ti, uint8_t tc);
 void register_keycode_press_with_shift(uint8_t ti, uint8_t tc);
+void register_keycode_press_modmask(uint8_t ti, uint8_t tc, uint8_t modmask);
 void register_keycode_release(uint8_t ti, uint8_t tc);
 
 void register_keycode_tap(uint8_t ti, uint8_t tc);

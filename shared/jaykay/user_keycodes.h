@@ -179,8 +179,6 @@ enum ecustomkeycodes
     CC_GAMEL,
     CC_GAMER,
 
-    CC_VIM,
-
     // Vim keycodes
     CC_VIM_DOCU,
     CC_VIM_PAGE,

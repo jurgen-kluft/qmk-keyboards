@@ -1,3 +1,3 @@
 #pragma once
 
-uint8_t process_cushi_keys(uint8_t keycode, keyrecord_t *record, bool simulate);
+bool process_cushi_keys(uint8_t ti, uint8_t tc, keyrecord_t* record, bool simulate);

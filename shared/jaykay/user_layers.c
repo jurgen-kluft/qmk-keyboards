@@ -20,8 +20,6 @@ extern const uint8_t PROGMEM user_kb_layers[][72];
 
 #endif
 
-
-static int8_t smart_repeat  = 1;
 static int8_t current_layer = LAYER_QWERTY;
 void          user_layer_on(int8_t layer)
 {
@@ -80,18 +78,10 @@ void register_keycode_press(uint8_t ti, uint8_t tc)
         uint16_t qmk_keycode = user_get_code16(tc);
         if (qmk_keycode != KC_NO)
         {
-            while (smart_repeat > 1)
-            {
-                tap_code16(qmk_keycode);
-                smart_repeat--;
-            }
+            tap_code16(qmk_keycode);
             register_code16(qmk_keycode);
         }
         qmk_kb_state[ti] = qmk_keycode;
-    }
-    else if (tc == CC_FCNT)
-    {
-        smart_repeat += 1;
     }
 }
 
@@ -107,20 +97,29 @@ void register_keycode_press_with_shift(uint8_t ti, uint8_t tc)
                 qmk_keycode = LSFT(qmk_keycode);
             }
 
-            while (smart_repeat > 1)
-            {
-                tap_code16(qmk_keycode);
-                smart_repeat--;
-            }
+            tap_code16(qmk_keycode);
             register_code16(qmk_keycode);
             qmk_kb_state[ti] = qmk_keycode;
         }
     }
-    else if (tc == CC_FCNT)
+}
+
+void register_keycode_press_modmask(uint8_t ti, uint8_t tc, uint8_t modmask)
+{
+    if (modmask != 0)
     {
-        smart_repeat += 1;
+        const uint8_t mods = get_mods();
+        del_mods(modmask);
+        del_weak_mods(modmask);
+        register_keycode_press(ti, tc);
+        set_mods(mods); // Restore the mods.
+    }
+    else
+    {
+        register_keycode_press(ti, tc);
     }
 }
+
 
 void register_keycode_release(uint8_t ti, uint8_t tc)
 {

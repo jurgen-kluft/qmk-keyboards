@@ -68,10 +68,11 @@ enum eleader_1t3
 {
     LA_BUILD0,
     LA_BUILD1,
+    LA_KEYLAYOUT_RSTHD,
+    LA_KEYLAYOUT_QWERTY,
     LA_KEYBOARD_MAC,
     LA_KEYBOARD_UBUNTU,
     LA_KEYBOARD_WIN,
-    LA_KEYBOARD_RESET,
 };
 
 // clang-format off
@@ -81,7 +82,8 @@ static const leader1_t leader1t3_array[] = {
     [LA_KEYBOARD_MAC]        = { TC_M },
     [LA_KEYBOARD_UBUNTU]     = { TC_U },
     [LA_KEYBOARD_WIN]        = { TC_W },
-    [LA_KEYBOARD_RESET]      = { TC_R },
+    [LA_KEYLAYOUT_RSTHD]     = { TC_R },
+    [LA_KEYLAYOUT_QWERTY]    = { TC_Q },
 };
 // clang-format on
 
@@ -245,7 +247,8 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_KEYBOARD_MAC: keyboard_set_os(OS_MAC); break;
                 case LA_KEYBOARD_WIN: keyboard_set_os(OS_WINDOWS); break;
                 case LA_KEYBOARD_UBUNTU: keyboard_set_os(OS_UBUNTU); break;
-                case LA_KEYBOARD_RESET: reset_keyboard(); break;
+                case LA_KEYLAYOUT_RSTHD: keyboard_set_layout(LAYER_RSTHD); break;
+                case LA_KEYLAYOUT_QWERTY: keyboard_set_layout(LAYER_QWERTY); break;
             }
         }
         else if (mode == 4)

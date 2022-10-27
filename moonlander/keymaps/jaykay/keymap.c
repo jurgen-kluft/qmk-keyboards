@@ -76,7 +76,7 @@ const uint8_t PROGMEM user_kb_layers[][72] = {
    TC_NO, TC_NO,   TC_NO,    TC_NO,     TC_NO,    TC_NO,     TC_NO,   TC_NO, TC_NO,     TC_NO,     TC_NO,   TC_NO,    TC_NO, TC_NO, 
    TC_NO, TC_NO,   CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,    TC_NO,   TC_NO, TC_INSERT, TC_PGUP,   TC_HOME, TC_NO,    TC_NO, TC_NO, 
    TC_NO, CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  TC_DELETE, TC_NO,   TC_NO, TC_LEFT,   TC_DOWN,   TC_UP,   TC_RIGHT, TC_NO, TC_NO, 
-   TC_NO, CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, CC_VIM,                    TC_DELETE, TC_PGDOWN, TC_END,  TC_NO,    TC_NO, TC_NO, 
+   TC_NO, CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, TC_NO,                     TC_DELETE, TC_PGDOWN, TC_END,  TC_NO,    TC_NO, TC_NO, 
    TC_NO, TC_NO,   TC_NO,    TC_NO,     CC_FNAV,  CC_PDOC,                   CC_NDOC,   CC_FSYM,   TC_NO,   TC_NO,    TC_NO, TC_NO, 
                                         TC_NO,    TC_NO,     TC_NO,   TC_NO, TC_NO,     TC_BSPACE                                   
   ),
@@ -84,18 +84,10 @@ const uint8_t PROGMEM user_kb_layers[][72] = {
    TC_NO, TC_NO,       TC_NO,       TC_NO,       TC_NO,       TC_NO,     TC_NO,   TC_NO, TC_NO,    TC_NO,  TC_NO,  TC_NO, TC_NO, TC_NO, 
    TC_NO, CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, TC_NO,     TC_NO,   TC_NO, TC_F12,   TC_F2,  TC_F3,  TC_F4, TC_F1, TC_NO, 
    TC_NO, CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     TC_NO,     TC_NO,   TC_NO, TC_F5,    TC_F11, TC_F10, TC_F9, TC_NO, TC_NO, 
-   TC_NO, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, CC_QWERTY,                 CC_RSTHD, TC_F6,  TC_F7,  TC_F8, TC_NO, TC_NO, 
+   TC_NO, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, TC_NO,                     TC_NO,    TC_F6,  TC_F7,  TC_F8, TC_NO, TC_NO, 
    TC_NO, TC_NO,       TC_NO,       TC_NO,       TC_NO,       TC_NO,                     TC_NO,    TC_NO,  TC_NO,  TC_NO, TC_NO, TC_NO, 
                                                  TC_NO,       TC_NO,     TC_NO,   TC_NO, TC_NO,    TC_NO                                
-  ),
-  [LAYER_VIM] = LAYOUT(
-   TC_NO, TC_NO,         TC_NO,        TC_NO,         TC_NO,         TC_NO,         TC_NO,   TC_NO, TC_NO,           TC_NO,       TC_NO,         TC_NO,         TC_NO,          TC_NO,    
-   TC_NO, CC_VIM_CHAR,   CC_VIM_WORD,  CC_VIM_END,    CC_VIM_REDO,   CC_VIM_INSIDE, TC_NO,   TC_NO, CC_VIM_YANK,     CC_VIM_UNDO, CC_VIM_INSERT, CC_VIM_LINE,   CC_VIM_PAGE,    TC_NO,    
-   TC_NO, CC_VIM_ADD,    CC_VIM_BEGIN, CC_VIM_DELETE, CC_VIM_FIND,   CC_VIM_GOTO,   TC_NO,   TC_NO, CC_VIM_LEFT,     CC_VIM_DOWN, CC_VIM_UP,     CC_VIM_RIGHT,  TC_NO,          TC_NO,    
-   TC_NO, CC_VIM_ZOOM,   CC_VIM_CUT,   CC_VIM_CHANGE, CC_VIM_VISUAL, TC_NO,                         TC_NO,           CC_VIM_DELI, CC_VIM_CLEAR,  CC_VIM_REPEAT, TC_NO,          TC_NO,    
-   TC_NO, TC_NO,         TC_NO,        CC_FNUM,       CC_VIM_RAISE,  CC_PDT,                        CC_NDT,          CC_VIM_RAISE,CC_FCAPS,      TC_NO,         TC_NO,          CC_RSTHD, 
-                                                      CC_VIM,        TC_NO,         TC_NO,   TC_NO, TC_NO,           CC_VIM                                                               
-  ),
+  )
   [LAYER_GAMEL] = LAYOUT(
    TC_NO,     TC_1,  TC_2,     TC_3,     TC_4,     TC_5,      TC_NO,   TC_0,  TC_6,  TC_7,    TC_8,      TC_9,   TC_NO,    CC_GAMEL, 
    TC_TAB,    TC_Q,  TC_W,     TC_E,     TC_R,     TC_T,      TC_NO,   TC_NO, TC_Y,  TC_U,    TC_I,      TC_O,   TC_P,     TC_NO,    
