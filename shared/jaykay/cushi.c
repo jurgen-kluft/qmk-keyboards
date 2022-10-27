@@ -2,6 +2,7 @@
 #include "config.h"
 #include "cukey.h"
 #include "user_keycodes.h"
+#include "user_layers.h"
 
 static uint16_t cushi_registered_keycode = KC_NO;
 

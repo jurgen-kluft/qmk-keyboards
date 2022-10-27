@@ -117,7 +117,7 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             return false;
         }
 
-        if (!process_cushi_keys(ti, tc, record))
+        if (!process_cushi_keys(ti, tc, record, false))
         {
             return false;
         }
