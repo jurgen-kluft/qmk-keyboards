@@ -29,22 +29,26 @@ enum
 
 
 /*
-LowToHigh(Nav), Low(Sym), Low(SmartNum), Low(SmartCaps)              => State = NAV
-HighToLow(Nav), Low(Sym), Low(SmartNum), Low(SmartCaps)              => State = NORMAL
+Thought Experiment: If we check `signals` can we determine state
 
-LowToHigh(Sym), Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)              => State = SYM
-High(Sym), Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)                   => State = SYM
-HighToLow(Sym), Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)              => State = SYMOS
+Low(Nav), Low(Sym), Low(SymOs), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)                    => State = NORMAL
+LowToHigh(Nav), Low(Sym), Low(SymOs), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)              => State = NAV
+High(Nav), Low(Sym), Low(SymOs), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)                   => State = NAV
+    High(Nav), LowToHigh(Sym)                                                                       => State = RAISE, SetLow(NormalKeys)
+    High(Nav), HighToLow(Sym), Low(NormalKeys)                                                      => State = SMARTNUM
+    HighToLow(Nav), Low(Sym), Low(NormalKeys), High(SmartNum), Low(KeysUsed)                        => State = SMARTNUM
+HighToLow(Nav), Low(Sym), Low(SymOs), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)              => State = NORMAL
 
-High(Nav), LowToHigh(Sym)                                                 => State = RAISE, NormalKeys=Low
-High(Nav), HighToLow(Sym), Low(NormalKeys)                                => State = SMARTNUM
-HighToLow(Nav), Low(Sym), Low(NormalKeys), High(SmartNum), Low(KeysUsed)  => State = SMARTNUM
+LowToHigh(Sym), Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)                => State = SYM
+High(Sym),      Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)                => State = SYM
+HighToLow(Sym), Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)                => State = SYMOS
 
 */
 
+
 /*
-Possible combiniations with NAV and SYM:
-- Tap NAV  +  Tap SYM    = unused
+Possible combinations with NAV and SYM:
+- Tap NAV  +  Tap SYM    = unused (goes through `leader` logic)
 - Tap SYM  +  Tap NAV    = RAISE Layer lock
 - Hold NAV +  Tap SYM    = SmartNum  (You can now release NAV and it will stay in SmartNum mode)
 - Hold SYM +  Tap NAV    = SmartCaps (You can now release SYM and it will stay in SmartCaps mode)
@@ -55,7 +59,6 @@ Hold NAV -> Tap SYM will put the keyboard in SMARTNUM mode.
   - When you hold NAV and you type some numbers and then release NAV it will exit SMARTNUM mode.
 
 Hold SYM -> Tap NAV will put the keyboard in SMARTCAPS mode, tapping NAV again will cycle to the next SMARTCAPS mode.
-
 */
 
 #define SMART_CAPS_MAX_SEPARATORS 4
