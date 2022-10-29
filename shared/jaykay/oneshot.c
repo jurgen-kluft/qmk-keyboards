@@ -170,6 +170,7 @@ void update_oneshot_modifiers(uint8_t keycode, keyrecord_t* record)
                 }
                 else
                 {
+                    //TODO should use our custom register
                     unregister_code16(s_osm_repeating_normal_key);
                     set_modifier_state_all_from_to(ONESHOT_STATE_QUEUED, ONESHOT_STATE_OFF);
                 }
@@ -180,6 +181,7 @@ void update_oneshot_modifiers(uint8_t keycode, keyrecord_t* record)
         {
             if (!all_modifiers_are_off())
             {
+                //TODO should use our custom register
                 unregister_code16(user_get_code16(keycode));
                 set_modifier_state_all_from_to(ONESHOT_STATE_QUEUED, ONESHOT_STATE_OFF);
             }

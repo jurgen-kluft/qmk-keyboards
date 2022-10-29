@@ -1,10 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
-#include "cukey.h"
+#include "cushi.h"
 #include "user_keycodes.h"
 #include "user_layers.h"
 
-static uint16_t cushi_registered_keycode = KC_NO;
+static uint8_t cushi_registered_keycode = KC_NO;
 
 #define CUSHI_ENTRY(keycode, normal, shift, ctrl, alt, cmd) \
     case keycode:                                           \
@@ -15,7 +15,7 @@ static uint16_t cushi_registered_keycode = KC_NO;
         cmd;                                                \
         break;
 
-bool process_cushi_keys(uint8_t ti, uint8_t tc, keyrecord_t* record, bool simulate)
+cushi_t process_cushi_keys(uint8_t ti, uint8_t tc, keyrecord_t* record)
 {
     uint8_t key_normal = TC_NO;
     uint8_t key_shift  = TC_NO;
@@ -28,7 +28,7 @@ bool process_cushi_keys(uint8_t ti, uint8_t tc, keyrecord_t* record, bool simula
     switch (tc)
     {
 #include "user_cushi.def"
-        default: return true;
+        default: { cushi_t c = { .replaced = false, .tc = TC_NO, .modmask = 0 }; return c; }
     }
 
     const uint8_t mods       = get_mods();
@@ -55,17 +55,6 @@ bool process_cushi_keys(uint8_t ti, uint8_t tc, keyrecord_t* record, bool simula
         cushi_registered_keycode = key_gui;
     }
 
-    if (!simulate)
-    {
-        if (record->event.pressed)
-        {
-            register_keycode_press_modmask(ti, cushi_registered_keycode, modmask);
-        }
-        else
-        {
-            register_keycode_release(ti, cushi_registered_keycode);
-        }
-        return false;
-    }
-    return true;
+    cushi_t c = { .replaced = true, .tc = cushi_registered_keycode, .modmask = modmask };
+    return c;
 }

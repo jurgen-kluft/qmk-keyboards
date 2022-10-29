@@ -58,22 +58,23 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             }
             return false;
 #endif
-        case CC_UNDO ... CC_CLOSE:
-        {
-            if (record->event.pressed)
-            {
-                uint16_t const keycode = process_cukey(tc);
-                if (keycode != KC_NO)
-                    register_code16(keycode);
-            }
-            else
-            {
-                uint16_t const keycode = process_cukey(tc);
-                if (keycode != KC_NO)
-                    unregister_code16(keycode);
-            }
-            break;
-        }
+//        case CC_UNDO ... CC_CLOSE:
+//        {
+//            if (record->event.pressed)
+//            {
+//                uint16_t const keycode = process_cukey(tc);
+//                if (keycode != KC_NO)
+//                    register_code16(keycode);
+//            }
+//            else
+//            {
+//                uint16_t const keycode = process_cukey(tc);
+//                if (keycode != KC_NO)
+//                    unregister_code16(keycode);
+//            }
+//            //break;
+//            return false;
+//        }
         case CC_SECRET_1 ... CC_SECRET_8:
             if (!record->event.pressed)
             {
@@ -117,8 +118,17 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             return false;
         }
 
-        if (!process_cushi_keys(ti, tc, record, false))
+        cushi_t cushi = process_cushi_keys(ti, tc, record);
+        if (cushi.replaced)
         {
+            if (record->event.pressed)
+            {
+                register_keycode_press_modmask(ti, cushi.tc, cushi.modmask);
+            }
+            else
+            {
+                register_keycode_release_modmask(ti, cushi.tc, cushi.modmask);
+            }
             return false;
         }
 

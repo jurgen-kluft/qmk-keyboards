@@ -73,12 +73,18 @@ uint8_t get_keycode_code(uint8_t ti, bool pressed)
 
 void register_keycode_press(uint8_t ti, uint8_t tc)
 {
-    if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
+    if (tc >= CC_UNDO && tc <= CC_CLOSE)
+    {
+        uint16_t const qmk_keycode = process_cukey(tc);
+        if (qmk_keycode != KC_NO)
+            register_code16(qmk_keycode);
+        qmk_kb_state[ti] = qmk_keycode;
+    }
+    else if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
     {
         uint16_t qmk_keycode = user_get_code16(tc);
         if (qmk_keycode != KC_NO)
         {
-            tap_code16(qmk_keycode);
             register_code16(qmk_keycode);
         }
         qmk_kb_state[ti] = qmk_keycode;
@@ -97,7 +103,6 @@ void register_keycode_press_with_shift(uint8_t ti, uint8_t tc)
                 qmk_keycode = LSFT(qmk_keycode);
             }
 
-            tap_code16(qmk_keycode);
             register_code16(qmk_keycode);
             qmk_kb_state[ti] = qmk_keycode;
         }
@@ -120,10 +125,18 @@ void register_keycode_press_modmask(uint8_t ti, uint8_t tc, uint8_t modmask)
     }
 }
 
-
 void register_keycode_release(uint8_t ti, uint8_t tc)
 {
-    if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
+    if (tc >= CC_UNDO && tc <= CC_CLOSE)
+    {
+        uint16_t qmk_keycode = qmk_kb_state[ti];
+        if (qmk_keycode != KC_NO)
+        {
+            unregister_code16(qmk_keycode);
+        }
+        qmk_kb_state[ti] = KC_NO;
+    }
+    else if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
     {
         uint16_t qmk_keycode = qmk_kb_state[ti];
         if (qmk_keycode != KC_NO)

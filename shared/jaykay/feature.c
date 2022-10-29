@@ -29,22 +29,54 @@ enum
 
 
 /*
-Thought Experiment: If we check `signals` can we determine state
+Thought Experiment: If we check `signals` can we determine state?
 
-Low(Nav), Low(Sym), Low(SymOs), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)                    => State = NORMAL
-LowToHigh(Nav), Low(Sym), Low(SymOs), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)              => State = NAV
-High(Nav), Low(Sym), Low(SymOs), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)                   => State = NAV
-    High(Nav), LowToHigh(Sym)                                                                       => State = RAISE, SetLow(NormalKeys)
-    High(Nav), HighToLow(Sym), Low(NormalKeys)                                                      => State = SMARTNUM
-    HighToLow(Nav), Low(Sym), Low(NormalKeys), High(SmartNum), Low(KeysUsed)                        => State = SMARTNUM
-HighToLow(Nav), Low(Sym), Low(SymOs), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)              => State = NORMAL
+These are key signals, these are external signals:
 
-LowToHigh(Sym), Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)                => State = SYM
-High(Sym),      Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)                => State = SYM
-HighToLow(Sym), Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(KeysUsed)                => State = SYMOS
+- Nav
+- Sym
+- SymbolsUsed
+- SmartCapsUsed
+- SmartNumUsed
+
+These are logic signals, logic signals happen internally:
+
+- SymOS (OneShot)
+- SmartNum
+- SmartCaps
+
+State Changes:
+- NORMAL to NAV          activate the NAV layer, deactivate all other features
+- NORMAL to SYM          activate the SYM layer
+- NORMAL to SYMOS        activate the SYM layer
+- RAISE to SmartNum      activate the NUM layer
+- RAISE to SmartCaps     activate CAPS mode
+- SmartNum to SYM        activate SYM layer, keep SmartNum activated
+- SmartCaps to SYM       activate SYM layer, keep SmartCaps activated
+
+
+Low(Nav), Low(Sym), Low(SymOS), Low|High(SmartNum), Low|High(SmartCaps)                         => State = NORMAL
+LowToHigh(Nav), Low(Sym), Low(SymOs)                                                            => State = NAV, SetLow(SmartNum), SetLow(SmartCaps)
+High(Nav), Low(Sym), Low(SymOS)                                                                 => State = NAV
+    High(Nav), LowToHigh(Sym)                                                                       => State = RAISE, SetLow(KeysUsed)
+    High(Nav), HighToLow(Sym), Low(KeysUsed)                                                        => State = SMARTNUM
+    HighToLow(Nav), Low(Sym), Low(KeysUsed), High(SmartNum), Low(KeysUsed)                          => State = SMARTNUM
+HighToLow(Nav), Low(Sym), Low(SymOS), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)              => State = NORMAL
+
+LowToHigh(Nav), Low(Sym), High(SymOs)                                                           => State = RAISE
+High(Nav), Low(Sym), High(SymOs)                                                                => State = RAISE
+Low(Nav), Low(Sym), High(SymOs)                                                                 => State = RAISE, SetLow(SymOs)
+
+LowToHigh(Sym), Low(Nav)                                                                        => State = SYM, SetLow(SymbolsUsed)
+High(Sym),      Low(Nav), Low(SymbolsUsed)                                                          => State = SYM
+HighToLow(Sym), Low(Nav), Low(SymbolsUsed)                                                          => State = SYMOS
+
+High(Sym),      Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(SymbolsUsed)             => State = SYM
+    High(Sym), LowToHigh(Nav)                                                                       => State = RAISE
+    High(Sym), HighToLow(Nav), Low(KeysUsed)                                                        => State = SMARTCAPS, SetLow(AlphasUsed)
+    HighToLow(Sym), Low(Nav), Low(KeysUsed), Low(SmartNum), High(SmartCaps), Low(AlphasUsed)        => State = SMARTCAPS
 
 */
-
 
 /*
 Possible combinations with NAV and SYM:
@@ -104,7 +136,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 case CC_ALT:
                 case CC_CMD: break;
 
-                case CC_NDOC ... CC_PDOC: s_feature_state |= FEATURE_USED; break;
+                case CC_UNDO ... CC_CLOSE: s_feature_state |= FEATURE_USED; break;
                 
                 case TC_A ... TC_Z:
                     s_feature_state |= FEATURE_USED;
@@ -117,18 +149,10 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                     {
                         if (!smartcaps_active_any(SMART_CAPS_USED))
                         {
-                            if (s_smartcaps_num_seps == 0)
+                            if (s_smartcaps_num_seps < SMART_CAPS_MAX_SEPARATORS)
                             {
-                                s_smartcaps_arr_seps[0] = tc;
-                                s_smartcaps_num_seps    = 1;
-                            }
-                            else
-                            {
-                                if (s_smartcaps_num_seps < SMART_CAPS_MAX_SEPARATORS)
-                                {
-                                    s_smartcaps_arr_seps[s_smartcaps_num_seps] = tc;
-                                    s_smartcaps_num_seps++;
-                                }
+                                s_smartcaps_arr_seps[s_smartcaps_num_seps] = tc;
+                                s_smartcaps_num_seps++;
                             }
                             return false;
                         }
@@ -139,20 +163,11 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 case TC_F1 ... TC_F12: s_feature_state |= FEATURE_USED; break;
 
                 case CC_FNAV: // pressed
-                    if (features_active_all(FEATURE_CAPS))
-                    {
-                        s_feature_state &= ~FEATURE_CAPS;
-                        s_smartcaps_state = 0;
-                        s_smartcaps_num_seps = 0;
-                    }
-                    if (features_active_all(FEATURE_NUM))
-                    {
-                        s_feature_state &= ~FEATURE_NUM;
-                        user_layer_on(LAYER_QWERTY);
-                    }
+                    s_feature_state &= ~(FEATURE_CAPS|FEATURE_NUM|FEATURE_USED);
+                    s_smartcaps_state = 0;
+                    s_smartcaps_num_seps = 0;
 
                     s_feature_state |= FEATURE_NAV;
-                    s_feature_state &= ~FEATURE_USED;
                     if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                     {
                         user_layer_on(LAYER_RAISE);
@@ -230,7 +245,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 case CC_ALT:
                 case CC_CMD: break;
 
-                case CC_NDOC ... CC_PDOC: break;
+                case CC_UNDO ... CC_CLOSE: break;
 
                 case TC_AT ... TC_BSLASH:
                     if (smartcaps_active_any(SMART_CAPS_NORMAL))
@@ -260,91 +275,93 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 case CC_FNAV: // released
                     if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                     {
+                        user_layer_on(LAYER_SYMBOLS);
                         if (features_active_all(FEATURE_USED))
                         {
-                            user_layer_on(LAYER_SYMBOLS);
                             s_feature_state |= FEATURE_USED;
                             s_feature_state &= ~FEATURE_NAV;
                         }
                         else
                         {
                             s_feature_state &= ~FEATURE_NAV;
-                            s_feature_state &= ~FEATURE_SYM;
-                            if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE) == false)
-                            {
-                                s_smartcaps_state = SMART_CAPS_NORMAL;
-                                s_smartcaps_num_seps = 0;
-                            }
-                            s_smartcaps_state &= ~SMART_CAPS_USED;
-                            s_smartcaps_state |= SMART_CAPS_HOLD;
                             s_feature_state |= FEATURE_CAPS;
-                            user_layer_on(LAYER_QWERTY);
+                            s_smartcaps_state = SMART_CAPS_NORMAL;
+                            s_smartcaps_state |= SMART_CAPS_HOLD;
+                            s_smartcaps_num_seps = 0;
                         }
                     }
                     else if (features_active_all(FEATURE_NAV))
                     {
-                        s_feature_state &= ~(FEATURE_NAV|FEATURE_NUM|FEATURE_CAPS);
+                        s_feature_state &= ~(FEATURE_NAV);
                         if (features_active_all(FEATURE_SYM_ONESHOT))
                         {
+                            s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
                             s_feature_state |= FEATURE_NAV_ONESHOT;
                             user_layer_on(LAYER_RAISE);
                         }
                         else
                         {
-                            user_layer_on(LAYER_QWERTY);
+                            if (features_active_all(FEATURE_NUM))
+                            {
+                                if (features_active_all(FEATURE_USED))
+                                {
+                                    s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
+                                    user_layer_on(LAYER_QWERTY);
+                                }
+                            }
+                            else
+                            {
+                                s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
+                                user_layer_on(LAYER_QWERTY);
+                            }
                         }
                     }
-                    else if (features_active_all(FEATURE_NUM))
-                    {
-                        if (features_active_all(FEATURE_USED))
-                        {
-                            s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
-                            user_layer_on(LAYER_QWERTY);
-                        }
-                    }
+
                     break;
 
                 case CC_FSYM: // released
                     if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                     {
+                        s_feature_state &= ~(FEATURE_SYM | FEATURE_SYM_ONESHOT);
                         // Hold NAV + Tap SYM ?
                         if (!features_active_all(FEATURE_USED))
                         {
-                            s_feature_state &= ~FEATURE_NAV;
-                            s_feature_state &= ~FEATURE_USED;
                             enable_smart_numbers();
                         }
                         else
                         {
+                            s_feature_state &= ~(FEATURE_USED);
                             user_layer_on(LAYER_NAVIGATION);
-                            s_feature_state &= ~(FEATURE_SYM | FEATURE_USED | FEATURE_SYM_ONESHOT);
                         }
                     }
                     else if (features_active_all(FEATURE_SYM))
                     {
                         s_feature_state &= ~(FEATURE_SYM | FEATURE_SYM_ONESHOT);
-                        if (features_active_all(FEATURE_USED))
+                        if (features_active_all(FEATURE_CAPS))
                         {
-                            s_feature_state &= ~FEATURE_USED;
-                            user_layer_on(LAYER_QWERTY);
-                            if (features_active_all(FEATURE_NUM))
+                            if (s_smartcaps_num_seps == 0)
                             {
-                                user_layer_on(LAYER_NUMBERS);
+                                s_smartcaps_num_seps = 1;
+                                s_smartcaps_arr_seps[0] = TC_UNDS;
                             }
+                            s_smartcaps_state &= ~SMART_CAPS_HOLD;
+                            user_layer_on(LAYER_QWERTY);
                         }
                         else
                         {
-                            s_feature_state |= FEATURE_SYM_ONESHOT;
-                        }
-                    }
-                    else
-                    {
-                        s_smartcaps_state &= ~SMART_CAPS_HOLD;
-                        if (smartcaps_active_any(SMART_CAPS_USED))
-                        {
-                            s_feature_state &= ~FEATURE_CAPS;
-                            s_smartcaps_state = 0;
-                            s_smartcaps_num_seps = 0;
+                            if (features_active_all(FEATURE_USED))
+                            {
+                                s_feature_state &= ~FEATURE_USED;
+                                user_layer_on(LAYER_QWERTY);
+                                if (features_active_all(FEATURE_NUM))
+                                {
+                                    user_layer_on(LAYER_NUMBERS);
+                                }
+                            }
+                            else
+                            {
+                                s_feature_state |= FEATURE_SYM_ONESHOT;
+                            }
                         }
                     }
                     break;
@@ -380,11 +397,14 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
             if (record->event.pressed)
             {
                 s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
-                user_layer_on(LAYER_QWERTY);
+                if (!features_active_all(FEATURE_SYM))
+                {
+                    user_layer_on(LAYER_QWERTY);
+                }
             }
         }
     }
-    else if (features_active_all((FEATURE_CAPS)))
+    else if (features_active_all(FEATURE_CAPS))
     {
         if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
         {
@@ -398,6 +418,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
 
                 if (tc == TC_SPACE)
                 {
+                    register_keycode_press(ti, tc);
                     // will be handled on release
                 }
                 else if (tc == TC_DOT)
@@ -462,7 +483,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
             {
                 if (tc == TC_SPACE)
                 {
-                    register_keycode_press(ti, tc);
+                    register_keycode_release(ti, tc);
                     if (!smartcaps_active_all(SMART_CAPS_HOLD))
                     {
                         s_feature_state &= ~FEATURE_CAPS;
