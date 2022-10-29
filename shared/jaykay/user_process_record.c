@@ -5,7 +5,6 @@
 #include "cukey.h"
 #include "feature.h"
 #include "leader.h"
-#include "vim.h"
 #include "user_leader.h"
 #include "user_keycodes.h"
 #include "user_layers.h"
@@ -21,16 +20,13 @@ static const char* gSecrets[] = {SECRET_1, SECRET_2, SECRET_3, SECRET_4, SECRET_
 static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4", "SECRET_5", "SECRET_6", "SECRET_7", "SECRET_8"};
 #endif
 
-bool process_record_user(uint16_t kc16, keyrecord_t* record)
+bool process_record_user(uint16_t kc, keyrecord_t* record)
 {
-    uint8_t const ti = get_keycode_index(kc16);
-    uint8_t const tc = get_keycode_code(ti, record->event.pressed);
-
 #ifdef OLED_DRIVER_ENABLE
-    process_record_oled(kc16, record);
+    process_record_oled(kc, record);
 #endif
 
-    switch (tc)
+    switch (kc)
     {
 #ifdef KEYBOARD_MOONLANDER
         case CC_GAMEL:
@@ -62,13 +58,13 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
 //        {
 //            if (record->event.pressed)
 //            {
-//                uint16_t const keycode = process_cukey(tc);
+//                uint16_t const keycode = process_cukey(kc);
 //                if (keycode != KC_NO)
 //                    register_code16(keycode);
 //            }
 //            else
 //            {
-//                uint16_t const keycode = process_cukey(tc);
+//                uint16_t const keycode = process_cukey(kc);
 //                if (keycode != KC_NO)
 //                    unregister_code16(keycode);
 //            }
@@ -79,7 +75,7 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             if (!record->event.pressed)
             {
                 turnoff_oneshot_modifiers();
-                send_string_with_delay(gSecrets[tc - CC_SECRET_1], MACRO_TIMER);
+                send_string_with_delay(gSecrets[kc - CC_SECRET_1], MACRO_TIMER);
             }
             return false;
         case CC_SPIFT:
@@ -113,38 +109,30 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
 
     if (!leader_is_active())
     {
-        if (!process_feature_key(ti, tc, record))
+        if (!process_feature_key(kc, record))
         {
             return false;
         }
 
-        cushi_t cushi = process_cushi_keys(ti, tc, record);
+        cushi_t cushi = process_cushi_keys(kc, record);
         if (cushi.replaced)
         {
             if (record->event.pressed)
             {
-                register_keycode_press_modmask(ti, cushi.tc, cushi.modmask);
+                register_keycode_press_modmask(cushi.kc, cushi.modmask);
             }
             else
             {
-                register_keycode_release_modmask(ti, cushi.tc, cushi.modmask);
+                register_keycode_release_modmask(cushi.kc, cushi.modmask);
             }
             return false;
         }
 
-        update_oneshot_modifiers(tc, record);
+        update_oneshot_modifiers(kc, record);
     }
 
-    if (process_leader_user(tc, record))
+    if (process_leader_user(kc, record))
         return false;
 
-    if (record->event.pressed)
-    {
-        register_keycode_press(ti, tc);
-    }
-    else
-    {
-        register_keycode_release(ti, tc);
-    }
-    return false;
+    return true;
 }

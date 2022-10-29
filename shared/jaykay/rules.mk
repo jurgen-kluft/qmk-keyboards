@@ -3,7 +3,7 @@ SRC += $(USER_PATH)/cushi.c
 SRC += $(USER_PATH)/cukey.c
 SRC += $(USER_PATH)/feature.c
 SRC += $(USER_PATH)/leader.c
-SRC += $(USER_PATH)/vim.c
+# SRC += $(USER_PATH)/vim.c
 
 # All the user implementations are below
 ifeq ($(strip $(ENCODER_ENABLE)), yes)

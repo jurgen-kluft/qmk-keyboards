@@ -15,9 +15,9 @@ enum eleader_1t1
 };
 
 static const leader1_t leader1t1_array[] = {
-    [LA_EASYMOTION]    = {TC_F},
-    [LA_CENTER]        = {TC_Z},
-    [LA_DOTSPACESHIFT] = {TC_DOT},
+    [LA_EASYMOTION]    = {KC_F},
+    [LA_CENTER]        = {KC_Z},
+    [LA_DOTSPACESHIFT] = {KC_DOT},
 };
 
 enum eleader_1t2
@@ -32,12 +32,12 @@ enum eleader_1t2
 
 // clang-format off
 static const leader1_t leader1t2_array[] = {
-    [LA_AND]                 = { TC_A },
-    [LA_EQ]                  = { TC_E },
-    [LA_GAE]                 = { TC_G },
-    [LA_LAE]                 = { TC_L },
-    [LA_NEQ]                 = { TC_N },
-    [LA_OR]                  = { TC_O },
+    [LA_AND]                 = { KC_A },
+    [LA_EQ]                  = { KC_E },
+    [LA_GAE]                 = { KC_G },
+    [LA_LAE]                 = { KC_L },
+    [LA_NEQ]                 = { KC_N },
+    [LA_OR]                  = { KC_O },
 };
 // clang-format on
 
@@ -54,13 +54,13 @@ enum eleader_2t2
 
 // clang-format off
 static const leader2_t leader2t2_array[] = {
-    [LA_UNREAL_ENGINE]       = { TC_U, TC_E },
-    [LA_XBOX_ONE]            = { TC_X, TC_O },
-    [LA_XBOX_SERIES]         = { TC_X, TC_S },
-    [LA_PS4]                 = { TC_P, TC_S },
-    [LA_PS5]                 = { TC_P, TC_P },
-    [LA_NINTENDO]            = { TC_S, TC_W },
-    [LA_MGSIV]               = { TC_M, TC_G },
+    [LA_UNREAL_ENGINE]       = { KC_U, KC_E },
+    [LA_XBOX_ONE]            = { KC_X, KC_O },
+    [LA_XBOX_SERIES]         = { KC_X, KC_S },
+    [LA_PS4]                 = { KC_P, KC_S },
+    [LA_PS5]                 = { KC_P, KC_P },
+    [LA_NINTENDO]            = { KC_S, KC_W },
+    [LA_MGSIV]               = { KC_M, KC_G },
 };
 // clang-format on
 
@@ -77,13 +77,13 @@ enum eleader_1t3
 
 // clang-format off
 static const leader1_t leader1t3_array[] = {
-    [LA_BUILD0]              = { TC_B },
-    [LA_BUILD1]              = { TC_D },
-    [LA_KEYBOARD_MAC]        = { TC_M },
-    [LA_KEYBOARD_UBUNTU]     = { TC_U },
-    [LA_KEYBOARD_WIN]        = { TC_W },
-    [LA_KEYLAYOUT_RSTHD]     = { TC_R },
-    [LA_KEYLAYOUT_QWERTY]    = { TC_Q },
+    [LA_BUILD0]              = { KC_B },
+    [LA_BUILD1]              = { KC_D },
+    [LA_KEYBOARD_MAC]        = { KC_M },
+    [LA_KEYBOARD_UBUNTU]     = { KC_U },
+    [LA_KEYBOARD_WIN]        = { KC_W },
+    [LA_KEYLAYOUT_RSTHD]     = { KC_R },
+    [LA_KEYLAYOUT_QWERTY]    = { KC_Q },
 };
 // clang-format on
 
@@ -104,17 +104,17 @@ enum eleader_2t1
 
 // clang-format off
 static const leader2_t leader2t1_array[] = {
-    [LA_CHANGE_LINE]      = {TC_C, TC_L},
-    [LA_CHANGE_WORD]      = {TC_C, TC_W},
-    [LA_DELETE_WORD_BACK] = {TC_D, TC_B},
-    [LA_DELETE_LINE]      = {TC_D, TC_D},
-    [LA_DELETE_UNTIL_EOL] = {TC_D, TC_E},
-    [LA_DELETE_WORD]      = {TC_D, TC_W},
-    [LA_DELETE_UNTIL_SOL] = {TC_D, TC_S},
-    [LA_TOP_OF_FILE]      = {TC_G, TC_G},
-    [LA_BOTTOM_OF_FILE]   = {TC_G, TC_B},
-    [LA_OPEN_LINE_ABOVE]  = {TC_O, TC_A},
-    [LA_OPEN_LINE_BELOW]  = {TC_O, TC_O},
+    [LA_CHANGE_LINE]      = {KC_C, KC_L},
+    [LA_CHANGE_WORD]      = {KC_C, KC_W},
+    [LA_DELETE_WORD_BACK] = {KC_D, KC_B},
+    [LA_DELETE_LINE]      = {KC_D, KC_D},
+    [LA_DELETE_UNTIL_EOL] = {KC_D, KC_E},
+    [LA_DELETE_WORD]      = {KC_D, KC_W},
+    [LA_DELETE_UNTIL_SOL] = {KC_D, KC_S},
+    [LA_TOP_OF_FILE]      = {KC_G, KC_G},
+    [LA_BOTTOM_OF_FILE]   = {KC_G, KC_B},
+    [LA_OPEN_LINE_ABOVE]  = {KC_O, KC_A},
+    [LA_OPEN_LINE_BELOW]  = {KC_O, KC_O},
 };
 // clang-format on
 
@@ -132,14 +132,14 @@ enum eleader_3t1
 
 // clang-format off
 static const leader3_t leader3t1_array[] = {
-    [LA_CHANGE_INSIDE_ABK]   = {TC_C, TC_I, TC_A},
-    [LA_CHANGE_INSIDE_BRC]   = {TC_C, TC_I, TC_B},
-    [LA_CHANGE_INSIDE_CBR]   = {TC_C, TC_I, TC_C},
-    [LA_CHANGE_INSIDE_DQUOT] = {TC_C, TC_I, TC_D},
-    [LA_CHANGE_INSIDE_PRN]   = {TC_C, TC_I, TC_P},
-    [LA_CHANGE_INSIDE_QUOT]  = {TC_C, TC_I, TC_Q},
-    [LA_CHANGE_INSIDE_TICKS] = {TC_C, TC_I, TC_T},
-    [LA_CHANGE_INSIDE_WORD]  = {TC_C, TC_I, TC_W},
+    [LA_CHANGE_INSIDE_ABK]   = {KC_C, KC_I, KC_A},
+    [LA_CHANGE_INSIDE_BRC]   = {KC_C, KC_I, KC_B},
+    [LA_CHANGE_INSIDE_CBR]   = {KC_C, KC_I, KC_C},
+    [LA_CHANGE_INSIDE_DQUOT] = {KC_C, KC_I, KC_D},
+    [LA_CHANGE_INSIDE_PRN]   = {KC_C, KC_I, KC_P},
+    [LA_CHANGE_INSIDE_QUOT]  = {KC_C, KC_I, KC_Q},
+    [LA_CHANGE_INSIDE_TICKS] = {KC_C, KC_I, KC_T},
+    [LA_CHANGE_INSIDE_WORD]  = {KC_C, KC_I, KC_W},
 };
 // clang-format on
 
@@ -149,7 +149,7 @@ enum eleader_4t1
 };
 
 static leader4_t const leader4t1_array[] = {
-    [LA_SCREENSHOT] = {TC_S, TC_N, TC_I, TC_P},
+    [LA_SCREENSHOT] = {KC_S, KC_N, KC_I, KC_P},
 };
 
 #define send_taps1(tap1) tap_code16(tap1)

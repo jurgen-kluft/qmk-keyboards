@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
 #include "feature.h"
-#include "vim.h"
 #include "user_keycodes.h"
 #include "leader.h"
 
@@ -49,7 +48,7 @@ static void reset_leader(uint8_t active)
 bool leader_is_active() { return (leader_active == 2) && timer_elapsed(leader_timer) < LEADER_TIMEOUT; }
 void leader_disable() { reset_leader(0); }
 
-bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3)
+bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3)
 {
     if (leader_active == 2)
     {

@@ -81,7 +81,7 @@ uint16_t const kc_os_win[] = {KC_WIN_UNDO, KC_WIN_REDO, KC_WIN_CUT, KC_WIN_COPY,
 uint16_t const kc_os_mac[] = {KC_MAC_UNDO, KC_MAC_REDO, KC_MAC_CUT, KC_MAC_COPY, KC_MAC_PASTE, KC_MAC_NDT, KC_MAC_PDT, KC_MAC_NAPP, KC_MAC_PAPP, KC_MAC_NDOC, KC_MAC_PDOC, KC_MAC_CLOSE};
 uint16_t const kc_os_ubt[] = {KC_UBT_UNDO, KC_UBT_REDO, KC_UBT_CUT, KC_UBT_COPY, KC_UBT_PASTE, KC_UBT_NDT, KC_UBT_PDT, KC_UBT_NAPP, KC_UBT_PAPP, KC_UBT_NDOC, KC_UBT_PDOC, KC_UBT_CLOSE};
 
-uint16_t process_cukey(uint8_t keycode)
+uint16_t process_cukey(uint16_t keycode)
 {
     uint16_t kc = KC_NO;
     switch (keycode)

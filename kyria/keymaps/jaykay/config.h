@@ -23,7 +23,7 @@
 #define NO_MUSIC_MODE
 #define NO_ACTION_ONESHOT
 #define NO_ACTION_TAPPING
-#define NO_ACTION_LAYER
+//#define NO_ACTION_LAYER
 
 #define COMBO_TERM 200
 #define TAPPING_TERM 200

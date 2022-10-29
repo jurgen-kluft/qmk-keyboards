@@ -96,7 +96,7 @@ Hold SYM -> Tap NAV will put the keyboard in SMARTCAPS mode, tapping NAV again w
 #define SMART_CAPS_MAX_SEPARATORS 4
 
 static uint8_t     s_smartcaps_state                               = 0;
-static uint8_t     s_smartcaps_arr_seps[SMART_CAPS_MAX_SEPARATORS] = {TC_NO};
+static uint16_t    s_smartcaps_arr_seps[SMART_CAPS_MAX_SEPARATORS] = {KC_NO};
 static int8_t      s_smartcaps_num_seps                            = 0;
 static inline bool smartcaps_active_all(uint8_t features) { return (s_smartcaps_state & features) == features; }
 static inline bool smartcaps_active_any(uint8_t features) { return (s_smartcaps_state & features) != 0; }
@@ -112,7 +112,7 @@ void enable_smart_numbers(void)
     user_layer_on(LAYER_NUMBERS);
 }
 
-bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
+bool process_feature_key(uint16_t kc, keyrecord_t* record)
 {
     bool ret = true;
     {
@@ -120,7 +120,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
         {
             if (features_active_all(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT))
             {
-                if (tc == TC_BSPACE || tc == TC_SPACE || tc == CC_FNUM || tc == CC_FNAV || tc == CC_FCAPS || tc == CC_FSYM)
+                if (kc == KC_BSPACE || kc == KC_SPACE || kc == CC_FNUM || kc == CC_FNAV || kc == CC_FCAPS || kc == CC_FSYM)
                 {
                     s_feature_state &= ~(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT | FEATURE_USED);
                     user_layer_on(LAYER_QWERTY);
@@ -128,7 +128,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
             }
 
             // logic for when a key is pressed
-            switch (tc)
+            switch (kc)
             {
                 // pressed
                 case CC_SHFT:
@@ -138,12 +138,14 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
 
                 case CC_UNDO ... CC_CLOSE: s_feature_state |= FEATURE_USED; break;
                 
-                case TC_A ... TC_Z:
+                case KC_A ... KC_Z:
                     s_feature_state |= FEATURE_USED;
                     s_smartcaps_state |= SMART_CAPS_USED;
                     break;
 
-                case TC_AT ... TC_BSLASH:
+                case KC_MINUS ... KC_SLASH:
+                case LSFT(KC_1) ... LSFT(KC_0):
+                case LSFT(KC_MINUS) ... LSFT(KC_SLASH):
                     s_feature_state |= FEATURE_USED;
                     if (smartcaps_active_any(SMART_CAPS_NORMAL))
                     {
@@ -151,7 +153,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                         {
                             if (s_smartcaps_num_seps < SMART_CAPS_MAX_SEPARATORS)
                             {
-                                s_smartcaps_arr_seps[s_smartcaps_num_seps] = tc;
+                                s_smartcaps_arr_seps[s_smartcaps_num_seps] = kc;
                                 s_smartcaps_num_seps++;
                             }
                             return false;
@@ -159,8 +161,8 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                     }
                     break;
 
-                case TC_0 ... TC_9:
-                case TC_F1 ... TC_F12: s_feature_state |= FEATURE_USED; break;
+                case KC_1 ... KC_0:
+                case KC_F1 ... KC_F12: s_feature_state |= FEATURE_USED; break;
 
                 case CC_FNAV: // pressed
                     s_feature_state &= ~(FEATURE_CAPS|FEATURE_NUM|FEATURE_USED);
@@ -228,7 +230,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                     {
                         s_smartcaps_state = SMART_CAPS_NORMAL;
                         s_smartcaps_num_seps = 1;
-                        s_smartcaps_arr_seps[0] = TC_SCLN;
+                        s_smartcaps_arr_seps[0] = KC_SCLN;
                     }
                     s_smartcaps_state &= ~SMART_CAPS_USED;
                     s_smartcaps_state |= SMART_CAPS_HOLD;
@@ -238,7 +240,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
         }
         else
         {
-            switch (tc)
+            switch (kc)
             {
                 case CC_SHFT:
                 case CC_CTRL:
@@ -247,7 +249,8 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
 
                 case CC_UNDO ... CC_CLOSE: break;
 
-                case TC_AT ... TC_BSLASH:
+                case KC_MINUS ... KC_SLASH:
+                case LSFT(KC_MINUS) ... LSFT(KC_SLASH):
                     if (smartcaps_active_any(SMART_CAPS_NORMAL))
                     {
                         if (!smartcaps_active_any(SMART_CAPS_USED))
@@ -256,11 +259,11 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                         }
                     }
 
-                case TC_0 ... TC_9:
-                case TC_F1 ... TC_F12:
-                case TC_A ... TC_Z:
-                case TC_BSPACE:
-                case TC_SPACE:
+                case KC_1 ... KC_0:
+                case KC_F1 ... KC_F12:
+                case KC_A ... KC_Z:
+                case KC_BSPACE:
+                case KC_SPACE:
                     if (features_active_all(FEATURE_SYM_ONESHOT) && !features_active_all(FEATURE_NAV_ONESHOT))
                     {
                         s_feature_state &= ~FEATURE_SYM_ONESHOT;
@@ -342,7 +345,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                             if (s_smartcaps_num_seps == 0)
                             {
                                 s_smartcaps_num_seps = 1;
-                                s_smartcaps_arr_seps[0] = TC_UNDS;
+                                s_smartcaps_arr_seps[0] = KC_UNDS;
                             }
                             s_smartcaps_state &= ~SMART_CAPS_HOLD;
                             user_layer_on(LAYER_QWERTY);
@@ -392,7 +395,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
 
     if (features_active_all(FEATURE_NUM))
     {
-        if (tc == TC_SPACE)
+        if (kc == KC_SPACE)
         {
             if (record->event.pressed)
             {
@@ -406,7 +409,6 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
     }
     else if (features_active_all(FEATURE_CAPS))
     {
-        if (tc >= TC_RANGE_START && tc <= TC_RANGE_END)
         {
             if (record->event.pressed)
             {
@@ -416,27 +418,27 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                 // When pressing 'dot' we cycle to the next mode
                 // When 'space' is pressed smart capslock is disabled.
 
-                if (tc == TC_SPACE)
+                if (kc == KC_SPACE)
                 {
-                    register_keycode_press(ti, tc);
+                    register_keycode_press(kc);
                     // will be handled on release
                 }
-                else if (tc == TC_DOT)
+                else if (kc == KC_DOT)
                 {
                     // will be handled on release
                 }
                 else if (smartcaps_active_all(SMART_CAPS_NORMAL))
                 {
-                    if (tc >= TC_A && tc <= TC_Z)
+                    if (kc >= KC_A && kc <= KC_Z)
                     {
-                        register_keycode_press_with_shift(ti, tc);
+                        register_keycode_press_with_shift(kc);
                     }
                     else
                     {
-                        if (tc == TC_COMMA)
+                        if (kc == KC_COMMA)
                         {
-                            tc = TC_SPACE;
-                            register_keycode_press(ti, tc);
+                            kc = KC_SPACE;
+                            register_keycode_press(kc);
                         }
                     }
                 }
@@ -450,40 +452,40 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                     // Snake Case, when pressing ';' we register a '_' and continue
                     // When pressing 'dot' we cycle to the next mode
                     // When 'space' is pressed smart capslock is disabled.
-                    if (tc >= TC_A && tc <= TC_Z)
+                    if (kc >= KC_A && kc <= KC_Z)
                     {
                         if (smartcaps_active_all(SMART_CAPS_SHIFT))
                         {
-                            register_keycode_press_with_shift(ti, tc);
+                            register_keycode_press_with_shift(kc);
                             s_smartcaps_state &= ~(SMART_CAPS_SHIFT);
                         }
                         else
                         {
-                            register_keycode_press(ti, tc);
+                            register_keycode_press(kc);
                         }
                     }
-                    else if (tc == TC_SCLN)
+                    else if (kc == KC_SCLN)
                     {
                         if (smartcaps_active_all(SMART_CAPS_CAMEL))
                         {
                             s_smartcaps_state |= SMART_CAPS_SHIFT;
                         }
                     }
-                    else if (tc == TC_COMMA)
+                    else if (kc == KC_COMMA)
                     {
                         s_smartcaps_state ^= SMART_CAPS_SHIFT;
                     }
                     else
                     {
-                        register_keycode_press(ti, tc);
+                        register_keycode_press(kc);
                     }
                 }
             }
             else // record->event.pressed == false
             {
-                if (tc == TC_SPACE)
+                if (kc == KC_SPACE)
                 {
-                    register_keycode_release(ti, tc);
+                    register_keycode_release(kc);
                     if (!smartcaps_active_all(SMART_CAPS_HOLD))
                     {
                         s_feature_state &= ~FEATURE_CAPS;
@@ -491,7 +493,7 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                         s_smartcaps_num_seps = 0;
                     }
                 }
-                else if (tc == TC_DOT)
+                else if (kc == KC_DOT)
                 {
                     s_feature_state &= ~FEATURE_USED;
                     s_smartcaps_num_seps = 0;
@@ -500,14 +502,14 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                         s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
                         s_smartcaps_state |= SMART_CAPS_NORMAL;
                         s_smartcaps_num_seps = 1;
-                        s_smartcaps_arr_seps[0] = TC_SCLN;
+                        s_smartcaps_arr_seps[0] = KC_SCLN;
                     }
                     else if (smartcaps_active_any(SMART_CAPS_CAMEL))
                     {
                         s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
                         s_smartcaps_state |= SMART_CAPS_SNAKE;
                         s_smartcaps_num_seps = 1;
-                        s_smartcaps_arr_seps[0] = TC_SCLN;
+                        s_smartcaps_arr_seps[0] = KC_SCLN;
                     }
                     else
                     {
@@ -515,25 +517,25 @@ bool process_feature_key(uint8_t ti, uint8_t tc, keyrecord_t* record)
                         s_smartcaps_state |= SMART_CAPS_CAMEL;
                         s_smartcaps_state |= SMART_CAPS_SHIFT;
                         s_smartcaps_num_seps = 1;
-                        s_smartcaps_arr_seps[0] = TC_SPACE;
+                        s_smartcaps_arr_seps[0] = KC_SPACE;
                     }
                 }
-                else if (tc == TC_SCLN)
+                else if (kc == KC_SCLN)
                 {
                     for (int8_t i = 0; i < s_smartcaps_num_seps; ++i)
                     {
-                        uint8_t tc = s_smartcaps_arr_seps[i];
-                        if (tc == TC_SCLN)
+                        uint16_t kc = s_smartcaps_arr_seps[i];
+                        if (kc == KC_SCLN)
                         {
-                            tc = TC_UNDS;
+                            kc = KC_UNDS;
                         }
-                        register_keycode_tap(ti, tc);
+                        register_keycode_tap(kc);
                     }
                 }
                 else 
                 {
                     // This will unregister the keycode as it was registered when it was pressed.
-                    register_keycode_release(ti, tc);
+                    register_keycode_release(kc);
                 }
             }
         }

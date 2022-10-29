@@ -6,7 +6,7 @@
 
 #ifdef ENABLE_ONESHOT
 
-bool is_oneshot_modifier_cancel_key(uint8_t keycode, bool pressed)
+bool is_oneshot_modifier_cancel_key(uint16_t keycode, bool pressed)
 {
     switch (keycode)
     {
@@ -16,14 +16,14 @@ bool is_oneshot_modifier_cancel_key(uint8_t keycode, bool pressed)
     return false;
 }
 
-bool is_oneshot_modifier_ignored_key(uint8_t keycode, bool pressed)
+bool is_oneshot_modifier_ignored_key(uint16_t keycode, bool pressed)
 {
     if (keycode >= CC_RANGE_START && keycode <= CC_RANGE_END)
         return true;
     return keycode == KC_SPACE;
 }
 
-oneshot_mod get_modifier_for_trigger_key(uint8_t keycode)
+oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
 {
     switch (keycode)
     {

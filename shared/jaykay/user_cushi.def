@@ -1,5 +1,5 @@
 // clang-format off
 //          custom_keycode  key_normal, key_shift, key_ctrl, key_alt, key_gui
-CUSHI_ENTRY(CC_PGUP,    TC_PGUP,    key_alt = CC_PDT, key_ctrl = CC_PAPP, , )
-CUSHI_ENTRY(CC_PGDOWN,  TC_PGDOWN,  key_alt = CC_NDT, key_ctrl = CC_NAPP, , )
+CUSHI_ENTRY(CC_PGUP,    KC_PGUP,    key_alt = CC_PDT, key_ctrl = CC_PAPP, , )
+CUSHI_ENTRY(CC_PGDOWN,  KC_PGDOWN,  key_alt = CC_NDT, key_ctrl = CC_NAPP, , )
 // clang-format on

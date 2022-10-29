@@ -3,8 +3,8 @@
 typedef struct
 {
     bool replaced;
-    uint8_t tc;
+    uint16_t kc;
     uint8_t modmask;
 } cushi_t;
 
-cushi_t process_cushi_keys(uint8_t ti, uint8_t tc, keyrecord_t* record);
+cushi_t process_cushi_keys(uint16_t tc, keyrecord_t* record);

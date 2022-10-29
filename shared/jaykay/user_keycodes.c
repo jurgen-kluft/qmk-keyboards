@@ -2,6 +2,7 @@
 #include "config.h"
 #include "user_keycodes.h"
 
+/*
 // clang-format off
 static const uint16_t kb_keycodes[TC_RANGE_COUNT] = {
     [TC_NO] = KC_NO,
@@ -113,3 +114,5 @@ uint16_t user_get_code16(uint16_t keycode)
 {
     return kb_keycodes[keycode];
 }
+
+*/
