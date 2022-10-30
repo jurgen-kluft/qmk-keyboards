@@ -45,20 +45,13 @@ void register_keycode_press_with_shift(uint16_t kc)
     }
 }
 
-void register_keycode_press_modmask(uint16_t kc, uint8_t modmask)
+void register_keycode_press_nomods(uint16_t kc)
 {
-    if (modmask != 0)
-    {
-        const uint8_t mods = get_mods();
-        del_mods(modmask);
-        del_weak_mods(modmask);
-        register_keycode_press(kc);
-        set_mods(mods); // Restore the mods.
-    }
-    else
-    {
-        register_keycode_press(kc);
-    }
+    const uint8_t mods = get_mods();
+    del_mods(MOD_MASK_SHIFT|MOD_MASK_CTRL|MOD_MASK_ALT|MOD_MASK_GUI);
+    del_weak_mods(MOD_MASK_SHIFT|MOD_MASK_CTRL|MOD_MASK_ALT|MOD_MASK_GUI);
+    register_keycode_press(kc);
+    set_mods(mods); // Restore the mods.
 }
 
 void register_keycode_release(uint16_t kc)
@@ -66,20 +59,13 @@ void register_keycode_release(uint16_t kc)
     unregister_code16(kc);
 }
 
-void register_keycode_release_modmask(uint16_t kc, uint8_t modmask)
+void register_keycode_release_nomods(uint16_t kc)
 {
-    if (modmask != 0)
-    {
-        const uint8_t mods = get_mods();
-        del_mods(modmask);
-        del_weak_mods(modmask);
-        register_keycode_release(kc);
-        set_mods(mods); // Restore the mods.
-    }
-    else
-    {
-        register_keycode_release(kc);
-    }
+    const uint8_t mods = get_mods();
+    del_mods(MOD_MASK_SHIFT|MOD_MASK_CTRL|MOD_MASK_ALT|MOD_MASK_GUI);
+    del_weak_mods(MOD_MASK_SHIFT|MOD_MASK_CTRL|MOD_MASK_ALT|MOD_MASK_GUI);
+    register_keycode_release(kc);
+    set_mods(mods); // Restore the mods.
 }
 
 void register_keycode_tap(uint16_t kc)

@@ -2,6 +2,7 @@
 #include "config.h"
 #include "user_keycodes.h"
 #include "user_layers.h"
+#include "oneshot.h"
 #include "feature.h"
 
 enum
@@ -62,402 +63,399 @@ void enable_smart_numbers(void)
 
 bool process_feature_key(uint16_t kc, keyrecord_t* record)
 {
-    bool ret = true;
+    if (record->event.pressed)
     {
-        if (record->event.pressed)
+        if (features_active_all(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT))
         {
-            if (features_active_all(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT))
+            if (kc == KC_BSPACE || kc == KC_SPACE || kc == CC_FNUM || kc == CC_FNAV || kc == CC_FCAPS || kc == CC_FSYM)
             {
-                if (kc == KC_BSPACE || kc == KC_SPACE || kc == CC_FNUM || kc == CC_FNAV || kc == CC_FCAPS || kc == CC_FSYM)
-                {
-                    s_feature_state &= ~(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT | FEATURE_USED);
-                    user_layer_on(LAYER_QWERTY);
-                }
+                s_feature_state &= ~(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT | FEATURE_USED);
+                user_layer_on(LAYER_QWERTY);
             }
+        }
 
-            // logic for when a key is pressed
-            switch (kc)
-            {
-                // pressed
-                case CC_SHFT:
-                case CC_CTRL:
-                case CC_ALT:
-                case CC_CMD: break;
+        // logic for when a key is pressed
+        switch (kc)
+        {
+            // pressed
+            case CC_SHFT:
+            case CC_CTRL:
+            case CC_ALT:
+            case CC_CMD: break;
 
-                case CC_UNDO ... CC_CLOSE: s_feature_state |= FEATURE_USED; break;
-                
-                case KC_A ... KC_Z:
-                    s_feature_state |= FEATURE_USED;
-                    s_smartcaps_state |= SMART_CAPS_USED;
-                    break;
+            case CC_UNDO ... CC_CLOSE: s_feature_state |= FEATURE_USED; break;
+            
+            case KC_A ... KC_Z:
+                s_feature_state |= FEATURE_USED;
+                s_smartcaps_state |= SMART_CAPS_USED;
+                break;
 
-                case KC_MINUS ... KC_SLASH:
-                case LSFT(KC_1) ... LSFT(KC_0):
-                case LSFT(KC_MINUS) ... LSFT(KC_SLASH):
-                    s_feature_state |= FEATURE_USED;
-                    if (smartcaps_active_any(SMART_CAPS_NORMAL))
+            case KC_MINUS ... KC_SLASH:
+            case LSFT(KC_1) ... LSFT(KC_0):
+            case LSFT(KC_MINUS) ... LSFT(KC_SLASH):
+                s_feature_state |= FEATURE_USED;
+                if (smartcaps_active_any(SMART_CAPS_NORMAL))
+                {
+                    if (!smartcaps_active_any(SMART_CAPS_USED))
                     {
-                        if (!smartcaps_active_any(SMART_CAPS_USED))
+                        if (s_smartcaps_num_seps < SMART_CAPS_MAX_SEPARATORS)
                         {
-                            if (s_smartcaps_num_seps < SMART_CAPS_MAX_SEPARATORS)
-                            {
-                                s_smartcaps_arr_seps[s_smartcaps_num_seps] = kc;
-                                s_smartcaps_num_seps++;
-                            }
-                            return false;
+                            s_smartcaps_arr_seps[s_smartcaps_num_seps] = kc;
+                            s_smartcaps_num_seps++;
                         }
+                        return false;
                     }
-                    break;
+                }
+                break;
 
-                case KC_1 ... KC_0:
-                case KC_F1 ... KC_F12: s_feature_state |= FEATURE_USED; break;
+            case KC_1 ... KC_0:
+            case KC_F1 ... KC_F12: s_feature_state |= FEATURE_USED; break;
 
-                case CC_FNAV: // pressed
-                    s_feature_state &= ~(FEATURE_CAPS|FEATURE_NUM|FEATURE_USED);
-                    s_smartcaps_state = 0;
-                    s_smartcaps_num_seps = 0;
+            case CC_FNAV: // pressed
+                s_feature_state &= ~(FEATURE_CAPS|FEATURE_NUM|FEATURE_USED);
+                s_smartcaps_state = 0;
+                s_smartcaps_num_seps = 0;
 
-                    s_feature_state |= FEATURE_NAV;
-                    if (features_active_all(FEATURE_NAV | FEATURE_SYM))
+                s_feature_state |= FEATURE_NAV;
+                if (features_active_all(FEATURE_NAV | FEATURE_SYM))
+                {
+                    user_layer_on(LAYER_RAISE);
+                }
+                else
+                {
+                    user_layer_on(LAYER_NAVIGATION);
+                }
+                break;
+            case CC_FSYM: // pressed
+                if (features_active_all(FEATURE_SYM_ONESHOT))
+                {
+                    s_feature_state &= ~(FEATURE_USED | FEATURE_SYM | FEATURE_SYM_ONESHOT);
+                    if (features_active_all(FEATURE_NUM))
+                    {
+                        user_layer_on(LAYER_NUMBERS);
+                    }
+                    else
+                    {
+                        user_layer_on(LAYER_QWERTY);
+                    }
+                }
+                else
+                {
+                    s_feature_state |= FEATURE_SYM;
+                    s_feature_state &= ~FEATURE_USED;
+                    if (features_active_all(FEATURE_SYM | FEATURE_NAV))
                     {
                         user_layer_on(LAYER_RAISE);
                     }
                     else
                     {
-                        user_layer_on(LAYER_NAVIGATION);
-                    }
-                    break;
-                case CC_FSYM: // pressed
-                    if (features_active_all(FEATURE_SYM_ONESHOT))
-                    {
-                        s_feature_state &= ~(FEATURE_USED | FEATURE_SYM | FEATURE_SYM_ONESHOT);
-                        if (features_active_all(FEATURE_NUM))
-                        {
-                            user_layer_on(LAYER_NUMBERS);
-                        }
-                        else
-                        {
-                            user_layer_on(LAYER_QWERTY);
-                        }
-                    }
-                    else
-                    {
-                        s_feature_state |= FEATURE_SYM;
-                        s_feature_state &= ~FEATURE_USED;
-                        if (features_active_all(FEATURE_SYM | FEATURE_NAV))
-                        {
-                            user_layer_on(LAYER_RAISE);
-                        }
-                        else
-                        {
-                            user_layer_on(LAYER_SYMBOLS);
-                        }
-                    }
-                    break;
-                case CC_FNUM:
-                    if (features_active_all(FEATURE_CAPS))
-                    {
-                        s_feature_state &= ~FEATURE_CAPS;
-                        s_smartcaps_state = 0;
-                        s_smartcaps_num_seps = 0;
-                    }
-
-                    if (features_active_all(FEATURE_NUM))
-                    {
-                        s_feature_state &= ~FEATURE_NUM;
-                        user_layer_on(LAYER_QWERTY);
-                    }
-                    else
-                    {
-                        s_feature_state &= ~FEATURE_USED;
-                        enable_smart_numbers();
-                    }
-                    break;
-                case CC_FCAPS:
-                    if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE) == false)
-                    {
-                        s_smartcaps_state = SMART_CAPS_NORMAL;
-                        s_smartcaps_num_seps = 1;
-                        s_smartcaps_arr_seps[0] = KC_SCLN;
-                    }
-                    s_smartcaps_state &= ~SMART_CAPS_USED;
-                    s_smartcaps_state |= SMART_CAPS_HOLD;
-                    s_feature_state |= FEATURE_CAPS;
-                    break;
-            }
-        }
-        else
-        {
-            switch (kc)
-            {
-                case CC_SHFT:
-                case CC_CTRL:
-                case CC_ALT:
-                case CC_CMD: break;
-
-                case CC_UNDO ... CC_CLOSE: break;
-
-                case KC_MINUS ... KC_SLASH:
-                case LSFT(KC_MINUS) ... LSFT(KC_SLASH):
-                    if (smartcaps_active_any(SMART_CAPS_NORMAL))
-                    {
-                        if (!smartcaps_active_any(SMART_CAPS_USED))
-                        {
-                            return false;
-                        }
-                    }
-
-                case KC_1 ... KC_0:
-                case KC_F1 ... KC_F12:
-                case KC_A ... KC_Z:
-                case KC_BSPACE:
-                case KC_SPACE:
-                    if (features_active_all(FEATURE_SYM_ONESHOT) && !features_active_all(FEATURE_NAV_ONESHOT))
-                    {
-                        s_feature_state &= ~FEATURE_SYM_ONESHOT;
-                        user_layer_on(LAYER_QWERTY);
-                        if (features_active_all(FEATURE_NUM))
-                        {
-                            user_layer_on(LAYER_NUMBERS);
-                        }
-                    }
-                    break;
-
-                case CC_FNAV: // released
-                    if (features_active_all(FEATURE_NAV | FEATURE_SYM))
-                    {
                         user_layer_on(LAYER_SYMBOLS);
-                        if (features_active_all(FEATURE_USED))
-                        {
-                            s_feature_state |= FEATURE_USED;
-                            s_feature_state &= ~FEATURE_NAV;
-                        }
-                        else
-                        {
-                            s_feature_state &= ~FEATURE_NAV;
-                            s_feature_state |= FEATURE_CAPS;
-                            s_smartcaps_state = SMART_CAPS_NORMAL;
-                            s_smartcaps_state |= SMART_CAPS_HOLD;
-                            s_smartcaps_num_seps = 0;
-                        }
                     }
-                    else if (features_active_all(FEATURE_NAV))
-                    {
-                        s_feature_state &= ~(FEATURE_NAV);
-                        if (features_active_all(FEATURE_SYM_ONESHOT))
-                        {
-                            s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
-                            s_feature_state |= FEATURE_NAV_ONESHOT;
-                            user_layer_on(LAYER_RAISE);
-                        }
-                        else
-                        {
-                            if (features_active_all(FEATURE_NUM))
-                            {
-                                if (features_active_all(FEATURE_USED))
-                                {
-                                    s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
-                                    user_layer_on(LAYER_QWERTY);
-                                }
-                            }
-                            else
-                            {
-                                s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
-                                user_layer_on(LAYER_QWERTY);
-                            }
-                        }
-                    }
-
-                    break;
-
-                case CC_FSYM: // released
-                    if (features_active_all(FEATURE_NAV | FEATURE_SYM))
-                    {
-                        s_feature_state &= ~(FEATURE_SYM | FEATURE_SYM_ONESHOT);
-                        // Hold NAV + Tap SYM ?
-                        if (!features_active_all(FEATURE_USED))
-                        {
-                            enable_smart_numbers();
-                        }
-                        else
-                        {
-                            s_feature_state &= ~(FEATURE_USED);
-                            user_layer_on(LAYER_NAVIGATION);
-                        }
-                    }
-                    else if (features_active_all(FEATURE_SYM))
-                    {
-                        s_feature_state &= ~(FEATURE_SYM | FEATURE_SYM_ONESHOT);
-                        if (features_active_all(FEATURE_CAPS))
-                        {
-                            if (s_smartcaps_num_seps == 0)
-                            {
-                                s_smartcaps_num_seps = 1;
-                                s_smartcaps_arr_seps[0] = KC_UNDS;
-                            }
-                            s_smartcaps_state &= ~SMART_CAPS_HOLD;
-                            user_layer_on(LAYER_QWERTY);
-                        }
-                        else
-                        {
-                            if (features_active_all(FEATURE_USED))
-                            {
-                                s_feature_state &= ~FEATURE_USED;
-                                user_layer_on(LAYER_QWERTY);
-                                if (features_active_all(FEATURE_NUM))
-                                {
-                                    user_layer_on(LAYER_NUMBERS);
-                                }
-                            }
-                            else
-                            {
-                                s_feature_state |= FEATURE_SYM_ONESHOT;
-                            }
-                        }
-                    }
-                    break;
-
-                case CC_FNUM: // released
-                    if (features_active_all(FEATURE_NUM))
-                    {
-                        if (features_active_all(FEATURE_USED))
-                        {
-                            s_feature_state &= ~FEATURE_NUM;
-                            user_layer_on(LAYER_QWERTY);
-                        }
-                    }
-                    break;
-
-                case CC_FCAPS: // released
-                    s_smartcaps_state &= ~SMART_CAPS_HOLD;
-                    if (smartcaps_active_any(SMART_CAPS_USED))
-                    {
-                        s_feature_state &= ~FEATURE_CAPS;
-                        s_smartcaps_state = 0;
-                        s_smartcaps_num_seps = 0;
-                    }
-                    break;
-            }
-        }
-    }
-
-    if (features_active_all(FEATURE_NUM))
-    {
-        if (kc == KC_SPACE)
-        {
-            if (record->event.pressed)
-            {
-                s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
-                if (!features_active_all(FEATURE_SYM))
-                {
-                    user_layer_on(LAYER_QWERTY);
                 }
-            }
-        }
-    }
-    else if (features_active_all(FEATURE_CAPS))
-    {
-        if (record->event.pressed)
-        {
-            // Normal Caps, all letters are emitted in 'upper' case.
-            // The ';' symbol is emitted as the '_' symbol.
-            // When pressing 'comma' we emit a 'space'
-            // When pressing 'dot' we cycle to the next mode
-            // When 'space' is pressed smart capslock is disabled.
-            if (kc >= KC_A && kc <= KC_Z)
-            {
-                if (smartcaps_active_all(SMART_CAPS_SHIFT))
-                {
-                    press_oneshot_modifier(ONESHOT_LSFT);
-                    s_smartcaps_state &= ~SMART_CAPS_SHIFT;
-                }
-            }
-            else if (kc == KC_SPACE)
-            {
-                // will be handled on release
-            }
-            else if (kc == KC_DOT)
-            {
-                // will be handled on release
-                return false;
-            }
-            else if (kc == KC_SCLN)
-            {
-                if (smartcaps_active_all(SMART_CAPS_CAMEL))
-                {
-                    s_smartcaps_state |= SMART_CAPS_SHIFT;
-                }
-                return false;
-            }
-            else if (kc == KC_COMMA)
-            {
-                if (smartcaps_active_all(SMART_CAPS_NORMAL))
-                {
-                    kc = KC_SPACE;
-                    register_keycode_press(kc);
-                }
-                else if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_SNAKE))
-                {
-                    s_smartcaps_state ^= SMART_CAPS_SHIFT;
-                }
-                return false;
-            }
-        }
-        else // record->event.pressed == false
-        {
-            if (kc == KC_SPACE)
-            {
-                if (!smartcaps_active_all(SMART_CAPS_HOLD))
+                break;
+            case CC_FNUM:
+                if (features_active_all(FEATURE_CAPS))
                 {
                     s_feature_state &= ~FEATURE_CAPS;
                     s_smartcaps_state = 0;
                     s_smartcaps_num_seps = 0;
                 }
-            }
-            else if (kc == KC_DOT)
-            {
-                s_feature_state &= ~FEATURE_USED;
-                s_smartcaps_num_seps = 0;
-                if (smartcaps_active_any(SMART_CAPS_SNAKE))
+
+                if (features_active_all(FEATURE_NUM))
                 {
-                    s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
-                    s_smartcaps_state |= SMART_CAPS_NORMAL;
-                    s_smartcaps_num_seps = 1;
-                    s_smartcaps_arr_seps[0] = KC_SCLN;
-                }
-                else if (smartcaps_active_any(SMART_CAPS_CAMEL))
-                {
-                    s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
-                    s_smartcaps_state |= SMART_CAPS_SNAKE;
-                    s_smartcaps_num_seps = 1;
-                    s_smartcaps_arr_seps[0] = KC_SCLN;
+                    s_feature_state &= ~FEATURE_NUM;
+                    user_layer_on(LAYER_QWERTY);
                 }
                 else
                 {
-                    s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
-                    s_smartcaps_state |= SMART_CAPS_CAMEL;
-                    s_smartcaps_state |= SMART_CAPS_SHIFT;
-                    s_smartcaps_num_seps = 1;
-                    s_smartcaps_arr_seps[0] = KC_SPACE;
+                    s_feature_state &= ~FEATURE_USED;
+                    enable_smart_numbers();
                 }
-                return false;
-            }
-            else if (kc == KC_SCLN)
-            {
-                for (int8_t i = 0; i < s_smartcaps_num_seps; ++i)
+                break;
+            case CC_FCAPS:
+                if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE) == false)
                 {
-                    uint16_t kc = s_smartcaps_arr_seps[i];
-                    if (kc == KC_SCLN)
-                    {
-                        kc = KC_UNDS;
-                    }
-                    register_keycode_tap(kc);
+                    s_smartcaps_state = SMART_CAPS_NORMAL;
+                    s_smartcaps_num_seps = 1;
+                    s_smartcaps_arr_seps[0] = KC_SCLN;
                 }
-                return false;
-            }
-            else if (kc == KC_COMMA)
+                s_smartcaps_state &= ~SMART_CAPS_USED;
+                s_smartcaps_state |= SMART_CAPS_HOLD;
+                s_feature_state |= FEATURE_CAPS;
+                break;
+        }
+    }
+    else
+    {
+        switch (kc)
+        {
+            case CC_SHFT:
+            case CC_CTRL:
+            case CC_ALT:
+            case CC_CMD: break;
+
+            case CC_UNDO ... CC_CLOSE: break;
+
+            case KC_MINUS ... KC_SLASH:
+            case LSFT(KC_MINUS) ... LSFT(KC_SLASH):
+                if (smartcaps_active_any(SMART_CAPS_NORMAL))
+                {
+                    if (!smartcaps_active_any(SMART_CAPS_USED))
+                    {
+                        return false;
+                    }
+                }
+
+            case KC_1 ... KC_0:
+            case KC_F1 ... KC_F12:
+            case KC_A ... KC_Z:
+            case KC_BSPACE:
+            case KC_SPACE:
+                if (features_active_all(FEATURE_SYM_ONESHOT) && !features_active_all(FEATURE_NAV_ONESHOT))
+                {
+                    s_feature_state &= ~FEATURE_SYM_ONESHOT;
+                    user_layer_on(LAYER_QWERTY);
+                    if (features_active_all(FEATURE_NUM))
+                    {
+                        user_layer_on(LAYER_NUMBERS);
+                    }
+                }
+                break;
+
+            case CC_FNAV: // released
+                if (features_active_all(FEATURE_NAV | FEATURE_SYM))
+                {
+                    user_layer_on(LAYER_SYMBOLS);
+                    if (features_active_all(FEATURE_USED))
+                    {
+                        s_feature_state |= FEATURE_USED;
+                        s_feature_state &= ~FEATURE_NAV;
+                    }
+                    else
+                    {
+                        s_feature_state &= ~FEATURE_NAV;
+                        s_feature_state |= FEATURE_CAPS;
+                        s_smartcaps_state = SMART_CAPS_NORMAL;
+                        s_smartcaps_state |= SMART_CAPS_HOLD;
+                        s_smartcaps_num_seps = 0;
+                    }
+                }
+                else if (features_active_all(FEATURE_NAV))
+                {
+                    s_feature_state &= ~(FEATURE_NAV);
+                    if (features_active_all(FEATURE_SYM_ONESHOT))
+                    {
+                        s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
+                        s_feature_state |= FEATURE_NAV_ONESHOT;
+                        user_layer_on(LAYER_RAISE);
+                    }
+                    else
+                    {
+                        if (features_active_all(FEATURE_NUM))
+                        {
+                            if (features_active_all(FEATURE_USED))
+                            {
+                                s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
+                                user_layer_on(LAYER_QWERTY);
+                            }
+                        }
+                        else
+                        {
+                            s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
+                            user_layer_on(LAYER_QWERTY);
+                        }
+                    }
+                }
+
+                break;
+
+            case CC_FSYM: // released
+                if (features_active_all(FEATURE_NAV | FEATURE_SYM))
+                {
+                    s_feature_state &= ~(FEATURE_SYM | FEATURE_SYM_ONESHOT);
+                    // Hold NAV + Tap SYM ?
+                    if (!features_active_all(FEATURE_USED))
+                    {
+                        enable_smart_numbers();
+                    }
+                    else
+                    {
+                        s_feature_state &= ~(FEATURE_USED);
+                        user_layer_on(LAYER_NAVIGATION);
+                    }
+                }
+                else if (features_active_all(FEATURE_SYM))
+                {
+                    s_feature_state &= ~(FEATURE_SYM | FEATURE_SYM_ONESHOT);
+                    if (features_active_all(FEATURE_CAPS))
+                    {
+                        if (s_smartcaps_num_seps == 0)
+                        {
+                            s_smartcaps_num_seps = 1;
+                            s_smartcaps_arr_seps[0] = KC_UNDS;
+                        }
+                        s_smartcaps_state &= ~SMART_CAPS_HOLD;
+                        user_layer_on(LAYER_QWERTY);
+                    }
+                    else
+                    {
+                        if (features_active_all(FEATURE_USED))
+                        {
+                            s_feature_state &= ~FEATURE_USED;
+                            user_layer_on(LAYER_QWERTY);
+                            if (features_active_all(FEATURE_NUM))
+                            {
+                                user_layer_on(LAYER_NUMBERS);
+                            }
+                        }
+                        else
+                        {
+                            s_feature_state |= FEATURE_SYM_ONESHOT;
+                        }
+                    }
+                }
+                break;
+
+            case CC_FNUM: // released
+                if (features_active_all(FEATURE_NUM))
+                {
+                    if (features_active_all(FEATURE_USED))
+                    {
+                        s_feature_state &= ~FEATURE_NUM;
+                        user_layer_on(LAYER_QWERTY);
+                    }
+                }
+                break;
+
+            case CC_FCAPS: // released
+                s_smartcaps_state &= ~SMART_CAPS_HOLD;
+                if (smartcaps_active_any(SMART_CAPS_USED))
+                {
+                    s_feature_state &= ~FEATURE_CAPS;
+                    s_smartcaps_state = 0;
+                    s_smartcaps_num_seps = 0;
+                }
+                break;
+        }
+    
+        if (features_active_all(FEATURE_NUM))
+        {
+            if (kc == KC_SPACE)
             {
-                return false;
+                if (!record->event.pressed)
+                {
+                    s_feature_state &= ~(FEATURE_NUM|FEATURE_CAPS);
+                    if (!features_active_all(FEATURE_SYM))
+                    {
+                        user_layer_on(LAYER_QWERTY);
+                    }
+                }
+            }
+        }
+        else if (features_active_all(FEATURE_CAPS))
+        {
+            if (record->event.pressed)
+            {
+                // Normal Caps, all letters are emitted in 'upper' case.
+                // The ';' symbol is emitted as the '_' symbol.
+                // When pressing 'comma' we emit a 'space'
+                // When pressing 'dot' we cycle to the next mode
+                // When 'space' is pressed smart capslock is disabled.
+                if (kc >= KC_A && kc <= KC_Z)
+                {
+                    if (smartcaps_active_all(SMART_CAPS_SHIFT))
+                    {
+                        press_oneshot_modifier(ONESHOT_LSFT);
+                        s_smartcaps_state &= ~SMART_CAPS_SHIFT;
+                    }
+                }
+                else if (kc == KC_SPACE)
+                {
+                    // will be handled on release
+                }
+                else if (kc == KC_DOT)
+                {
+                    // will be handled on release
+                    return false;
+                }
+                else if (kc == KC_SCLN)
+                {
+                    if (smartcaps_active_all(SMART_CAPS_CAMEL))
+                    {
+                        s_smartcaps_state |= SMART_CAPS_SHIFT;
+                    }
+                    return false;
+                }
+                else if (kc == KC_COMMA)
+                {
+                    if (smartcaps_active_all(SMART_CAPS_NORMAL))
+                    {
+                        kc = KC_SPACE;
+                        register_keycode_press(kc);
+                    }
+                    else if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_SNAKE))
+                    {
+                        s_smartcaps_state ^= SMART_CAPS_SHIFT;
+                    }
+                    return false;
+                }
+            }
+            else // record->event.pressed == false
+            {
+                if (kc == KC_SPACE)
+                {
+                    if (!smartcaps_active_all(SMART_CAPS_HOLD))
+                    {
+                        s_feature_state &= ~FEATURE_CAPS;
+                        s_smartcaps_state = 0;
+                        s_smartcaps_num_seps = 0;
+                    }
+                }
+                else if (kc == KC_DOT)
+                {
+                    s_feature_state &= ~FEATURE_USED;
+                    s_smartcaps_num_seps = 0;
+                    if (smartcaps_active_any(SMART_CAPS_SNAKE))
+                    {
+                        s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
+                        s_smartcaps_state |= SMART_CAPS_NORMAL;
+                        s_smartcaps_num_seps = 1;
+                        s_smartcaps_arr_seps[0] = KC_SCLN;
+                    }
+                    else if (smartcaps_active_any(SMART_CAPS_CAMEL))
+                    {
+                        s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
+                        s_smartcaps_state |= SMART_CAPS_SNAKE;
+                        s_smartcaps_num_seps = 1;
+                        s_smartcaps_arr_seps[0] = KC_SCLN;
+                    }
+                    else
+                    {
+                        s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
+                        s_smartcaps_state |= SMART_CAPS_CAMEL;
+                        s_smartcaps_state |= SMART_CAPS_SHIFT;
+                        s_smartcaps_num_seps = 1;
+                        s_smartcaps_arr_seps[0] = KC_SPACE;
+                    }
+                    return false;
+                }
+                else if (kc == KC_SCLN)
+                {
+                    for (int8_t i = 0; i < s_smartcaps_num_seps; ++i)
+                    {
+                        uint16_t kc = s_smartcaps_arr_seps[i];
+                        if (kc == KC_SCLN)
+                        {
+                            kc = KC_UNDS;
+                        }
+                        register_keycode_tap(kc);
+                    }
+                    return false;
+                }
+                else if (kc == KC_COMMA)
+                {
+                    return false;
+                }
             }
         }
     }

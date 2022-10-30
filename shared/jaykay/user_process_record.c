@@ -32,7 +32,7 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
         case CC_GAMEL:
             if (record->event.pressed)
             {
-                if (user_layer() == LAYER_GAMEL)
+                if (user_layer_current() == LAYER_GAMEL)
                 {
                     user_layer_on(LAYER_BASE);
                 }
@@ -54,23 +54,22 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
             }
             return false;
 #endif
-//        case CC_UNDO ... CC_CLOSE:
-//        {
-//            if (record->event.pressed)
-//            {
-//                uint16_t const keycode = process_cukey(kc);
-//                if (keycode != KC_NO)
-//                    register_code16(keycode);
-//            }
-//            else
-//            {
-//                uint16_t const keycode = process_cukey(kc);
-//                if (keycode != KC_NO)
-//                    unregister_code16(keycode);
-//            }
-//            //break;
-//            return false;
-//        }
+        case CC_UNDO ... CC_CLOSE:
+        {
+            if (record->event.pressed)
+            {
+                uint16_t const keycode = process_cukey(kc);
+                if (keycode != KC_NO)
+                    register_code16(keycode);
+            }
+            else
+            {
+                uint16_t const keycode = process_cukey(kc);
+                if (keycode != KC_NO)
+                    unregister_code16(keycode);
+            }
+            return false;
+        }
         case CC_SECRET_1 ... CC_SECRET_8:
             if (!record->event.pressed)
             {
@@ -103,7 +102,7 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
             {
                 rgblight_enable();
             }
-            return true;
+            return false;
 #endif
     }
 
@@ -114,16 +113,16 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
             return false;
         }
 
-        cushi_t cushi = process_cushi_keys(kc, record);
-        if (cushi.replaced)
+        uint16_t cushi = process_cushi_keys(kc, record);
+        if (cushi != KC_NO)
         {
             if (record->event.pressed)
             {
-                register_keycode_press_modmask(cushi.kc, cushi.modmask);
+                register_keycode_press_nomods(cushi);
             }
             else
             {
-                register_keycode_release_modmask(cushi.kc, cushi.modmask);
+                register_keycode_release_nomods(cushi);
             }
             return false;
         }

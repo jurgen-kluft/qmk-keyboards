@@ -2,6 +2,8 @@
 #include "user_layers.h"
 #include "user_keycodes.h"
 
+#define XXX KC_NO
+
 // clang-format off
 #define LAYOUTX( \
     L01, L02, L03, L04, L05,                     R06, R07, R08, R09, R10, \
@@ -10,14 +12,14 @@
               L40, L41, L42, L43,           R46, R47, R48, R49 \
 ) \
 { \
-    { KC_NO, KC_NO, L05,   L04,   L03,   L02,   L01,   KC_NO }, \
-    { KC_NO, KC_NO, L17,   L16,   L15,   L14,   L13,   KC_NO }, \
-    { KC_NO, L30,   L29,   L28,   L27,   L26,   L25,   KC_NO }, \
-    { KC_NO, L43,   L42,   L41,   KC_NO, L40,   KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, R06,   R07,   R08,   R09,   R10,   KC_NO }, \
-    { KC_NO, KC_NO, R18,   R19,   R20,   R21,   R22,   KC_NO }, \
-    { KC_NO, R33,   R34,   R35,   R36,   R37,   R38,   KC_NO }, \
-    { KC_NO, R46,   R47,   R48,   KC_NO, R49,   KC_NO, KC_NO }, \
+    { XXX, XXX, L05, L04, L03, L02, L01, XXX }, \
+    { XXX, XXX, L17, L16, L15, L14, L13, XXX }, \
+    { XXX, L30, L29, L28, L27, L26, L25, XXX }, \
+    { XXX, L43, L42, L41, XXX, L40, XXX, XXX }, \
+    { XXX, XXX, R06, R07, R08, R09, R10, XXX }, \
+    { XXX, XXX, R18, R19, R20, R21, R22, XXX }, \
+    { XXX, R33, R34, R35, R36, R37, R38, XXX }, \
+    { XXX, R46, R47, R48, XXX, R49, XXX, XXX }, \
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

@@ -3,68 +3,59 @@
 #include "user_keycodes.h"
 
 // clang-format off
-// 50*2=100 bytes
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
-    xxxx, KL_00,  KL_01, KL_02, KL_03, KL_04,                                 KL_05,  KL_06, KL_07, KL_08, KL_09, xxxx,
-    xxxx, KL_10,  KL_11, KL_12, KL_13, KL_14,                                 KL_15,  KL_16, KL_17, KL_18, KL_19, xxxx,
-    xxxx, KL_20,  KL_21, KL_22, KL_23, KL_24, KL_25, xxxx,       xxxx, KL_26, KL_27,  KL_28, KL_29, KL_30, KL_31, xxxx,
-                         KL_32, KL_33, KL_34, KL_35, xxxx,       xxxx, KL_36, KL_37,  KL_38, KL_39
-  )
-};
-
-#undef LAYOUT
-#define LAYOUT( \
-    L00, L01, L02, L03, L04,                        L05, L06, L07, L08, L09, \
-    L10, L11, L12, L13, L14,                        L15, L16, L17, L18, L19, \
-    L20, L21, L22, L23, L24, L25,              L26, L27, L28, L29, L30, L31, \
-              L32, L33, L34, L35,              L36, L37, L38, L39 \
+#define LAYOUTX( \
+    L01, L02, L03, L04, L05,                     R06, R07, R08, R09, R10, \
+    L13, L14, L15, L16, L17,                     R18, R19, R20, R21, R22, \
+    L25, L26, L27, L28, L29, L30,           R33, R34, R35, R36, R37, R38, \
+              L40, L41, L42, L43,           R46, R47, R48, R49 \
 ) \
 { \
-    L00, L01, L02, L03, L04, L05, L06, L07, L08, L09, \
-    L10, L11, L12, L13, L14, L15, L16, L17, L18, L19, \
-    L20, L21, L22, L23, L24, L25, L26, L27, L28, L29, \
-    L30, L31, L32, L33, L34, L35, L36, L37, L38, L39  \
+    { KC_NO, KC_NO, L05,   L04,   L03,   L02,   L01,   KC_NO }, \
+    { KC_NO, KC_NO, L17,   L16,   L15,   L14,   L13,   KC_NO }, \
+    { KC_NO, L30,   L29,   L28,   L27,   L26,   L25,   KC_NO }, \
+    { KC_NO, L43,   L42,   L41,   KC_NO, L40,   KC_NO, KC_NO }, \
+    { KC_NO, KC_NO, R06,   R07,   R08,   R09,   R10,   KC_NO }, \
+    { KC_NO, KC_NO, R18,   R19,   R20,   R21,   R22,   KC_NO }, \
+    { KC_NO, R33,   R34,   R35,   R36,   R37,   R38,   KC_NO }, \
+    { KC_NO, R46,   R47,   R48,   KC_NO, R49,   KC_NO, KC_NO }, \
 }
 
-
-// 8*40=320 bytes
-const uint8_t PROGMEM user_kb_layers[][40] = {
-    [LAYER_QWERTY] = LAYOUT(
-    TC_Q, TC_W, TC_E,    TC_R,    TC_T,                               TC_Y,    TC_U,     TC_I,     TC_O,   TC_P,    
-    TC_A, TC_S, TC_D,    TC_F,    TC_G,                               TC_H,    TC_J,     TC_K,     TC_L,   TC_SCLN, 
-    TC_Z, TC_X, TC_C,    TC_V,    TC_B,    CC_PDT,         CC_NDT,    TC_N,    TC_M,     TC_COMMA, TC_DOT, TC_AT,   
-                CC_FNUM, CC_FNUM, CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                   
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [LAYER_QWERTY] = LAYOUTX(
+    KC_Q, KC_W, KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,     KC_I,     KC_O,   KC_P,    
+    KC_A, KC_S, KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,     KC_K,     KC_L,   KC_SCLN, 
+    KC_Z, KC_X, KC_C,    KC_V,    KC_B,    CC_PDT,         CC_NDT,    KC_N,    KC_M,     KC_COMMA, KC_DOT, KC_AT,   
+                CC_FNUM, CC_FNUM, CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                   
     ),
-    [LAYER_RSTHD] = LAYOUT(
-    TC_J,    TC_C, TC_Y,    TC_F,    TC_K,                            TC_Z,    TC_L,     TC_BSPACE, TC_U,   TC_Q,  
-    TC_R,    TC_S, TC_T,    TC_H,    TC_D,                            TC_M,    TC_N,     TC_A,      TC_I,   TC_O,  
-    TC_SCLN, TC_V, TC_G,    TC_P,    TC_B,    CC_PDT,         CC_NDT, TC_X,    TC_W,     TC_COMMA,  TC_DOT, TC_AT, 
-                   CC_FNUM, CC_FNUM, CC_FNAV, TC_SPACE,       TC_E,   CC_FSYM, CC_FCAPS, CC_FCAPS                  
+    [LAYER_RSTHD] = LAYOUTX(
+    KC_J,    KC_C, KC_Y,    KC_F,    KC_K,                            KC_Z,    KC_L,     KC_BSPACE, KC_U,   KC_Q,  
+    KC_R,    KC_S, KC_T,    KC_H,    KC_D,                            KC_M,    KC_N,     KC_A,      KC_I,   KC_O,  
+    KC_SCLN, KC_V, KC_G,    KC_P,    KC_B,    CC_PDT,         CC_NDT, KC_X,    KC_W,     KC_COMMA,  KC_DOT, KC_AT, 
+                   CC_FNUM, CC_FNUM, CC_FNAV, KC_SPACE,       KC_E,   CC_FSYM, CC_FCAPS, CC_FCAPS                  
     ),
-    [LAYER_NUMBERS] = LAYOUT(
-    TC_PLUS, TC_MINUS, TC_ASTR, TC_SLASH, TC_NO,                              TC_6,    TC_0,     TC_9,     TC_8,   TC_7,  
-    TC_7,    TC_8,     TC_9,    TC_0,     TC_6,                               TC_5,    TC_1,     TC_2,     TC_3,   TC_4,  
-    CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  TC_NO,   TC_NO,          TC_NO,     TC_NO,   TC_EQUAL, TC_COMMA, TC_DOT, TC_NO, 
-                       CC_FNUM, CC_FNUM,  CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                 
+    [LAYER_NUMBERS] = LAYOUTX(
+    KC_PLUS, KC_MINUS, KC_ASTR, KC_SLASH, KC_NO,                              KC_6,    KC_0,     KC_9,     KC_8,   KC_7,  
+    KC_7,    KC_8,     KC_9,    KC_0,     KC_6,                               KC_5,    KC_1,     KC_2,     KC_3,   KC_4,  
+    CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  KC_NO,   KC_NO,          KC_NO,     KC_NO,   KC_EQUAL, KC_COMMA, KC_DOT, KC_NO, 
+                       CC_FNUM, CC_FNUM,  CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                 
     ),
-    [LAYER_SYMBOLS] = LAYOUT(
-    TC_PERC, TC_AMPR,  TC_PIPE, TC_UNDS,   TC_TILD,                            TC_GRV,  TC_QUOT,  TC_DQUO,  TC_HASH, TC_DLR,  
-    TC_EXLM, TC_MINUS, TC_PLUS, TC_EQUAL,  TC_LBRC,                            TC_LABK, TC_LPRN,  TC_LCBR,  TC_SCLN, TC_COLN, 
-    TC_CIRC, TC_SLASH, TC_ASTR, TC_BSLASH, TC_RBRC, CC_NDOC,        CC_PDOC,   TC_RABK, TC_RPRN,  TC_RCBR,  TC_QUES, TC_AT,   
-                       CC_FCNT, CC_FCNT,   CC_FNAV, TC_SPACE,       TC_BSPACE, CC_FSYM, CC_FCNT,  CC_FCNT
+    [LAYER_SYMBOLS] = LAYOUTX(
+    KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                            KC_GRV,  KC_QUOT,  KC_DQUO,  KC_HASH, KC_DLR,  
+    KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                            KC_LABK, KC_LPRN,  KC_LCBR,  KC_SCLN, KC_COLN, 
+    KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, CC_NDOC,        CC_PDOC,   KC_RABK, KC_RPRN,  KC_RCBR,  KC_QUES, KC_AT,   
+                       CC_FCNT, CC_FCNT,   CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, CC_FCNT,  CC_FCNT
     ),
-    [LAYER_NAVIGATION] = LAYOUT(
-    CC_REDO, CC_CLOSE, TC_ESCAPE, TC_ENTER, TC_TAB,                               TC_INSERT, TC_PGUP,   TC_HOME,  TC_NO,    TC_NO, 
-    CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  TC_DELETE,                            TC_LEFT,   TC_DOWN,   TC_UP,    TC_RIGHT, TC_NO, 
-    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, TC_NO,     CC_NAPP,        CC_PAPP,   TC_NO,     TC_PGDOWN, TC_END,   TC_NO,    TC_NO, 
-                       CC_FNUM,   CC_FNUM,  CC_FNAV,   TC_SPACE,       TC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS                   
+    [LAYER_NAVIGATION] = LAYOUTX(
+    CC_REDO, CC_CLOSE, KC_ESCAPE, KC_ENTER, KC_TAB,                               KC_INSERT, CC_PGUP,   KC_HOME,  KC_NO,    KC_NO, 
+    CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  KC_DELETE,                            KC_LEFT,   KC_DOWN,   KC_UP,    KC_RIGHT, KC_NO, 
+    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, KC_NO,     CC_NAPP,        CC_PAPP,   KC_NO,     CC_PGDOWN, KC_END,   KC_NO,    KC_NO, 
+                       CC_FNUM,   CC_FNUM,  CC_FNAV,   KC_SPACE,       KC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS                   
     ),
-    [LAYER_RAISE] = LAYOUT(
-    CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, TC_NO,                                TC_F12,   TC_F2,    TC_F3,    TC_F4, TC_F1, 
-    CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     TC_NO,                                TC_F5,    TC_F11,   TC_F10,   TC_F9, TC_NO, 
-    CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, TC_NO,     CC_PDT,         CC_NDT,    TC_NO,    TC_F6,    TC_F7,    TC_F8, TC_NO, 
-                              CC_FNUM,     CC_FNUM,     CC_FNAV,   TC_SPACE,       TC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS                
+    [LAYER_RAISE] = LAYOUTX(
+    CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, KC_NO,                                KC_F12,   KC_F2,    KC_F3,    KC_F4, KC_F1, 
+    CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     KC_NO,                                KC_F5,    KC_F11,   KC_F10,   KC_F9, KC_NO, 
+    CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, KC_NO,     CC_PDT,         CC_NDT,    KC_NO,    KC_F6,    KC_F7,    KC_F8, KC_NO, 
+                              CC_FNUM,     CC_FNUM,     CC_FNAV,   KC_SPACE,       KC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS                
     )
 };
 

@@ -20,8 +20,8 @@ int8_t user_layer_current(void);
 
 void register_keycode_press(uint16_t kc);
 void register_keycode_press_with_shift(uint16_t kc);
-void register_keycode_press_modmask(uint16_t kc, uint8_t modmask);
+void register_keycode_press_nomods(uint16_t kc);
 void register_keycode_release(uint16_t kc);
-void register_keycode_release_modmask(uint16_t kc, uint8_t modmask);
+void register_keycode_release_nomods(uint16_t kc);
 void register_keycode_tap(uint16_t kc);
 void register_keycode_tap_with_shift(uint16_t kc);
