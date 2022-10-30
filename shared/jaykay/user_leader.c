@@ -284,8 +284,15 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                     break;
                 case LA_CHANGE_WORD:
                 case LA_DELETE_WORD:
-                    // Visual Studio Code has an extension that does it better (cut/copy word, GUI+X/GUI+C)
-                    send_taps3(A(KC_LEFT), A(S(KC_RIGHT)), KC_DEL); break;
+                    if (keyboard_get_os() == OS_MAC)
+                    {
+                        send_taps2(A(S(KC_RIGHT)), KC_DEL); 
+                    }
+                    else
+                    {
+                        send_taps2(C(S(KC_RIGHT)), KC_DEL);
+                    }
+                    break;
                     break;
                 case LA_DELETE_WORD_BACK:
                     if (keyboard_get_os() == OS_MAC)

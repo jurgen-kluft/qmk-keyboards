@@ -6,20 +6,22 @@ So now that I have two 34 key split keyboards on the way I have to start figurin
 
 - [Kyria](https://splitkb.com/collections/keyboard-kits/products/kyria-pcb-kit)
 - [Hillside](https://github.com/mmccoyd/hillside)
+- [Moonlander](https://www.zsa.io/moonlander/)
 - On the way => [Sweep](https://splitkb.com/collections/keyboard-kits/products/aurora-sweep-pcb-kit)
 - On the way => [Dilemma](https://bastardkb.com/dilemma/)
-- [Moonlander](https://www.zsa.io/moonlander/)
 
 ## Keymap
 
 With the following features:
 - Callum style Oneshot Modifiers (*rewrite*, `oneshot.c`, `user_oneshot.c`)
   - double-tap to lock a modifier
+  - tap **NAV** to cancel all modifiers
 - Smart Numbers (`feature.c`)
-  - Holding **NAV** and tapping **SYM**
+  - holding **NAV** and tapping **SYM**
   - will end when pressing *space*
 - Smart Caps (`feature.c`)
-  - Holding **SYM** and tapping **NAV**
+  - holding **SYM** and tapping **NAV** will turn ON Smart Caps
+  - tapping **NAV** will turn OFF Smart Caps
   - tapping `.` will cycle:
     - `Normal/Repeat -> Camel Case -> Snake Case -> Off`
   - will end when pressing *space* or **NAV**
@@ -77,9 +79,9 @@ Examples:
 
 ## Status
 
-- HillSide: **Broken**
+- HillSide: **OK**
 - Kyria: **OK**
-- Moonlander: **Broken**
+- Moonlander: **OK**
 
 ## Setup
 
