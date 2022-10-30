@@ -124,6 +124,9 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
             {
                 register_keycode_release_nomods(cushi);
             }
+
+            update_oneshot_modifiers(cushi, record);
+
             return false;
         }
 
