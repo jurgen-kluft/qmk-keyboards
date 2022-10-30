@@ -26,61 +26,9 @@ enum
     SMART_CAPS_SNAKE  = 0x80,
 };
 
-
-
-/*
-Thought Experiment: If we check `signals` can we determine state?
-
-These are key signals, these are external signals:
-
-- Nav
-- Sym
-- SymbolsUsed
-- SmartCapsUsed
-- SmartNumUsed
-
-These are logic signals, logic signals happen internally:
-
-- SymOS (OneShot)
-- SmartNum
-- SmartCaps
-
-State Changes:
-- NORMAL to NAV          activate the NAV layer, deactivate all other features
-- NORMAL to SYM          activate the SYM layer
-- NORMAL to SYMOS        activate the SYM layer
-- RAISE to SmartNum      activate the NUM layer
-- RAISE to SmartCaps     activate CAPS mode
-- SmartNum to SYM        activate SYM layer, keep SmartNum activated
-- SmartCaps to SYM       activate SYM layer, keep SmartCaps activated
-
-
-Low(Nav), Low(Sym), Low(SymOS), Low|High(SmartNum), Low|High(SmartCaps)                         => State = NORMAL
-LowToHigh(Nav), Low(Sym), Low(SymOs)                                                            => State = NAV, SetLow(SmartNum), SetLow(SmartCaps)
-High(Nav), Low(Sym), Low(SymOS)                                                                 => State = NAV
-    High(Nav), LowToHigh(Sym)                                                                       => State = RAISE, SetLow(KeysUsed)
-    High(Nav), HighToLow(Sym), Low(KeysUsed)                                                        => State = SMARTNUM
-    HighToLow(Nav), Low(Sym), Low(KeysUsed), High(SmartNum), Low(KeysUsed)                          => State = SMARTNUM
-HighToLow(Nav), Low(Sym), Low(SymOS), Low(SmartNum), Low(SmartCaps), Low(KeysUsed)              => State = NORMAL
-
-LowToHigh(Nav), Low(Sym), High(SymOs)                                                           => State = RAISE
-High(Nav), Low(Sym), High(SymOs)                                                                => State = RAISE
-Low(Nav), Low(Sym), High(SymOs)                                                                 => State = RAISE, SetLow(SymOs)
-
-LowToHigh(Sym), Low(Nav)                                                                        => State = SYM, SetLow(SymbolsUsed)
-High(Sym),      Low(Nav), Low(SymbolsUsed)                                                          => State = SYM
-HighToLow(Sym), Low(Nav), Low(SymbolsUsed)                                                          => State = SYMOS
-
-High(Sym),      Low(Nav), Low|High(SmartNum), Low|High(SmartCaps), Low(SymbolsUsed)             => State = SYM
-    High(Sym), LowToHigh(Nav)                                                                       => State = RAISE
-    High(Sym), HighToLow(Nav), Low(KeysUsed)                                                        => State = SMARTCAPS, SetLow(AlphasUsed)
-    HighToLow(Sym), Low(Nav), Low(KeysUsed), Low(SmartNum), High(SmartCaps), Low(AlphasUsed)        => State = SMARTCAPS
-
-*/
-
 /*
 Possible combinations with NAV and SYM:
-- Tap NAV  +  Tap SYM    = unused (goes through `leader` logic)
+- Tap NAV  +  Tap SYM    = unused (part of `leader` logic)
 - Tap SYM  +  Tap NAV    = RAISE Layer lock
 - Hold NAV +  Tap SYM    = SmartNum  (You can now release NAV and it will stay in SmartNum mode)
 - Hold SYM +  Tap NAV    = SmartCaps (You can now release SYM and it will stay in SmartCaps mode)
@@ -409,139 +357,109 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
     }
     else if (features_active_all(FEATURE_CAPS))
     {
+        if (record->event.pressed)
         {
-            if (record->event.pressed)
+            // Normal Caps, all letters are emitted in 'upper' case.
+            // The ';' symbol is emitted as the '_' symbol.
+            // When pressing 'comma' we emit a 'space'
+            // When pressing 'dot' we cycle to the next mode
+            // When 'space' is pressed smart capslock is disabled.
+            if (kc >= KC_A && kc <= KC_Z)
             {
-                // Normal Caps, all letters are emitted in 'upper' case.
-                // The ';' symbol is emitted as the '_' symbol.
-                // When pressing 'comma' we emit a 'space'
-                // When pressing 'dot' we cycle to the next mode
-                // When 'space' is pressed smart capslock is disabled.
-
-                if (kc == KC_SPACE)
+                if (smartcaps_active_all(SMART_CAPS_SHIFT))
                 {
+                    press_oneshot_modifier(ONESHOT_LSFT);
+                    s_smartcaps_state &= ~SMART_CAPS_SHIFT;
+                }
+            }
+            else if (kc == KC_SPACE)
+            {
+                // will be handled on release
+            }
+            else if (kc == KC_DOT)
+            {
+                // will be handled on release
+                return false;
+            }
+            else if (kc == KC_SCLN)
+            {
+                if (smartcaps_active_all(SMART_CAPS_CAMEL))
+                {
+                    s_smartcaps_state |= SMART_CAPS_SHIFT;
+                }
+                return false;
+            }
+            else if (kc == KC_COMMA)
+            {
+                if (smartcaps_active_all(SMART_CAPS_NORMAL))
+                {
+                    kc = KC_SPACE;
                     register_keycode_press(kc);
-                    // will be handled on release
-                }
-                else if (kc == KC_DOT)
-                {
-                    // will be handled on release
-                }
-                else if (smartcaps_active_all(SMART_CAPS_NORMAL))
-                {
-                    if (kc >= KC_A && kc <= KC_Z)
-                    {
-                        register_keycode_press_with_shift(kc);
-                    }
-                    else
-                    {
-                        if (kc == KC_COMMA)
-                        {
-                            kc = KC_SPACE;
-                            register_keycode_press(kc);
-                        }
-                    }
                 }
                 else if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_SNAKE))
                 {
-                    // Camel Case, when pressing ';' we register space and mark the next key to be registered with 'shift'.
-                    // When pressing 'comma' we mark the next key to be registered with 'shift'.
-                    // When pressing 'dot' we cycle to the next mode
-                    // When 'space' is pressed smart capslock is disabled.
-
-                    // Snake Case, when pressing ';' we register a '_' and continue
-                    // When pressing 'dot' we cycle to the next mode
-                    // When 'space' is pressed smart capslock is disabled.
-                    if (kc >= KC_A && kc <= KC_Z)
-                    {
-                        if (smartcaps_active_all(SMART_CAPS_SHIFT))
-                        {
-                            register_keycode_press_with_shift(kc);
-                            s_smartcaps_state &= ~(SMART_CAPS_SHIFT);
-                        }
-                        else
-                        {
-                            register_keycode_press(kc);
-                        }
-                    }
-                    else if (kc == KC_SCLN)
-                    {
-                        if (smartcaps_active_all(SMART_CAPS_CAMEL))
-                        {
-                            s_smartcaps_state |= SMART_CAPS_SHIFT;
-                        }
-                    }
-                    else if (kc == KC_COMMA)
-                    {
-                        s_smartcaps_state ^= SMART_CAPS_SHIFT;
-                    }
-                    else
-                    {
-                        register_keycode_press(kc);
-                    }
+                    s_smartcaps_state ^= SMART_CAPS_SHIFT;
                 }
-            }
-            else // record->event.pressed == false
-            {
-                if (kc == KC_SPACE)
-                {
-                    register_keycode_release(kc);
-                    if (!smartcaps_active_all(SMART_CAPS_HOLD))
-                    {
-                        s_feature_state &= ~FEATURE_CAPS;
-                        s_smartcaps_state = 0;
-                        s_smartcaps_num_seps = 0;
-                    }
-                }
-                else if (kc == KC_DOT)
-                {
-                    s_feature_state &= ~FEATURE_USED;
-                    s_smartcaps_num_seps = 0;
-                    if (smartcaps_active_any(SMART_CAPS_SNAKE))
-                    {
-                        s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
-                        s_smartcaps_state |= SMART_CAPS_NORMAL;
-                        s_smartcaps_num_seps = 1;
-                        s_smartcaps_arr_seps[0] = KC_SCLN;
-                    }
-                    else if (smartcaps_active_any(SMART_CAPS_CAMEL))
-                    {
-                        s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
-                        s_smartcaps_state |= SMART_CAPS_SNAKE;
-                        s_smartcaps_num_seps = 1;
-                        s_smartcaps_arr_seps[0] = KC_SCLN;
-                    }
-                    else
-                    {
-                        s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
-                        s_smartcaps_state |= SMART_CAPS_CAMEL;
-                        s_smartcaps_state |= SMART_CAPS_SHIFT;
-                        s_smartcaps_num_seps = 1;
-                        s_smartcaps_arr_seps[0] = KC_SPACE;
-                    }
-                }
-                else if (kc == KC_SCLN)
-                {
-                    for (int8_t i = 0; i < s_smartcaps_num_seps; ++i)
-                    {
-                        uint16_t kc = s_smartcaps_arr_seps[i];
-                        if (kc == KC_SCLN)
-                        {
-                            kc = KC_UNDS;
-                        }
-                        register_keycode_tap(kc);
-                    }
-                }
-                else 
-                {
-                    // This will unregister the keycode as it was registered when it was pressed.
-                    register_keycode_release(kc);
-                }
+                return false;
             }
         }
-
-        ret = false;
+        else // record->event.pressed == false
+        {
+            if (kc == KC_SPACE)
+            {
+                if (!smartcaps_active_all(SMART_CAPS_HOLD))
+                {
+                    s_feature_state &= ~FEATURE_CAPS;
+                    s_smartcaps_state = 0;
+                    s_smartcaps_num_seps = 0;
+                }
+            }
+            else if (kc == KC_DOT)
+            {
+                s_feature_state &= ~FEATURE_USED;
+                s_smartcaps_num_seps = 0;
+                if (smartcaps_active_any(SMART_CAPS_SNAKE))
+                {
+                    s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
+                    s_smartcaps_state |= SMART_CAPS_NORMAL;
+                    s_smartcaps_num_seps = 1;
+                    s_smartcaps_arr_seps[0] = KC_SCLN;
+                }
+                else if (smartcaps_active_any(SMART_CAPS_CAMEL))
+                {
+                    s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
+                    s_smartcaps_state |= SMART_CAPS_SNAKE;
+                    s_smartcaps_num_seps = 1;
+                    s_smartcaps_arr_seps[0] = KC_SCLN;
+                }
+                else
+                {
+                    s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
+                    s_smartcaps_state |= SMART_CAPS_CAMEL;
+                    s_smartcaps_state |= SMART_CAPS_SHIFT;
+                    s_smartcaps_num_seps = 1;
+                    s_smartcaps_arr_seps[0] = KC_SPACE;
+                }
+                return false;
+            }
+            else if (kc == KC_SCLN)
+            {
+                for (int8_t i = 0; i < s_smartcaps_num_seps; ++i)
+                {
+                    uint16_t kc = s_smartcaps_arr_seps[i];
+                    if (kc == KC_SCLN)
+                    {
+                        kc = KC_UNDS;
+                    }
+                    register_keycode_tap(kc);
+                }
+                return false;
+            }
+            else if (kc == KC_COMMA)
+            {
+                return false;
+            }
+        }
     }
-
-    return ret;
+    return true;
 }
