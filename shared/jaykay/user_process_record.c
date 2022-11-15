@@ -127,7 +127,7 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             }
             else
             {
-                register_keycode_release_modmask(ti, cushi.tc, cushi.modmask);
+                register_keycode_release(ti, cushi.tc);
             }
             return false;
         }
