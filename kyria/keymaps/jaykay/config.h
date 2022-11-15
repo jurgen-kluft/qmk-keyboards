@@ -18,7 +18,7 @@
   #define RGBLIGHT_MAX_LAYERS 16
 #endif
 
-#define LAYER_STATE_8BIT
+#define LAYER_STATE_16BIT
 
 #define NO_MUSIC_MODE
 #define NO_ACTION_ONESHOT

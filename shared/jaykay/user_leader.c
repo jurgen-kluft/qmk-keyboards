@@ -100,6 +100,7 @@ enum eleader_2t1
     LA_BOTTOM_OF_FILE,   // gb
     LA_OPEN_LINE_ABOVE,  // oa
     LA_OPEN_LINE_BELOW,  // oo
+    LA_COPY_LINE,        // yy
 };
 
 // clang-format off
@@ -115,6 +116,7 @@ static const leader2_t leader2t1_array[] = {
     [LA_BOTTOM_OF_FILE]   = {KC_G, KC_B},
     [LA_OPEN_LINE_ABOVE]  = {KC_O, KC_A},
     [LA_OPEN_LINE_BELOW]  = {KC_O, KC_O},
+    [LA_COPY_LINE]        = {KC_Y, KC_Y},
 };
 // clang-format on
 
@@ -128,6 +130,11 @@ enum eleader_3t1
     LA_CHANGE_INSIDE_QUOT,    // ciq
     LA_CHANGE_INSIDE_TICKS,   // cit
     LA_CHANGE_INSIDE_WORD,    // ciw
+    
+    // TODO paste inside?
+    LA_PASTE_INSIDE_WORD, // piw
+    LA_PASTE_INSIDE_BRC,  // pib
+    LA_PASTE_INSIDE_PRN,  // pip
 };
 
 // clang-format off
@@ -311,6 +318,18 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
 
                 case LA_OPEN_LINE_ABOVE: send_taps3(KC_HOME, KC_ENTER, KC_UP); break;
                 case LA_OPEN_LINE_BELOW: send_taps2(KC_END, KC_ENTER); break;
+
+                case LA_COPY_LINE: // yy
+                    if (keyboard_get_os() == OS_MAC)
+                    {
+                        send_taps1(G(KC_C)); break;
+                    }
+                    else
+                    {
+                        send_taps1(C(KC_C)); break;
+                    }
+                    break;
+                
             }
         }
         else if (mode == 1)
@@ -352,6 +371,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         }
         if (bracket != KC_NO)
         {
+            // vscode: Quick and Simple Text Selection
             if (keyboard_get_os() == OS_MAC)
             {
                 send_taps2(G(KC_K), bracket);

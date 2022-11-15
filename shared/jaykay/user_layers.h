@@ -2,8 +2,10 @@
 
 enum ecustom_layers
 {
-    LAYER_QWERTY = 0,
-    LAYER_RSTHD,
+    LAYER_QWERTY = 0, // 0
+    LAYER_RSTHD, // 1
+    LAYER_QWERTY_CAPS,
+    LAYER_RSTHD_CAPS,
     LAYER_NUMBERS,
     LAYER_SYMBOLS,
     LAYER_NAVIGATION,

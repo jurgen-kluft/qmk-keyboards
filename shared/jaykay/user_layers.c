@@ -10,15 +10,17 @@ void          user_layer_on(int8_t layer)
 {
     switch (layer)
     {
+        case LAYER_QWERTY: 
         case LAYER_RSTHD:
-        case LAYER_QWERTY: current_layer = keyboard_get_layout(); break;
-        case LAYER_NUMBERS:
-        case LAYER_SYMBOLS:
-        case LAYER_NAVIGATION:
-        case LAYER_RAISE:
+            current_layer = keyboard_get_layout(); 
+            break;
+        case LAYER_QWERTY_CAPS:
+        case LAYER_RSTHD_CAPS:
+            current_layer = LAYER_QWERTY_CAPS + keyboard_get_layout();
+            break;
         default: current_layer = layer; break;
     }
-    layer_state_set(1<<current_layer);
+    layer_state_set((1<<keyboard_get_layout()) | (1<<current_layer));
 }
 
 int8_t user_layer_current(void) { return current_layer; }
