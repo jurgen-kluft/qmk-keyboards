@@ -36,6 +36,7 @@ static uint16_t leader_timer                   = 0;
 static uint8_t  leader_chain_recorded_pressed  = 0;
 static uint8_t  leader_chain_recorded_released = 0;
 static uint8_t  leader_chain[LEADER_MAX_CHAIN] = {0};
+static uint8_t  leader_enabled                 = 1;
 
 static void reset_leader(uint8_t active)
 {
@@ -66,70 +67,68 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
 
     if (record->event.pressed)
     {
-        if (keycode == CC_FNAV)
+        if (keycode == CC_FSYM)
         {
-            if (leader_chain_recorded_pressed > 0)
+            leader_enabled = 0;
+            reset_leader(0);
+        }
+        else if (keycode == CC_FNAV)
+        {
+            if (leader_enabled == 1)
             {
-                reset_leader(0);
-            }
-            else if (leader_active == 2 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
-            {
-                // we pressed FNAV twice in a short time, this triggers a mode increase
-                leader_mode++;
-                leader_timer = timer_read();
-            }
-            else
-            {
-                reset_leader(1);
+                if (leader_chain_recorded_pressed > 0)
+                {
+                    reset_leader(0);
+                }
+                else if (leader_active == 2 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
+                {
+                    // we pressed FNAV twice in a short time, this triggers a mode increase
+                    leader_mode++;
+                    leader_timer = timer_read();
+                }
+                else
+                {
+                    reset_leader(1);
+                }
             }
         }
         else if (leader_active == 2)
         {
-            // If KC_FSYM is tapped right after tapping KC_FNAV the mode changes to 4.
-            if (keycode == CC_FSYM)
+            if (leader_enabled == 1)
             {
-                if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) < LEADER_TIMEOUT))
-                {
-                    // TODO unused
-                    leader_mode = 4;
-                }
-                else
+                if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
                 {
                     reset_leader(0);
                 }
-            }
-            else if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
-            {
-                reset_leader(0);
-            }
-            else
-            {
-                leader_chain[leader_chain_recorded_pressed++] = keycode;
-                leader_timer                                  = timer_read();
+                else
+                {
+                    leader_chain[leader_chain_recorded_pressed++] = keycode;
+                    leader_timer                                  = timer_read();
 
-                int8_t action;
-                if (leader_mode == 4)
-                {
-                    action = -2;
+                    int8_t action;
+                    if (leader_mode == 4)
+                    {
+                        action = -2;
+                    }
+                    else if (leader_mode == 2)
+                    {
+                        action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
+                    }
+                    else if (leader_mode == 1)
+                    {
+                        action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
+                    }
+                    else
+                    {
+                        action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
+                    }
+                    if (action == -2)
+                    {
+                        reset_leader(0);
+                        return false;
+                    }
+                    return true;
                 }
-                else if (leader_mode == 2)
-                {
-                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
-                }
-                else if (leader_mode == 1)
-                {
-                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
-                }
-                else
-                {
-                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
-                }
-                if (action == -2)
-                {
-                    reset_leader(0);
-                    return false;
-                }
-                return true;
             }
         }
         else
@@ -139,64 +138,68 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
     }
     else
     {
-        if (keycode == CC_FNAV)
+        if (keycode == CC_FSYM)
         {
-            if (timer_elapsed(leader_timer) < LEADER_TIMEOUT)
-            {
-                if (leader_active == 1)
-                {
-                    leader_active = 2;
-                }
-                leader_timer = timer_read();
-            }
-            else
-            {
-                reset_leader(0);
-            }
+            leader_enabled = 1;
+            reset_leader(0);
         }
-        else if (keycode == CC_FSYM)
+        else if (keycode == CC_FNAV)
         {
-            // nop
-        }
-        else if (leader_active == 2)
-        {
-            // scan in the leader chain for the keycode that is released and if found increment leader_chain_recorded_released
-            for (uint8_t i = 0; i < leader_chain_recorded_pressed; i++)
+            if (leader_enabled == 1)
             {
-                if (leader_chain[i] == keycode)
+                if (timer_elapsed(leader_timer) < LEADER_TIMEOUT)
                 {
-                    leader_chain_recorded_released++;
-                    break;
-                }
-            }
-
-            if (leader_chain_recorded_released == leader_chain_recorded_pressed)
-            {
-                int8_t leader_action = -1;
-                if (leader_mode == 4)
-                {
-                    
-                }
-                else if (leader_mode == 2)
-                {
-                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
-                }
-                else if (leader_mode == 1)
-                {
-                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
+                    if (leader_active == 1)
+                    {
+                        leader_active = 2;
+                    }
+                    leader_timer = timer_read();
                 }
                 else
                 {
-                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
-                }
-
-                if (leader_action >= 0)
-                {
-                    execute_leader_action(leader_action, leader_mode, leader_chain_recorded_pressed, leader_chain);
                     reset_leader(0);
                 }
             }
-            return true;
+        }
+        else if (leader_active == 2)
+        {
+            if (leader_enabled == 1)
+            {
+                // scan in the leader chain for the keycode that is released and if found increment leader_chain_recorded_released
+                for (uint8_t i = 0; i < leader_chain_recorded_pressed; i++)
+                {
+                    if (leader_chain[i] == keycode)
+                    {
+                        leader_chain_recorded_released++;
+                        break;
+                    }
+                }
+
+                if (leader_chain_recorded_released == leader_chain_recorded_pressed)
+                {
+                    int8_t leader_action = -1;
+                    if (leader_mode == 4) {}
+                    else if (leader_mode == 2)
+                    {
+                        leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
+                    }
+                    else if (leader_mode == 1)
+                    {
+                        leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
+                    }
+                    else
+                    {
+                        leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
+                    }
+
+                    if (leader_action >= 0)
+                    {
+                        execute_leader_action(leader_action, leader_mode, leader_chain_recorded_pressed, leader_chain);
+                        reset_leader(0);
+                    }
+                }
+                return true;
+            }
         }
     }
 
