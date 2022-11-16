@@ -21,17 +21,17 @@ void          user_layer_on(int8_t layer)
         default: current_layer = layer; break;
     }
 
-    switch (current_layer)
-    {
-        case LAYER_QWERTY: send_string_with_delay("QWERTY", MACRO_TIMER); break;
-        case LAYER_RSTHD: send_string_with_delay("RSTHD", MACRO_TIMER);break;
-        case LAYER_QWERTY_CAPS: send_string_with_delay("QWERTY_CAPS", MACRO_TIMER);break;
-        case LAYER_RSTHD_CAPS: send_string_with_delay("RSTHD_CAPS", MACRO_TIMER);break;
-        case LAYER_NUMBERS: send_string_with_delay("NUMBERS", MACRO_TIMER);break;
-        case LAYER_SYMBOLS: send_string_with_delay("SYMBOLS", MACRO_TIMER);break;
-        case LAYER_NAVIGATION: send_string_with_delay("NAV", MACRO_TIMER);break;
-        case LAYER_RAISE: send_string_with_delay("RAISE", MACRO_TIMER);break;
-    }
+    // switch (current_layer)
+    // {
+    //     case LAYER_QWERTY: send_string_with_delay("QWERTY", MACRO_TIMER); break;
+    //     case LAYER_RSTHD: send_string_with_delay("RSTHD", MACRO_TIMER);break;
+    //     case LAYER_QWERTY_CAPS: send_string_with_delay("QWERTY_CAPS", MACRO_TIMER);break;
+    //     case LAYER_RSTHD_CAPS: send_string_with_delay("RSTHD_CAPS", MACRO_TIMER);break;
+    //     case LAYER_NUMBERS: send_string_with_delay("NUMBERS", MACRO_TIMER);break;
+    //     case LAYER_SYMBOLS: send_string_with_delay("SYMBOLS", MACRO_TIMER);break;
+    //     case LAYER_NAVIGATION: send_string_with_delay("NAV", MACRO_TIMER);break;
+    //     case LAYER_RAISE: send_string_with_delay("RAISE", MACRO_TIMER);break;
+    // }
 
 
     layer_state_set((1<<keyboard_get_layout()) | (1<<current_layer));
