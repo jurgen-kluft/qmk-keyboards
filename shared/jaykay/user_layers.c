@@ -14,10 +14,10 @@ void          user_layer_on(int8_t layer)
         case LAYER_RSTHD:
             current_layer = keyboard_get_layout(); 
             break;
-        case LAYER_QWERTY_CAPS:
-        case LAYER_RSTHD_CAPS:
-            current_layer = LAYER_QWERTY_CAPS + keyboard_get_layout();
-            break;
+        // case LAYER_QWERTY_CAPS:
+        // case LAYER_RSTHD_CAPS:
+        //     current_layer = LAYER_QWERTY_CAPS + keyboard_get_layout();
+        //     break;
         default: current_layer = layer; break;
     }
 

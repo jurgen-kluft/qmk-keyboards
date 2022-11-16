@@ -207,7 +207,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             case CC_FCAPS:
                 if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE) == false)
                 {
-                    user_layer_on(LAYER_QWERTY_CAPS);
+                    user_layer_on(LAYER_QWERTY);
                     s_smartcaps_state       = SMART_CAPS_NORMAL;
                     s_smartcaps_num_seps    = 1;
                     s_smartcaps_arr_seps[0] = KC_UNDS;
@@ -362,7 +362,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                             s_smartcaps_arr_seps[0] = KC_UNDS;
                         }
                         s_smartcaps_state &= ~SMART_CAPS_HOLD;
-                        user_layer_on(LAYER_QWERTY_CAPS);
+                        user_layer_on(LAYER_QWERTY);
                     }
                     else
                     {
@@ -458,10 +458,10 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             // When 'space' is pressed smart capslock is disabled.
             if (kc >= KC_A && kc <= KC_Z)
             {
-                if (smartcaps_active_all(SMART_CAPS_SHIFT))
+                if (smartcaps_active_any(SMART_CAPS_NORMAL|SMART_CAPS_SHIFT))
                 {
-                    press_oneshot_modifier(ONESHOT_LSFT);
-                    s_smartcaps_state &= ~SMART_CAPS_SHIFT;
+                    register_keycode_press(S(kc));
+                    return false;
                 }
             }
             else if (kc == KC_SPACE)
@@ -473,7 +473,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                 // will be handled on release
                 return false;
             }
-            else if (kc == KC_UNDS)
+            else if (kc == KC_SCLN)
             {
                 if (smartcaps_active_all(SMART_CAPS_CAMEL))
                 {
@@ -497,7 +497,15 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
         }
         else // record->event.pressed == false
         {
-            if (kc == KC_SPACE)
+            if (kc >= KC_A && kc <= KC_Z)
+            {
+                if (smartcaps_active_any(SMART_CAPS_NORMAL|SMART_CAPS_SHIFT))
+                {
+                    register_keycode_release(S(kc));
+                    return false;
+                }
+            }
+            else if (kc == KC_SPACE)
             {
                 if (!smartcaps_active_all(SMART_CAPS_HOLD))
                 {
@@ -513,14 +521,16 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                 s_smartcaps_num_seps = 0;
                 if (smartcaps_active_any(SMART_CAPS_SNAKE))
                 {
+                    send_string_with_delay("NORMAL ", 1);
                     s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
                     s_smartcaps_state |= SMART_CAPS_NORMAL;
                     s_smartcaps_num_seps    = 1;
                     s_smartcaps_arr_seps[0] = KC_UNDS;
-                    user_layer_on(LAYER_QWERTY_CAPS);
+                    user_layer_on(LAYER_QWERTY);
                 }
                 else if (smartcaps_active_any(SMART_CAPS_CAMEL))
                 {
+                    send_string_with_delay("SNAKE ", 1);
                     s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
                     s_smartcaps_state |= SMART_CAPS_SNAKE;
                     s_smartcaps_num_seps    = 1;
@@ -529,6 +539,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                 }
                 else
                 {
+                    send_string_with_delay("CAMEL ", 1);
                     s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
                     s_smartcaps_state |= SMART_CAPS_CAMEL;
                     s_smartcaps_state |= SMART_CAPS_SHIFT;
@@ -538,7 +549,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                 }
                 return false;
             }
-            else if (kc == KC_UNDS)
+            else if (kc == KC_SCLN)
             {
                 for (int8_t i = 0; i < s_smartcaps_num_seps; ++i)
                 {

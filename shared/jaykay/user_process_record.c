@@ -106,7 +106,6 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
 #endif
     }
 
-    //if (!leader_is_active())
     if (process_leader_user(kc, record))
         return false;
         

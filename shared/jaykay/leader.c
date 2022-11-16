@@ -93,7 +93,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
         else if (keycode == CC_FSYM)
         {
             // When pressing/holding sym, leader should be de-activated
-            leader_active = 0;
+            leader_enabled = 0;
         }
         else if (leader_active == 2)
         {
@@ -140,7 +140,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
     {
         if (keycode == CC_FNAV)
         {
-            if (leader_enabled == 0 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
+            if (leader_enabled == 1 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
             {
                 if (leader_active == 1)
                 {
@@ -155,7 +155,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
         }
         else if (keycode == CC_FSYM)
         {
-            leader_active = 1;
+            leader_enabled = 1;
             reset_leader(0);
         }
         else if (leader_active == 2)
