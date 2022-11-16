@@ -407,31 +407,31 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
         }
     }
 
-    if (features_active_all(FEATURE_NAV))
-        send_string_with_delay("NAV ", 1);
-    if (features_active_all(FEATURE_NAV_ONESHOT))
-        send_string_with_delay("NAV1 ", 1);
-    if (features_active_all(FEATURE_SYM))
-        send_string_with_delay("SYM ", 1);
-    if (features_active_all(FEATURE_SYM_ONESHOT))
-        send_string_with_delay("SYM1 ", 1);
-    if (features_active_all(FEATURE_NUM))
-        send_string_with_delay("NUM ", 1);
-    if (features_active_all(FEATURE_CAPS))
-        send_string_with_delay("CAPS ", 1);
+    // if (features_active_all(FEATURE_NAV))
+    //     send_string_with_delay("NAV ", 1);
+    // if (features_active_all(FEATURE_NAV_ONESHOT))
+    //     send_string_with_delay("NAV1 ", 1);
+    // if (features_active_all(FEATURE_SYM))
+    //     send_string_with_delay("SYM ", 1);
+    // if (features_active_all(FEATURE_SYM_ONESHOT))
+    //     send_string_with_delay("SYM1 ", 1);
+    // if (features_active_all(FEATURE_NUM))
+    //     send_string_with_delay("NUM ", 1);
+    // if (features_active_all(FEATURE_CAPS))
+    //     send_string_with_delay("CAPS ", 1);
 
 
-    switch (user_layer_current())
-    {
-        case LAYER_QWERTY: send_string_with_delay("0 ", 1); break;
-        case LAYER_RSTHD: send_string_with_delay("1 ", 1);break;
-        case LAYER_QWERTY_CAPS: send_string_with_delay("2 ", 1);break;
-        case LAYER_RSTHD_CAPS: send_string_with_delay("3 ", 1);break;
-        case LAYER_NUMBERS: send_string_with_delay("4 ", 1);break;
-        case LAYER_SYMBOLS: send_string_with_delay("5 ", 1);break;
-        case LAYER_NAVIGATION: send_string_with_delay("6 ", 1);break;
-        case LAYER_RAISE: send_string_with_delay("7 ", 1);break;
-    }
+    // switch (user_layer_current())
+    // {
+    //     case LAYER_QWERTY: send_string_with_delay("0 ", 1); break;
+    //     case LAYER_RSTHD: send_string_with_delay("1 ", 1);break;
+    //     case LAYER_QWERTY_CAPS: send_string_with_delay("2 ", 1);break;
+    //     case LAYER_RSTHD_CAPS: send_string_with_delay("3 ", 1);break;
+    //     case LAYER_NUMBERS: send_string_with_delay("4 ", 1);break;
+    //     case LAYER_SYMBOLS: send_string_with_delay("5 ", 1);break;
+    //     case LAYER_NAVIGATION: send_string_with_delay("6 ", 1);break;
+    //     case LAYER_RAISE: send_string_with_delay("7 ", 1);break;
+    // }
 
     if (features_active_all(FEATURE_NUM))
     {
@@ -516,14 +516,16 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                     s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
                     s_smartcaps_state |= SMART_CAPS_NORMAL;
                     s_smartcaps_num_seps    = 1;
-                    s_smartcaps_arr_seps[0] = KC_SCLN;
+                    s_smartcaps_arr_seps[0] = KC_UNDS;
+                    user_layer_on(LAYER_QWERTY_CAPS);
                 }
                 else if (smartcaps_active_any(SMART_CAPS_CAMEL))
                 {
                     s_smartcaps_state &= ~(SMART_CAPS_CAMEL | SMART_CAPS_SHIFT | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE);
                     s_smartcaps_state |= SMART_CAPS_SNAKE;
                     s_smartcaps_num_seps    = 1;
-                    s_smartcaps_arr_seps[0] = KC_SCLN;
+                    s_smartcaps_arr_seps[0] = KC_UNDS;
+                    user_layer_on(LAYER_QWERTY);
                 }
                 else
                 {
@@ -532,6 +534,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                     s_smartcaps_state |= SMART_CAPS_SHIFT;
                     s_smartcaps_num_seps    = 1;
                     s_smartcaps_arr_seps[0] = KC_SPACE;
+                    user_layer_on(LAYER_QWERTY);
                 }
                 return false;
             }
@@ -546,6 +549,11 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             }
             else if (kc == KC_COMMA)
             {
+                if (smartcaps_active_all(SMART_CAPS_NORMAL))
+                {
+                    kc = KC_SPACE;
+                    register_keycode_release(kc);
+                }
                 return false;
             }
         }

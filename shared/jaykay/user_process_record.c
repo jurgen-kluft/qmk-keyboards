@@ -106,7 +106,10 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
 #endif
     }
 
-    if (!leader_is_active())
+    //if (!leader_is_active())
+    if (process_leader_user(kc, record))
+        return false;
+        
     {
         if (!process_feature_key(kc, record))
         {
@@ -133,8 +136,6 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
         update_oneshot_modifiers(kc, record);
     }
 
-    if (process_leader_user(kc, record))
-        return false;
 
     return true;
 }

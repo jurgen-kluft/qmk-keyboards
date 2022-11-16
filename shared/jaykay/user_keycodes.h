@@ -1,6 +1,6 @@
 #pragma once
 
-#define xxxx KC_NO
+#define xxxxx KC_NO
 
 enum ecustomkeycodes
 {

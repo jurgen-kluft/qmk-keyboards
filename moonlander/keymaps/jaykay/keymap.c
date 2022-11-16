@@ -8,68 +8,84 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_QWERTY] = LAYOUT(
-   KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,    KC_NO,  KC_NO,    KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,  KC_NO,    CC_GAMEL, 
-   KC_NO, KC_Q,  KC_W,  KC_E,    KC_R,     KC_T,   CC_NDT,   CC_PDT, KC_Y,   KC_U,      KC_I,     KC_O,   KC_P,     KC_NO,    
-   KC_NO, KC_A,  KC_S,  KC_D,    KC_F,     KC_G,   CC_PDT,   CC_NDT, KC_H,   KC_J,      KC_K,     KC_L,   KC_SCLN,  KC_NO,    
-   KC_NO, KC_Z,  KC_X,  KC_C,    KC_V,     KC_B,                     KC_N,   KC_M,      KC_COMMA, KC_DOT, KC_SLASH, KC_NO,    
-   KC_NO, KC_NO, KC_NO, CC_FNUM, CC_FNAV,  CC_PDT,                   CC_NDT, CC_FSYM,   CC_FCAPS, KC_NO,  KC_NO,    CC_RSTHD, 
-                                 KC_SPACE, KC_NO,  KC_NO,    KC_NO,  KC_NO,  KC_BSPACE                                        
+   xxxxx, xxxxx, xxxxx, xxxxx,   xxxxx,    xxxxx,  xxxxx,    xxxxx,  xxxxx,  xxxxx,     xxxxx,    xxxxx,  xxxxx,    CC_GAMEL, 
+   xxxxx, KC_Q,  KC_W,  KC_E,    KC_R,     KC_T,   CC_NDT,   CC_PDT, KC_Y,   KC_U,      KC_I,     KC_O,   KC_P,     xxxxx,    
+   xxxxx, KC_A,  KC_S,  KC_D,    KC_F,     KC_G,   CC_PDT,   CC_NDT, KC_H,   KC_J,      KC_K,     KC_L,   KC_SCLN,  xxxxx,    
+   xxxxx, KC_Z,  KC_X,  KC_C,    KC_V,     KC_B,                     KC_N,   KC_M,      KC_COMMA, KC_DOT, KC_SLASH, xxxxx,    
+   xxxxx, xxxxx, xxxxx, CC_FNUM, CC_FNAV,  CC_PDT,                   CC_NDT, CC_FSYM,   CC_FCAPS, xxxxx,  xxxxx,    CC_RSTHD, 
+                                 KC_SPACE, xxxxx,  xxxxx,    xxxxx,  xxxxx,  KC_BSPACE                                        
   ),
   [LAYER_RSTHD] = LAYOUT(
-   KC_NO, KC_NO,   KC_NO, KC_NO,   KC_NO,    KC_NO,     KC_NO,    KC_NO,  KC_NO,  KC_NO,   KC_NO,     KC_NO,  KC_NO,   CC_GAMEL,  
-   KC_NO, KC_J,    KC_C,  KC_Y,    KC_F,     KC_K,      CC_NDT,   CC_PDT, KC_Z,   KC_L,    KC_BSPACE, KC_U,   KC_Q,    KC_NO,     
-   KC_NO, KC_R,    KC_S,  KC_T,    KC_H,     KC_D,      CC_PDT,   CC_NDT, KC_M,   KC_N,    KC_A,      KC_I,   KC_O,    KC_NO,     
-   KC_NO, KC_UNDS, KC_V,  KC_G,    KC_P,     KC_B,                        KC_X,   KC_W,    KC_COMMA,  KC_DOT, KC_SCLN, KC_NO,     
-   KC_NO, KC_NO,   KC_NO, CC_FNUM, CC_FNAV,  CC_PDT,                      CC_NDT, CC_FSYM, CC_FCAPS,  KC_NO,  KC_NO,   CC_QWERTY, 
-                                   KC_SPACE, KC_BSPACE, KC_NO,    KC_NO,  KC_NO,  KC_E                                            
+   xxxxx, xxxxx,   xxxxx, xxxxx,   xxxxx,    xxxxx,     xxxxx,    xxxxx,  xxxxx,  xxxxx,   xxxxx,     xxxxx,  xxxxx,   CC_GAMEL,  
+   xxxxx, KC_J,    KC_C,  KC_Y,    KC_F,     KC_K,      CC_NDT,   CC_PDT, KC_Z,   KC_L,    KC_BSPACE, KC_U,   KC_Q,    xxxxx,     
+   xxxxx, KC_R,    KC_S,  KC_T,    KC_H,     KC_D,      CC_PDT,   CC_NDT, KC_M,   KC_N,    KC_A,      KC_I,   KC_O,    xxxxx,     
+   xxxxx, KC_UNDS, KC_V,  KC_G,    KC_P,     KC_B,                        KC_X,   KC_W,    KC_COMMA,  KC_DOT, KC_SCLN, xxxxx,     
+   xxxxx, xxxxx,   xxxxx, CC_FNUM, CC_FNAV,  CC_PDT,                      CC_NDT, CC_FSYM, CC_FCAPS,  xxxxx,  xxxxx,   CC_QWERTY, 
+                                   KC_SPACE, KC_BSPACE, xxxxx,    xxxxx,  xxxxx,  KC_E                                            
+  ),
+  [LAYER_QWERTY_CAPS] = LAYOUT(
+   xxxxx, xxxxx,   xxxxx,   xxxxx,   xxxxx,    xxxxx,   xxxxx,    xxxxx,  xxxxx,   xxxxx,    xxxxx,    xxxxx,   xxxxx,    CC_GAMEL, 
+   xxxxx, S(KC_Q), S(KC_W), S(KC_E), S(KC_R),  S(KC_T), CC_NDT,   CC_PDT, S(KC_Y), S(KC_U),  S(KC_I),  S(KC_O), S(KC_P),  xxxxx,    
+   xxxxx, S(KC_A), S(KC_S), S(KC_D), S(KC_F),  S(KC_G), CC_PDT,   CC_NDT, S(KC_H), S(KC_J),  S(KC_K),  S(KC_L), KC_UNDS,  xxxxx,    
+   xxxxx, S(KC_Z), S(KC_X), S(KC_C), S(KC_V),  S(KC_B),                   S(KC_N), S(KC_M),  KC_COMMA, KC_DOT,  KC_SLASH, xxxxx,    
+   xxxxx, xxxxx,   xxxxx,   CC_FNUM, CC_FNAV,  CC_PDT,                    CC_NDT,  CC_FSYM,  CC_FCAPS, xxxxx,   xxxxx,    CC_RSTHD, 
+                                    KC_SPACE,   xxxxx,   xxxxx,    xxxxx, xxxxx,   KC_BSPACE                                        
+  ),
+  [LAYER_RSTHD_CAPS] = LAYOUT(
+   xxxxx, xxxxx,   xxxxx,   xxxxx,   xxxxx,    xxxxx,     xxxxx,    xxxxx,  xxxxx,   xxxxx,   xxxxx,        xxxxx,   xxxxx,   CC_GAMEL,  
+   xxxxx, S(KC_J), S(KC_C), S(KC_Y), S(KC_F),  S(KC_K),   CC_NDT,   CC_PDT, S(KC_Z), S(KC_L), S(KC_BSPACE), S(KC_U), S(KC_Q), xxxxx,     
+   xxxxx, S(KC_R), S(KC_S), S(KC_T), S(KC_H),  S(KC_D),   CC_PDT,   CC_NDT, S(KC_M), S(KC_N), S(KC_A),      S(KC_I), S(KC_O), xxxxx,     
+   xxxxx, KC_UNDS, S(KC_V), S(KC_G), S(KC_P),  S(KC_B),                     S(KC_X), S(KC_W), KC_COMMA,     KC_DOT,  KC_SCLN, xxxxx,     
+   xxxxx, xxxxx,   xxxxx,   CC_FNUM, CC_FNAV,  CC_PDT,                      CC_NDT,  CC_FSYM, CC_FCAPS,     xxxxx,   xxxxx,   CC_QWERTY, 
+                                     KC_SPACE, KC_BSPACE, xxxxx,    xxxxx,  xxxxx,   S(KC_E)
   ),
   [LAYER_NUMBERS] = LAYOUT(
-   KC_NO, KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,     KC_NO,    KC_NO,  KC_NO, KC_NO, 
-   KC_NO, KC_PLUS, KC_MINUS, KC_ASTR, KC_SLASH, KC_NO, KC_NO,   KC_NO, KC_6,  KC_0,      KC_9,     KC_8,   KC_7,  KC_NO, 
-   KC_NO, KC_7,    KC_8,     KC_9,    KC_0,     KC_6,  KC_NO,   KC_NO, KC_5,  KC_1,      KC_2,     KC_3,   KC_4,  KC_NO, 
-   KC_NO, CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  KC_NO,                 KC_NO, KC_EQUAL,  KC_COMMA, KC_DOT, KC_NO, KC_NO, 
-   KC_NO, KC_NO,   KC_NO,    CC_FNUM, KC_NO,    KC_NO,                 KC_NO, KC_NO,     KC_NO,    KC_NO,  KC_NO, KC_NO, 
-                                      KC_SPACE, KC_NO, KC_NO,   KC_NO, KC_NO, KC_BSPACE                                  
+   xxxxx, xxxxx,   xxxxx,    xxxxx,   xxxxx,    xxxxx, xxxxx,   xxxxx, xxxxx, xxxxx,     xxxxx,    xxxxx,  xxxxx, xxxxx, 
+   xxxxx, KC_PLUS, KC_MINUS, KC_ASTR, KC_SLASH, xxxxx, xxxxx,   xxxxx, KC_6,  KC_0,      KC_9,     KC_8,   KC_7,  xxxxx, 
+   xxxxx, KC_7,    KC_8,     KC_9,    KC_0,     KC_6,  xxxxx,   xxxxx, KC_5,  KC_1,      KC_2,     KC_3,   KC_4,  xxxxx, 
+   xxxxx, CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  xxxxx,                 xxxxx, KC_EQUAL,  KC_COMMA, KC_DOT, xxxxx, xxxxx, 
+   xxxxx, xxxxx,   xxxxx,    CC_FNUM, xxxxx,    xxxxx,                 xxxxx, xxxxx,     xxxxx,    xxxxx,  xxxxx, xxxxx, 
+                                      KC_SPACE, xxxxx, xxxxx,   xxxxx, xxxxx, KC_BSPACE                                  
   ),
   [LAYER_SYMBOLS] = LAYOUT(
-   KC_NO, KC_NO,   KC_NO,    KC_NO,   KC_NO,     KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,     KC_NO,    KC_NO,   KC_NO,   KC_NO,     
-   KC_NO, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD, KC_NO,   KC_NO, KC_GRV,  KC_QUOT,   KC_DQUO,  KC_HASH, KC_DLR,  KC_NO,     
-   KC_NO, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC, KC_NO,   KC_NO, KC_LABK, KC_LPRN,   KC_LCBR,  KC_RABK, KC_COLN, KC_NO,     
-   KC_NO, KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC,                 KC_NO,   KC_RPRN,   KC_RCBR,  KC_QUES, KC_AT,   KC_NO,     
-   KC_NO, KC_NO,   KC_NO,    CC_FNUM, CC_FNAV,   CC_PAPP,                 CC_NAPP, CC_FSYM,   CC_FCAPS, KC_NO,   KC_NO,   CC_QWERTY, 
-                                      KC_SPACE,  KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_BSPACE                                         
+   xxxxx, xxxxx,   xxxxx,    xxxxx,   xxxxx,     xxxxx,   xxxxx,   xxxxx, xxxxx,   xxxxx,     xxxxx,    xxxxx,   xxxxx,   xxxxx,     
+   xxxxx, KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD, xxxxx,   xxxxx, KC_GRV,  KC_QUOT,   KC_DQUO,  KC_HASH, KC_DLR,  xxxxx,     
+   xxxxx, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC, xxxxx,   xxxxx, KC_LABK, KC_LPRN,   KC_LCBR,  KC_RABK, KC_COLN, xxxxx,     
+   xxxxx, KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC,                 xxxxx,   KC_RPRN,   KC_RCBR,  KC_QUES, KC_AT,   xxxxx,     
+   xxxxx, xxxxx,   xxxxx,    CC_FNUM, CC_FNAV,   CC_PAPP,                 CC_NAPP, CC_FSYM,   CC_FCAPS, xxxxx,   xxxxx,   CC_QWERTY, 
+                                      KC_SPACE,  xxxxx,   xxxxx,   xxxxx, xxxxx,   KC_BSPACE                                         
   ),
   [LAYER_NAVIGATION] = LAYOUT(
-   KC_NO, KC_NO,   KC_NO,    KC_NO,     KC_NO,    KC_NO,     KC_NO,   KC_NO, KC_NO,     KC_NO,     KC_NO,   KC_NO,    KC_NO, KC_NO, 
-   KC_NO, KC_NO,   CC_CLOSE, KC_ESCAPE, KC_ENTER, KC_TAB,    KC_NO,   KC_NO, KC_INSERT, KC_PGUP,   KC_HOME, KC_NO,    KC_NO, KC_NO, 
-   KC_NO, CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  KC_DELETE, KC_NO,   KC_NO, KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, KC_NO, KC_NO, 
-   KC_NO, CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, KC_NO,                     KC_DELETE, KC_PGDOWN, KC_END,  KC_NO,    KC_NO, KC_NO, 
-   KC_NO, KC_NO,   KC_NO,    KC_NO,     CC_FNAV,  CC_PDOC,                   CC_NDOC,   CC_FSYM,   KC_NO,   KC_NO,    KC_NO, KC_NO, 
-                                        KC_NO,    KC_NO,     KC_NO,   KC_NO, KC_NO,     KC_BSPACE                                   
+   xxxxx, xxxxx,   xxxxx,    xxxxx,     xxxxx,    xxxxx,     xxxxx,   xxxxx, xxxxx,     xxxxx,     xxxxx,   xxxxx,    xxxxx, xxxxx, 
+   xxxxx, xxxxx,   CC_CLOSE, KC_ESCAPE, KC_ENTER, KC_TAB,    xxxxx,   xxxxx, KC_INSERT, KC_PGUP,   KC_HOME, xxxxx,    xxxxx, xxxxx, 
+   xxxxx, CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  KC_DELETE, xxxxx,   xxxxx, KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, xxxxx, xxxxx, 
+   xxxxx, CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, xxxxx,                     KC_DELETE, KC_PGDOWN, KC_END,  xxxxx,    xxxxx, xxxxx, 
+   xxxxx, xxxxx,   xxxxx,    xxxxx,     CC_FNAV,  CC_PDOC,                   CC_NDOC,   CC_FSYM,   xxxxx,   xxxxx,    xxxxx, xxxxx, 
+                                        xxxxx,    xxxxx,     xxxxx,   xxxxx, xxxxx,     KC_BSPACE                                   
   ),
   [LAYER_RAISE] = LAYOUT(
-   KC_NO, KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,     KC_NO,   KC_NO, KC_NO,    KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, 
-   KC_NO, CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, KC_NO,     KC_NO,   KC_NO, KC_F12,   KC_F2,  KC_F3,  KC_F4, KC_F1, KC_NO, 
-   KC_NO, CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     KC_NO,     KC_NO,   KC_NO, KC_F5,    KC_F11, KC_F10, KC_F9, KC_NO, KC_NO, 
-   KC_NO, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, KC_NO,                     KC_NO,    KC_F6,  KC_F7,  KC_F8, KC_NO, KC_NO, 
-   KC_NO, KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,                     KC_NO,    KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO, 
-                                                 KC_NO,       KC_NO,     KC_NO,   KC_NO, KC_NO,    KC_NO                                
+   xxxxx, xxxxx,       xxxxx,       xxxxx,       xxxxx,       xxxxx,     xxxxx,   xxxxx, xxxxx,    xxxxx,  xxxxx,  xxxxx, xxxxx, xxxxx, 
+   xxxxx, CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, xxxxx,     xxxxx,   xxxxx, KC_F12,   KC_F2,  KC_F3,  KC_F4, KC_F1, xxxxx, 
+   xxxxx, CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     xxxxx,     xxxxx,   xxxxx, KC_F5,    KC_F11, KC_F10, KC_F9, xxxxx, xxxxx, 
+   xxxxx, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, xxxxx,                     xxxxx,    KC_F6,  KC_F7,  KC_F8, xxxxx, xxxxx, 
+   xxxxx, xxxxx,       xxxxx,       xxxxx,       xxxxx,       xxxxx,                     xxxxx,    xxxxx,  xxxxx,  xxxxx, xxxxx, xxxxx, 
+                                                 xxxxx,       xxxxx,     xxxxx,   xxxxx, xxxxx,    xxxxx                                
   ),
   [LAYER_GAMEL] = LAYOUT(
-   KC_NO,     KC_1,  KC_2,     KC_3,     KC_4,     KC_5,      KC_NO,   KC_0,  KC_6,  KC_7,    KC_8,      KC_9,   KC_NO,    CC_GAMEL, 
-   KC_TAB,    KC_Q,  KC_W,     KC_E,     KC_R,     KC_T,      KC_NO,   KC_NO, KC_Y,  KC_U,    KC_I,      KC_O,   KC_P,     KC_NO,    
-   KC_ESCAPE, KC_A,  KC_S,     KC_D,     KC_F,     KC_G,      KC_NO,   KC_NO, KC_H,  KC_J,    KC_K,      KC_L,   KC_SCLN,  KC_NO,    
-   KC_LSHIFT, KC_Z,  KC_X,     KC_C,     KC_V,     KC_B,                      KC_N,  KC_M,    KC_COMMA,  KC_DOT, KC_SLASH, KC_NO,    
-   KC_NO,     KC_NO, CC_GAMER, KC_LCTRL, KC_LALT,  KC_ENTER,                  KC_NO, KC_LALT, KC_LSHIFT, KC_NO,  KC_NO,    KC_NO,    
-                                         KC_SPACE, KC_BSPACE, KC_NO,   KC_NO, KC_NO, KC_NO                                           
+   xxxxx,     KC_1,  KC_2,     KC_3,     KC_4,     KC_5,      xxxxx,   KC_0,  KC_6,  KC_7,    KC_8,      KC_9,   xxxxx,    CC_GAMEL, 
+   KC_TAB,    KC_Q,  KC_W,     KC_E,     KC_R,     KC_T,      xxxxx,   xxxxx, KC_Y,  KC_U,    KC_I,      KC_O,   KC_P,     xxxxx,    
+   KC_ESCAPE, KC_A,  KC_S,     KC_D,     KC_F,     KC_G,      xxxxx,   xxxxx, KC_H,  KC_J,    KC_K,      KC_L,   KC_SCLN,  xxxxx,    
+   KC_LSHIFT, KC_Z,  KC_X,     KC_C,     KC_V,     KC_B,                      KC_N,  KC_M,    KC_COMMA,  KC_DOT, KC_SLASH, xxxxx,    
+   xxxxx,     xxxxx, CC_GAMER, KC_LCTRL, KC_LALT,  KC_ENTER,                  xxxxx, KC_LALT, KC_LSHIFT, xxxxx,  xxxxx,    xxxxx,    
+                                         KC_SPACE, KC_BSPACE, xxxxx,   xxxxx, xxxxx, xxxxx                                           
   ),
   [LAYER_GAMER] = LAYOUT(
-   KC_NO,     KC_0,     KC_9,   KC_8,     KC_7,     KC_6,      KC_NO,   KC_0,  KC_6,  KC_7,    KC_8,     KC_9,   KC_NO,    KC_NO,     
-   KC_NO,     KC_P,     KC_O,   KC_I,     KC_U,     KC_Y,      KC_NO,   KC_NO, KC_Y,  KC_U,    KC_I,     KC_O,   KC_P,     KC_NO,     
-   KC_ESCAPE, KC_SCLN,  KC_L,   KC_K,     KC_J,     KC_H,      KC_NO,   KC_NO, KC_H,  KC_J,    KC_K,     KC_L,   KC_SCLN,  KC_NO,     
+   xxxxx,     KC_0,     KC_9,   KC_8,     KC_7,     KC_6,      xxxxx,   KC_0,  KC_6,  KC_7,    KC_8,     KC_9,   xxxxx,    xxxxx,     
+   xxxxx,     KC_P,     KC_O,   KC_I,     KC_U,     KC_Y,      xxxxx,   xxxxx, KC_Y,  KC_U,    KC_I,     KC_O,   KC_P,     xxxxx,     
+   KC_ESCAPE, KC_SCLN,  KC_L,   KC_K,     KC_J,     KC_H,      xxxxx,   xxxxx, KC_H,  KC_J,    KC_K,     KC_L,   KC_SCLN,  xxxxx,     
    KC_LSHIFT, KC_SLASH, KC_DOT, KC_COMMA, KC_M,     KC_N,                      KC_N,  KC_M,    KC_COMMA, KC_DOT, KC_SLASH, KC_RSHIFT, 
-   KC_NO,     KC_NO,    KC_NO,  KC_LCTRL, KC_LALT,  KC_ENTER,                  KC_NO, KC_LALT, KC_LCTRL, KC_NO,  KC_NO,    KC_NO,     
-                                          KC_SPACE, KC_BSPACE, KC_NO,   KC_NO, KC_NO, KC_NO                                           
+   xxxxx,     xxxxx,    xxxxx,  KC_LCTRL, KC_LALT,  KC_ENTER,                  xxxxx, KC_LALT, KC_LCTRL, xxxxx,  xxxxx,    xxxxx,     
+                                          KC_SPACE, KC_BSPACE, xxxxx,   xxxxx, xxxxx, xxxxx                                           
   )
 };
 
