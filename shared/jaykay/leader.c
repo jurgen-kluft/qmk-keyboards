@@ -35,6 +35,7 @@ static uint16_t leader_timer                   = 0;
 static uint8_t  leader_chain_recorded_pressed  = 0;
 static uint8_t  leader_chain_recorded_released = 0;
 static uint8_t  leader_chain[LEADER_MAX_CHAIN] = {0};
+static uint8_t  leader_enabled                 = 1;
 
 static void reset_leader(uint8_t active)
 {
@@ -67,37 +68,36 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
     {
         if (keycode == CC_FNAV)
         {
-            if (leader_chain_recorded_pressed > 0)
+            if (leader_enabled == 1)
             {
-                reset_leader(0);
-            }
-            else if (leader_active == 2 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
-            {
-                // we pressed FNAV twice in a short time, this triggers a mode increase
-                leader_mode++;
-                leader_timer = timer_read();
-            }
-            else
-            {
-                reset_leader(1);
-            }
-        }
-        else if (leader_active == 2)
-        {
-            // If KC_FSYM is tapped right after tapping KC_FNAV the mode changes to 4.
-            if (keycode == CC_FSYM)
-            {
-                if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) < LEADER_TIMEOUT))
-                {
-                    // TODO unused
-                    leader_mode = 4;
-                }
-                else
+                if (leader_chain_recorded_pressed > 0)
                 {
                     reset_leader(0);
                 }
+                else if (leader_active == 2 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
+                {
+                    // we pressed FNAV twice in a short time, this triggers a mode increase
+                    leader_mode++;
+                    leader_timer = timer_read();
+                }
+                else
+                {
+                    reset_leader(1);
+                }
             }
-            else if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
+            else
+            {
+                reset_leader(0);
+            }
+        }
+        else if (keycode == CC_FSYM)
+        {
+            // When pressing/holding sym, leader should be de-activated
+            leader_active = 0;
+        }
+        else if (leader_active == 2)
+        {
+            if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
             {
                 reset_leader(0);
             }
@@ -140,7 +140,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
     {
         if (keycode == CC_FNAV)
         {
-            if (timer_elapsed(leader_timer) < LEADER_TIMEOUT)
+            if (leader_enabled == 0 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
             {
                 if (leader_active == 1)
                 {
@@ -155,7 +155,8 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
         }
         else if (keycode == CC_FSYM)
         {
-            // nop
+            leader_active = 1;
+            reset_leader(0);
         }
         else if (leader_active == 2)
         {
@@ -172,10 +173,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
             if (leader_chain_recorded_released == leader_chain_recorded_pressed)
             {
                 int8_t leader_action = -1;
-                if (leader_mode == 4)
-                {
-                    
-                }
+                if (leader_mode == 4) {}
                 else if (leader_mode == 2)
                 {
                     leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
