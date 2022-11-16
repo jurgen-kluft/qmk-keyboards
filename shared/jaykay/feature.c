@@ -210,7 +210,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                     user_layer_on(LAYER_QWERTY_CAPS);
                     s_smartcaps_state       = SMART_CAPS_NORMAL;
                     s_smartcaps_num_seps    = 1;
-                    s_smartcaps_arr_seps[0] = KC_SCLN;
+                    s_smartcaps_arr_seps[0] = KC_UNDS;
                 }
                 s_smartcaps_state &= ~SMART_CAPS_USED;
                 s_smartcaps_state |= SMART_CAPS_HOLD;
@@ -437,7 +437,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
     {
         if (kc == KC_SPACE)
         {
-            if (!record->event.pressed)
+            if (record->event.pressed)
             {
                 s_feature_state &= ~(FEATURE_NUM | FEATURE_CAPS);
                 if (!features_active_all(FEATURE_SYM))
@@ -485,13 +485,11 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             {
                 if (smartcaps_active_all(SMART_CAPS_NORMAL))
                 {
-                    user_layer_on(LAYER_QWERTY_CAPS);
                     kc = KC_SPACE;
                     register_keycode_press(kc);
                 }
                 else if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_SNAKE))
                 {
-                    user_layer_on(LAYER_QWERTY);
                     s_smartcaps_state ^= SMART_CAPS_SHIFT;
                 }
                 return false;
