@@ -1,20 +1,27 @@
 #include QMK_KEYBOARD_H
+#include "user_layers.h"
+#include "user_keycodes.h"
 
+#define xxx KC_NO
+
+// clang-format off
 
 #define LAYOUTX( \
     L01, L02, L03, L04, L05,                 R05, R04, R03, R02, R01, \
     L06, L07, L08, L09, L10,                 R10, R09, R08, R07, R06, \
-	L11, L12, L13, L14, L15, L90        R90, R15, R14, R13, R12, R11, \
-	          L91, L92, L16, L17,       R17, R16, R91, R92 \
+	  L11, L12, L13, L14, L15, L90,       R90, R15, R14, R13, R12, R11, \
+	            L91, L92, L16, L17,       R17, R16, R91, R92 \
 ) \
 { \
-  { L05, L10, L15, L17,    R05, R10, R15, R17   }, \
-  { L04, L09, L14, L16,    R04, R09, R14, R16   }, \
-  { L03, L08, L13, KC_NO,  R03, R08, R13, KC_NO }, \
-  { L02, L07, L12, KC_NO,  R02, R07, R12, KC_NO }, \
-  { L01, L06, L11, KC_NO,  R01, R06, R11, KC_NO }, \
+  { L05,L04,L03,L02,L01 }, \
+  { L10,L09,L08,L07,L06 }, \
+  { L15,L14,L13,L12,L11 }, \
+  { L17,L16,xxx,xxx,xxx }, \
+  { R05,R04,R03,R02,R01 }, \
+  { R10,R09,R08,R07,R06 }, \
+  { R15,R14,R13,R12,R11 }, \
+  { R17,R16,xxx,xxx,xxx }, \
 }
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_QWERTY] = LAYOUTX(
@@ -54,4 +61,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               CC_FNUM,     CC_FNUM,     CC_FNAV,   KC_SPACE,       KC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS                
     )
 };
-
+// clang-format on
