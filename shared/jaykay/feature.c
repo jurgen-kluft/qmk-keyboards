@@ -460,6 +460,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             {
                 if (smartcaps_active_any(SMART_CAPS_NORMAL|SMART_CAPS_SHIFT))
                 {
+                    s_smartcaps_state &= ~SMART_CAPS_SHIFT;
                     register_keycode_press(S(kc));
                     return false;
                 }
