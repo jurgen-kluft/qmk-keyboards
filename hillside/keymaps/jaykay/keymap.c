@@ -36,18 +36,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_SCLN, KC_V, KC_G,    KC_P,    KC_B,    CC_PDT,         CC_NDT, KC_X,    KC_W,     KC_COMMA,  KC_DOT, KC_AT, 
                    CC_FNUM, CC_FNUM, CC_FNAV, KC_SPACE,       KC_E,   CC_FSYM, CC_FCAPS, CC_FCAPS                  
     ),
-    // [LAYER_QWERTY_CAPS] = LAYOUTX(
-    // S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T),                            S(KC_Y), S(KC_U),  S(KC_I),  S(KC_O), S(KC_P),    
-    // S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G),                            S(KC_H), S(KC_J),  S(KC_K),  S(KC_L), KC_UNDS, 
-    // S(KC_Z), S(KC_X), S(KC_C), S(KC_V), S(KC_B), CC_PDT,         CC_NDT,    S(KC_N), S(KC_M),  KC_COMMA, KC_DOT,  KC_AT,
-    //                   CC_FNUM, CC_FNUM, CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                   
-    // ),
-    // [LAYER_RSTHD_CAPS] = LAYOUTX(
-    // S(KC_J),    S(KC_C), S(KC_Y), S(KC_F), S(KC_K),                         S(KC_Z),  S(KC_L),  S(KC_BSPACE), S(KC_U), S(KC_Q),  
-    // S(KC_R),    S(KC_S), S(KC_T), S(KC_H), S(KC_D),                         S(KC_M),  S(KC_N),  S(KC_A),      S(KC_I), S(KC_O),  
-    // KC_UNDS,    S(KC_V), S(KC_G), S(KC_P), S(KC_B), CC_PDT,         CC_NDT, S(KC_X),  S(KC_W),  KC_COMMA,     KC_DOT,  S(KC_AT), 
-    //                      CC_FNUM, CC_FNUM, CC_FNAV, KC_SPACE,       S(KC_E),CC_FSYM,  CC_FCAPS, CC_FCAPS                  
-    // ),
     [LAYER_NUMBERS] = LAYOUTX(
     KC_PLUS, KC_MINUS, KC_ASTR, KC_SLASH, KC_NO,                              KC_6,    KC_0,     KC_9,     KC_8,   KC_7,  
     KC_7,    KC_8,     KC_9,    KC_0,     KC_6,                               KC_5,    KC_1,     KC_2,     KC_3,   KC_4,  

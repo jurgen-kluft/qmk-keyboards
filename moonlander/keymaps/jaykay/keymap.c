@@ -23,22 +23,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    xxxxx, xxxxx,   xxxxx, CC_FNUM, CC_FNAV,  CC_PDT,                      CC_NDT, CC_FSYM, CC_FCAPS,  xxxxx,  xxxxx,   CC_QWERTY, 
                                    KC_SPACE, KC_BSPACE, xxxxx,    xxxxx,  xxxxx,  KC_E                                            
   ),
-  [LAYER_QWERTY_CAPS] = LAYOUT(
-   xxxxx, xxxxx,   xxxxx,   xxxxx,   xxxxx,    xxxxx,   xxxxx,    xxxxx,  xxxxx,   xxxxx,    xxxxx,    xxxxx,   xxxxx,    CC_GAMEL, 
-   xxxxx, S(KC_Q), S(KC_W), S(KC_E), S(KC_R),  S(KC_T), CC_NDT,   CC_PDT, S(KC_Y), S(KC_U),  S(KC_I),  S(KC_O), S(KC_P),  xxxxx,    
-   xxxxx, S(KC_A), S(KC_S), S(KC_D), S(KC_F),  S(KC_G), CC_PDT,   CC_NDT, S(KC_H), S(KC_J),  S(KC_K),  S(KC_L), KC_UNDS,  xxxxx,    
-   xxxxx, S(KC_Z), S(KC_X), S(KC_C), S(KC_V),  S(KC_B),                   S(KC_N), S(KC_M),  KC_COMMA, KC_DOT,  KC_SLASH, xxxxx,    
-   xxxxx, xxxxx,   xxxxx,   CC_FNUM, CC_FNAV,  CC_PDT,                    CC_NDT,  CC_FSYM,  CC_FCAPS, xxxxx,   xxxxx,    CC_RSTHD, 
-                                    KC_SPACE,   xxxxx,   xxxxx,    xxxxx, xxxxx,   KC_BSPACE                                        
-  ),
-  [LAYER_RSTHD_CAPS] = LAYOUT(
-   xxxxx, xxxxx,   xxxxx,   xxxxx,   xxxxx,    xxxxx,     xxxxx,    xxxxx,  xxxxx,   xxxxx,   xxxxx,        xxxxx,   xxxxx,   CC_GAMEL,  
-   xxxxx, S(KC_J), S(KC_C), S(KC_Y), S(KC_F),  S(KC_K),   CC_NDT,   CC_PDT, S(KC_Z), S(KC_L), S(KC_BSPACE), S(KC_U), S(KC_Q), xxxxx,     
-   xxxxx, S(KC_R), S(KC_S), S(KC_T), S(KC_H),  S(KC_D),   CC_PDT,   CC_NDT, S(KC_M), S(KC_N), S(KC_A),      S(KC_I), S(KC_O), xxxxx,     
-   xxxxx, KC_UNDS, S(KC_V), S(KC_G), S(KC_P),  S(KC_B),                     S(KC_X), S(KC_W), KC_COMMA,     KC_DOT,  KC_SCLN, xxxxx,     
-   xxxxx, xxxxx,   xxxxx,   CC_FNUM, CC_FNAV,  CC_PDT,                      CC_NDT,  CC_FSYM, CC_FCAPS,     xxxxx,   xxxxx,   CC_QWERTY, 
-                                     KC_SPACE, KC_BSPACE, xxxxx,    xxxxx,  xxxxx,   S(KC_E)
-  ),
   [LAYER_NUMBERS] = LAYOUT(
    xxxxx, xxxxx,   xxxxx,    xxxxx,   xxxxx,    xxxxx, xxxxx,   xxxxx, xxxxx, xxxxx,     xxxxx,    xxxxx,  xxxxx, xxxxx, 
    xxxxx, KC_PLUS, KC_MINUS, KC_ASTR, KC_SLASH, xxxxx, xxxxx,   xxxxx, KC_6,  KC_0,      KC_9,     KC_8,   KC_7,  xxxxx, 
