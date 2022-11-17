@@ -36,9 +36,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    CC_FNUM, CC_FNUM, CC_FNAV, KC_SPACE,       KC_E,   CC_FSYM, CC_FCAPS, CC_FCAPS                  
     ),
     [LAYER_NUMBERS] = LAYOUTX(
-    KC_PLUS, KC_MINUS, KC_ASTR, KC_SLASH, KC_NO,                              KC_6,    KC_0,     KC_9,     KC_8,   KC_7,  
-    KC_7,    KC_8,     KC_9,    KC_0,     KC_6,                               KC_5,    KC_1,     KC_2,     KC_3,   KC_4,  
-    CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  KC_NO,   KC_NO,          KC_NO,     KC_NO,   KC_EQUAL, KC_COMMA, KC_DOT, KC_NO, 
+    KC_7,    KC_8,     KC_9,    KC_0,     KC_6,                               KC_6,    KC_0,     KC_9,     KC_8,   KC_7,  
+    CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  KC_5,                               KC_5,    KC_1,     KC_2,     KC_3,   KC_4,  
+    KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_X,    KC_NO,          KC_NO,     KC_B,    KC_NO,    KC_COMMA, KC_DOT, KC_NO, 
                        CC_FNUM, CC_FNUM,  CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                 
     ),
     [LAYER_SYMBOLS] = LAYOUTX(
