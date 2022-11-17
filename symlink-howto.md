@@ -6,6 +6,10 @@ In `"qmk_firmware\keyboards\splitkb\kyria\keymaps"`:
 
  `mklink /D jaykay E:\Dev.Go\src\github.com\jurgen-kluft\qmk-keyboards\kyria\keymaps\jaykay\`
 
+In `"qmk_firmware\keyboards\splitkb\aurora\sweep\keymaps"`:
+
+ `mklink /D jaykay E:\Dev.Go\src\github.com\jurgen-kluft\qmk-keyboards\sweep\keymaps\jaykay\`
+
 In `"qmk_firmware\keyboards\moonlander\keymaps"`:
 
  `mklink /D jaykay E:\Dev.Go\src\github.com\jurgen-kluft\qmk-keyboards\moonlander\keymaps\jaykay\`

@@ -1,0 +1,28 @@
+#pragma once
+
+#define LAYER_STATE_16BIT
+
+#define NO_MUSIC_MODE
+#define NO_ACTION_ONESHOT
+#define NO_ACTION_TAPPING
+
+#define MACRO_TIMER 5
+
+#define MK_COMBINED
+#define MOUSEKEY_DELAY 100
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_MOVE_DELTA 20
+#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_TIME_TO_MAX 100
+#define MOUSEKEY_WHEEL_DELAY 100
+#define MOUSEKEY_WHEEL_INTERVAL 50
+#define MOUSEKEY_WHEEL_MAX_SPEED 8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 100
+
+#define KEYBOARD_AURORA_SWEEP
+
+// If you have encoders and want to not have them swap left/right when you plug USB to the other half
+// then define EE_HANDS and flash your sides with 'avrdude-split-left' and 'avrdude-split-right'.
+// This makes sure that the firmware on the left sides identifies itself as 'left' and the right side
+// identifies itself as 'right'.
+#define EE_HANDS
