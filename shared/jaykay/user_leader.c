@@ -101,6 +101,7 @@ enum eleader_2t1
     LA_OPEN_LINE_ABOVE,  // oa
     LA_OPEN_LINE_BELOW,  // oo
     LA_COPY_LINE,        // yy
+    LA_SWITCH_QUOTES,    // ss
 };
 
 // clang-format off
@@ -117,6 +118,7 @@ static const leader2_t leader2t1_array[] = {
     [LA_OPEN_LINE_ABOVE]  = {KC_O, KC_A},
     [LA_OPEN_LINE_BELOW]  = {KC_O, KC_O},
     [LA_COPY_LINE]        = {KC_Y, KC_Y},
+    [LA_SWITCH_QUOTES]    = {KC_S, KC_S},
 };
 // clang-format on
 
@@ -130,11 +132,33 @@ enum eleader_3t1
     LA_CHANGE_INSIDE_QUOT,    // ciq
     LA_CHANGE_INSIDE_TICKS,   // cit
     LA_CHANGE_INSIDE_WORD,    // ciw
-    
-    // TODO paste inside?
-    LA_PASTE_INSIDE_WORD, // piw
-    LA_PASTE_INSIDE_BRC,  // pib
-    LA_PASTE_INSIDE_PRN,  // pip
+
+    LA_DELETE_INSIDE_ABK,   // dia (acts the same as cia)
+    LA_DELETE_INSIDE_BRC,   // dib (acts the same as cib)
+    LA_DELETE_INSIDE_CBR,   // dic (acts the same as cic)
+    LA_DELETE_INSIDE_DQUOT, // did (acts the same as cid)
+    LA_DELETE_INSIDE_PRN,   // dip (acts the same as cip)
+    LA_DELETE_INSIDE_QUOT,  // diq (acts the same as ciq)
+    LA_DELETE_INSIDE_TICKS, // dit (acts the same as cit)
+    LA_DELETE_INSIDE_WORD,  // diw (acts the same as ciw)
+
+    LA_PASTE_INSIDE_ABK,   // pia
+    LA_PASTE_INSIDE_BRC,   // pib
+    LA_PASTE_INSIDE_CBR,   // pic
+    LA_PASTE_INSIDE_DQUOT, // pid
+    LA_PASTE_INSIDE_PRN,   // pip
+    LA_PASTE_INSIDE_QUOT,  // piq
+    LA_PASTE_INSIDE_TICKS, // pit
+    LA_PASTE_INSIDE_WORD,  // piw
+
+    LA_YANK_INSIDE_ABK,   // yia
+    LA_YANK_INSIDE_BRC,   // yib
+    LA_YANK_INSIDE_CBR,   // yic
+    LA_YANK_INSIDE_DQUOT, // yid
+    LA_YANK_INSIDE_PRN,   // yip
+    LA_YANK_INSIDE_QUOT,  // yiq
+    LA_YANK_INSIDE_TICKS, // yit
+    LA_YANK_INSIDE_WORD,  // yiw
 };
 
 // clang-format off
@@ -147,6 +171,30 @@ static const leader3_t leader3t1_array[] = {
     [LA_CHANGE_INSIDE_QUOT]  = {KC_C, KC_I, KC_Q},
     [LA_CHANGE_INSIDE_TICKS] = {KC_C, KC_I, KC_T},
     [LA_CHANGE_INSIDE_WORD]  = {KC_C, KC_I, KC_W},
+    [LA_DELETE_INSIDE_ABK]   = {KC_D, KC_I, KC_A},
+    [LA_DELETE_INSIDE_BRC]   = {KC_D, KC_I, KC_B},
+    [LA_DELETE_INSIDE_CBR]   = {KC_D, KC_I, KC_C},
+    [LA_DELETE_INSIDE_DQUOT] = {KC_D, KC_I, KC_D},
+    [LA_DELETE_INSIDE_PRN]   = {KC_D, KC_I, KC_P},
+    [LA_DELETE_INSIDE_QUOT]  = {KC_D, KC_I, KC_Q},
+    [LA_DELETE_INSIDE_TICKS] = {KC_D, KC_I, KC_T},
+    [LA_DELETE_INSIDE_WORD]  = {KC_D, KC_I, KC_W},
+    [LA_PASTE_INSIDE_ABK]    = {KC_P, KC_I, KC_A},
+    [LA_PASTE_INSIDE_BRC]    = {KC_P, KC_I, KC_B},
+    [LA_PASTE_INSIDE_CBR]    = {KC_P, KC_I, KC_C},
+    [LA_PASTE_INSIDE_DQUOT]  = {KC_P, KC_I, KC_D},
+    [LA_PASTE_INSIDE_PRN]    = {KC_P, KC_I, KC_P},
+    [LA_PASTE_INSIDE_QUOT]   = {KC_P, KC_I, KC_Q},
+    [LA_PASTE_INSIDE_TICKS]  = {KC_P, KC_I, KC_T},
+    [LA_PASTE_INSIDE_WORD]   = {KC_P, KC_I, KC_W},
+    [LA_YANK_INSIDE_ABK]     = {KC_Y, KC_I, KC_A},
+    [LA_YANK_INSIDE_BRC]     = {KC_Y, KC_I, KC_B},
+    [LA_YANK_INSIDE_CBR]     = {KC_Y, KC_I, KC_C},
+    [LA_YANK_INSIDE_DQUOT]   = {KC_Y, KC_I, KC_D},
+    [LA_YANK_INSIDE_PRN]     = {KC_Y, KC_I, KC_P},
+    [LA_YANK_INSIDE_QUOT]    = {KC_Y, KC_I, KC_Q},
+    [LA_YANK_INSIDE_TICKS]   = {KC_Y, KC_I, KC_T},
+    [LA_YANK_INSIDE_WORD]    = {KC_Y, KC_I, KC_W},
 };
 // clang-format on
 
@@ -258,10 +306,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_KEYLAYOUT_QWERTY: keyboard_set_layout(LAYER_QWERTY); break;
             }
         }
-        else if (mode == 4)
-        {
-           
-        }
+        else if (mode == 4) {}
     }
     else if (count == 2)
     {
@@ -293,7 +338,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_DELETE_WORD:
                     if (keyboard_get_os() == OS_MAC)
                     {
-                        send_taps2(A(S(KC_RIGHT)), KC_DEL); 
+                        send_taps2(A(S(KC_RIGHT)), KC_DEL);
                     }
                     else
                     {
@@ -320,16 +365,20 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_OPEN_LINE_BELOW: send_taps2(KC_END, KC_ENTER); break;
 
                 case LA_COPY_LINE: // yy
+                    send_taps2(KC_END, S(KC_HOME));
                     if (keyboard_get_os() == OS_MAC)
                     {
-                        send_taps1(G(KC_C)); break;
+                        send_taps1(G(KC_C));
+                        break;
                     }
                     else
                     {
-                        send_taps1(C(KC_C)); break;
+                        send_taps1(C(KC_C));
+                        break;
                     }
                     break;
-                
+
+                case LA_SWITCH_QUOTES: send_taps2(C(KC_K), S(KC_SCLN)); break;
             }
         }
         else if (mode == 1)
@@ -348,27 +397,107 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
     }
     else if (count == 3)
     {
+        uint8_t  type    = 'c';
         uint16_t bracket = KC_NO;
         switch (action)
         {
+            case LA_PASTE_INSIDE_WORD: type = 'p'; break; 
+            case LA_DELETE_INSIDE_WORD: type = 'c'; break;
+            case LA_CHANGE_INSIDE_WORD: type = 'c'; break;
+            case LA_YANK_INSIDE_WORD: type = 'y'; break;
+        }
+
+        switch (action)
+        {
+            case LA_YANK_INSIDE_WORD: 
+            case LA_PASTE_INSIDE_WORD:
             case LA_CHANGE_INSIDE_WORD:
+            case LA_DELETE_INSIDE_WORD:
                 if (keyboard_get_os() == OS_MAC)
                 {
-                    send_taps3(A(KC_LEFT), A(S(KC_RIGHT)), KC_DEL);
+                    send_taps2(A(KC_LEFT), A(S(KC_RIGHT)));
                 }
                 else
                 {
-                    send_taps3(C(KC_LEFT), C(S(KC_RIGHT)), KC_DEL);
+                    send_taps2(C(KC_LEFT), C(S(KC_RIGHT)));
                 }
                 break;
+
+            
+            case LA_DELETE_INSIDE_PRN:
             case LA_CHANGE_INSIDE_PRN: bracket = KC_LPRN; break;
+            case LA_DELETE_INSIDE_CBR:
             case LA_CHANGE_INSIDE_CBR: bracket = KC_LCBR; break;
+            case LA_DELETE_INSIDE_BRC:
             case LA_CHANGE_INSIDE_BRC: bracket = KC_LBRC; break;
+            case LA_DELETE_INSIDE_ABK:
             case LA_CHANGE_INSIDE_ABK: bracket = KC_LABK; break;
+            case LA_DELETE_INSIDE_QUOT:
             case LA_CHANGE_INSIDE_QUOT: bracket = KC_QUOT; break;
+            case LA_DELETE_INSIDE_DQUOT:
             case LA_CHANGE_INSIDE_DQUOT: bracket = KC_DQUO; break;
+            case LA_DELETE_INSIDE_TICKS:
             case LA_CHANGE_INSIDE_TICKS: bracket = KC_GRV; break;
+
+            case LA_PASTE_INSIDE_PRN:
+                type    = 'p';
+                bracket = KC_LPRN;
+                break;
+            case LA_PASTE_INSIDE_CBR:
+                type    = 'p';
+                bracket = KC_LCBR;
+                break;
+            case LA_PASTE_INSIDE_BRC:
+                type    = 'p';
+                bracket = KC_LBRC;
+                break;
+            case LA_PASTE_INSIDE_ABK:
+                type    = 'p';
+                bracket = KC_LABK;
+                break;
+            case LA_PASTE_INSIDE_QUOT:
+                type    = 'p';
+                bracket = KC_QUOT;
+                break;
+            case LA_PASTE_INSIDE_DQUOT:
+                type    = 'p';
+                bracket = KC_DQUO;
+                break;
+            case LA_PASTE_INSIDE_TICKS:
+                type    = 'p';
+                bracket = KC_GRV;
+                break;
+
+            case LA_YANK_INSIDE_PRN:
+                type    = 'y';
+                bracket = KC_LPRN;
+                break;
+            case LA_YANK_INSIDE_CBR:
+                type    = 'y';
+                bracket = KC_LCBR;
+                break;
+            case LA_YANK_INSIDE_BRC:
+                type    = 'y';
+                bracket = KC_LBRC;
+                break;
+            case LA_YANK_INSIDE_ABK:
+                type    = 'y';
+                bracket = KC_LABK;
+                break;
+            case LA_YANK_INSIDE_QUOT:
+                type    = 'y';
+                bracket = KC_QUOT;
+                break;
+            case LA_YANK_INSIDE_DQUOT:
+                type    = 'y';
+                bracket = KC_DQUO;
+                break;
+            case LA_YANK_INSIDE_TICKS:
+                type    = 'y';
+                bracket = KC_GRV;
+                break;                
         }
+
         if (bracket != KC_NO)
         {
             // vscode: Quick and Simple Text Selection
@@ -381,7 +510,31 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 send_taps2(C(KC_K), bracket);
             }
             wait_ms(200);
-            send_taps1(KC_DEL);
+        }
+
+        switch (type)
+        {
+            case 'c': send_taps1(KC_DEL); break;
+            case 'p':
+                if (keyboard_get_os() == OS_MAC)
+                {
+                    send_taps1(LGUI(KC_V));
+                }
+                else
+                {
+                    send_taps1(LCTL(KC_V));
+                }
+                break;
+            case 'y':
+                if (keyboard_get_os() == OS_MAC)
+                {
+                    send_taps1(LGUI(KC_C));
+                }
+                else
+                {
+                    send_taps1(LCTL(KC_C));
+                }
+                break;
         }
     }
     else if (count == 4)
