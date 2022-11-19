@@ -92,11 +92,11 @@ qmk-keyboard-format:json:begin
       "LAYER_NUMBERS",
       "LAYER_SYMBOLS",
       "LAYER_NAVIGATION",
-      "LAYER_RAISE",
-      "LAYER_VIM"
+      "LAYER_RAISE"
   ],
   "svgcolors":  {
-      "CC_FNAV": "green"
+      "CC_FNAV": "green",
+      "CC_FSYM": "red"
   },
   "vizcellwidth": 5,
   "vizemits": [

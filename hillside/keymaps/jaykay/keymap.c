@@ -90,15 +90,14 @@ qmk-keyboard-format:json:begin
   "svglayers": [
       "_QWERTY",
       "_RSTHD",
-      "_QWERTY_CAPS",
-      "_RSTHD_CAPS",
       "_NUM",
       "_SYM",
       "_NAV",
       "_RAISE"
   ],
   "svgcolors":  {
-      "KC_FNAV": "green"
+      "KC_FNAV": "green",
+      "KC_FSYM": "red"
   },
   "vizcellwidth": 5,
   "vizemits": [
