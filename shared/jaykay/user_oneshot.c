@@ -18,9 +18,13 @@ bool is_oneshot_modifier_cancel_key(uint16_t keycode, bool pressed)
 
 bool is_oneshot_modifier_ignored_key(uint16_t keycode, bool pressed)
 {
-    if (keycode >= CC_RANGE_START && keycode <= CC_RANGE_END)
-        return true;
-    return keycode == KC_SPACE;
+    switch (keycode) {
+        case CC_FNUM: return true; 
+        case CC_FSYM: return true; 
+        case CC_FNAV:
+        case CC_FCAPS: return true;
+    }
+    return false;
 }
 
 oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)

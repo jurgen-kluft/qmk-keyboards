@@ -10,7 +10,6 @@ enum ecustomkeycodes
     CC_FCAPS,
     CC_FNAV,
     CC_FSYM,
-    CC_FCNT,
 
     // oneshot
     CC_CTRL,
