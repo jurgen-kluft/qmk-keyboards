@@ -19,6 +19,7 @@ In `"qmk_firmware\users"`:
 
 On Mac OS you can use `ln` (-s is for symbolic link):
 
+`ln -s $HOME/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/dilemma/keymaps/jaykay $HOME/qmk_firmware/keyboards/bastardkb/dilemma/keymaps`
 `ln -s $HOME/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/kyria/keymaps/jaykay $HOME/dev.qmk/keyboards/splitkb/kyria/keymaps`
 `ln -s $HOME/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/sweep/keymaps/jaykay $HOME/dev.qmk/keyboards/splitkb/aurora/sweep/keymaps`
 `ln -s $HOME/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/hillside/keymaps/jaykay $HOME/dev.qmk/keyboards/handwired/hillside/0_1/keymaps`

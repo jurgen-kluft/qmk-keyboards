@@ -1,5 +1,5 @@
 # Disable unused features
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 COMBO_ENABLE = no       # Key combo support
 MOUSEKEY_ENABLE = yes	# Mouse keys (~2KB)
 EXTRAKEY_ENABLE = yes	# Audio control and System control
