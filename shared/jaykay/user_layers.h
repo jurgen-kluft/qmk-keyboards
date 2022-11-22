@@ -8,6 +8,7 @@ enum ecustom_layers
     LAYER_SYMBOLS,
     LAYER_NAVIGATION,
     LAYER_RAISE,
+    LAYER_MOUSE,
     LAYER_GAMEL,
     LAYER_GAMER,
     LAYER_NONE = -1,

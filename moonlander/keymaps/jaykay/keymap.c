@@ -55,6 +55,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    xxxxx, xxxxx,       xxxxx,       xxxxx,       xxxxx,       xxxxx,                     xxxxx,    xxxxx,  xxxxx,  xxxxx, xxxxx, xxxxx, 
                                                  xxxxx,       xxxxx,     xxxxx,   xxxxx, xxxxx,    xxxxx                                
   ),
+  [LAYER_MOUSE] = LAYOUT(
+   xxxxx, xxxxx,       xxxxx,       xxxxx,       xxxxx,       xxxxx,     xxxxx,   xxxxx, xxxxx,    xxxxx,  xxxxx,  xxxxx, xxxxx, xxxxx, 
+   xxxxx, CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, xxxxx,     xxxxx,   xxxxx, KC_F12,   KC_F2,  KC_F3,  KC_F4, KC_F1, xxxxx, 
+   xxxxx, CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     xxxxx,     xxxxx,   xxxxx, KC_F5,    KC_F11, KC_F10, KC_F9, xxxxx, xxxxx, 
+   xxxxx, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, xxxxx,                     xxxxx,    KC_F6,  KC_F7,  KC_F8, xxxxx, xxxxx, 
+   xxxxx, xxxxx,       xxxxx,       xxxxx,       xxxxx,       xxxxx,                     xxxxx,    xxxxx,  xxxxx,  xxxxx, xxxxx, xxxxx, 
+                                                 xxxxx,       xxxxx,     xxxxx,   xxxxx, xxxxx,    xxxxx                                
+  ),
   [LAYER_GAMEL] = LAYOUT(
    xxxxx,     KC_1,  KC_2,     KC_3,     KC_4,     KC_5,      xxxxx,   KC_0,  KC_6,  KC_7,    KC_8,      KC_9,   xxxxx,    CC_GAMEL, 
    KC_TAB,    KC_Q,  KC_W,     KC_E,     KC_R,     KC_T,      xxxxx,   xxxxx, KC_Y,  KC_U,    KC_I,      KC_O,   KC_P,     xxxxx,    

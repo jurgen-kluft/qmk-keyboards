@@ -1,73 +1,76 @@
+#include QMK_KEYBOARD_H
+#include "layouts.h"
+#include "user_layers.h"
+#include "user_keycodes.h"
 
-#include "drashna.h"
+#define MATRIX_ROWS 8 // Rows are doubled-up.
+#define MATRIX_COLS 5
+
 
 // clang-format off
-#define LAYOUT_split_3x5_2_wrapper(...) LAYOUT_split_3x5_2(__VA_ARGS__)
-#define LAYOUT_split_3x5_2_base( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
-    ) \
-    LAYOUT_split_3x5_2 ( \
-       K01,    K02,      K03,     K04,     K05,                K06,     K07,     K08,     K09,     K0A, \
-       ALT_T(K11), K12,  K13,     K14,     GUI_T(K15),  LGUI_T(K16),    K17,     K18,     K19, LALT_T(K1A), \
-       CTL_T(K21), K22,  K23,     K24,     K25,                K26,     K27,     K28,     K29, RCTL_T(K2A), \
-                              KC_SPC,  BK_LWER,              DL_RAIS, RSFT_T(KC_ENT) \
-    )
-
-#define LAYOUT_split_3x5_2_base_wrapper(...)       LAYOUT_split_3x5_2_base(__VA_ARGS__)
+#define LAYOUTX(                                                  \
+  k00, k01, k02, k03, k04,               k44, k43, k42, k41, k40, \
+  k10, k11, k12, k13, k14,               k54, k53, k52, k51, k50, \
+  k20, k21, k22, k23, k24, k90,     k91, k64, k63, k62, k61, k60, \
+            k92, k93, k30, k32,     k72, k70, k94, k95            \
+)                                                       \
+{                                                       \
+  {   k00,   k01,   k02,   k03,   k04 },                \
+  {   k10,   k11,   k12,   k13,   k14 },                \
+  {   k20,   k21,   k22,   k23,   k24 },                \
+  {   k30, KC_NO,   k32, KC_NO, KC_NO },                \
+  {   k40,   k41,   k42,   k43,   k44 },                \
+  {   k50,   k51,   k52,   k53,   k54 },                \
+  {   k60,   k61,   k62,   k63,   k64 },                \
+  {   k70, KC_NO,   k72, KC_NO, KC_NO },                \
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [_DEFAULT_LAYER_1] = LAYOUT_split_3x5_2_base_wrapper(
-        _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
-        _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-        _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    [LAYER_QWERTY] = LAYOUTX(
+    KC_Q, KC_W, KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,     KC_I,     KC_O,   KC_P,    
+    KC_A, KC_S, KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,     KC_K,     KC_L,   KC_SCLN, 
+    KC_Z, KC_X, KC_C,    KC_V,    KC_B,    CC_PDT,         CC_NDT,    KC_N,    KC_M,     KC_COMMA, KC_DOT, KC_AT,   
+                CC_FNUM, CC_FNUM, CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                   
     ),
-
-    [_DEFAULT_LAYER_2] = LAYOUT_split_3x5_2_base_wrapper(
-        ______________COLEMAK_MOD_DH_L1____________, ______________COLEMAK_MOD_DH_R1____________,
-        ______________COLEMAK_MOD_DH_L2____________, ______________COLEMAK_MOD_DH_R2____________,
-        ______________COLEMAK_MOD_DH_L3____________, ______________COLEMAK_MOD_DH_R3____________
+    [LAYER_RSTHD] = LAYOUTX(
+    KC_J,    KC_C, KC_Y,    KC_F,    KC_K,                            KC_Z,    KC_L,     KC_BSPACE, KC_U,   KC_Q,  
+    KC_R,    KC_S, KC_T,    KC_H,    KC_D,                            KC_M,    KC_N,     KC_A,      KC_I,   KC_O,  
+    KC_SCLN, KC_V, KC_G,    KC_P,    KC_B,    CC_PDT,         CC_NDT, KC_X,    KC_W,     KC_COMMA,  KC_DOT, KC_AT, 
+                   CC_FNUM, CC_FNUM, CC_FNAV, KC_SPACE,       KC_E,   CC_FSYM, CC_FCAPS, CC_FCAPS                  
     ),
-    [_DEFAULT_LAYER_3] = LAYOUT_split_3x5_2_base_wrapper(
-        _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
-        _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
-        _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
+    [LAYER_NUMBERS] = LAYOUTX(
+    KC_7,    KC_8,     KC_9,    KC_0,     KC_6,                               KC_6,    KC_0,     KC_9,     KC_8,   KC_7,  
+    CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  KC_5,                               KC_5,    KC_1,     KC_2,     KC_3,   KC_4,  
+    KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_X,    KC_NO,          KC_NO,     KC_B,    KC_NO,    KC_COMMA, KC_DOT, KC_NO, 
+                       CC_FNUM, CC_FNUM,  CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                 
     ),
-
-    [_DEFAULT_LAYER_4] = LAYOUT_split_3x5_2_base_wrapper(
-        _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
-        _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
-        _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
+    [LAYER_SYMBOLS] = LAYOUTX(
+    KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                            KC_GRV,  KC_QUOT,  KC_DQUO,  KC_HASH, KC_DLR,  
+    KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                            KC_LABK, KC_LPRN,  KC_LCBR,  KC_SCLN, KC_COLN, 
+    KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, CC_NDOC,        CC_PDOC,   KC_RABK, KC_RPRN,  KC_RCBR,  KC_QUES, KC_AT,   
+                       KC_NO,   KC_NO,     CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, KC_NO,    KC_NO
     ),
-
-    [_MOUSE] = LAYOUT_split_3x5_2(
-        _______, _______, _______, _______, _______,    KC_WH_U, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD,
-        _______, _______, _______, _______, _______,    KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6,
-        _______, _______, _______, _______, _______,    KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______,
-                                    SNIPING, _______,    _______, _______
+    [LAYER_NAVIGATION] = LAYOUTX(
+    CC_REDO, CC_CLOSE, KC_ESCAPE, KC_ENTER, KC_TAB,                               KC_INSERT, CC_PGUP,   KC_HOME,  KC_NO,    KC_NO, 
+    CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  KC_DELETE,                            KC_LEFT,   KC_DOWN,   KC_UP,    KC_RIGHT, KC_NO, 
+    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, KC_NO,     CC_NAPP,        CC_PAPP,   KC_NO,     CC_PGDOWN, KC_END,   KC_NO,    KC_NO, 
+                       CC_FNUM,   CC_FNUM,  CC_FNAV,   KC_SPACE,       KC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS                   
     ),
-    [_LOWER] = LAYOUT_split_3x5_2_wrapper(
-        _________________LOWER_L1__________________,    _________________LOWER_R1__________________,
-        _________________LOWER_L2__________________,    _________________LOWER_R2__________________,
-        _________________LOWER_L3__________________,    _________________LOWER_R3__________________,
-                                   _______, _______,    _______, AUTO_CTN
+    [LAYER_RAISE] = LAYOUTX(
+    CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, KC_NO,                                KC_F12,   KC_F2,    KC_F3,    KC_F4, KC_F1, 
+    CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     KC_NO,                                KC_F5,    KC_F11,   KC_F10,   KC_F9, KC_NO, 
+    CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, KC_NO,     CC_PDT,         CC_NDT,    KC_NO,    KC_F6,    KC_F7,    KC_F8, KC_NO, 
+                              CC_FNUM,     CC_FNUM,     CC_FNAV,   KC_SPACE,       KC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS                
     ),
-    [_RAISE] = LAYOUT_split_3x5_2_wrapper(
-        _________________RAISE_L1__________________,    _________________RAISE_R1__________________,
-        _________________RAISE_L2__________________,    _________________RAISE_R2__________________,
-        _________________RAISE_L3__________________,    _________________RAISE_R3__________________,
-                                   _______, _______,    _______, _______
-    ),
-    [_ADJUST] = LAYOUT_split_3x5_2_wrapper(
-        _________________ADJUST_L1_________________,    _________________ADJUST_R1_________________,
-        _________________ADJUST_L2_________________,    _________________ADJUST_R2_________________,
-        _________________ADJUST_L3_________________,    _________________ADJUST_R3_________________,
-                                   KC_NUKE, _______,    _______, QK_BOOT
-    ),
+    [LAYER_MOUSE] = LAYOUTX(
+    KC_NO, KC_NO, KC_NO,   SNIPING, KC_NO,                    KC_WH_U, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD,
+    KC_NO, KC_NO, KC_BTN2, KC_BTN1, KC_NO,                    KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6,
+    KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO, KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, KC_NO,
+                  KC_NO,   KC_NO,   CC_FNAV, KC_NO,    KC_NO, KC_NO,   KC_NO,   KC_NO
+    )
 };
 
+// clang-format on
 
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     for (int32_t i = 0; i < 40; i++) {
