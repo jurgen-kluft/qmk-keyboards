@@ -526,7 +526,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                 for (int8_t i = 0; i < s_smartcaps_num_seps; ++i)
                 {
                     uint16_t kc = s_smartcaps_arr_seps[i];
-                    register_keycode_tap(kc);
+                    tap_code16(kc);
                 }
                 return false;
             }

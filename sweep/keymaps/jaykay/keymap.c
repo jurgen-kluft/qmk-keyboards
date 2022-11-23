@@ -61,10 +61,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               CC_FNUM,     CC_FNUM,     CC_FNAV,   KC_SPACE,       KC_BSPACE, CC_FSYM,  CC_FCAPS, CC_FCAPS                
     ),
     [LAYER_MOUSE] = LAYOUTX(
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                   KC_WH_U, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD,
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                   KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6,
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,    KC_NO, KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, KC_NO,
-                  KC_NO, KC_NO, NIPING, KC_NO,    KC_NO, KC_NO,   KC_NO,   KC_NO
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                  KC_WH_U, KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                  KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6,
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO, KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, KC_NO,
+                  KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO,   KC_NO,   KC_NO
     )    
 };
 // clang-format on

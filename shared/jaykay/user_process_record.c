@@ -128,11 +128,7 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
 
             if (record->event.pressed)
             {
-                register_keycode_press_nomods(cushi);
-            }
-            else
-            {
-                register_keycode_release_nomods(cushi);
+                tap_code16_nomods(cushi);
             }
 
             update_oneshot_modifiers(cushi, record);

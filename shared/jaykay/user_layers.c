@@ -63,11 +63,11 @@ void register_keycode_press_with_shift(uint16_t kc)
 
 void register_keycode_press_nomods(uint16_t kc)
 {
-    const uint8_t mods = get_mods();
-    del_mods(MOD_MASK_SHIFT|MOD_MASK_CTRL|MOD_MASK_ALT|MOD_MASK_GUI);
-    del_weak_mods(MOD_MASK_SHIFT|MOD_MASK_CTRL|MOD_MASK_ALT|MOD_MASK_GUI);
+    uint8_t mod = get_mods();
+    clear_mods();
+    turnoff_oneshot_modifiers();
     register_keycode_press(kc);
-    set_mods(mods); // Restore the mods.
+    set_mods(mod);
 }
 
 void register_keycode_release(uint16_t kc)
@@ -77,20 +77,23 @@ void register_keycode_release(uint16_t kc)
 
 void register_keycode_release_nomods(uint16_t kc)
 {
-    const uint8_t mods = get_mods();
-    del_mods(MOD_MASK_SHIFT|MOD_MASK_CTRL|MOD_MASK_ALT|MOD_MASK_GUI);
-    del_weak_mods(MOD_MASK_SHIFT|MOD_MASK_CTRL|MOD_MASK_ALT|MOD_MASK_GUI);
+    uint8_t mod = get_mods();
+    clear_mods();
+    turnoff_oneshot_modifiers();
     register_keycode_release(kc);
-    set_mods(mods); // Restore the mods.
+    set_mods(mod);
 }
 
-void register_keycode_tap(uint16_t kc)
+void tap_code16_nomods(uint16_t kc)
 {
-    uint16_t qmk_keycode = kc;
-    tap_code16(qmk_keycode);
+    uint8_t mod = get_mods();
+    clear_mods();
+    turnoff_oneshot_modifiers();
+    tap_code16(kc);
+    set_mods(mod);
 }
 
-void register_keycode_tap_with_shift(uint16_t kc)
+void tap_code16_shift(uint16_t kc)
 {
     uint16_t qmk_keycode = kc;
     qmk_keycode          = LSFT(qmk_keycode);

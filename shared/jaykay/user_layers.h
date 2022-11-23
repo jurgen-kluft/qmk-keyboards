@@ -24,5 +24,5 @@ void register_keycode_press_with_shift(uint16_t kc);
 void register_keycode_press_nomods(uint16_t kc);
 void register_keycode_release(uint16_t kc);
 void register_keycode_release_nomods(uint16_t kc);
-void register_keycode_tap(uint16_t kc);
-void register_keycode_tap_with_shift(uint16_t kc);
+void tap_code16_nomods(uint16_t kc);
+void tap_code16_shift(uint16_t kc);
