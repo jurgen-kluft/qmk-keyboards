@@ -107,8 +107,10 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
     }
 
     if (process_leader_user(kc, record))
+    {
         return false;
-        
+    }
+
     {
         if (!process_feature_key(kc, record))
         {
@@ -118,6 +120,12 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
         uint16_t cushi = process_cushi_keys(kc, record);
         if (cushi != KC_NO)
         {
+            const uint16_t cukc = process_cukey(cushi);
+            if (cukc != KC_NO)
+            {
+                cushi = cukc;
+            }
+
             if (record->event.pressed)
             {
                 register_keycode_press_nomods(cushi);
@@ -128,13 +136,11 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
             }
 
             update_oneshot_modifiers(cushi, record);
-
             return false;
         }
 
         update_oneshot_modifiers(kc, record);
     }
-
 
     return true;
 }
