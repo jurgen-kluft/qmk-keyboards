@@ -16,4 +16,10 @@ SRC += $(USER_PATH)/user_leader.c
 SRC += $(USER_PATH)/user_keycodes.c
 SRC += $(USER_PATH)/user_layers.c
 
-
+CUSTOM_POINTING_DEVICE ?= no
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+    ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
+        SRC += $(USER_PATH)/pointing/pointing.c
+        OPT_DEFS += -DCUSTOM_POINTING_DEVICE
+    endif
+endif
