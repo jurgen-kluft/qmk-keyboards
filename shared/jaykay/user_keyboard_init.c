@@ -13,9 +13,5 @@ void keyboard_post_init_user(void)
 #endif
     keyboard_init_cukey();
 
-#       ifdef CONSOLE_ENABLE
-    debug_enable=true;
-#       endif // CONSOLE_ENABLE
-
     user_layer_on(LAYER_BASE); // activate the base layer, QWERTY or RSTHD
 }
