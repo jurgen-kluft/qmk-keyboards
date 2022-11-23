@@ -4,7 +4,7 @@
 
 enum ecustomkeycodes
 {
-    CC_RANGE_START = SAFE_RANGE,
+    CC_RANGE_START = SAFE_RANGE + 64,
 
     CC_FNUM        = CC_RANGE_START,
     CC_FCAPS,
@@ -52,6 +52,8 @@ enum ecustomkeycodes
 
     CC_GAMEL,
     CC_GAMER,
+
+    CC_ACCEL,
 
     CC_RANGE_END,
 };

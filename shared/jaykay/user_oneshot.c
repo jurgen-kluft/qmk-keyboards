@@ -19,15 +19,6 @@ bool is_oneshot_modifier_cancel_key(uint16_t keycode, bool pressed)
 bool is_oneshot_modifier_ignored_key(uint16_t keycode, bool pressed)
 {
     switch (keycode) {
-        case KC_HOME:
-        case KC_END:
-        case KC_PGUP:
-        case KC_PGDOWN:
-        case KC_LEFT:
-        case KC_RIGHT:
-        case KC_UP:
-        case KC_DOWN: return true;
-        
         case CC_FNUM: return true; 
         case CC_FSYM: return true; 
         case CC_FNAV:
