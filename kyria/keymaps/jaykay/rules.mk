@@ -12,7 +12,6 @@ MUSIC_ENABLE = no       # Music
 UNICODE_ENABLE = no 	# Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-POINTING_DEVICE_ENABLE = no
 
 VIA_ENABLE = no
 SEQUENCER_ENABLE = no
