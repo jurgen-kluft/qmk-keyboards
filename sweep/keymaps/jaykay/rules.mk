@@ -29,7 +29,6 @@ GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 
-LTO_ENABLE = yes
 
 WPM_ENABLE                      = no
 SWAP_HANDS_ENABLE               = no
@@ -38,3 +37,4 @@ ENCODER_ENABLE                  = no  # Ensure encoders are disabled unless set 
 OLED_ENABLE                     = no  # Enable OLEDs
 RGBLIGHT_ENABLE                 = no  # Enable keyboard RGB underglow
 
+CONVERT_TO                      = promicro_rp2040 # Elite PI
