@@ -21,6 +21,9 @@ the 't' should be held if you want to get to the 'e' otherwise the 'gt' chain is
 Note: We can still take it one step further. When we have the leader 'active', pressing SYM could
       change leader_mode for us. We could use that for lets say a 'accent' or 'vim' movement layer?
 
+Note: Pressing leader '.' will execute the last action that was executed by the leader.
+      This is useful for when you want to repeat an action multiple times.
+*/
 */
 
 __attribute__((weak)) void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t* leader_chain) {}
@@ -36,6 +39,11 @@ static uint8_t  leader_chain_recorded_pressed  = 0;
 static uint8_t  leader_chain_recorded_released = 0;
 static uint8_t  leader_chain[LEADER_MAX_CHAIN] = {0};
 static uint8_t  leader_enabled                 = 1;
+
+static int8_t  last_leader_action                  = -1;
+static uint8_t last_leader_mode                    = 0;
+static uint8_t last_leader_chain_recorded_pressed  = 0;
+static uint8_t last_leader_chain[LEADER_MAX_CHAIN] = {0};
 
 static void reset_leader(uint8_t active)
 {
@@ -106,7 +114,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
                 leader_chain[leader_chain_recorded_pressed++] = keycode;
                 leader_timer                                  = timer_read();
 
-                int8_t action;
+                int8_t action = 0;
                 if (leader_mode == 4)
                 {
                     action = -2;
@@ -121,7 +129,10 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
                 }
                 else
                 {
-                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
+                    if (keycode != KC_DOT)
+                    {
+                        action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
+                    }
                 }
                 if (action == -2)
                 {
@@ -170,6 +181,17 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
                 }
             }
 
+            // if we release the '.' key, we should execute the last leader chain
+            if (keycode == KC_DOT && leader_chain_recorded_pressed == leader_chain_recorded_released)
+            {
+                if (last_leader_action != -1)
+                {
+                    execute_leader_action(last_leader_action, last_leader_mode, last_leader_chain_recorded_pressed, last_leader_chain);
+                    reset_leader(0);
+                    return true;
+                }
+            }
+
             if (leader_chain_recorded_released == leader_chain_recorded_pressed)
             {
                 int8_t leader_action = -1;
@@ -189,6 +211,15 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
 
                 if (leader_action >= 0)
                 {
+                    // remember; so that when we press LEADER '.', we can repeat the last action
+                    last_leader_action                 = leader_action;
+                    last_leader_mode                   = leader_mode;
+                    last_leader_chain_recorded_pressed = leader_chain_recorded_pressed;
+                    for (uint8_t i = 0; i < leader_chain_recorded_pressed; i++)
+                    {
+                        last_leader_chain[i] = leader_chain[i];
+                    }
+
                     execute_leader_action(leader_action, leader_mode, leader_chain_recorded_pressed, leader_chain);
                     reset_leader(0);
                 }

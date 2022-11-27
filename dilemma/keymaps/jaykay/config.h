@@ -13,8 +13,3 @@
 #endif 
 
 #define KEYBOARD_DILEMMA
-
-// USB activity will determine which half is master
-// RP2040 seems to need a bit more time to boot up
-#define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 3500

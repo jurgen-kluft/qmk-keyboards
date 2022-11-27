@@ -79,7 +79,6 @@ void register_keycode_release_nomods(uint16_t kc)
 {
     uint8_t mod = get_mods();
     clear_mods();
-    turnoff_oneshot_modifiers();
     register_keycode_release(kc);
     set_mods(mod);
 }
@@ -88,7 +87,6 @@ void tap_code16_nomods(uint16_t kc)
 {
     uint8_t mod = get_mods();
     clear_mods();
-    turnoff_oneshot_modifiers();
     tap_code16(kc);
     set_mods(mod);
 }
