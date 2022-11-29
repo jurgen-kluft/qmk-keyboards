@@ -1,5 +1,12 @@
 package main
 
+import (
+	"bufio"
+	"log"
+	"os"
+	"strings"
+)
+
 type Node struct {
 	Letter  rune
 	Index   int
@@ -56,7 +63,7 @@ func (n *Node) FindNode(letter rune) *Node {
 }
 
 // Add word to the trie
-func (t *Trie) Add(word string) {
+func (t *Trie) Add(typo string, word string) {
 	// iterate  word in reverse
 
 	r := []rune(word)
@@ -85,10 +92,24 @@ func (t *Trie) Add(word string) {
 
 }
 
-// Read line by line
-// 'word with typo = correct word'
-// from file and add to trie
 func main() {
-	//	trie := NewTrie()
+	file := "typos_dictionary.txt"
+	f, err := os.Open(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
 
+	trie := NewTrie()
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		// each line is like 'word with typo = correct word'
+		// split on '='
+		parts := strings.Split(scanner.Text(), "=")
+		if len(parts) != 2 {
+			continue
+		}
+		// add to trie
+		trie.Add(parts[0], parts[1])
+	}
 }
