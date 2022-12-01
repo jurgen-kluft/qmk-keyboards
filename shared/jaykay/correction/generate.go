@@ -2,10 +2,24 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strings"
 )
+
+func StringHash(s string) uint32 {
+	hash := uint32(0)
+	for i := 0; i < len(s); i++ {
+		hash += uint32(s[i])
+		hash += (hash << 10)
+		hash ^= (hash >> 6)
+	}
+	hash += (hash << 3)
+	hash ^= (hash >> 11)
+	hash += (hash << 15)
+	return hash
+}
 
 type Node struct {
 	Letter   rune
@@ -23,7 +37,7 @@ type Trie struct {
 func NewTrie() *Trie {
 	return &Trie{
 		Nodes:   []*Node{},
-		Letters: []*Node{},
+		Letters: make([]*Node, 32),
 	}
 }
 
@@ -92,6 +106,25 @@ func (t *Trie) Add(typo string) int {
 	return node.Index
 }
 
+func writeTrie(t *Trie, writer *bufio.Writer) {
+	for _, node := range t.Nodes {
+		writer.Write([]byte{byte(node.Letter), 0})
+		if node.Parent == nil {
+			writer.Write([]byte{0, 0})
+		} else {
+			writer.Write([]byte{byte(node.Parent.Index >> 8), byte(node.Parent.Index & 0xff)})
+		}
+	}
+}
+
+type Typo struct {
+	Hash      uint32
+	Typo      string
+	Word      string
+	TypoIndex int
+	WordIndex int
+}
+
 func main() {
 	file := "typos_dictionary.txt"
 	f, err := os.Open(file)
@@ -100,19 +133,75 @@ func main() {
 	}
 	defer f.Close()
 
-	links := map[int]int{}
+	links := []Typo{}
 	wordTrie := NewTrie()
 	typoTrie := NewTrie()
 
+	hashes := map[uint32]bool{}
+	hashPools := map[byte]int{}
+
 	scanner := bufio.NewScanner(f)
+
+	typoStringMem := 0
+
+	minLen := 100
+	maxLen := 0
 	for scanner.Scan() {
 		parts := strings.Split(scanner.Text(), "=")
 		if len(parts) != 2 {
 			continue
 		}
 
-		typoLink := typoTrie.Add(strings.TrimSpace(parts[0]))
-		wordLink := wordTrie.Add(strings.TrimSpace(parts[1]))
-		links[typoLink] = wordLink
+		parts[0] = strings.TrimSpace(parts[0])
+		parts[1] = strings.TrimSpace(parts[1])
+		parts[0] = strings.ToLower(parts[0])
+		parts[1] = strings.ToLower(parts[1])
+
+		typoLink := typoTrie.Add(parts[0])
+		wordLink := wordTrie.Add(parts[1])
+
+		typo := Typo{
+			Typo:      parts[0],
+			Word:      parts[1],
+			TypoIndex: typoLink,
+			WordIndex: wordLink,
+		}
+
+		typoStringMem += len(typo.Typo) + len(typo.Word) + 2
+
+		// generate a 32-bit hash of typo.Typo
+		typo.Hash = StringHash(typo.Typo) & 0xffffffc0
+
+		ht := byte(typo.Hash >> 24)
+		hashPools[ht]++
+
+		// check if hash is unique
+		if hashes[typo.Hash] {
+			// fatal error
+			log.Fatal("hash collision")
+		}
+		hashes[typo.Hash] = true
+
+		links = append(links, typo)
+
+		if len(typo.Typo) < minLen {
+			minLen = len(typo.Typo)
+		}
+		if len(typo.Typo) > maxLen {
+			maxLen = len(typo.Typo)
+		}
 	}
+
+	fmt.Printf("minLen: %d\n", minLen)
+	fmt.Printf("maxLen: %d\n", maxLen)
+
+	// runtime:
+	// - current length of the typed word
+	//   - go into the correction table and get the sub-table for that length
+	//   - hash the current typed word
+	//   - using the hash of the typed word see if there is an identical typo hash
+	//   - if found get the offset to the typo word and compare with the current typed word
+	//   - if current typed word == typo word get the offset to the correct word
+	//   - correct the typed word
+
 }

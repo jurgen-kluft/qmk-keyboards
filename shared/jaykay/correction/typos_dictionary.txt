@@ -2540,7 +2540,6 @@ nickle=nickel
 nightime=nighttime
 nineth=ninth
 ninteenth=nineteenth
-ninties=1990s
 ninty=ninety
 nkow=know
 nkwo=know
