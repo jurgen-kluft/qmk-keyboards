@@ -22,6 +22,23 @@ func StringHash(s string) uint32 {
 	return hash
 }
 
+func FilterMultiChar(c rune) rune {
+	if c == 'è' || c == 'é' || c == 'ê' || c == 'ë' {
+		c = 'e'
+	} else if c == 'î' || c == 'ï' || c == 'ì' || c == 'í' || c == 'ı' {
+		c = 'i'
+	} else if c == 'ô' || c == 'ö' {
+		c = 'o'
+	} else if c == 'û' || c == 'ü' {
+		c = 'u'
+	} else if c == 'à' || c == 'á' || c == 'â' || c == 'ã' || c == 'ä' || c == 'å' {
+		c = 'a'
+	} else if c == 'ç' {
+		c = 'c'
+	}
+	return c
+}
+
 type Typo struct {
 	Hash       uint32
 	Typo       string
@@ -60,17 +77,20 @@ func main() {
 		parts[0] = strings.TrimSpace(parts[0])
 		parts[1] = strings.TrimSpace(parts[1])
 		parts[0] = strings.ToLower(parts[0])
-		parts[1] = strings.ToLower(parts[1])
+		corrections := strings.Split(parts[1], ",")
+		for i := range corrections {
+			corrections[i] = strings.TrimSpace(corrections[i])
+		}
 
 		typoLink := len(typos)
 		wordLink := len(words)
 
 		typos = append(typos, parts[0])
-		words = append(words, parts[1])
+		words = append(words, corrections[0])
 
 		typo := Typo{
 			Typo:      parts[0],
-			Word:      parts[1],
+			Word:      corrections[0],
 			TypoIndex: typoLink,
 			WordIndex: wordLink,
 		}
@@ -106,8 +126,6 @@ func main() {
 		return links[i].Hash < links[j].Hash
 	})
 
-	// write-out in C source code format (according to the code in 'correx.c')
-
 	outputFile := "typos_dictionary.c"
 	f, err = os.Create(outputFile)
 	if err != nil {
@@ -117,17 +135,7 @@ func main() {
 
 	w := bufio.NewWriter(f)
 
-	// struct correx_t
-	// {
-	//     int32_t   count;
-	//     uint32_t* hashes;
-	//     uint16_t* typo_jmps;
-	//     uint8_t*  typo_strs;
-	//     uint16_t* corr_jmps;
-	//     uint8_t*  corr_strs;
-	// };
-
-	fmt.Fprintf(w, "struct correx_t\n")
+	fmt.Fprintf(w, "typedef struct\n")
 	fmt.Fprintf(w, "{\n")
 	fmt.Fprintf(w, "    int32_t   count;\n")
 	fmt.Fprintf(w, "    uint32_t* hashes;\n")
@@ -135,21 +143,14 @@ func main() {
 	fmt.Fprintf(w, "    uint8_t*  typo_strs;\n")
 	fmt.Fprintf(w, "    uint16_t* corr_jmps;\n")
 	fmt.Fprintf(w, "    uint8_t*  corr_strs;\n")
-	fmt.Fprintf(w, "};\n\n")
+	fmt.Fprintf(w, "} correx_t;\n\n")
 
-	// struct correx_table_t
-	// {
-	//     int8_t   minlen;
-	//     int8_t   maxlen;
-	//     correx_t* lengths;
-	// };
-
-	fmt.Fprintf(w, "struct correx_table_t\n")
+	fmt.Fprintf(w, "typedef struct\n")
 	fmt.Fprintf(w, "{\n")
 	fmt.Fprintf(w, "    int8_t   minlen;\n")
 	fmt.Fprintf(w, "    int8_t   maxlen;\n")
 	fmt.Fprintf(w, "    correx_t* lengths;\n")
-	fmt.Fprintf(w, "};\n\n")
+	fmt.Fprintf(w, "} correx_table_t;\n\n")
 
 	for i := minLen; i <= maxLen; i++ {
 
@@ -181,7 +182,11 @@ func main() {
 		for _, link := range typos {
 			fmt.Fprint(w, "    ")
 			for _, c := range link.Typo {
-				fmt.Fprintf(w, "'%c',", c)
+				if c == '\'' {
+					fmt.Fprintf(w, "'\\%c',", c)
+				} else {
+					fmt.Fprintf(w, "'%c',", FilterMultiChar(c))
+				}
 			}
 			fmt.Fprintf(w, "0,\n")
 		}
@@ -191,7 +196,11 @@ func main() {
 		for _, link := range typos {
 			fmt.Fprint(w, "    ")
 			for _, c := range link.Word {
-				fmt.Fprintf(w, "'%c',", c)
+				if c == '\'' {
+					fmt.Fprintf(w, "'\\%c',", c)
+				} else {
+					fmt.Fprintf(w, "'%c',", FilterMultiChar(c))
+				}
 			}
 			fmt.Fprintf(w, "0,\n")
 		}
@@ -203,7 +212,7 @@ func main() {
 		})
 		fmt.Fprintf(w, "uint32_t hashes_%d[] = {\n", i)
 		for _, link := range typos {
-			fmt.Fprintf(w, "    0x%08x, // %s\n", link.Hash, link.Typo)
+			fmt.Fprintf(w, "    0x%08x, // %s -> %s\n", link.Hash, link.Typo, link.Word)
 		}
 		fmt.Fprintf(w, "};\n\n")
 
