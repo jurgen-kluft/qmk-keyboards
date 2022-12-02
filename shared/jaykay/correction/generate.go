@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -21,108 +22,14 @@ func StringHash(s string) uint32 {
 	return hash
 }
 
-type Node struct {
-	Letter   rune
-	Index    int
-	Word     int
-	Parent   *Node
-	Children []*Node
-}
-
-type Trie struct {
-	Nodes   []*Node
-	Letters []*Node
-}
-
-func NewTrie() *Trie {
-	return &Trie{
-		Nodes:   []*Node{},
-		Letters: make([]*Node, 32),
-	}
-}
-
-// NewNode creates a new node and returns it
-func (t *Trie) NewNode(letter rune, parent *Node) *Node {
-	n := &Node{
-		Letter: letter,
-		Index:  len(t.Nodes),
-	}
-	t.Nodes = append(t.Nodes, n)
-	return n
-}
-
-// FindNode finds a node in the trie
-func (t *Trie) FindNode(letter rune) *Node {
-	for _, node := range t.Nodes {
-		if node.Letter == letter {
-			return node
-		}
-	}
-	return nil
-}
-
-// NewNode creates a new node and returns it
-func (n *Node) NewNode(letter rune, t *Trie) *Node {
-	nn := t.NewNode(letter, n)
-	t.Nodes = append(t.Nodes, n)
-	n.Children = append(n.Children, nn)
-	return nn
-}
-
-// FindNode finds if there is a child path for this letter
-func (n *Node) FindNode(letter rune) *Node {
-	for _, node := range n.Children {
-		if node.Letter == letter {
-			return node
-		}
-	}
-	return nil
-}
-
-// Add word to the trie
-func (t *Trie) Add(typo string) int {
-
-	r := []rune(typo)
-	c := r[0]
-	i := int(c - 'a')
-
-	// if letter is not in the trie, create a new node
-	if t.Letters[i] == nil {
-		t.Letters[i] = t.NewNode(c, nil)
-	}
-	node := t.Letters[i]
-
-	// iterate over the rest of the letters
-	for _, c := range r[1:] {
-		i = int(c - 'a')
-
-		// if letter is not in the trie, create a new node
-		child := node.FindNode(c)
-		if child == nil {
-			child = node.NewNode(c, t)
-		}
-		node = child
-	}
-	return node.Index
-}
-
-func writeTrie(t *Trie, writer *bufio.Writer) {
-	for _, node := range t.Nodes {
-		writer.Write([]byte{byte(node.Letter), 0})
-		if node.Parent == nil {
-			writer.Write([]byte{0, 0})
-		} else {
-			writer.Write([]byte{byte(node.Parent.Index >> 8), byte(node.Parent.Index & 0xff)})
-		}
-	}
-}
-
 type Typo struct {
-	Hash      uint32
-	Typo      string
-	Word      string
-	TypoIndex int
-	WordIndex int
+	Hash       uint32
+	Typo       string
+	TypoOffset int
+	Word       string
+	WordOffset int
+	TypoIndex  int
+	WordIndex  int
 }
 
 func main() {
@@ -134,15 +41,13 @@ func main() {
 	defer f.Close()
 
 	links := []Typo{}
-	wordTrie := NewTrie()
-	typoTrie := NewTrie()
+	words := []string{}
+	typos := []string{}
 
 	hashes := map[uint32]bool{}
 	hashPools := map[byte]int{}
 
 	scanner := bufio.NewScanner(f)
-
-	typoStringMem := 0
 
 	minLen := 100
 	maxLen := 0
@@ -157,8 +62,11 @@ func main() {
 		parts[0] = strings.ToLower(parts[0])
 		parts[1] = strings.ToLower(parts[1])
 
-		typoLink := typoTrie.Add(parts[0])
-		wordLink := wordTrie.Add(parts[1])
+		typoLink := len(typos)
+		wordLink := len(words)
+
+		typos = append(typos, parts[0])
+		words = append(words, parts[1])
 
 		typo := Typo{
 			Typo:      parts[0],
@@ -166,8 +74,6 @@ func main() {
 			TypoIndex: typoLink,
 			WordIndex: wordLink,
 		}
-
-		typoStringMem += len(typo.Typo) + len(typo.Word) + 2
 
 		// generate a 32-bit hash of typo.Typo
 		typo.Hash = StringHash(typo.Typo) & 0xffffffc0
@@ -195,13 +101,134 @@ func main() {
 	fmt.Printf("minLen: %d\n", minLen)
 	fmt.Printf("maxLen: %d\n", maxLen)
 
-	// runtime:
-	// - current length of the typed word
-	//   - go into the correction table and get the sub-table for that length
-	//   - hash the current typed word
-	//   - using the hash of the typed word see if there is an identical typo hash
-	//   - if found get the offset to the typo word and compare with the current typed word
-	//   - if current typed word == typo word get the offset to the correct word
-	//   - correct the typed word
+	// sort links array by hash
+	sort.Slice(links, func(i, j int) bool {
+		return links[i].Hash < links[j].Hash
+	})
 
+	// write-out in C source code format (according to the code in 'correx.c')
+
+	outputFile := "typos_dictionary.c"
+	f, err = os.Create(outputFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	w := bufio.NewWriter(f)
+
+	// struct correx_t
+	// {
+	//     int32_t   count;
+	//     uint32_t* hashes;
+	//     uint16_t* typo_jmps;
+	//     uint8_t*  typo_strs;
+	//     uint16_t* corr_jmps;
+	//     uint8_t*  corr_strs;
+	// };
+
+	fmt.Fprintf(w, "struct correx_t\n")
+	fmt.Fprintf(w, "{\n")
+	fmt.Fprintf(w, "    int32_t   count;\n")
+	fmt.Fprintf(w, "    uint32_t* hashes;\n")
+	fmt.Fprintf(w, "    uint16_t* typo_jmps;\n")
+	fmt.Fprintf(w, "    uint8_t*  typo_strs;\n")
+	fmt.Fprintf(w, "    uint16_t* corr_jmps;\n")
+	fmt.Fprintf(w, "    uint8_t*  corr_strs;\n")
+	fmt.Fprintf(w, "};\n\n")
+
+	// struct correx_table_t
+	// {
+	//     int8_t   minlen;
+	//     int8_t   maxlen;
+	//     correx_t* lengths;
+	// };
+
+	fmt.Fprintf(w, "struct correx_table_t\n")
+	fmt.Fprintf(w, "{\n")
+	fmt.Fprintf(w, "    int8_t   minlen;\n")
+	fmt.Fprintf(w, "    int8_t   maxlen;\n")
+	fmt.Fprintf(w, "    correx_t* lengths;\n")
+	fmt.Fprintf(w, "};\n\n")
+
+	for i := minLen; i <= maxLen; i++ {
+
+		// Compute the offset of each typo string in the typo_strs array
+		// and the offset of each word string in the word_strs array
+		typos := []Typo{}
+		for j := 0; j < len(links); j++ {
+			if len(links[j].Typo) == i {
+				typos = append(typos, links[j])
+			}
+		}
+
+		// sort typos array by typo string and compute the offsets
+		sort.Slice(typos, func(a, b int) bool {
+			return typos[a].Typo < typos[b].Typo
+		})
+
+		typoOffset := 0
+		wordOffset := 0
+		for j := 0; j < len(typos); j++ {
+			typos[j].TypoOffset = typoOffset
+			typos[j].WordOffset = wordOffset
+
+			typoOffset += len(typos[j].Typo) + 1
+			wordOffset += len(typos[j].Word) + 1
+		}
+
+		fmt.Fprintf(w, "uint8_t typo_strs_%d[] = {\n", i)
+		for _, link := range typos {
+			fmt.Fprint(w, "    ")
+			for _, c := range link.Typo {
+				fmt.Fprintf(w, "'%c',", c)
+			}
+			fmt.Fprintf(w, "0,\n")
+		}
+		fmt.Fprintf(w, "};\n\n")
+
+		fmt.Fprintf(w, "uint8_t word_strs_%d[] = {\n", i)
+		for _, link := range typos {
+			fmt.Fprint(w, "    ")
+			for _, c := range link.Word {
+				fmt.Fprintf(w, "'%c',", c)
+			}
+			fmt.Fprintf(w, "0,\n")
+		}
+		fmt.Fprintf(w, "};\n\n")
+
+		// sort typos by hash
+		sort.Slice(typos, func(a, b int) bool {
+			return typos[a].Hash < typos[b].Hash
+		})
+		fmt.Fprintf(w, "uint32_t hashes_%d[] = {\n", i)
+		for _, link := range typos {
+			fmt.Fprintf(w, "    0x%08x, // %s\n", link.Hash, link.Typo)
+		}
+		fmt.Fprintf(w, "};\n\n")
+
+		fmt.Fprintf(w, "uint16_t typo_jmps_%d[] = {\n", i)
+		for _, link := range typos {
+			fmt.Fprintf(w, "    %d,\n", link.TypoOffset)
+		}
+		fmt.Fprintf(w, "};\n\n")
+
+		fmt.Fprintf(w, "uint16_t word_jmps_%d[] = {\n", i)
+		for _, link := range typos {
+			fmt.Fprintf(w, "    %d,\n", link.WordOffset)
+		}
+		fmt.Fprintf(w, "};\n\n")
+	}
+
+	fmt.Fprintf(w, "correx_t typo_table[] = {\n")
+	for i := minLen; i <= maxLen; i++ {
+		fmt.Fprintf(w, "    { %d, hashes_%d, typo_jmps_%d, typo_strs_%d, word_jmps_%d, word_strs_%d },\n", i, i, i, i, i, i)
+	}
+	fmt.Fprintf(w, "};\n\n")
+
+	fmt.Fprintf(w, "correx_table_t correx_table = {\n")
+	fmt.Fprintf(w, "    %d, %d, typo_table\n", minLen, maxLen)
+	fmt.Fprintf(w, "};\n\n")
+
+	w.Flush()
 }
