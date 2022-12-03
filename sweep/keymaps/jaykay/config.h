@@ -26,3 +26,6 @@
 // This makes sure that the firmware on the left sides identifies itself as 'left' and the right side
 // identifies itself as 'right'.
 #define EE_HANDS
+
+// When using a RP2040 controller this will identify the master correctly
+#define USB_VBUS_PIN GP19
