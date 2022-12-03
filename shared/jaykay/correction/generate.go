@@ -40,13 +40,13 @@ func FilterMultiChar(c rune) rune {
 }
 
 type Typo struct {
-	Hash       uint32
-	Typo       string
-	TypoOffset int
-	Word       string
-	WordOffset int
-	TypoIndex  int
-	WordIndex  int
+	Hash      uint32
+	Typo      string
+	Word      string
+	Offset    int
+	DiffAt    int
+	TypoIndex int
+	WordIndex int
 }
 
 func main() {
@@ -88,11 +88,21 @@ func main() {
 		typos = append(typos, parts[0])
 		words = append(words, corrections[0])
 
+		// compute the position of the character where the typo and the word differ
+		diffAt := 0
+		for p := 0; p < len(parts[0]) && p < len(corrections[0]); p++ {
+			if parts[0][p] != corrections[0][p] {
+				diffAt = p
+				break
+			}
+		}
+
 		typo := Typo{
 			Typo:      parts[0],
 			Word:      corrections[0],
 			TypoIndex: typoLink,
 			WordIndex: wordLink,
+			DiffAt:    diffAt,
 		}
 
 		// generate a 32-bit hash of typo.Typo
@@ -120,13 +130,14 @@ func main() {
 
 	fmt.Printf("minLen: %d\n", minLen)
 	fmt.Printf("maxLen: %d\n", maxLen)
+	fmt.Printf("count: %d\n", len(links))
 
 	// sort links array by hash
 	sort.Slice(links, func(i, j int) bool {
 		return links[i].Hash < links[j].Hash
 	})
 
-	outputFile := "typos_dictionary.c"
+	outputFile := "typos_dictionary.gen"
 	f, err = os.Create(outputFile)
 	if err != nil {
 		log.Fatal(err)
@@ -135,22 +146,7 @@ func main() {
 
 	w := bufio.NewWriter(f)
 
-	fmt.Fprintf(w, "typedef struct\n")
-	fmt.Fprintf(w, "{\n")
-	fmt.Fprintf(w, "    int32_t   count;\n")
-	fmt.Fprintf(w, "    uint32_t* hashes;\n")
-	fmt.Fprintf(w, "    uint16_t* typo_jmps;\n")
-	fmt.Fprintf(w, "    uint8_t*  typo_strs;\n")
-	fmt.Fprintf(w, "    uint16_t* corr_jmps;\n")
-	fmt.Fprintf(w, "    uint8_t*  corr_strs;\n")
-	fmt.Fprintf(w, "} correx_t;\n\n")
-
-	fmt.Fprintf(w, "typedef struct\n")
-	fmt.Fprintf(w, "{\n")
-	fmt.Fprintf(w, "    int8_t   minlen;\n")
-	fmt.Fprintf(w, "    int8_t   maxlen;\n")
-	fmt.Fprintf(w, "    correx_t* lengths;\n")
-	fmt.Fprintf(w, "} correx_table_t;\n\n")
+	estimatedMemory := 0
 
 	for i := minLen; i <= maxLen; i++ {
 
@@ -169,16 +165,12 @@ func main() {
 		})
 
 		typoOffset := 0
-		wordOffset := 0
 		for j := 0; j < len(typos); j++ {
-			typos[j].TypoOffset = typoOffset
-			typos[j].WordOffset = wordOffset
-
-			typoOffset += len(typos[j].Typo) + 1
-			wordOffset += len(typos[j].Word) + 1
+			typos[j].Offset = typoOffset
+			typoOffset += len(typos[j].Typo) + len(typos[j].Word) + 1
 		}
 
-		fmt.Fprintf(w, "uint8_t typo_strs_%d[] = {\n", i)
+		fmt.Fprintf(w, "static const char strs_%d[] = {\n", i)
 		for _, link := range typos {
 			fmt.Fprint(w, "    ")
 			for _, c := range link.Typo {
@@ -188,21 +180,21 @@ func main() {
 					fmt.Fprintf(w, "'%c',", FilterMultiChar(c))
 				}
 			}
-			fmt.Fprintf(w, "0,\n")
-		}
-		fmt.Fprintf(w, "};\n\n")
 
-		fmt.Fprintf(w, "uint8_t word_strs_%d[] = {\n", i)
-		for _, link := range typos {
-			fmt.Fprint(w, "    ")
-			for _, c := range link.Word {
-				if c == '\'' {
-					fmt.Fprintf(w, "'\\%c',", c)
-				} else {
-					fmt.Fprintf(w, "'%c',", FilterMultiChar(c))
+			// emit the diffAt position
+			fmt.Fprintf(w, "%d,", link.DiffAt)
+
+			for p, c := range link.Word {
+				if p >= link.DiffAt {
+					if c == '\'' {
+						fmt.Fprintf(w, "'\\%c',", c)
+					} else {
+						fmt.Fprintf(w, "'%c',", FilterMultiChar(c))
+					}
 				}
 			}
 			fmt.Fprintf(w, "0,\n")
+			estimatedMemory += len(link.Typo) + 1 + (len(link.Word) - link.DiffAt) + 1
 		}
 		fmt.Fprintf(w, "};\n\n")
 
@@ -210,34 +202,47 @@ func main() {
 		sort.Slice(typos, func(a, b int) bool {
 			return typos[a].Hash < typos[b].Hash
 		})
-		fmt.Fprintf(w, "uint32_t hashes_%d[] = {\n", i)
+		fmt.Fprintf(w, "static const uint32_t hashes_%d[] = {\n", i)
 		for _, link := range typos {
 			fmt.Fprintf(w, "    0x%08x, // %s -> %s\n", link.Hash, link.Typo, link.Word)
 		}
 		fmt.Fprintf(w, "};\n\n")
 
-		fmt.Fprintf(w, "uint16_t typo_jmps_%d[] = {\n", i)
+		estimatedMemory += len(typos) * 4
+
+		fmt.Fprintf(w, "static const uint16_t offsets_%d[] = {\n", i)
 		for _, link := range typos {
-			fmt.Fprintf(w, "    %d,\n", link.TypoOffset)
+			fmt.Fprintf(w, "    %d,\n", link.Offset)
 		}
 		fmt.Fprintf(w, "};\n\n")
 
-		fmt.Fprintf(w, "uint16_t word_jmps_%d[] = {\n", i)
-		for _, link := range typos {
-			fmt.Fprintf(w, "    %d,\n", link.WordOffset)
+		estimatedMemory += len(typos) * 2
+	}
+
+	fmt.Fprintf(w, "typedef struct\n")
+	fmt.Fprintf(w, "{\n")
+	fmt.Fprintf(w, "    uint32_t* hashes;\n")
+	fmt.Fprintf(w, "    uint16_t* offsets;\n")
+	fmt.Fprintf(w, "    char*     strs;\n")
+	fmt.Fprintf(w, "} correx_t;\n\n")
+	fmt.Fprintf(w, "static const correx_t correx_data[] = {\n")
+	for i := 0; i <= maxLen; i++ {
+		if i < minLen {
+			fmt.Fprintf(w, "    { NULL, NULL, NULL },\n")
+		} else {
+			fmt.Fprintf(w, "    { hashes_%d, offsets_%d, strs_%d },\n", i, i, i)
 		}
-		fmt.Fprintf(w, "};\n\n")
-	}
-
-	fmt.Fprintf(w, "correx_t typo_table[] = {\n")
-	for i := minLen; i <= maxLen; i++ {
-		fmt.Fprintf(w, "    { %d, hashes_%d, typo_jmps_%d, typo_strs_%d, word_jmps_%d, word_strs_%d },\n", i, i, i, i, i, i)
 	}
 	fmt.Fprintf(w, "};\n\n")
 
-	fmt.Fprintf(w, "correx_table_t correx_table = {\n")
-	fmt.Fprintf(w, "    %d, %d, typo_table\n", minLen, maxLen)
-	fmt.Fprintf(w, "};\n\n")
+	estimatedMemory += (maxLen + 1) * (3 * 4)
+
+	fmt.Fprintf(w, "#define CORREX_MIN_LEN %d\n", minLen)
+	fmt.Fprintf(w, "#define CORREX_MAX_LEN %d\n\n", maxLen)
+
+	estimatedMemory += 4 * 3
+
+	fmt.Printf("Memory size ~= %d\n", estimatedMemory)
 
 	w.Flush()
 }
