@@ -24,7 +24,6 @@ Note: We can still take it one step further. When we have the leader 'active', p
 Note: Pressing leader '.' will execute the last action that was executed by the leader.
       This is useful for when you want to repeat an action multiple times.
 */
-*/
 
 __attribute__((weak)) void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t* leader_chain) {}
 static int8_t              process_leader_chain(uint8_t count, uint8_t* keycodes, leader_config_t* config);
