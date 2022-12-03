@@ -13,3 +13,6 @@
 #endif 
 
 #define KEYBOARD_DILEMMA
+
+/* VBUS detection. */
+#define USB_VBUS_PIN GP19
