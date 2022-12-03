@@ -26,6 +26,7 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
     process_record_oled(kc, record);
 #endif
 
+    bool result = true;
     switch (kc)
     {
 #ifdef KEYBOARD_MOONLANDER
@@ -41,7 +42,8 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
                     user_layer_on(LAYER_GAMEL);
                 }
             }
-            return false;
+            result = false;
+            break;
 
         case CC_GAMER:
             if (record->event.pressed)
@@ -52,7 +54,8 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
             {
                 user_layer_on(LAYER_GAMEL);
             }
-            return false;
+            result = false;
+            break;
 #endif
         case CC_UNDO ... CC_CLOSE:
         {
@@ -68,7 +71,8 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
                 if (keycode != KC_NO)
                     unregister_code16(keycode);
             }
-            return false;
+            result = false;
+            break;
         }
         case CC_SECRET_1 ... CC_SECRET_8:
             if (!record->event.pressed)
@@ -76,7 +80,8 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
                 turnoff_oneshot_modifiers();
                 send_string_with_delay(gSecrets[kc - CC_SECRET_1], MACRO_TIMER);
             }
-            return false;
+            result = false;
+            break;
         case CC_SPIFT:
             if (record->event.pressed)
             {
@@ -88,21 +93,24 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
                 unregister_code(KC_SPACE);
                 release_oneshot_modifier(ONESHOT_LSFT);
             }
-            return false;
+            result = false;
+            break;
 #if defined(OLED_ENABLE)
         case CC_OLED:
             if (record->event.pressed)
             {
                 toggle_display_oled();
             }
-            return true;
+            result = false;
+            break;
 #elif defined(RGBLIGHT_ENABLE)
         case CC_OLED:
             if (record->event.pressed)
             {
                 rgblight_enable();
             }
-            return false;
+            result = false;
+            break;
 #endif
     }
 
@@ -138,5 +146,5 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
         update_oneshot_modifiers(kc, record);
     }
 
-    return true;
+    return result;
 }

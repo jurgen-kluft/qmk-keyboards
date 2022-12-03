@@ -55,6 +55,9 @@ enum ecustomkeycodes
 
     CC_ACCEL,
 
+    CC_AUTOCORRECT_ON,
+    CC_AUTOCORRECT_TOGGLE,
+
     CC_RANGE_END,
 };
 
