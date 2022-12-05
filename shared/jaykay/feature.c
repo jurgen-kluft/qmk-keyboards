@@ -61,6 +61,27 @@ void enable_smart_numbers(void)
     user_layer_on(LAYER_NUMBERS);
 }
 
+void disable_smart_numbers(uint8_t layer_to_activate)
+{
+    s_feature_state &= ~FEATURE_NUM;
+    user_layer_on(layer_to_activate);
+}
+
+void toggle_smart_numbers(int8_t layer_to_activate)
+{
+    if (features_active_all(FEATURE_NUM))
+    {
+        s_feature_state &= ~FEATURE_NUM;
+    }
+    else
+    {
+        s_feature_state |= FEATURE_NUM;
+        s_feature_state &= ~FEATURE_USED;
+        layer_to_activate = LAYER_NUMBERS;
+    }
+    user_layer_on(layer_to_activate);
+}
+
 bool process_feature_key(uint16_t kc, keyrecord_t* record)
 {
     if (record->event.pressed)
@@ -273,8 +294,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             case KC_DOT:
             case KC_F1 ... KC_F12:
             case KC_A ... KC_Z:
-            case S(KC_A)... S(KC_Z):
-                s_feature_state |= FEATURE_USED;
+            case S(KC_A)... S(KC_Z): s_feature_state |= FEATURE_USED;
 
             case KC_BSPACE:
             case KC_SPACE:
@@ -343,7 +363,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                     // Hold NAV + Tap SYM ?
                     if (!features_active_all(FEATURE_USED))
                     {
-                        enable_smart_numbers();
+                        toggle_smart_numbers(LAYER_NAVIGATION);
                     }
                     else
                     {
@@ -432,7 +452,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             // When 'space' is pressed smart capslock is disabled.
             if (kc >= KC_A && kc <= KC_Z)
             {
-                if (smartcaps_active_any(SMART_CAPS_NORMAL|SMART_CAPS_SHIFT))
+                if (smartcaps_active_any(SMART_CAPS_NORMAL | SMART_CAPS_SHIFT))
                 {
                     s_smartcaps_state &= ~SMART_CAPS_SHIFT;
                     register_keycode_press(S(kc));
@@ -474,7 +494,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
         {
             if (kc >= KC_A && kc <= KC_Z)
             {
-                if (smartcaps_active_any(SMART_CAPS_NORMAL|SMART_CAPS_SHIFT))
+                if (smartcaps_active_any(SMART_CAPS_NORMAL | SMART_CAPS_SHIFT))
                 {
                     register_keycode_release(S(kc));
                     return false;

@@ -83,7 +83,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
                 }
                 else if (leader_active == 2 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
                 {
-                    // we pressed FNAV twice in a short time, this triggers a mode increase
+                    // we pressed FNAV within the leader timeout, this triggers a mode increase
                     leader_mode++;
                     leader_timer = timer_read();
                 }
