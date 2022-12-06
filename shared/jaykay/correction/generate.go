@@ -9,19 +9,6 @@ import (
 	"strings"
 )
 
-func StringHash(s string) uint32 {
-	hash := uint32(0)
-	for i := 0; i < len(s); i++ {
-		hash += uint32(s[i])
-		hash += (hash << 10)
-		hash ^= (hash >> 6)
-	}
-	hash += (hash << 3)
-	hash ^= (hash >> 11)
-	hash += (hash << 15)
-	return hash
-}
-
 func FilterMultiChar(c rune) rune {
 	if c == 'è' || c == 'é' || c == 'ê' || c == 'ë' {
 		c = 'e'
@@ -60,9 +47,6 @@ func main() {
 	links := []Typo{}
 	words := []string{}
 	typos := []string{}
-
-	hashes := map[uint32]bool{}
-	hashPools := map[byte]int{}
 
 	scanner := bufio.NewScanner(f)
 
@@ -104,19 +88,6 @@ func main() {
 			WordIndex: wordLink,
 			DiffAt:    diffAt,
 		}
-
-		// generate a 32-bit hash of typo.Typo
-		typo.Hash = StringHash(typo.Typo) & 0xffffffc0
-
-		ht := byte(typo.Hash >> 24)
-		hashPools[ht]++
-
-		// check if hash is unique
-		if hashes[typo.Hash] {
-			// fatal error
-			log.Fatal("hash collision")
-		}
-		hashes[typo.Hash] = true
 
 		links = append(links, typo)
 
