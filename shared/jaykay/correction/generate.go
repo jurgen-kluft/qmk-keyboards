@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"sort"
 	"strings"
 )
 
@@ -26,6 +25,21 @@ func FilterMultiChar(c rune) rune {
 	return c
 }
 
+func ReverseWord(word string) string {
+	chars := []rune(word)
+	for i, j := 0, len(chars)-1; i < j; i, j = i+1, j-1 {
+		chars[i], chars[j] = chars[j], chars[i]
+	}
+	return string(chars)
+}
+
+type Node struct {
+	Letter     rune
+	Index      int
+	ChildArray []*Node
+	EndWords   []string
+}
+
 type Typo struct {
 	Hash      uint32
 	Typo      string
@@ -36,6 +50,189 @@ type Typo struct {
 	WordIndex int
 }
 
+type EndWordTable struct {
+	EndWordArray    []string
+	EndWordToOffset map[string]uint32
+	Letters         map[rune]int
+}
+
+func NewEndWordTable() *EndWordTable {
+	t := &EndWordTable{
+		EndWordArray:    make([]string, 0),
+		EndWordToOffset: make(map[string]uint32),
+		Letters:         make(map[rune]int),
+	}
+
+	// prepare the letters array
+	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' ")
+	for i, c := range letters {
+		t.Letters[c] = i
+	}
+	return t
+}
+
+func (e *EndWordTable) LetterToByte(c rune) uint8 {
+	return uint8(e.Letters[c])
+}
+
+func BuildEndWordTable(tree []*Node) *EndWordTable {
+	table := NewEndWordTable()
+	offset := uint32(0)
+	for _, node := range tree {
+		for _, word := range node.EndWords {
+			if _, ok := table.EndWordToOffset[word]; !ok {
+				table.EndWordArray = append(table.EndWordArray, word)
+
+				// Collect the runes
+				for _, c := range word {
+					if _, ok := table.Letters[c]; !ok {
+						table.Letters[c] = len(table.Letters)
+					}
+				}
+
+				// Align the length including the null terminator to 4 bytes, by doing
+				// this we can manage 65536 * 4 = 256KB of end word data.
+				table.EndWordToOffset[word] = uint32(offset)
+				offset += (uint32(len(table.EndWordArray)+3) & uint32(0xfffffffc))
+			}
+		}
+	}
+	return table
+}
+
+func WriteEndWords(w *bufio.Writer, endwords *EndWordTable) {
+	for _, word := range endwords.EndWordArray {
+		for _, c := range word {
+			b := endwords.LetterToByte(c)
+			w.WriteByte(b)
+		}
+		w.WriteByte(0)
+
+		// Align the length including the null terminator to 4 bytes
+		l := len(word) + 1
+		for l&3 != 0 {
+			w.WriteByte(0)
+			l++
+		}
+	}
+}
+
+func WriteLettersArray(w *bufio.Writer, endwords *EndWordTable) {
+
+	// collect the letters in a linear array
+	letters := make([]rune, len(endwords.Letters))
+	for c, i := range endwords.Letters {
+		letters[i] = c
+	}
+
+	fmt.Fprintf(w, "static const uint16_t letters_array[] = {\n")
+	for i, c := range letters {
+		if c >= 'a' && c <= 'z' {
+			fmt.Fprintf(w, "KC_%c, ", 'A'+(c-'a'))
+		} else if c >= 'A' && c <= 'Z' {
+			fmt.Fprintf(w, "S(KC_%c), ", c)
+		} else if c >= '0' && c <= '9' {
+			fmt.Fprintf(w, "KC_%c, ", c)
+		} else if c == ' ' {
+			fmt.Fprintf(w, "KC_SPC, ")
+		} else if c == '\'' {
+			fmt.Fprintf(w, "KC_QUOT, ")
+		} else if c == '.' {
+			fmt.Fprintf(w, "KC_DOT, ")
+		} else if c == ',' {
+			fmt.Fprintf(w, "KC_COMM, ")
+		} else if c == '-' {
+			fmt.Fprintf(w, "KC_MINS, ")
+		} else if c == '_' {
+			fmt.Fprintf(w, "KC_UNDS, ")
+		} else {
+			// later we can add some unicode support
+		}
+		if i%8 == 7 {
+			fmt.Fprintf(w, "\n")
+		}
+	}
+	fmt.Fprintf(w, "\n};\n\n")
+}
+
+func BuildTree(words []string, maxdepth int) []*Node {
+	root := &Node{Index: 0, ChildArray: make([]*Node, 0), EndWords: make([]string, 0)}
+	nodes := []*Node{root}
+	for _, word := range words {
+		node := root
+		for i, c := range word {
+
+			if i == maxdepth {
+				if (i + 1) < len(word) {
+					node.EndWords = append(node.EndWords, word[i+1:])
+				} else {
+					node.EndWords = append(node.EndWords, "")
+				}
+				break
+			}
+
+			found := false
+			for _, child := range node.ChildArray {
+				if child.Letter == c {
+					found = true
+					node = child
+					break
+				}
+			}
+			if !found {
+				child := &Node{Letter: c, Index: len(nodes), ChildArray: []*Node{}, EndWords: []string{}}
+				nodes = append(nodes, child)
+				node.ChildArray = append(node.ChildArray, child)
+				node = child
+			}
+		}
+	}
+	return nodes
+}
+
+func WriteTree(w *bufio.Writer, tree []*Node, endwords *EndWordTable) {
+
+	fmt.Fprintf(w, "typedef struct {\n")
+	fmt.Fprintf(w, "  uint8_t letter;\n")
+	fmt.Fprintf(w, "  uint8_t child_array_size;\n")
+	fmt.Fprintf(w, "  uint16_t child_array_offset;\n")
+	fmt.Fprintf(w, "} cxnode_t;\n\n")
+
+	fmt.Fprintf(w, "typedef struct {\n")
+	fmt.Fprintf(w, "  uint16_t count;\n")
+	fmt.Fprintf(w, "  uint8_t child_array_size;\n")
+	fmt.Fprintf(w, "  uint16_t child_array_offset;\n")
+	fmt.Fprintf(w, "} cxendwords_t;\n\n")
+
+	// write out the node array
+	fmt.Fprintf(w, "static const cxnode_t cx_node_array[] = {\n")
+	offset := uint32(0)
+	for _, node := range tree {
+		fmt.Fprintf(w, "  { '%c', %d, %d },\n", node.Letter, len(node.ChildArray), offset)
+		offset += uint32(len(node.ChildArray))
+	}
+	fmt.Fprintf(w, "};\n\n")
+
+	// write out the child array's
+	fmt.Fprintf(w, "static const uint16_t cx_child_arrays[] = {\n")
+	for _, node := range tree {
+		for _, child := range node.ChildArray {
+			fmt.Fprintf(w, "  %d,", child.Index)
+		}
+		fmt.Fprintf(w, "\n")
+	}
+	fmt.Fprintf(w, "};\n\n")
+
+	// write out each node's end word array:
+	// for each node the end words are concatenated into a single byte stream, for each
+	// word the first byte is the length of the word, followed by the word itself.
+
+	fmt.Fprintf(w, "static const uint8_t cx_endword_arrays[] = {\n")
+	offset = 0
+	for _, node := range tree {
+
+}
+
 func main() {
 	file := "typos_dictionary.txt"
 	f, err := os.Open(file)
@@ -44,9 +241,7 @@ func main() {
 	}
 	defer f.Close()
 
-	links := []Typo{}
-	words := []string{}
-	typos := []string{}
+	typos := []Typo{}
 
 	scanner := bufio.NewScanner(f)
 
@@ -66,30 +261,25 @@ func main() {
 			corrections[i] = strings.TrimSpace(corrections[i])
 		}
 
-		typoLink := len(typos)
-		wordLink := len(words)
-
-		typos = append(typos, parts[0])
-		words = append(words, corrections[0])
+		wrong := ReverseWord(parts[0])
+		correct := ReverseWord(corrections[0])
 
 		// compute the position of the character where the typo and the word differ
 		diffAt := 0
-		for p := 0; p < len(parts[0]) && p < len(corrections[0]); p++ {
-			if parts[0][p] != corrections[0][p] {
+		for p := 0; p < len(wrong) && p < len(correct); p++ {
+			if wrong[p] != correct[p] {
 				diffAt = p
 				break
 			}
 		}
 
 		typo := Typo{
-			Typo:      parts[0],
-			Word:      corrections[0],
-			TypoIndex: typoLink,
-			WordIndex: wordLink,
-			DiffAt:    diffAt,
+			Typo:   wrong,
+			Word:   correct,
+			DiffAt: diffAt,
 		}
 
-		links = append(links, typo)
+		typos = append(typos, typo)
 
 		if len(typo.Typo) < minLen {
 			minLen = len(typo.Typo)
@@ -101,12 +291,7 @@ func main() {
 
 	fmt.Printf("minLen: %d\n", minLen)
 	fmt.Printf("maxLen: %d\n", maxLen)
-	fmt.Printf("count: %d\n", len(links))
-
-	// sort links array by hash
-	sort.Slice(links, func(i, j int) bool {
-		return links[i].Hash < links[j].Hash
-	})
+	fmt.Printf("count: %d\n", len(typos))
 
 	outputFile := "typos_dictionary.gen"
 	f, err = os.Create(outputFile)
@@ -118,95 +303,6 @@ func main() {
 	w := bufio.NewWriter(f)
 
 	estimatedMemory := 0
-
-	for i := minLen; i <= maxLen; i++ {
-
-		// Compute the offset of each typo string in the typo_strs array
-		// and the offset of each word string in the word_strs array
-		typos := []Typo{}
-		for j := 0; j < len(links); j++ {
-			if len(links[j].Typo) == i {
-				typos = append(typos, links[j])
-			}
-		}
-
-		// sort typos array by typo string and compute the offsets
-		sort.Slice(typos, func(a, b int) bool {
-			return typos[a].Typo < typos[b].Typo
-		})
-
-		typoOffset := 0
-		for j := 0; j < len(typos); j++ {
-			typos[j].Offset = typoOffset
-			typoOffset += len(typos[j].Typo) + len(typos[j].Word) + 1
-		}
-
-		fmt.Fprintf(w, "static const char strs_%d[] = {\n", i)
-		for _, link := range typos {
-			fmt.Fprint(w, "    ")
-			for _, c := range link.Typo {
-				if c == '\'' {
-					fmt.Fprintf(w, "'\\%c',", c)
-				} else {
-					fmt.Fprintf(w, "'%c',", FilterMultiChar(c))
-				}
-			}
-
-			// emit the diffAt position
-			fmt.Fprintf(w, "%d,", link.DiffAt)
-
-			for p, c := range link.Word {
-				if p >= link.DiffAt {
-					if c == '\'' {
-						fmt.Fprintf(w, "'\\%c',", c)
-					} else {
-						fmt.Fprintf(w, "'%c',", FilterMultiChar(c))
-					}
-				}
-			}
-			fmt.Fprintf(w, "0,\n")
-			estimatedMemory += len(link.Typo) + 1 + (len(link.Word) - link.DiffAt) + 1
-		}
-		fmt.Fprintf(w, "};\n\n")
-
-		// sort typos by hash
-		sort.Slice(typos, func(a, b int) bool {
-			return typos[a].Hash < typos[b].Hash
-		})
-		fmt.Fprintf(w, "static const uint32_t hashes_%d[] = {\n", i)
-		for _, link := range typos {
-			fmt.Fprintf(w, "    0x%08x, // %s -> %s\n", link.Hash, link.Typo, link.Word)
-		}
-		fmt.Fprintf(w, "};\n\n")
-
-		estimatedMemory += len(typos) * 4
-
-		fmt.Fprintf(w, "static const uint16_t offsets_%d[] = {\n", i)
-		for _, link := range typos {
-			fmt.Fprintf(w, "    %d,\n", link.Offset)
-		}
-		fmt.Fprintf(w, "};\n\n")
-
-		estimatedMemory += len(typos) * 2
-	}
-
-	fmt.Fprintf(w, "typedef struct\n")
-	fmt.Fprintf(w, "{\n")
-	fmt.Fprintf(w, "    uint32_t* hashes;\n")
-	fmt.Fprintf(w, "    uint16_t* offsets;\n")
-	fmt.Fprintf(w, "    char*     strs;\n")
-	fmt.Fprintf(w, "} correx_t;\n\n")
-	fmt.Fprintf(w, "static const correx_t correx_data[] = {\n")
-	for i := 0; i <= maxLen; i++ {
-		if i < minLen {
-			fmt.Fprintf(w, "    { NULL, NULL, NULL },\n")
-		} else {
-			fmt.Fprintf(w, "    { hashes_%d, offsets_%d, strs_%d },\n", i, i, i)
-		}
-	}
-	fmt.Fprintf(w, "};\n\n")
-
-	estimatedMemory += (maxLen + 1) * (3 * 4)
 
 	fmt.Fprintf(w, "#define CORREX_MIN_LEN %d\n", minLen)
 	fmt.Fprintf(w, "#define CORREX_MAX_LEN %d\n\n", maxLen)

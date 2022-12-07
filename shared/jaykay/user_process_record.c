@@ -9,10 +9,6 @@
 #include "user_keycodes.h"
 #include "user_layers.h"
 
-#ifdef OLED_ENABLE
-#include "oled.h"
-#endif
-
 #if (__has_include("secrets.x") && !defined(NO_SECRETS))
 #include "secrets.x"
 static const char* gSecrets[] = {SECRET_1, SECRET_2, SECRET_3, SECRET_4, SECRET_5, SECRET_6, SECRET_7, SECRET_8};
@@ -22,10 +18,6 @@ static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4",
 
 bool process_record_user(uint16_t kc, keyrecord_t* record)
 {
-#ifdef OLED_DRIVER_ENABLE
-    process_record_oled(kc, record);
-#endif
-
     bool result = true;
     switch (kc)
     {
@@ -95,23 +87,6 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
             }
             result = false;
             break;
-#if defined(OLED_ENABLE)
-        case CC_OLED:
-            if (record->event.pressed)
-            {
-                toggle_display_oled();
-            }
-            result = false;
-            break;
-#elif defined(RGBLIGHT_ENABLE)
-        case CC_OLED:
-            if (record->event.pressed)
-            {
-                rgblight_enable();
-            }
-            result = false;
-            break;
-#endif
     }
 
     if (process_leader_user(kc, record))
