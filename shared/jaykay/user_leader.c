@@ -547,6 +547,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
 
     if (str != NULL)
     {
-        send_string_with_delay(str, MACRO_TIMER);
+        register_string(str);
     }
 }

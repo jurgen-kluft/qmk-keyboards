@@ -5,6 +5,10 @@
 #include "user_layers.h"
 #include "user_keycodes.h"
 
+#ifndef MACRO_TIMER
+    #define MACRO_TIMER 3
+#endif
+
 static int8_t current_layer = LAYER_QWERTY;
 void          user_layer_on(int8_t layer)
 {
@@ -20,19 +24,6 @@ void          user_layer_on(int8_t layer)
         //     break;
         default: current_layer = layer; break;
     }
-
-    // switch (current_layer)
-    // {
-    //     case LAYER_QWERTY: send_string_with_delay("QWERTY", MACRO_TIMER); break;
-    //     case LAYER_RSTHD: send_string_with_delay("RSTHD", MACRO_TIMER);break;
-    //     case LAYER_QWERTY_CAPS: send_string_with_delay("QWERTY_CAPS", MACRO_TIMER);break;
-    //     case LAYER_RSTHD_CAPS: send_string_with_delay("RSTHD_CAPS", MACRO_TIMER);break;
-    //     case LAYER_NUMBERS: send_string_with_delay("NUMBERS", MACRO_TIMER);break;
-    //     case LAYER_SYMBOLS: send_string_with_delay("SYMBOLS", MACRO_TIMER);break;
-    //     case LAYER_NAVIGATION: send_string_with_delay("NAV", MACRO_TIMER);break;
-    //     case LAYER_RAISE: send_string_with_delay("RAISE", MACRO_TIMER);break;
-    // }
-
 
     layer_state_set((1<<keyboard_get_layout()) | (1<<current_layer));
 }
@@ -96,4 +87,21 @@ void tap_code16_shift(uint16_t kc)
     uint16_t qmk_keycode = kc;
     qmk_keycode          = LSFT(qmk_keycode);
     tap_code16(qmk_keycode);
+}
+
+void register_string(const char *str)
+{
+    uint8_t mod = get_mods();
+    clear_mods();
+    while (*str != '\0')
+    {
+        send_char(*str);
+        {
+            uint8_t ms = MACRO_TIMER;
+            while (ms--)
+                wait_ms(1);
+        }
+        str++;
+    }
+    set_mods(mod);
 }

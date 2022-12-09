@@ -29,8 +29,7 @@ uint16_t process_cushi_keys(uint16_t kc, keyrecord_t* record)
         default: { return KC_NO; }
     }
 
-    const uint8_t mods = get_mods() | get_weak_mods();
-
+    const uint8_t mods = get_mods();
     if ((key_shift != KC_NO) && ((mods & MOD_MASK_SHIFT) != 0))
     {
         return key_shift;

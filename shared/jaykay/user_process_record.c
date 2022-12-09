@@ -77,8 +77,7 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
         case CC_SECRET_1 ... CC_SECRET_8:
             if (!record->event.pressed)
             {
-                turnoff_oneshot_modifiers();
-                send_string_with_delay(gSecrets[kc - CC_SECRET_1], MACRO_TIMER);
+                register_string(gSecrets[kc - CC_SECRET_1]);
             }
             result = false;
             break;
