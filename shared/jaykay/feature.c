@@ -229,13 +229,19 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                 if (smartcaps_active_any(SMART_CAPS_CAMEL | SMART_CAPS_NORMAL | SMART_CAPS_SNAKE) == false)
                 {
                     user_layer_on(LAYER_QWERTY);
-                    s_smartcaps_state       = SMART_CAPS_NORMAL;
                     s_smartcaps_num_seps    = 1;
                     s_smartcaps_arr_seps[0] = KC_UNDS;
+                    s_smartcaps_state       = (SMART_CAPS_NORMAL | SMART_CAPS_HOLD);
+                    s_feature_state |= FEATURE_CAPS;
                 }
-                s_smartcaps_state &= ~SMART_CAPS_USED;
-                s_smartcaps_state |= SMART_CAPS_HOLD;
-                s_feature_state |= FEATURE_CAPS;
+                else
+                {
+                    user_layer_on(LAYER_QWERTY);
+                    s_smartcaps_num_seps    = 1;
+                    s_smartcaps_arr_seps[0] = KC_UNDS;
+                    s_smartcaps_state       = SMART_CAPS_NORMAL;
+                    s_feature_state &= ~FEATURE_CAPS;
+                }
                 break;
         }
     }
@@ -416,12 +422,15 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
 
             case CC_FCAPS: // released
                 s_smartcaps_state &= ~SMART_CAPS_HOLD;
-                if (smartcaps_active_any(SMART_CAPS_USED))
+                if (features_active_all(FEATURE_CAPS))
                 {
-                    user_layer_on(LAYER_QWERTY);
-                    s_feature_state &= ~FEATURE_CAPS;
-                    s_smartcaps_state    = 0;
-                    s_smartcaps_num_seps = 0;
+                    if (smartcaps_active_any(SMART_CAPS_USED))
+                    {
+                        user_layer_on(LAYER_QWERTY);
+                        s_feature_state &= ~FEATURE_CAPS;
+                        s_smartcaps_state    = 0;
+                        s_smartcaps_num_seps = 0;
+                    }
                 }
                 break;
         }
