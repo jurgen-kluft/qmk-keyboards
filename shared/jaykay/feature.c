@@ -165,11 +165,10 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             case KC_F1 ... KC_F12: s_feature_state |= FEATURE_USED; break;
 
             case CC_FNAV: // pressed
-                s_feature_state &= ~(FEATURE_CAPS | FEATURE_NUM | FEATURE_USED);
+                s_feature_state &= ~FEATURE_USED;
+                s_feature_state |= FEATURE_NAV;
                 s_smartcaps_state    = 0;
                 s_smartcaps_num_seps = 0;
-
-                s_feature_state |= FEATURE_NAV;
                 if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                 {
                     user_layer_on(LAYER_RAISE);
@@ -318,19 +317,20 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             case CC_FNAV: // released
                 if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                 {
-                    user_layer_on(LAYER_SYMBOLS);
+                    s_feature_state &= ~FEATURE_NAV;
                     if (features_active_all(FEATURE_USED))
                     {
+                        user_layer_on(LAYER_SYMBOLS);
                         s_feature_state |= FEATURE_USED;
-                        s_feature_state &= ~FEATURE_NAV;
                     }
                     else
                     {
-                        s_feature_state &= ~FEATURE_NAV;
+                        user_layer_on(LAYER_QWERTY);
                         s_feature_state |= FEATURE_CAPS;
                         s_smartcaps_state = SMART_CAPS_NORMAL;
                         s_smartcaps_state |= SMART_CAPS_HOLD;
-                        s_smartcaps_num_seps = 0;
+                        s_smartcaps_num_seps    = 0;
+                        s_smartcaps_arr_seps[0] = KC_UNDS;
                     }
                 }
                 else if (features_active_all(FEATURE_NAV))
@@ -344,18 +344,17 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                     }
                     else
                     {
+                        user_layer_on(LAYER_QWERTY);
                         if (features_active_all(FEATURE_NUM))
                         {
                             if (features_active_all(FEATURE_USED))
                             {
                                 s_feature_state &= ~(FEATURE_NUM | FEATURE_CAPS);
-                                user_layer_on(LAYER_QWERTY);
                             }
                         }
                         else
                         {
                             s_feature_state &= ~(FEATURE_NUM | FEATURE_CAPS);
-                            user_layer_on(LAYER_QWERTY);
                         }
                     }
                 }
