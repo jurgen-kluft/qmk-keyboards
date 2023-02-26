@@ -39,19 +39,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_NUMBERS] = LAYOUTX(
     KC_7,    KC_8,     KC_9,    KC_0,     KC_6,                               KC_6,    KC_0,     KC_9,     KC_8,    KC_7,  
     CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  KC_5,                               KC_5,    KC_1,     KC_2,     KC_3,    KC_4,  
-    KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_X,    KC_NO,          KC_NO,     KC_B,    KC_UNDS,  KC_COMMA, KC_DOT,  CC_FNUM,  
+    KC_NO,   KC_X,     KC_NO,   KC_NO,    KC_X,    KC_NO,          KC_NO,     KC_B,    KC_UNDS,  KC_COMMA, KC_DOT,  CC_FNUM,  
                        CC_FNUM, CC_FNUM,  CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, CC_FCAPS, CC_FCAPS                 
     ),
     [LAYER_SYMBOLS] = LAYOUTX(
     KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                            KC_GRV,  KC_QUOT, KC_DQUO, KC_HASH,  KC_DLR,  
     KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                            KC_LABK, KC_LPRN, KC_LCBR, CC_FCAPS, KC_COLN, 
     KC_CIRC, KC_SLASH, KC_ASTR, KC_BSLASH, KC_RBRC, CC_NDOC,        CC_PDOC,   KC_RABK, KC_RPRN, KC_RCBR, KC_QUES,  KC_AT,   
-                       KC_NO,   KC_NO,     CC_FNAV, KC_SPACE,       KC_BSPACE, CC_FSYM, KC_NO,   KC_NO
+                       KC_NO,   KC_NO,     CC_FNAV, KC_BSPACE,      KC_BSPACE, CC_FSYM, KC_NO,   KC_NO
     ),
     [LAYER_NAVIGATION] = LAYOUTX(
     CC_REDO, CC_CLOSE, KC_ESCAPE, KC_ENTER, KC_TAB,                               KC_INSERT, CC_PGUP,   KC_HOME,  KC_NO,    KC_NO, 
     CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  KC_DELETE,                            KC_LEFT,   KC_DOWN,   KC_UP,    KC_RIGHT, KC_NO, 
-    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, KC_NO,     CC_NAPP,        CC_PAPP,   KC_NO,     CC_PGDOWN, KC_END,   KC_NO,    KC_NO, 
+    CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, KC_BSPACE, CC_NAPP,        CC_PAPP,   KC_NO,     CC_PGDOWN, KC_END,   KC_NO,    KC_NO, 
                        CC_FNUM,   CC_FNUM,  CC_FNAV,   KC_SPACE,       KC_BSPACE, CC_FSYM,   CC_FCAPS,  CC_FCAPS                   
     ),
     [LAYER_RAISE] = LAYOUTX(

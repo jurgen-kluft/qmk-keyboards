@@ -165,7 +165,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             case KC_F1 ... KC_F12: s_feature_state |= FEATURE_USED; break;
 
             case CC_FNAV: // pressed
-                s_feature_state &= ~FEATURE_USED;
+                s_feature_state &= ~(FEATURE_USED|FEATURE_NUM|FEATURE_CAPS);
                 s_feature_state |= FEATURE_NAV;
                 s_smartcaps_state    = 0;
                 s_smartcaps_num_seps = 0;
