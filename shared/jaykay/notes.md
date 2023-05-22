@@ -8,4 +8,4 @@
 
 ## Vim
 
-I now have many 'vim' like actions through my 'leader' feature, things like 'change/delete inside word' (leader c i w) or 'delete line' (leader d d). Other noteworthy ones are 'change inside paren
+I now have many 'vim' like actions through my 'leader' feature, things like 'change/delete inside word' (leader c i w) or 'delete line' (leader d d). Other noteworthy ones are 'change inside parentheses' (leader c i p and 'change inside brackets', leader c i b).
