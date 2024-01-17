@@ -89,19 +89,19 @@ static const leader1_t leader1t3_array[] = {
 
 enum eleader_2t1
 {
-    LA_CHANGE_LINE,      // cl
-    LA_CHANGE_WORD,      // cw
-    LA_DELETE_WORD_BACK, // db
-    LA_DELETE_LINE,      // dd
-    LA_DELETE_UNTIL_EOL, // de
-    LA_DELETE_WORD,      // dw
-    LA_DELETE_UNTIL_SOL, // ds
-    LA_TOP_OF_FILE,      // gg
-    LA_BOTTOM_OF_FILE,   // gb
-    LA_OPEN_LINE_ABOVE,  // oa
-    LA_OPEN_LINE_BELOW,  // oo
-    LA_COPY_LINE,        // yy
-    LA_SWITCH_QUOTES,    // ss
+    LA_CHANGE_LINE,       // cl
+    LA_CHANGE_WORD,       // cw
+    LA_DELETE_WORD_BACK,  // db
+    LA_DELETE_LINE,       // dd
+    LA_DELETE_UNTIL_EOL,  // de
+    LA_DELETE_WORD,       // dw
+    LA_DELETE_UNTIL_SOL,  // ds
+    LA_TOP_OF_FILE,       // gg
+    LA_BOTTOM_OF_FILE,    // gb
+    LA_INSERT_LINE_ABOVE, // ia
+    LA_INSERT_LINE_BELOW, // ib
+    LA_COPY_LINE,         // yy
+    LA_SWITCH_QUOTES,     // ss
 };
 
 // clang-format off
@@ -115,8 +115,8 @@ static const leader2_t leader2t1_array[] = {
     [LA_DELETE_UNTIL_SOL] = {KC_D, KC_S},
     [LA_TOP_OF_FILE]      = {KC_G, KC_G},
     [LA_BOTTOM_OF_FILE]   = {KC_G, KC_B},
-    [LA_OPEN_LINE_ABOVE]  = {KC_O, KC_A},
-    [LA_OPEN_LINE_BELOW]  = {KC_O, KC_O},
+    [LA_INSERT_LINE_ABOVE]  = {KC_I, KC_A},
+    [LA_INSERT_LINE_BELOW]  = {KC_I, KC_B},
     [LA_COPY_LINE]        = {KC_Y, KC_Y},
     [LA_SWITCH_QUOTES]    = {KC_S, KC_S},
 };
@@ -361,8 +361,8 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_DELETE_UNTIL_SOL: send_taps2(S(KC_HOME), KC_DEL); break;
                 case LA_DELETE_UNTIL_EOL: send_taps2(S(KC_END), KC_DEL); break;
 
-                case LA_OPEN_LINE_ABOVE: send_taps3(KC_HOME, KC_ENTER, KC_UP); break;
-                case LA_OPEN_LINE_BELOW: send_taps2(KC_END, KC_ENTER); break;
+                case LA_INSERT_LINE_ABOVE: send_taps3(KC_HOME, KC_ENTER, KC_UP); break;
+                case LA_INSERT_LINE_BELOW: send_taps2(KC_END, KC_ENTER); break;
 
                 case LA_COPY_LINE: // yy
                     send_taps2(KC_END, S(KC_HOME));
@@ -401,7 +401,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         uint16_t bracket = KC_NO;
         switch (action)
         {
-            case LA_PASTE_INSIDE_WORD: type = 'p'; break; 
+            case LA_PASTE_INSIDE_WORD: type = 'p'; break;
             case LA_DELETE_INSIDE_WORD: type = 'c'; break;
             case LA_CHANGE_INSIDE_WORD: type = 'c'; break;
             case LA_YANK_INSIDE_WORD: type = 'y'; break;
@@ -409,7 +409,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
 
         switch (action)
         {
-            case LA_YANK_INSIDE_WORD: 
+            case LA_YANK_INSIDE_WORD:
             case LA_PASTE_INSIDE_WORD:
             case LA_CHANGE_INSIDE_WORD:
             case LA_DELETE_INSIDE_WORD:
@@ -423,7 +423,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 }
                 break;
 
-            
             case LA_DELETE_INSIDE_PRN:
             case LA_CHANGE_INSIDE_PRN: bracket = KC_LPRN; break;
             case LA_DELETE_INSIDE_CBR:
@@ -495,7 +494,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
             case LA_YANK_INSIDE_TICKS:
                 type    = 'y';
                 bracket = KC_GRV;
-                break;                
+                break;
         }
 
         if (bracket != KC_NO)
