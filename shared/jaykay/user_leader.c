@@ -159,6 +159,7 @@ enum eleader_3t1
     LA_YANK_INSIDE_QUOT,  // yiq
     LA_YANK_INSIDE_TICKS, // yit
     LA_YANK_INSIDE_WORD,  // yiw
+    LA_YANK_UNTIL_END,    // yue
 };
 
 // clang-format off
@@ -195,6 +196,7 @@ static const leader3_t leader3t1_array[] = {
     [LA_YANK_INSIDE_QUOT]    = {KC_Y, KC_I, KC_Q},
     [LA_YANK_INSIDE_TICKS]   = {KC_Y, KC_I, KC_T},
     [LA_YANK_INSIDE_WORD]    = {KC_Y, KC_I, KC_W},
+    [LA_YANK_UNTIL_END]      = {KC_Y, KC_U, KC_E},
 };
 // clang-format on
 
