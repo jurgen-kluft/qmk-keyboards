@@ -9,9 +9,9 @@
 
 enum eleader_1t1
 {
-    LA_EASYMOTION,    // f
-    LA_CENTER,        // z
-    LA_DOTSPACESHIFT, // . (shift)
+    LA_EASYMOTION    = 0, // f
+    LA_CENTER        = 1, // z
+    LA_DOTSPACESHIFT = 2, // . (shift)
 };
 
 static const leader1_t leader1t1_array[] = {
@@ -264,14 +264,10 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         {
             switch (action)
             {
-                case LA_DOTSPACESHIFT: send_taps1(KC_DOT); break;
                 case LA_CENTER: send_taps1(A(KC_M)); break;
                 case LA_EASYMOTION: send_taps1(A(KC_S)); break;
-            }
-            switch (action)
-            {
                 case LA_DOTSPACESHIFT:
-                    send_taps1(KC_SPACE);
+                    send_taps2(KC_DOT, KC_SPACE);
                     tap_oneshot_modifier(ONESHOT_LSFT);
                     break;
             }
@@ -407,6 +403,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
             case LA_DELETE_INSIDE_WORD: type = 'c'; break;
             case LA_CHANGE_INSIDE_WORD: type = 'c'; break;
             case LA_YANK_INSIDE_WORD: type = 'y'; break;
+            case LA_YANK_UNTIL_END: type = 'y'; break;
         }
 
         switch (action)
@@ -424,6 +421,7 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                     send_taps2(C(KC_LEFT), C(S(KC_RIGHT)));
                 }
                 break;
+            case LA_YANK_UNTIL_END: send_taps1(S(KC_END)); break;
 
             case LA_DELETE_INSIDE_PRN:
             case LA_CHANGE_INSIDE_PRN: bracket = KC_LPRN; break;
