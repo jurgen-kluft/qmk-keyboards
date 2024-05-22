@@ -49,7 +49,7 @@ enum eleader_2t2
     LA_PS4,           // ps, 'PS4 '
     LA_PS5,           // pp, 'PS5 '
     LA_NINTENDO,      // sw, 'Nintendo Switch '
-    LA_MGSIV,         // mg, 'Metal Gear Solid IV '
+    LA_GZ,            // gz, 'Gunzilla  '
 };
 
 // clang-format off
@@ -60,7 +60,7 @@ static const leader2_t leader2t2_array[] = {
     [LA_PS4]                 = { KC_P, KC_S },
     [LA_PS5]                 = { KC_P, KC_P },
     [LA_NINTENDO]            = { KC_S, KC_W },
-    [LA_MGSIV]               = { KC_M, KC_G },
+    [LA_GZ]                  = { KC_G, KC_Z },
 };
 // clang-format on
 
@@ -383,15 +383,16 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
         }
         else if (mode == 1)
         {
+
             switch (action)
             {
-                case LA_UNREAL_ENGINE: str = "Unreal Engine 4 "; break;
+                case LA_UNREAL_ENGINE: str = "Unreal Engine 5.3 "; break;
                 case LA_XBOX_ONE: str = "Xbox One "; break;
                 case LA_XBOX_SERIES: str = "Xbox Series "; break;
-                case LA_PS4: str = "PS4 "; break;
-                case LA_PS5: str = "PS5 "; break;
+                case LA_PS4: str = "Playstation 4 "; break;
+                case LA_PS5: str = "Playstation 5 "; break;
                 case LA_NINTENDO: str = "Nintendo Switch "; break;
-                case LA_MGSIV: str = "Metal Gear Solid IV "; break;
+                case LA_GZ: str = "Gunzilla "; break;
             }
         }
     }
