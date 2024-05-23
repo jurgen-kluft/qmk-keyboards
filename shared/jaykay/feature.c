@@ -318,20 +318,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                 if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                 {
                     s_feature_state &= ~FEATURE_NAV;
-                    if (features_active_all(FEATURE_USED))
-                    {
-                        user_layer_on(LAYER_SYMBOLS);
-                        s_feature_state |= FEATURE_USED;
-                    }
-                    else
-                    {
-                        user_layer_on(LAYER_QWERTY);
-                        s_feature_state |= FEATURE_CAPS;
-                        s_smartcaps_state = SMART_CAPS_NORMAL;
-                        s_smartcaps_state |= SMART_CAPS_HOLD;
-                        s_smartcaps_num_seps    = 0;
-                        s_smartcaps_arr_seps[0] = KC_UNDS;
-                    }
+                    user_layer_on(LAYER_SYMBOLS);
                 }
                 else if (features_active_all(FEATURE_NAV))
                 {
@@ -365,16 +352,6 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
                 if (features_active_all(FEATURE_NAV | FEATURE_SYM))
                 {
                     s_feature_state &= ~(FEATURE_SYM | FEATURE_SYM_ONESHOT);
-                    // Hold NAV + Tap SYM ?
-                    if (!features_active_all(FEATURE_USED))
-                    {
-                        toggle_smart_numbers(LAYER_NAVIGATION);
-                    }
-                    else
-                    {
-                        s_feature_state &= ~(FEATURE_USED);
-                        user_layer_on(LAYER_NAVIGATION);
-                    }
                 }
                 else if (features_active_all(FEATURE_SYM))
                 {
