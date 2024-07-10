@@ -218,7 +218,9 @@ static leader4_t const leader4t1_array[] = {
     tap_code16(tap2);                \
     tap_code16(tap3)
 
+#ifndef ARRAY_SIZE
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
+#endif
 
 static leader_config_t leader_config_t1 = {
     .leader1_array = leader1t1_array,

@@ -47,14 +47,14 @@ static void update_modifier(oneshot_mod osmod, oneshot_state previous_state, one
     if (previous_state == ONESHOT_STATE_OFF)
     {
         s_osm_active += 1;
-        register_code(KC_LCTRL + osmod);
+        register_code(KC_LCTL + osmod);
     }
     else
     {
         if (current_state == ONESHOT_STATE_OFF)
         {
             s_osm_active -= 1;
-            unregister_code(KC_LCTRL + osmod);
+            unregister_code(KC_LCTL + osmod);
         }
     }
 }

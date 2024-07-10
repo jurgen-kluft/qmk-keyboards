@@ -88,7 +88,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
     {
         if (features_active_all(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT))
         {
-            if (kc == KC_BSPACE || kc == KC_SPACE || kc == CC_FNUM || kc == CC_FNAV || kc == CC_FCAPS || kc == CC_FSYM)
+            if (kc == KC_BSPC || kc == KC_SPACE || kc == CC_FNUM || kc == CC_FNAV || kc == CC_FCAPS || kc == CC_FSYM)
             {
                 s_feature_state &= ~(FEATURE_SYM_ONESHOT | FEATURE_NAV_ONESHOT | FEATURE_USED);
                 user_layer_on(LAYER_QWERTY);
@@ -301,7 +301,7 @@ bool process_feature_key(uint16_t kc, keyrecord_t* record)
             case KC_A ... KC_Z:
             case S(KC_A)... S(KC_Z): s_feature_state |= FEATURE_USED;
 
-            case KC_BSPACE:
+            case KC_BSPC:
             case KC_SPACE:
                 if (features_active_all(FEATURE_SYM_ONESHOT) && !features_active_all(FEATURE_NAV_ONESHOT))
                 {
