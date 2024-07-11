@@ -34,5 +34,8 @@ Sweep
 Elora (vial-qmk, from `https://github.com/splitkb/vial-qmk`)
 `ln -s $HOME/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/elora/keymaps/jaykay $HOME/vial-qmk/keyboards/splitkb/elora/keymaps`
 
-Shared
+Shared (QMK)
 `ln -s $HOME/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/shared/jaykay $HOME/qmk_firmware/users`
+
+Shared (Vial-QMK)
+`ln -s $HOME/dev.go/src/github.com/jurgen-kluft/qmk-keyboards/shared/jaykay $HOME/vial-qmk/users`
