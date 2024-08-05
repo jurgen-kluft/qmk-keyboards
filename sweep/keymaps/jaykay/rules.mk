@@ -8,4 +8,5 @@ ifeq ($(strip $(USE_ARM_CONFIG)), yes)
     OLED_ENABLE    = yes  # Enable OLEDs
     WPM_ENABLE     = yes
     CORREX_ENABLE  = yes
+    UNICODE_ENABLE = yes     
 endif

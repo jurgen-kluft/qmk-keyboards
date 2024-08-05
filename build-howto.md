@@ -1,8 +1,15 @@
-# Windows
+# Pre-requisites
 
-On Windows install QMK Toolbox
+Make sure you have installed the necessary software to be able to compile the firmware.
+
+## Windows
+
+On Windows install QMK Toolbox.
+
+For Elore, you will need to clone the following repository:
+
  
-# Mac OS
+## Mac OS
 
 On Mac OS:
 
@@ -14,3 +21,18 @@ On Mac OS:
 
 `qmk compile -kb <keyboard> -km <keymap>`
 
+# Sweep
+
+## Windows
+
+On Windows using QMKSys:
+
+```cpp
+make splitkb/aurora/sweep:jaykay:flash CONVERT_TO=promicro_rp2040
+```
+
+## Mac OS
+
+```cpp
+make splitkb/aurora/sweep:jaykay:flash CONVERT_TO=promicro_rp2040
+```
