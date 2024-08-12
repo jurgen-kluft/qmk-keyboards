@@ -6,8 +6,22 @@ Make sure you have installed the necessary software to be able to compile the fi
 
 On Windows install QMK Toolbox.
 
-For Elore, you will need to clone the following repository:
+### QMK
 
+Then clone the QMK firmware repository:
+
+- `https://github.com/qmk/qmk_firmware`
+
+Then update all submodules using `git submodule update --init --recursive`.
+
+### Elora, Vial (QMK)
+
+For Elora, you will need to clone the following repository:
+
+- `https://github.com/splitkb/vial-qmk`
+
+You should clone this repository and then switch to branch `elora`.
+Then update all submodules using `git submodule update --init --recursive`.
  
 ## Mac OS
 

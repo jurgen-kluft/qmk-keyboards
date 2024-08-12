@@ -9,7 +9,7 @@ NKRO_ENABLE = no		# USB Nkey Rollover - if this doesn't work, see here: https://
 AUDIO_ENABLE = no
 MIDI_ENABLE = no 		# MIDI controls
 MUSIC_ENABLE = no       # Music
-UNICODE_ENABLE = no 	# Unicode
+UNICODE_ENABLE = yes 	# Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
