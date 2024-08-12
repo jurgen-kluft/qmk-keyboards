@@ -2,13 +2,13 @@
 #ifdef ENABLE_PASSGEN
 #pragma once
 
-int8_t TakeBits(uint64_t* seed, int8_t n);
-uint64_t PassWordToSeed(const char* word);
-void GenPassword(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int _output_len);
+int8_t take_bits(uint64_t* seed, int8_t n);
+uint64_t word_to_seed(const char* word);
+int32_t generate_pass(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int32_t _output_len);
 
 #else
 
-int GenPassword(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int _output_len)
+int32_t generate_pass(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int32_t _output_len)
 {
     return 0;
 }

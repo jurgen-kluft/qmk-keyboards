@@ -1,35 +1,37 @@
 #include QMK_KEYBOARD_H
 
 // The letters, numbers, symbols used for the token generator.
-static const char* c_letters = "abcdefghijklmnopqrstuvwxyz";
-static const char* c_numbers = "1234567890";
-static const char* c_symbols = "!@#$&+=-";
+static const char* c_letters = "abcdefghijklmnopqrstuvwxyzabcdef";
+static const char* c_numbers = "1234567890123456";
+static const char* c_symbols = "!@#$x+_-";
 
 // Take a number of bits from the seed and return them.
 // Note: Maximum number of bits that can be taken is 8.
-int8_t TakeBits(uint64_t* seed, int8_t n)
+int8_t take_bits(uint64_t* seed, int8_t n)
 {
+    if (n == 0)
+        return 0;
+
     int8_t result = *seed & ((1 << n) - 1);
     *seed >>= n;
     *seed = *seed | (result << 64 - n);
     return result;
 }
 
-// seed is 64 bits, maximum 12 character word
-// Note: word must be null-terminated and can only contain lowercase alpha characters.
-uint64_t PassWordToSeed(const char* word)
+// result is 64 bits
+// Note: word must be null-terminated
+uint64_t word_to_seed(const char* word)
 {
-    uint64_t seed = 0;
-    while (*word)
+    uint64_t hval = 0;
+    while (*word != '\0')
     {
-        seed = seed << 5;
-        seed = seed | (*word - 'a');
-        word++;
+        hval ^= (uint64_t)*word++;
+        hval *= ((uint64_t)0x100000001b3ULL);
     }
-    return seed;
+    return hval;
 }
 
-int GenPassword(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int _output_len)
+int32_t generate_pass(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int32_t _output_len)
 {
     // 2 bits -> 0 = letters, 1 = numbers, 2 = symbols
     // letters = 5 bits
@@ -45,17 +47,28 @@ int GenPassword(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, ch
     // - repeat until the output length is reached
     int8_t type;
     int8_t index;
-    char c;
-    int output_len;
+    char   c;
+    int    output_len;
+    
+    uint64_t randomizer = seed;
 
     output_len = 0;
     while (output_len < _output_len)
     {
-        type = TakeBits(&seed, 2);
+    skip_char:        
+        type = take_bits(&seed, 2);
         switch (type)
         {
             case 0:
-                index = TakeBits(&seed, 5);
+                index = take_bits(&seed, 5);
+                c = c_letters[index];
+                break;
+            case 1:
+                index = take_bits(&seed, 4);
+                c     = c_numbers[index];
+                break;
+            case 2:
+                index = take_bits(&seed, 5);
                 if (_uppercase)
                 {
                     c = c_letters[index] - 'a' + 'A';
@@ -65,18 +78,15 @@ int GenPassword(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, ch
                     c = c_letters[index];
                 }
                 break;
-            case 1:
-                index = TakeBits(&seed, 4);
-                c = c_numbers[index];
-                break;
-            case 2:
             case 3:
-                index = TakeBits(&seed, 3);
-                c = c_symbols[index];
+                index = take_bits(&seed, 3);
+                c     = c_symbols[index];
                 break;
         }
         _output_str[output_len++] = c;
+        take_bits(&seed, take_bits(&randomizer, 1)); // Randomize the seed bit stream
     }
 
-    _output_str[_output_len] = '\0';
+    _output_str[output_len] = '\0';
+    return _output_len;
 }
