@@ -13,13 +13,24 @@ int8_t TakeBits(uint64_t* seed, int8_t n)
     *seed >>= n;
     *seed = *seed | (result << 64 - n);
     return result;
+}
 
+// seed is 64 bits, maximum 12 character word
+// Note: word must be null-terminated and can only contain lowercase alpha characters.
+uint64_t PassWordToSeed(const char* word)
+{
+    uint64_t seed = 0;
+    while (*word)
+    {
+        seed = seed << 5;
+        seed = seed | (*word - 'a');
+        word++;
+    }
+    return seed;
 }
 
 void GenPassword(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int _output_len)
 {
-    // seed is 64 bits, maximum 12 character word
-
     // 2 bits -> 0 = letters, 1 = numbers, 2 = symbols
     // letters = 5 bits
     // numbers = 4 bits
