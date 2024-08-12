@@ -29,7 +29,7 @@ uint64_t PassWordToSeed(const char* word)
     return seed;
 }
 
-void GenPassword(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int _output_len)
+int GenPassword(uint64_t seed, bool _uppercase, bool _numbers, bool _symbols, char* _output_str, int _output_len)
 {
     // 2 bits -> 0 = letters, 1 = numbers, 2 = symbols
     // letters = 5 bits
