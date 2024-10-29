@@ -13,16 +13,14 @@ enum eleader_1t1
     LA_EASYMOTION    = 0, // f
     LA_CENTER        = 1, // z
     LA_DOTSPACESHIFT = 2, // . (shift)
-    LA_SHRUG         = 3, // shrug
-    LA_FN_KEY      = 4, // 'é'
+    LA_FN_KEY        = 3, // 'é'
 };
 
 static const leader1_t leader1t1_array[] = {
     [LA_EASYMOTION]    = {KC_F},
     [LA_CENTER]        = {KC_Z},
     [LA_DOTSPACESHIFT] = {KC_DOT},
-    [LA_SHRUG]         = {KC_S},
-    [LA_FN_KEY]      = {KC_E},
+    [LA_FN_KEY]        = {KC_E},
 };
 
 enum eleader_1t2
@@ -123,7 +121,7 @@ static const leader2_t leader2t1_array[] = {
     [LA_INSERT_LINE_ABOVE]  = {KC_I, KC_A},
     [LA_INSERT_LINE_BELOW]  = {KC_I, KC_B},
     [LA_COPY_LINE]        = {KC_Y, KC_Y},
-    [LA_SWITCH_QUOTES]    = {KC_S, KC_S},
+    [LA_SWITCH_QUOTES]    = {KC_Q, KC_S},
 };
 // clang-format on
 
@@ -224,7 +222,7 @@ static leader4_t const leader4t1_array[] = {
     tap_code16(tap3)
 
 #ifndef ARRAY_SIZE
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
+#    define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 #endif
 
 static leader_config_t leader_config_t1 = {
@@ -276,9 +274,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_DOTSPACESHIFT:
                     send_taps2(KC_DOT, KC_SPACE);
                     tap_oneshot_modifier(ONESHOT_LSFT);
-                    break;
-                case LA_SHRUG:
-                    send_unicode_string(" ¯\\_(ツ)_/¯ ");
                     break;
                 case LA_FN_KEY:
                     // On MacOs, in system settings, set Caps Lock to Globe

@@ -36,4 +36,4 @@ MOUSEKEY_ENABLE = yes      # Mouse movement using keys
 EXTRAKEY_ENABLE = yes      # Audio and system control
 
 # N-key rollover instead of 6-key rollover
-NKRO_ENABLE = yes          # Enable N-Key Rollover
+NKRO_ENABLE = no          # Enable N-Key Rollover
