@@ -65,9 +65,7 @@ bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_
             case CC_CTRL:
             case CC_SHFT:
             case CC_ALT:
-            case CC_CMD:
-            case CC_FNUM:
-            case CC_FCAPS: return false;
+            case CC_CMD: return false;
         }
     }
 

@@ -7,9 +7,7 @@ enum ecustomkeycodes
 {
     CC_RANGE_START = SAFE_RANGE + 64,
 
-    CC_FNUM        = CC_RANGE_START,
-    CC_FCAPS,
-    CC_FNAV,
+    CC_FNAV        = CC_RANGE_START,
     CC_FSYM,
 
     // oneshot

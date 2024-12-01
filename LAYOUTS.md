@@ -6,6 +6,8 @@ I have spend quite some time on this layout and reached around 30 WPM with it, h
 
 ## [Magic Sturdy](https://cyanophage.github.io/index.html#sturdy)
 
+[Magic Sturdy](https://github.com/Ikcelaks/keyboard_layouts/blob/main/magic_sturdy/magic_sturdy.md)
+
 We have a [type-fu](https://type-fu.com) layout that can be used on the web to practice this layout. However, the 'magic' key cannot be emulated there, so it doesn't give you a 100% accurate representation of the layout.
 
 ```plaintext

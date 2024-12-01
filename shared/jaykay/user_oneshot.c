@@ -10,19 +10,18 @@ bool is_oneshot_modifier_cancel_key(uint16_t keycode, bool pressed)
 {
     switch (keycode)
     {
-        case CC_FNAV:
-        case CC_FCAPS: return pressed;
+        case CC_FNAV: return pressed;
     }
     return false;
 }
 
 bool is_oneshot_modifier_ignored_key(uint16_t keycode, bool pressed)
 {
-    switch (keycode) {
-        case CC_FNUM: return true; 
-        case CC_FSYM: return true; 
-        case CC_FNAV:
-        case CC_FCAPS: return true;
+    switch (keycode)
+    {
+        return true;
+        case CC_FSYM: return true;
+        case CC_FNAV: return true;
     }
     return false;
 }
@@ -39,6 +38,4 @@ oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
     return ONESHOT_NONE;
 }
 
-
 #endif
-

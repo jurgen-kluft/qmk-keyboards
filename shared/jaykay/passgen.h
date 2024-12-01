@@ -1,5 +1,5 @@
-#define ENABLE_PASSGEN
-#ifdef ENABLE_PASSGEN
+#ifndef __ENABLE_PASSGEN_H__
+#define __ENABLE_PASSGEN_H__
 #pragma once
 
 int8_t take_bits(uint64_t* seed, int8_t n);

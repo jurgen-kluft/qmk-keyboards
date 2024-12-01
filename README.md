@@ -4,11 +4,12 @@ So now that I have two 34 key split keyboards on the way I have to start figurin
 
 ## Keyboards
 
-- [Kyria](https://splitkb.com/collections/keyboard-kits/products/kyria-pcb-kit)
+- [Elora](https://splitkb.com/collections/keyboard-kits/products/elora)
+- [Kyria](https://splitkb.com/collections/keyboard-kits/products/kyria-rev3)
 - [Hillside](https://github.com/mmccoyd/hillside)
 - [Moonlander](https://www.zsa.io/moonlander/)
-- On the way => [Sweep](https://splitkb.com/collections/keyboard-kits/products/aurora-sweep-pcb-kit)
-- On the way => [Dilemma](https://bastardkb.com/dilemma/)
+- [Sweep](https://splitkb.com/collections/keyboard-kits/products/aurora-sweep)
+- [Dilemma](https://bastardkb.com/dilemma/)
 
 ## Keymap
 
