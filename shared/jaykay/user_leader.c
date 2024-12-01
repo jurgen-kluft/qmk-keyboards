@@ -14,7 +14,6 @@ enum eleader_1t1
     LA_APPEND_END    = 1, // a
     LA_EASYMOTION    = 2, // f
     LA_CENTER        = 3, // z
-    LA_DOTSPACESHIFT = 4, // . (shift)
     LA_FN_KEY        = 5, // 'é'
 };
 
@@ -24,7 +23,6 @@ static const leader1_t leader1t1_array[] = {
     [LA_APPEND_END]    = {KC_A},
     [LA_EASYMOTION]    = {KC_F},
     [LA_CENTER]        = {KC_Z},
-    [LA_DOTSPACESHIFT] = {KC_DOT},
     [LA_FN_KEY]        = {KC_E},
 };
 // clang-format on
@@ -279,10 +277,6 @@ void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t*
                 case LA_APPEND_END: send_taps1(KC_END); break;
                 case LA_CENTER: send_taps1(A(KC_M)); break;
                 case LA_EASYMOTION: send_taps1(A(KC_S)); break;
-                case LA_DOTSPACESHIFT:
-                    send_taps2(KC_DOT, KC_SPACE);
-                    tap_oneshot_modifier(ONESHOT_LSFT);
-                    break;
                 case LA_FN_KEY:
                     // On MacOs, in system settings, set Caps Lock to Globe
                     register_code(KC_CAPS_LOCK);
