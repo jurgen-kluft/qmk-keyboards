@@ -69,11 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           OSL_LN, OSL_LN, CC_FNAV, KC_SPACE, HYPR(KC_Z),    /*|*/   KC_BSPC,  KC_E, CC_FSYM, OSM_LS,   OSM_LS
     ),
 
-// V M L C P           B ^1 U O  Q
-// S T R D Y           F  N E A  I
-// X K J G W           Z  H , . ^2
-//       Nav ⎵      @ Sym
-
     [LAYER_STURDY] = LAYOUTXX(
     KC_ESC,  KC_1,  KC_2, KC_3,   KC_4,   KC_5,                             /*|*/                   KC_6,    KC_7,     KC_8,      KC_9,   KC_0,     KC_ESC,
     KC_TAB,  KC_V,  KC_M, KC_L,   KC_C,   KC_P,                             /*|*/                   KC_B,    QK_AREP,  KC_U,      KC_O,   KC_Q,     KC_BSPC,

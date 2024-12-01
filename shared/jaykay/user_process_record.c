@@ -30,6 +30,11 @@ bool remember_last_key_user(uint16_t kc, keyrecord_t* record, uint8_t* remembere
         case CC_ALT: return false;
         case CC_CTRL: return false;
         case CC_SHFT: return false;
+        case CC_FSYM: return false;
+        case CC_FNUM: return false;
+        case CC_FCAPS: return false;
+        case CC_FNAV: return false;
+
         case KC_A ... KC_Z:
             if ((*remembered_mods & ~(MOD_MASK_SHIFT)) == 0)
             {
@@ -79,7 +84,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t kc, uint8_t mods)
                 return MG_SP_AND;
             }
         case KC_EQL:
-        case CC_RCTL_MINS:
         case KC_MINS: return KC_RABK;
         case KC_Q: return MG_UI;
         case KC_H: return MG_OA;
@@ -205,13 +209,10 @@ bool process_record_user(uint16_t kc, keyrecord_t* record)
         {
             switch (kc)
             {
-                case CC_LCTL_BSPC:
                 case KC_DQUO:
                 case KC_LPRN:
                 case KC_SPC:
                 case KC_ENT:
-                case CC_LALT_ENT:
-                case CC_RSFT_ENT:
                     unregister_weak_mods(MOD_MASK_CSAG);
                     SEND_STRING("for");
                     return false;
