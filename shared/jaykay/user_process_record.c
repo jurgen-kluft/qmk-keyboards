@@ -9,6 +9,7 @@
 #include "user_keycodes.h"
 #include "user_layers.h"
 #include "user_magic_sturdy.h"
+#include "feature/caps_word.h"
 
 #if (__has_include("secrets.x") && !defined(NO_SECRETS))
 #    include "secrets.x"
@@ -19,10 +20,17 @@ static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4",
 
 bool process_record_user(uint16_t kc, keyrecord_t* record)
 {
+    if (!process_caps_word(kc, record))
+    {
+        return false;
+    }
+
+#ifdef REPEAT_KEY_ENABLE
     if (!process_magic_sturdy_user(kc, record))
     {
         return false;
     }
+#endif
 
     bool result = true;
     switch (kc)

@@ -14,10 +14,13 @@ SRC += $(USER_PATH)/user_process_record.c
 SRC += $(USER_PATH)/user_leader.c
 SRC += $(USER_PATH)/user_keycodes.c
 SRC += $(USER_PATH)/user_layers.c
+SRC += $(USER_PATH)/user_caps_word.c
 
 ifeq ($(strip $(REPEAT_KEY_ENABLE)), yes)
 SRC += $(USER_PATH)/user_magic_sturdy.c
 endif
+
+SRC += $(USER_PATH)/feature/caps_word.c
 
 CUSTOM_POINTING_DEVICE ?= no
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)

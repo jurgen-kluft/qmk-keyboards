@@ -16,6 +16,9 @@
 
 #pragma once
 
+#define CAPS_WORD_INVERT_ON_SHIFT
+#define CAPS_WORD_TOGGLE_KEY
+
 // Myriad boilerplate
 #define MYRIAD_ENABLE
 

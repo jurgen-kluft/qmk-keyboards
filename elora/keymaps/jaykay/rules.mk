@@ -38,3 +38,5 @@ REPEAT_KEY_ENABLE = yes
 
 # N-key rollover instead of 6-key rollover
 NKRO_ENABLE = no          # Enable N-Key Rollover
+
+LTO_ENABLE = yes
