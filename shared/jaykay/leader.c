@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
 #include "feature.h"
-#include "vim.h"
 #include "user_keycodes.h"
 #include "leader.h"
 
@@ -22,6 +21,8 @@ the 't' should be held if you want to get to the 'e' otherwise the 'gt' chain is
 Note: We can still take it one step further. When we have the leader 'active', pressing SYM could
       change leader_mode for us. We could use that for lets say a 'accent' or 'vim' movement layer?
 
+Note: Pressing leader '.' will execute the last action that was executed by the leader.
+      This is useful for when you want to repeat an action multiple times.
 */
 
 __attribute__((weak)) void execute_leader_action(uint8_t action, uint8_t mode, uint8_t count, uint8_t* leader_chain) {}
@@ -38,6 +39,11 @@ static uint8_t  leader_chain_recorded_released = 0;
 static uint8_t  leader_chain[LEADER_MAX_CHAIN] = {0};
 static uint8_t  leader_enabled                 = 1;
 
+static int8_t  last_leader_action                  = -1;
+static uint8_t last_leader_mode                    = 0;
+static uint8_t last_leader_chain_recorded_pressed  = 0;
+static uint8_t last_leader_chain[LEADER_MAX_CHAIN] = {0};
+
 static void reset_leader(uint8_t active)
 {
     leader_mode                    = 0;
@@ -50,7 +56,7 @@ static void reset_leader(uint8_t active)
 bool leader_is_active() { return (leader_active == 2) && timer_elapsed(leader_timer) < LEADER_TIMEOUT; }
 void leader_disable() { reset_leader(0); }
 
-bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3)
+bool process_record_leader(uint16_t keycode, keyrecord_t* record, leader_config_t* config_t1, leader_config_t* config_t2, leader_config_t* config_t3)
 {
     if (leader_active == 2)
     {
@@ -67,12 +73,7 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
 
     if (record->event.pressed)
     {
-        if (keycode == CC_FSYM)
-        {
-            leader_enabled = 0;
-            reset_leader(0);
-        }
-        else if (keycode == CC_FNAV)
+        if (keycode == CC_FNAV)
         {
             if (leader_enabled == 1)
             {
@@ -82,7 +83,7 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
                 }
                 else if (leader_active == 2 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
                 {
-                    // we pressed FNAV twice in a short time, this triggers a mode increase
+                    // we pressed FNAV within the leader timeout, this triggers a mode increase
                     leader_mode++;
                     leader_timer = timer_read();
                 }
@@ -91,44 +92,53 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
                     reset_leader(1);
                 }
             }
+            else
+            {
+                reset_leader(0);
+            }
+        }
+        else if (keycode == CC_FSYM)
+        {
+            // When pressing/holding sym, leader should be de-activated
+            leader_enabled = 0;
         }
         else if (leader_active == 2)
         {
-            if (leader_enabled == 1)
+            if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
             {
-                if ((leader_chain_recorded_pressed == 0) && (leader_mode == 0) && (timer_elapsed(leader_timer) >= LEADER_TIMEOUT))
+                reset_leader(0);
+            }
+            else
+            {
+                leader_chain[leader_chain_recorded_pressed++] = keycode;
+                leader_timer                                  = timer_read();
+
+                int8_t action = 0;
+                if (leader_mode == 4)
                 {
-                    reset_leader(0);
+                    action = -2;
+                }
+                else if (leader_mode == 2)
+                {
+                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
+                }
+                else if (leader_mode == 1)
+                {
+                    action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
                 }
                 else
                 {
-                    leader_chain[leader_chain_recorded_pressed++] = keycode;
-                    leader_timer                                  = timer_read();
-
-                    int8_t action;
-                    if (leader_mode == 4)
-                    {
-                        action = -2;
-                    }
-                    else if (leader_mode == 2)
-                    {
-                        action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
-                    }
-                    else if (leader_mode == 1)
-                    {
-                        action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
-                    }
-                    else
+                    if (keycode != KC_DOT)
                     {
                         action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
                     }
-                    if (action == -2)
-                    {
-                        reset_leader(0);
-                        return false;
-                    }
-                    return true;
                 }
+                if (action == -2)
+                {
+                    reset_leader(0);
+                    return false;
+                }
+                return true;
             }
         }
         else
@@ -138,68 +148,82 @@ bool process_record_leader(uint8_t keycode, keyrecord_t* record, leader_config_t
     }
     else
     {
-        if (keycode == CC_FSYM)
+        if (keycode == CC_FNAV)
+        {
+            if (leader_enabled == 1 && timer_elapsed(leader_timer) < LEADER_TIMEOUT)
+            {
+                if (leader_active == 1)
+                {
+                    leader_active = 2;
+                }
+                leader_timer = timer_read();
+            }
+            else
+            {
+                reset_leader(0);
+            }
+        }
+        else if (keycode == CC_FSYM)
         {
             leader_enabled = 1;
             reset_leader(0);
         }
-        else if (keycode == CC_FNAV)
+        else if (leader_active == 2)
         {
-            if (leader_enabled == 1)
+            // scan in the leader chain for the keycode that is released and if found increment leader_chain_recorded_released
+            for (uint8_t i = 0; i < leader_chain_recorded_pressed; i++)
             {
-                if (timer_elapsed(leader_timer) < LEADER_TIMEOUT)
+                if (leader_chain[i] == keycode)
                 {
-                    if (leader_active == 1)
-                    {
-                        leader_active = 2;
-                    }
-                    leader_timer = timer_read();
+                    leader_chain_recorded_released++;
+                    break;
+                }
+            }
+
+            // if we release the '.' key, we should execute the last leader chain
+            if (keycode == KC_DOT && leader_chain_recorded_pressed == leader_chain_recorded_released)
+            {
+                if (last_leader_action != -1)
+                {
+                    execute_leader_action(last_leader_action, last_leader_mode, last_leader_chain_recorded_pressed, last_leader_chain);
+                    reset_leader(0);
+                    return true;
+                }
+            }
+
+            if (leader_chain_recorded_released == leader_chain_recorded_pressed)
+            {
+                int8_t leader_action = -1;
+                if (leader_mode == 4) {}
+                else if (leader_mode == 2)
+                {
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
+                }
+                else if (leader_mode == 1)
+                {
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
                 }
                 else
                 {
+                    leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
+                }
+
+                if (leader_action >= 0)
+                {
+                    // remember; so that when we press LEADER '.', we can repeat the last action
+                    last_leader_action                 = leader_action;
+                    last_leader_mode                   = leader_mode;
+                    last_leader_chain_recorded_pressed = leader_chain_recorded_pressed;
+                    for (uint8_t i = 0; i < leader_chain_recorded_pressed; i++)
+                    {
+                        last_leader_chain[i] = leader_chain[i];
+                    }
+
+                    execute_leader_action(leader_action, leader_mode, leader_chain_recorded_pressed, leader_chain);
                     reset_leader(0);
                 }
             }
-        }
-        else if (leader_active == 2)
-        {
-            if (leader_enabled == 1)
-            {
-                // scan in the leader chain for the keycode that is released and if found increment leader_chain_recorded_released
-                for (uint8_t i = 0; i < leader_chain_recorded_pressed; i++)
-                {
-                    if (leader_chain[i] == keycode)
-                    {
-                        leader_chain_recorded_released++;
-                        break;
-                    }
-                }
-
-                if (leader_chain_recorded_released == leader_chain_recorded_pressed)
-                {
-                    int8_t leader_action = -1;
-                    if (leader_mode == 4) {}
-                    else if (leader_mode == 2)
-                    {
-                        leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t3);
-                    }
-                    else if (leader_mode == 1)
-                    {
-                        leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t2);
-                    }
-                    else
-                    {
-                        leader_action = process_leader_chain(leader_chain_recorded_pressed, leader_chain, config_t1);
-                    }
-
-                    if (leader_action >= 0)
-                    {
-                        execute_leader_action(leader_action, leader_mode, leader_chain_recorded_pressed, leader_chain);
-                        reset_leader(0);
-                    }
-                }
-                return true;
-            }
+            return true;
         }
     }
 

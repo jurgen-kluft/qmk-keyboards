@@ -9,11 +9,14 @@
 !*.h
 !*.def
 !*.inl
+!*.go
 !*.mk
+!*.sh
 
 !*.md
 !*.jpg
 !*.png
 !*.svg
 !*.txt
+!*.tfl
 #except the following folders

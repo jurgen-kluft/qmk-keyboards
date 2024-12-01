@@ -54,7 +54,7 @@ void rgb_matrix_indicators_user(void)
     {
         return;
     }
-    int8_t layer = user_layer();
+    int8_t layer = user_layer_current();
     switch (layer)
     {
         case LAYER_QWERTY ... LAYER_GAMER: set_layer_color(layer); break;

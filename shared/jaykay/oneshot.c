@@ -47,14 +47,14 @@ static void update_modifier(oneshot_mod osmod, oneshot_state previous_state, one
     if (previous_state == ONESHOT_STATE_OFF)
     {
         s_osm_active += 1;
-        register_code(KC_LCTRL + osmod);
+        register_code(KC_LCTL + osmod);
     }
     else
     {
         if (current_state == ONESHOT_STATE_OFF)
         {
             s_osm_active -= 1;
-            unregister_code(KC_LCTRL + osmod);
+            unregister_code(KC_LCTL + osmod);
         }
     }
 }
@@ -127,7 +127,7 @@ void tap_oneshot_modifier(oneshot_mod osmod)
 }
 
 // see comment in corresponding headerfile
-void update_oneshot_modifiers(uint8_t keycode, keyrecord_t* record)
+void update_oneshot_modifiers(uint16_t keycode, keyrecord_t* record)
 {
     oneshot_mod osmod = get_modifier_for_trigger_key(keycode);
 
@@ -175,14 +175,14 @@ void update_oneshot_modifiers(uint8_t keycode, keyrecord_t* record)
                     set_modifier_state_all_from_to(ONESHOT_STATE_QUEUED, ONESHOT_STATE_OFF);
                 }
             }
-            s_osm_repeating_normal_key = user_get_code16(keycode);
+            s_osm_repeating_normal_key = keycode;
         }
         else
         {
             if (!all_modifiers_are_off())
             {
                 //TODO should use our custom register
-                unregister_code16(user_get_code16(keycode));
+                unregister_code16(keycode);
                 set_modifier_state_all_from_to(ONESHOT_STATE_QUEUED, ONESHOT_STATE_OFF);
             }
             s_osm_repeating_normal_key = 0;

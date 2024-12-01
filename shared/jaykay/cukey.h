@@ -12,4 +12,4 @@ uint8_t keyboard_get_os(void);
 void    keyboard_set_layout(int8_t layout);
 int8_t  keyboard_get_layout(void);
 
-uint16_t process_cukey(uint8_t keycode);
+uint16_t process_cukey(uint16_t keycode);

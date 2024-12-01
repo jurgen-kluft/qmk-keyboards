@@ -1,0 +1,298 @@
+{
+  "id": "magic-sturdy",
+  "name": "Magic Sturdy",
+  "description": "Ikcelaks powerful variation of the already excellent STRD1 layout - https://github.com/Ikcelaks/keyboard_layouts/tree/main/magic_sturdy",
+  "version": 1,
+  "keys": {
+    "Digit1": {
+      "default"    : {
+        "base"     : "1",
+        "shift"    : "!"
+      }
+    },
+    "Digit2"       : {
+      "default"    : {
+        "base"     : "2",
+        "shift"    : "@"
+      }
+    },
+    "Digit3"       : {
+      "default"    : {
+        "base"     : "3",
+        "shift"    : "#"
+      }
+    },
+    "Digit4"       : {
+      "default"    : {
+        "base"     : "4",
+        "shift"    : "$"
+      }
+    },
+    "Digit5"       : {
+      "default"    : {
+        "base"     : "5",
+        "shift"    : "%"
+      }
+    },
+    "Digit6"       : {
+      "default"    : {
+        "base"     : "6",
+        "shift"    : "^"
+      }
+    },
+    "Digit7"       : {
+      "default"    : {
+        "base"     : "7",
+        "shift"    : "&"
+      }
+    },
+    "Digit8"       : {
+      "default"    : {
+        "base"     : "8",
+        "shift"    : "*"
+      }
+    },
+    "Digit9"       : {
+      "default"    : {
+        "base"     : "9",
+        "shift"    : "("
+      }
+    },
+    "Digit0"       : {
+      "default"    : {
+        "base"     : "0",
+        "shift"    : ")"
+      }
+    },
+    "KeyA"         : {
+      "default"    : {
+        "base"     : "s",
+        "shift"    : "S"
+      }
+    },
+    "KeyB"         : {
+      "default"    : {
+        "base"     : "w",
+        "shift"    : "W"
+      }
+    },
+    "KeyC"         : {
+      "default"    : {
+        "base"     : "j",
+        "shift"    : "J"
+      }
+    },
+    "KeyD"         : {
+      "default"    : {
+        "base"     : "r",
+        "shift"    : "R"
+      }
+    },
+    "KeyE"         : {
+      "default"    : {
+        "base"     : "l",
+        "shift"    : "L"
+      }
+    },
+    "KeyF"         : {
+      "default"    : {
+        "base"     : "d",
+        "shift"    : "D"
+      }
+    },
+    "KeyG"         : {
+      "default"    : {
+        "base"     : "y",
+        "shift"    : "Y"
+      }
+    },
+    "KeyH"         : {
+      "default"    : {
+        "base"     : "f",
+        "shift"    : "F"
+      }
+    },
+    "KeyI"         : {
+      "default"    : {
+        "base"     : "u",
+        "shift"    : "U"
+      }
+    },
+    "KeyJ"         : {
+      "default"    : {
+        "base"     : "n",
+        "shift"    : "N"
+      }
+    },
+    "KeyK"         : {
+      "default"    : {
+        "base"     : "e",
+        "shift"    : "E"
+      }
+    },
+    "KeyL"         : {
+      "default"    : {
+        "base"     : "a",
+        "shift"    : "A"
+      }
+    },
+    "KeyM"         : {
+      "default"    : {
+        "base"     : "h",
+        "shift"    : "H"
+      }
+    },
+    "KeyN"         : {
+      "default"    : {
+        "base"     : "z",
+        "shift"    : "Z"
+      }
+    },
+    "KeyO"         : {
+      "default"    : {
+        "base"     : "o",
+        "shift"    : "O"
+      }
+    },
+    "KeyP"         : {
+      "default"    : {
+        "base"     : "q",
+        "shift"    : "Q"
+      }
+    },
+    "KeyQ"         : {
+      "default"    : {
+        "base"     : "v",
+        "shift"    : "V"
+      }
+    },
+    "KeyR"         : {
+      "default"    : {
+        "base"     : "c",
+        "shift"    : "C"
+      }
+    },
+    "KeyS"         : {
+      "default"    : {
+        "base"     : "t",
+        "shift"    : "T"
+      }
+    },
+    "KeyT"         : {
+      "default"    : {
+        "base"     : "p",
+        "shift"    : "P"
+      }
+    },
+    "KeyU"         : {
+      "default"    : {
+        "base"     : "^",
+        "shift"    : "^"
+      }
+    },
+    "KeyV"         : {
+      "default"    : {
+        "base"     : "g",
+        "shift"    : "G"
+      }
+    },
+    "KeyW"         : {
+      "default"    : {
+        "base"     : "m",
+        "shift"    : "M"
+      }
+    },
+    "KeyX"         : {
+      "default"    : {
+        "base"     : "k",
+        "shift"    : "K"
+      }
+    },
+    "KeyY"         : {
+      "default"    : {
+        "base"     : "b",
+        "shift"    : "B"
+      }
+    },
+    "KeyZ"         : {
+      "default"    : {
+        "base"     : "x",
+        "shift"    : "X"
+      }
+    },
+    "Minus"        : {
+      "default"    : {
+        "base"     : "-",
+        "shift"    : "_"
+      }
+    },
+    "Equal"        : {
+      "default"    : {
+        "base"     : "=",
+        "shift"    : "+"
+      }
+    },
+    "BracketLeft"  : {
+      "default"    : {
+        "base"     : "[",
+        "shift"    : "{"
+      }
+    },
+    "BracketRight" : {
+      "default"    : {
+        "base"     : "]",
+        "shift"    : "}"
+      }
+    },
+    "Backslash"    : {
+      "default"    : {
+        "base"     : "\\",
+        "shift"    : "|"
+      }
+    },
+    "IntlBackslash": {
+      "default"    : {}
+    },
+    "Semicolon"    : {
+      "default"    : {
+        "base"     : "i",
+        "shift"    : "I"
+      }
+    },
+    "Backquote"    : {
+      "default"    : {
+        "base"     : "`",
+        "shift"    : "~"
+      }
+    },
+    "Quote"        : {
+      "default"    : {
+        "base"     : "'",
+        "shift"    : "\""
+      }
+    },
+    "Comma"        : {
+      "default"    : {
+        "base"     : ",",
+        "shift"    : "<"
+      }
+    },
+    "Period"       : {
+      "default"    : {
+        "base"     : ".",
+        "shift"    : ">"
+      }
+    },
+    "Slash"        : {
+      "default"    : {
+        "base"     : "\\",
+        "shift"    : "?"
+      }
+    },
+    "Space"        : {
+      "default"    : {
+        "base"     : " "
+      }
+    }
+  }
+}

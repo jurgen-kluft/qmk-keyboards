@@ -5,38 +5,276 @@
 #include "cukey.h"
 #include "feature.h"
 #include "leader.h"
-#include "vim.h"
 #include "user_leader.h"
 #include "user_keycodes.h"
 #include "user_layers.h"
 
-#ifdef OLED_ENABLE
-#include "oled.h"
-#endif
-
 #if (__has_include("secrets.x") && !defined(NO_SECRETS))
-#include "secrets.x"
+#    include "secrets.x"
 static const char* gSecrets[] = {SECRET_1, SECRET_2, SECRET_3, SECRET_4, SECRET_5, SECRET_6, SECRET_7, SECRET_8};
 #else
 static const char* gSecrets[] = {"SECRET_1", "SECRET_2", "SECRET_3", "SECRET_4", "SECRET_5", "SECRET_6", "SECRET_7", "SECRET_8"};
 #endif
 
-bool process_record_user(uint16_t kc16, keyrecord_t* record)
+// -------------------------------------------------------------------------------------------------
+// magic / repeat key
+
+bool remember_last_key_user(uint16_t kc, keyrecord_t* record, uint8_t* remembered_mods)
 {
-    uint8_t const ti = get_keycode_index(kc16);
-    uint8_t const tc = get_keycode_code(ti, record->event.pressed);
+    switch (kc)
+    {
+        // Ignore Custom Magic Keys
+        case CC_MAG_2:
+        case CC_MAG_3: return false;
+        case CC_CMD: return false;
+        case CC_ALT: return false;
+        case CC_CTRL: return false;
+        case CC_SHFT: return false;
+        case KC_A ... KC_Z:
+            if ((*remembered_mods & ~(MOD_MASK_SHIFT)) == 0)
+            {
+                *remembered_mods &= ~MOD_MASK_SHIFT;
+            }
+            break;
+    }
+    return true;
+}
 
-#ifdef OLED_DRIVER_ENABLE
-    process_record_oled(kc16, record);
-#endif
+uint16_t get_alt_repeat_key_keycode_user(uint16_t kc, uint8_t mods)
+{
+    switch (kc)
+    {
+        case KC_C:
+        case KC_P:
+        case KC_D:
+        case KC_G:
+        case KC_Z: return KC_Y;
+        case KC_Y: return KC_P;
+        case KC_R: return KC_L;
+        case KC_K: return KC_S;
+        case KC_L:
+        case KC_S: return KC_K;
+        case KC_U: return KC_E;
+        case KC_E: return KC_U;
+        case KC_O: return KC_A;
+        case KC_A: return KC_O;
+        case KC_ASTR: return KC_EQL;
+        case S(KC_DOT): return MG_COM;
+        case KC_DOT:
+            if (mods & MOD_MASK_SHIFT)
+            {
+                return MG_COM;
+            }
+            else
+            {
+                return MG_SP_The;
+            }
+        case KC_COMM:
+            if (mods & MOD_MASK_SHIFT)
+            {
+                return MG_SP_BUT;
+            }
+            else
+            {
+                return MG_SP_AND;
+            }
+        case KC_EQL:
+        case CC_RCTL_MINS:
+        case KC_MINS: return KC_RABK;
+        case KC_Q: return MG_UI;
+        case KC_H: return MG_OA;
+        case KC_I: return MG_ON;
+        case KC_N: return MG_ION;
+        case KC_V: return MG_ER;
+        case KC_X: return MG_ES;
+        case KC_M: return MG_ENT;
+        case KC_T: return MG_MENT;
+        case KC_J: return MG_UST;
+        case KC_B: return MG_EFORE;
+        case KC_W: return MG_HICH;
+        case KC_1 ... KC_0: return KC_DOT;
+    }
 
-    switch (tc)
+    return kc;
+}
+
+bool process_magic_key_2(uint16_t prev_keycode, uint8_t prev_mods)
+{
+    switch (prev_keycode)
+    {
+        case KC_B: SEND_STRING("ecome"); return false;
+        case KC_F: SEND_STRING("ollow"); return false;
+        case KC_N: SEND_STRING("eighbor"); return false;
+        case KC_H: SEND_STRING("owever"); return false;
+        case KC_U: SEND_STRING("pgrade"); return false;
+        case KC_O: SEND_STRING("ther"); return false;
+        case KC_A: SEND_STRING("lready"); return false;
+        case KC_P: SEND_STRING("sych"); return false;
+        case KC_I: SEND_STRING("'ll"); return false;
+        case KC_K: SEND_STRING("now"); return false;
+        case KC_T: SEND_STRING("hough"); return false;
+        case KC_L: SEND_STRING("ittle"); return false;
+        case KC_M:
+        case KC_R: SEND_STRING("ight"); return false;
+        case KC_J: SEND_STRING("udge"); return false;
+        case KC_C: SEND_STRING("ould"); return false;
+        case KC_D: SEND_STRING("evelop"); return false;
+        case KC_G: SEND_STRING("eneral"); return false;
+        case KC_W: SEND_STRING("here"); return false;
+        case KC_S: SEND_STRING("hould"); return false;
+        case KC_DOT: SEND_STRING("com"); return false;
+        case KC_COMM: SEND_STRING(" however"); return false;
+        case KC_HASH: SEND_STRING("include \""); return false;
+        default: SEND_STRING("'ll"); return false;
+    }
+    return true;
+}
+
+bool process_magic_key_3(uint16_t prev_keycode, uint8_t prev_mods)
+{
+    switch (prev_keycode)
+    {
+        case KC_B: SEND_STRING("etween"); return false;
+        case KC_N: SEND_STRING("umber"); return false;
+        case KC_U: SEND_STRING("pdate"); return false;
+        case KC_A: SEND_STRING("bout"); return false;
+        case KC_W: SEND_STRING("orld"); return false;
+        case KC_G: SEND_STRING("overn"); return false;
+        case KC_P: SEND_STRING("rogram"); return false;
+        case KC_Q: SEND_STRING("uestion"); return false;
+        case KC_C: SEND_STRING("rowd"); return false;
+        case KC_S: SEND_STRING("chool"); return false;
+        case KC_T: SEND_STRING("hrough"); return false;
+        case KC_M: SEND_STRING("anage"); return false;
+        case KC_O: SEND_STRING("xygen"); return false;
+        case KC_I: SEND_STRING("'m"); return false;
+        case KC_E: SEND_STRING("'re"); return false;
+        case KC_DOT: SEND_STRING("com"); return false;
+        case KC_COMM: SEND_STRING(" since"); return false;
+        default: return false;
+    }
+}
+
+// -------------------------------------------------------------------------------------------------
+// process record user
+
+bool process_record_user(uint16_t kc, keyrecord_t* record)
+{
+    if (record->event.pressed)
+    {
+        int rc = get_repeat_key_count();
+        if (rc < -1 && kc != MG_UST)
+        {
+            send_char('n');
+            return false;
+        }
+
+        switch (kc)
+        {
+            case CC_MAG_2: return process_magic_key_2(get_last_keycode(), get_last_mods());
+            case CC_MAG_3: return process_magic_key_3(get_last_keycode(), get_last_mods());
+            case MK_DUND: SEND_STRING(SS_LSFT(SS_TAP(X_4)) SS_DELAY(100) SS_LSFT(SS_TAP(X_MINUS))); return false;
+            case MG_ENT: SEND_STRING("ent"); return false;
+            case MG_MENT: SEND_STRING("ment"); return false;
+            case MG_ER: SEND_STRING("er"); return false;
+            case MG_ES: SEND_STRING("es"); return false;
+            case MG_UST:
+                if (rc < -1)
+                {
+                    SEND_STRING("ment");
+                }
+                else
+                {
+                    SEND_STRING("ust");
+                }
+                return false;
+            case MG_OA: SEND_STRING("oa"); return false;
+            case MG_ON: SEND_STRING("on"); return false;
+            case MG_ION: SEND_STRING("ion"); return false;
+            case MG_SP_BUT: SEND_STRING(" but"); return false;
+            case MG_SP_AND: SEND_STRING(" and"); return false;
+            case MG_SP_The: SEND_STRING(" The"); return false;
+            case MG_EFORE: SEND_STRING("efore"); return false;
+            case MG_HICH: SEND_STRING("hich"); return false;
+            case MG_UI: SEND_STRING("ui"); return false;
+            case MG_QUOT_S: SEND_STRING("'s"); return false;
+            case MG_COM: SEND_STRING("com"); return false;
+        }
+
+        if (rc > 0)
+        {
+            switch (kc)
+            {
+                case CC_LCTL_BSPC:
+                case KC_DQUO:
+                case KC_LPRN:
+                case KC_SPC:
+                case KC_ENT:
+                case CC_LALT_ENT:
+                case CC_RSFT_ENT:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    SEND_STRING("for");
+                    return false;
+                case KC_I:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    SEND_STRING("ng");
+                    return false;
+                case KC_DOT:
+                case KC_QUES:
+                case KC_EXLM:
+                case KC_COLN:
+                case KC_SCLN:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    send_char(' ');
+                    add_oneshot_mods(MOD_MASK_SHIFT);
+                    set_last_keycode(KC_SPC);
+                    return false;
+                case KC_COMM:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    SEND_STRING(" but");
+                    return false;
+                case KC_A:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    SEND_STRING("nd");
+                    return false;
+                case KC_N:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    send_char('f');
+                    return false;
+                case KC_B:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    SEND_STRING("ecause");
+                    return false;
+                case KC_W:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    SEND_STRING("ould");
+                    return false;
+                case KC_Y:
+                    unregister_weak_mods(MOD_MASK_CSAG);
+                    if (rc > 2)
+                    {
+                        SEND_STRING("ll");
+                        return false;
+                    }
+                    if (rc > 1)
+                    {
+                        send_char('\'');
+                        return false;
+                    }
+                    SEND_STRING("ou");
+                    return false;
+            }
+        }
+    }
+
+    bool result = true;
+    switch (kc)
     {
 #ifdef KEYBOARD_MOONLANDER
         case CC_GAMEL:
             if (record->event.pressed)
             {
-                if (user_layer() == LAYER_GAMEL)
+                if (user_layer_current() == LAYER_GAMEL)
                 {
                     user_layer_on(LAYER_BASE);
                 }
@@ -45,8 +283,8 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
                     user_layer_on(LAYER_GAMEL);
                 }
             }
-            return false;
-
+            result = false;
+            break;
         case CC_GAMER:
             if (record->event.pressed)
             {
@@ -56,95 +294,86 @@ bool process_record_user(uint16_t kc16, keyrecord_t* record)
             {
                 user_layer_on(LAYER_GAMEL);
             }
-            return false;
+            result = false;
+            break;
 #endif
-//        case CC_UNDO ... CC_CLOSE:
-//        {
-//            if (record->event.pressed)
-//            {
-//                uint16_t const keycode = process_cukey(tc);
-//                if (keycode != KC_NO)
-//                    register_code16(keycode);
-//            }
-//            else
-//            {
-//                uint16_t const keycode = process_cukey(tc);
-//                if (keycode != KC_NO)
-//                    unregister_code16(keycode);
-//            }
-//            //break;
-//            return false;
-//        }
+        case CC_UNDO ... CC_CLOSE:
+        {
+            if (record->event.pressed)
+            {
+                uint16_t const cukc = process_cukey(kc);
+                if (cukc != KC_NO)
+                    register_code16(cukc);
+            }
+            else
+            {
+                uint16_t const cukc = process_cukey(kc);
+                if (cukc != KC_NO)
+                    unregister_code16(cukc);
+            }
+            result = false;
+            break;
+        }
+        case CC_QWERTY:
+            if (!record->event.pressed)
+                keyboard_set_layout(LAYER_QWERTY);
+            break;
+        case CC_RSTHD:
+            if (!record->event.pressed)
+                keyboard_set_layout(LAYER_RSTHD);
+            break;
+        case CC_GRAPHITE:
+            if (!record->event.pressed)
+                keyboard_set_layout(LAYER_GRAPHITE);
+            break;
+        case CC_ENGRAM2:
+            if (!record->event.pressed)
+                keyboard_set_layout(LAYER_ENGRAM2);
+            break;
+        case CC_STURDY:
+            if (!record->event.pressed)
+                keyboard_set_layout(LAYER_STURDY);
+            break;
         case CC_SECRET_1 ... CC_SECRET_8:
             if (!record->event.pressed)
             {
-                turnoff_oneshot_modifiers();
-                send_string_with_delay(gSecrets[tc - CC_SECRET_1], MACRO_TIMER);
+                register_string(gSecrets[kc - CC_SECRET_1]);
             }
-            return false;
-        case CC_SPIFT:
-            if (record->event.pressed)
-            {
-                register_code(KC_SPACE);
-                press_oneshot_modifier(ONESHOT_LSFT);
-            }
-            else
-            {
-                unregister_code(KC_SPACE);
-                release_oneshot_modifier(ONESHOT_LSFT);
-            }
-            return false;
-#if defined(OLED_ENABLE)
-        case CC_OLED:
-            if (record->event.pressed)
-            {
-                toggle_display_oled();
-            }
-            return true;
-#elif defined(RGBLIGHT_ENABLE)
-        case CC_OLED:
-            if (record->event.pressed)
-            {
-                rgblight_enable();
-            }
-            return true;
-#endif
+            result = false;
+            break;
     }
 
-    if (!leader_is_active())
+    if (process_leader_user(kc, record))
     {
-        if (!process_feature_key(ti, tc, record))
-        {
-            return false;
-        }
-
-        cushi_t cushi = process_cushi_keys(ti, tc, record);
-        if (cushi.replaced)
-        {
-            if (record->event.pressed)
-            {
-                register_keycode_press_modmask(ti, cushi.tc, cushi.modmask);
-            }
-            else
-            {
-                register_keycode_release(ti, cushi.tc);
-            }
-            return false;
-        }
-
-        update_oneshot_modifiers(tc, record);
-    }
-
-    if (process_leader_user(tc, record))
         return false;
+    }
 
-    if (record->event.pressed)
     {
-        register_keycode_press(ti, tc);
+        if (!process_feature_key(kc, record))
+        {
+            return false;
+        }
+
+        uint16_t cushi = process_cushi_keys(kc, record);
+        if (cushi != KC_NO)
+        {
+            const uint16_t cukc = process_cukey(cushi);
+            if (cukc != KC_NO)
+            {
+                cushi = cukc;
+            }
+
+            if (record->event.pressed)
+            {
+                tap_code16_nomods(cushi);
+            }
+
+            update_oneshot_modifiers(cushi, record);
+            return false;
+        }
+
+        update_oneshot_modifiers(kc, record);
     }
-    else
-    {
-        register_keycode_release(ti, tc);
-    }
-    return false;
+
+    return result;
 }

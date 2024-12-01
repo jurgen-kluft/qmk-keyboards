@@ -6,38 +6,38 @@ So now that I have two 34 key split keyboards on the way I have to start figurin
 
 - [Kyria](https://splitkb.com/collections/keyboard-kits/products/kyria-pcb-kit)
 - [Hillside](https://github.com/mmccoyd/hillside)
+- [Moonlander](https://www.zsa.io/moonlander/)
 - On the way => [Sweep](https://splitkb.com/collections/keyboard-kits/products/aurora-sweep-pcb-kit)
 - On the way => [Dilemma](https://bastardkb.com/dilemma/)
-- [Moonlander](https://www.zsa.io/moonlander/)
 
 ## Keymap
 
 With the following features:
-- Custom layers & layer switching (Only 1 QMK layer, `user_layers.c`)
-- Internally uses custom 8-bit keycodes
 - Callum style Oneshot Modifiers (*rewrite*, `oneshot.c`, `user_oneshot.c`)
   - double-tap to lock a modifier
+  - tap **NAV** to cancel all modifiers
 - Smart Numbers (`feature.c`)
+  - holding **NAV** and tapping **SYM**
   - will end when pressing *space*
 - Smart Caps (`feature.c`)
-  - holding `Smart Caps` and repeatedly tapping **NAV** will cycle:
+  - holding **SYM** and tapping **NAV** will turn ON Smart Caps
+  - tapping **NAV** will turn OFF Smart Caps
+  - tapping `.` will cycle:
     - `Normal/Repeat -> Camel Case -> Snake Case -> Off`
+  - will end when pressing *space* or **NAV**
 - Smart Caps (`feature.c`), Normal mode
   - start typing letters
-  - will end when pressing *space*
 - Smart Caps (`feature.c`), Repeat mode
   - first enter some symbols that should be the delimiters
   - then start typing letters
-  - space will emit the delimiters (maximum 4)
-  - will end when pressing **NAV**
+  - `;` will emit the delimiters (maximum 4)
 - Smart Caps (`feature.c`), Camel Case
   - start with typing letters
-  - space will emit a space and set the next letter to be shifted
+  - `;` will emit a space and set the next letter to be shifted
   - you can use `,` to activate shift manually
-  - tap `.` to deactivate
 - Smart Caps (`feature.c`), Snake Case
   - start with typing letters
-  - space will emit an underscore
+  - `;` will emit an underscore
   - you can use `,` to activate shift manually
 - **SYM** key can be tapped for a oneshot key from the **SYM** layer (`feature.c`)
   - **SYM** key can also be held
@@ -50,7 +50,6 @@ With the following features:
   - `leader` **`SYM`**, mode = 4
 - Custom normal/shift/ctrl/alt keycodes (`cushi.c`)
 - Custom OS keycodes to deal with `Mac OS` / `Windows` / `Ubuntu` (`cukey.c`)
-- **VIM** basic features (`vim.c`)
 
 ## Leader
 
