@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  CC_REDO, CC_CLOSE, KC_ESCAPE, KC_ENTER, KC_TAB,                           /*|*/                     KC_INSERT, CC_PGUP,   KC_HOME, KC_NO,    KC_NO, KC_BSPC,
     KC_LGUI, CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  KC_DELETE,                        /*|*/                     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, KC_NO, OSM_LS, 
     KC_LCTL, CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, KC_BSPC,    CC_NAPP,  CC_NAPP,    /*|*/  CC_PAPP, CC_PAPP,  KC_NO,     CC_PGDOWN, KC_END,  KC_NO,    KC_NO, KC_RCTL,
-                                OSL_LN,    OSL_LN,   CC_FNAV,    KC_SPACE, HYPR(KC_Z), /*|*/  OSM_XX,  KC_BSPC,  CC_FSYM,   OSM_LS,    OSM_LS                   
+                                OSL_LN,    OSL_LN,   CC_FNAV,    KC_SPACE, HYPR(KC_Z), /*|*/  OSM_XX,  KC_BSPC,  KC_BSPC,   OSM_LS,    OSM_LS                   
     ),
     [LAYER_RAISE] = LAYOUTXX(
     KC_ESC,  CC_QWERTY,   CC_RSTHD,    CC_GRAPHITE, CC_ENGRAM2,  CC_STURDY,                   /*|*/                   KC_6,     KC_7,   KC_8,    KC_9,  KC_0,  KC_ESC,
