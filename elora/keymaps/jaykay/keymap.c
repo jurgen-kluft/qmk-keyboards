@@ -33,9 +33,10 @@ LAYOUT_myr( \
 
 // clang-format off
 
-#define OSL_LN  OSL(LAYER_NUMBERS)
+#define CC_NUM  TT(LAYER_NUMBERS)
 #define OSM_LS  OSM(MOD_LSFT)
 #define OSM_XX  OSM(MOD_LGUI|MOD_LALT|MOD_LCTL|MOD_LSFT)
+#define KC_XX  KC_TRNS
 
 
 // 
@@ -45,28 +46,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q, KC_W, KC_E,    KC_R,    KC_T,                         /*|*/                     KC_Y,    KC_U,   KC_I,     KC_O,   KC_P,    KC_BSPC,
     KC_LGUI, KC_A, KC_S, KC_D,    KC_F,    KC_G,                         /*|*/                     KC_H,    KC_J,   KC_K,     KC_L,   KC_SCLN, OSM_LS, 
     KC_LCTL, KC_Z, KC_X, KC_C,    KC_V,    KC_B,    CC_PDT,     CC_PDT,  /*|*/   CC_NDT,  CC_NDT,  KC_N,    KC_M,   KC_COMMA, KC_DOT, KC_SLSH, KC_RCTL,
-                         OSL_LN, OSL_LN, CC_FNAV, KC_SPACE, HYPR(KC_Z),  /*|*/   OSM_XX, KC_BSPC,  CC_FSYM, CW_TOGG, OSM_LS
+                         CC_NUM, CC_NUM, CC_FNAV, KC_SPACE, HYPR(KC_Z),  /*|*/   OSM_XX, KC_BSPC,  CC_FSYM, CW_TOGG, OSM_LS
     ),
     [LAYER_RSTHD] = LAYOUTXX(
     KC_ESC,  KC_1,    KC_2, KC_3,    KC_4,    KC_5,                        /*|*/                   KC_6,    KC_7,     KC_8,      KC_9,     KC_0,   KC_ESC,
     KC_TAB,  KC_J,    KC_C, KC_Y,    KC_F,    KC_K,                        /*|*/                   KC_Z,    KC_L,     KC_BSPC,   KC_U,     KC_Q,   KC_BSPC,
     KC_LGUI, KC_R,    KC_S, KC_T,    KC_H,    KC_D,                        /*|*/                   KC_M,    KC_N,     KC_A,      KC_I,     KC_O,   OSM_LS, 
-    KC_LCTL, OSM_LS,  KC_V, KC_G,    KC_P,    KC_B,    CC_PDT,   CC_PDT,   /*|*/  CC_NDT,  CC_NDT, KC_X,    KC_W,     KC_COMMA,  KC_DOT,   OSL_LN, KC_RCTL,
-                            OSL_LN, OSL_LN, CC_FNAV, KC_SPACE, HYPR(KC_Z), /*|*/  OSM_XX,  KC_E,   CC_FSYM, OSM_LS, OSM_LS
+    KC_LCTL, OSM_LS,  KC_V, KC_G,    KC_P,    KC_B,    CC_PDT,   CC_PDT,   /*|*/  CC_NDT,  CC_NDT, KC_X,    KC_W,     KC_COMMA,  KC_DOT,   CC_NUM, KC_RCTL,
+                            CC_NUM, CC_NUM, CC_FNAV, KC_SPACE, HYPR(KC_Z), /*|*/  OSM_XX,  KC_E,   CC_FSYM, CW_TOGG,  OSM_LS
     ),
     [LAYER_GRAPHITE] = LAYOUTXX(
     KC_ESC,  KC_1,    KC_2, KC_3,    KC_4,    KC_5,                         /*|*/                   KC_6,    KC_7,     KC_8,      KC_9,     KC_0,   KC_ESC,
     KC_TAB,  KC_B,    KC_L, KC_D,    KC_W,    KC_Z,                         /*|*/                   KC_BSPC, KC_F,     KC_O,      KC_U,     KC_Q,   KC_BSPC,
     KC_CAPS, KC_N,    KC_R, KC_T,    KC_S,    KC_G,                         /*|*/                   KC_Y,    KC_H,     KC_A,      KC_J,     KC_I,   OSM_LS, 
-    KC_LCTL, KC_Q,    KC_X, KC_M,    KC_C,    KC_V,    CC_PDT,   CC_PDT,    /*|*/   CC_NDT, CC_NDT, KC_K,    KC_P,     KC_COMMA,  KC_DOT,   OSL_LN, KC_RCTL,
-                            OSL_LN, OSL_LN, CC_FNAV, KC_SPACE, HYPR(KC_Z),  /*|*/   KC_BSPC,KC_E,   CC_FSYM, OSM_LS, OSM_LS
+    KC_LCTL, KC_Q,    KC_X, KC_M,    KC_C,    KC_V,    CC_PDT,   CC_PDT,    /*|*/   CC_NDT, CC_NDT, KC_K,    KC_P,     KC_COMMA,  KC_DOT,   CC_NUM, KC_RCTL,
+                            CC_NUM, CC_NUM, CC_FNAV, KC_SPACE, HYPR(KC_Z),  /*|*/   KC_BSPC,KC_E,   CC_FSYM, CW_TOGG,  OSM_LS
     ),
     [LAYER_ENGRAM2] = LAYOUTXX(
     KC_ESC,  KC_1,  KC_2, KC_3,   KC_4,   KC_5,                             /*|*/                   KC_6,    KC_7,     KC_8,      KC_9,     KC_0,   KC_ESC,
     KC_TAB,  KC_B,  KC_Y, KC_O,   KC_U,   KC_QUOT,                          /*|*/                   KC_DQUO, KC_L,     KC_D,      KC_W,     KC_V,   KC_BSPC,
     KC_CAPS, KC_C,  KC_I, KC_E,   KC_A,   KC_COMMA,                         /*|*/                   KC_DOT,  KC_H,     KC_T,      KC_S,     KC_N,   OSM_LS, 
     KC_LCTL, KC_G,  KC_X, KC_J,   KC_K,   KC_Z,    CC_PDT,   CC_PDT,        /*|*/   CC_NDT, CC_NDT, KC_Q,    KC_R,     KC_M,      KC_F,     KC_P,   KC_RCTL,
-                          OSL_LN, OSL_LN, CC_FNAV, KC_SPACE, HYPR(KC_Z),    /*|*/   KC_BSPC,  KC_E, CC_FSYM, OSM_LS,   OSM_LS
+                          CC_NUM, CC_NUM, CC_FNAV, KC_SPACE, HYPR(KC_Z),    /*|*/   KC_BSPC,  KC_E, CC_FSYM, CW_TOGG,  OSM_LS
     ),
 
     [LAYER_STURDY] = LAYOUTXX(
@@ -74,14 +75,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_V,  KC_M, KC_L,   KC_C,   KC_P,                             /*|*/                   KC_B,    QK_AREP,  KC_U,      KC_O,   KC_Q,     KC_BSPC,
     KC_CAPS, KC_S,  KC_T, KC_R,   KC_D,   KC_Y,                             /*|*/                   KC_F,    KC_N,     KC_E,      KC_A,   KC_I,     OSM_LS, 
     KC_LCTL, KC_X,  KC_K, KC_J,   KC_G,   KC_W,    CC_PDT,   CC_PDT,        /*|*/   CC_NDT, CC_NDT, KC_Z,    KC_H,     KC_COMMA,  KC_DOT, CC_MAG_2, KC_RCTL,
-                          OSL_LN, OSL_LN, CC_FNAV, KC_SPACE, CC_MAG_3,      /*|*/   KC_BSPC,QK_REP, CC_FSYM, OSM_LS,   OSM_LS
+                          CC_NUM, CC_NUM, CC_FNAV, KC_SPACE, CC_MAG_3,      /*|*/   KC_BSPC,QK_REP, CC_FSYM, CW_TOGG,  OSM_LS
     ),
     [LAYER_NUMBERS] = LAYOUTXX(
-    KC_ESC,   KC_1,    KC_2,     KC_3,    KC_4,     KC_5,                          /*|*/                         KC_6,    KC_7,     KC_8,     KC_9,    KC_0,    KC_ESC,
-    KC_TAB,   KC_7,    KC_8,     KC_9,    KC_0,     KC_6,                          /*|*/                         KC_6,    KC_0,     KC_9,     KC_8,    KC_7,    KC_BSPC,
-    KC_LGUI,  CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  KC_5,                          /*|*/                         KC_5,    KC_1,     KC_2,     KC_3,    KC_4,    OSM_LS, 
-    KC_LCTL,  KC_4,    KC_3,     KC_2,    KC_1,     KC_ASTR, KC_NO,    KC_NO,      /*|*/   KC_NO,    KC_NO,      KC_B,    KC_UNDS,  KC_COMMA, KC_DOT,  OSL_LN,  KC_RCTL,
-                                 OSL_LN,  OSL_LN,   CC_FNAV, KC_SPACE, HYPR(KC_Z), /*|*/   OSM_XX, KC_BSPC,   CC_FSYM, OSM_LS, OSM_LS                 
+    KC_XX,   KC_XX,   KC_XX,    KC_XX,   KC_XX,    KC_XX,                         /*|*/                         KC_XX,   KC_XX,    KC_XX,    KC_XX,   KC_XX,   KC_XX,
+    KC_XX,   KC_XX,   KC_5,     KC_6,    KC_7,     KC_XX,                         /*|*/                         KC_XX,   KC_6,     KC_5,     KC_4,    KC_XX,   KC_XX,
+    KC_XX,   KC_XX,   KC_8,     KC_9,    KC_0,     KC_XX,                         /*|*/                         KC_XX,   KC_1,     KC_2,     KC_3,    KC_XX,   KC_XX, 
+    KC_XX,   CC_CMD,  CC_ALT,   CC_CTRL, CC_SHFT,  KC_XX,    KC_XX,    KC_XX,     /*|*/   KC_XX,    KC_XX,      KC_XX,   KC_XX,    KC_XX,    KC_XX,   KC_XX,   KC_XX,
+                                KC_XX,   KC_XX,    KC_XX,    KC_XX,    KC_XX,     /*|*/   KC_XX,    KC_XX,      KC_XX,   KC_XX,    KC_XX                 
     ),
     [LAYER_SYMBOLS] = LAYOUTXX(
     KC_ESC,  KC_1,    KC_2,     KC_3,    KC_4,      KC_5,                        /*|*/                   KC_6,    KC_7,     KC_8,    KC_9,     KC_0,     KC_ESC,
@@ -95,14 +96,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  CC_REDO, CC_CLOSE, KC_ESCAPE, KC_ENTER, KC_TAB,                           /*|*/                     KC_INSERT, CC_PGUP,   KC_HOME, KC_NO,    KC_NO, KC_BSPC,
     KC_LGUI, CC_CMD,  CC_ALT,   CC_CTRL,   CC_SHFT,  KC_DELETE,                        /*|*/                     KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, KC_NO, OSM_LS, 
     KC_LCTL, CC_UNDO, CC_CUT,   CC_COPY,   CC_PASTE, KC_BSPC,    CC_NAPP,  CC_NAPP,    /*|*/  CC_PAPP, CC_PAPP,  KC_NO,     CC_PGDOWN, KC_END,  KC_NO,    KC_NO, KC_RCTL,
-                                OSL_LN,    OSL_LN,   CC_FNAV,    KC_SPACE, HYPR(KC_Z), /*|*/  OSM_XX,  KC_BSPC,  CC_FSYM,   OSM_LS,    OSM_LS                   
+                                CC_NUM,    CC_NUM,   CC_FNAV,    KC_SPACE, HYPR(KC_Z), /*|*/  OSM_XX,  KC_BSPC,  CC_FSYM,   OSM_LS,    OSM_LS                   
     ),
     [LAYER_RAISE] = LAYOUTXX(
     KC_ESC,  CC_QWERTY,   CC_RSTHD,    CC_GRAPHITE, CC_ENGRAM2,  CC_STURDY,                   /*|*/                   KC_6,     KC_7,   KC_8,    KC_9,  KC_0,  KC_ESC,
     KC_TAB,  CC_SECRET_5, CC_SECRET_6, CC_SECRET_7, CC_SECRET_8, KC_NO,                       /*|*/                   KC_F12,   KC_F2,  KC_F3,   KC_F4, KC_F1, KC_BSPC,
     KC_LGUI, CC_CMD,      CC_ALT,      CC_CTRL,     CC_SHFT,     KC_NO,                       /*|*/                   KC_F5,    KC_F11, KC_F10,  KC_F9, KC_NO, OSM_LS, 
     KC_LCTL, CC_SECRET_1, CC_SECRET_2, CC_SECRET_3, CC_SECRET_4, KC_NO,   CC_PDT,   CC_PDT,   /*|*/  CC_NDT, CC_NDT,  KC_NO,    KC_F6,  KC_F7,   KC_F8, KC_NO, KC_RCTL,
-                                       OSL_LN,     OSL_LN,     CC_FNAV, KC_SPACE, HYPR(KC_Z), /*|*/  OSM_XX, KC_BSPC, CC_FSYM,  OSM_LS, OSM_LS                
+                                       CC_NUM,     CC_NUM,     CC_FNAV, KC_SPACE, HYPR(KC_Z), /*|*/  OSM_XX, KC_BSPC, CC_FSYM,  OSM_LS, OSM_LS                
     ),
     [LAYER_MOUSE] = LAYOUTXX(
     KC_ESC,  KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                                              KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_ESC,

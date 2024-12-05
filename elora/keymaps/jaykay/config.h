@@ -18,6 +18,7 @@
 
 #define CAPS_WORD_INVERT_ON_SHIFT
 #define CAPS_WORD_TOGGLE_KEY
+#define TAPPING_TOGGLE 2
 
 // Myriad boilerplate
 #define MYRIAD_ENABLE
