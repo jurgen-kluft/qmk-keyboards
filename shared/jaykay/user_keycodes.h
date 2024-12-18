@@ -75,6 +75,7 @@ enum ecustomkeycodes
     MG_HICH,
     MG_COM,
     MG_QUOT_S,
+    MG_IFDEF,
     
     CC_RANGE_END,
 };

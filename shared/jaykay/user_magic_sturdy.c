@@ -12,12 +12,12 @@ bool remember_last_key_user(uint16_t kc, keyrecord_t* record, uint8_t* remembere
     {
         // Ignore Custom Magic Keys
         case CC_MAG_2:
-        case CC_MAG_3: return false;
-        case CC_CMD: return false;
-        case CC_ALT: return false;
-        case CC_CTRL: return false;
-        case CC_SHFT: return false;
-        case CC_FSYM: return false;
+        case CC_MAG_3: 
+        case CC_CMD: 
+        case CC_ALT: 
+        case CC_CTRL: 
+        case CC_SHFT: 
+        case CC_FSYM: 
         case CC_FNAV: return false;
 
         case KC_A ... KC_Z:
@@ -70,6 +70,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t kc, uint8_t mods)
             }
         case KC_EQL:
         case KC_MINS: return KC_RABK;
+        case KC_HASH: return MG_IFDEF;
         case KC_Q: return MG_UI;
         case KC_H: return MG_OA;
         case KC_I: return MG_ON;
@@ -140,6 +141,7 @@ bool process_magic_key_3(uint16_t prev_keycode, uint8_t prev_mods)
         case KC_E: SEND_STRING("'re"); return false;
         case KC_DOT: SEND_STRING("com"); return false;
         case KC_COMM: SEND_STRING(" since"); return false;
+        case KC_HASH: SEND_STRING("ifdef "); return false;
         default: return false;
     }
 }
@@ -188,6 +190,7 @@ bool process_magic_sturdy_user(uint16_t kc, keyrecord_t* record)
             case MG_UI: SEND_STRING("ui"); return false;
             case MG_QUOT_S: SEND_STRING("'s"); return false;
             case MG_COM: SEND_STRING("com"); return false;
+            case MG_IFDEF: SEND_STRING("ifdef "); return false;
         }
 
         if (rc > 0)
