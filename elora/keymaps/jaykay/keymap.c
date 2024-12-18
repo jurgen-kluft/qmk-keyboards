@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_PERC, KC_AMPR,  KC_PIPE, KC_UNDS,   KC_TILD,                     /*|*/                   KC_GRV,  KC_QUOT,  KC_DQUO, KC_HASH,  KC_DLR,   KC_BSPC,
     KC_LGUI, KC_EXLM, KC_MINUS, KC_PLUS, KC_EQUAL,  KC_LBRC,                     /*|*/                   KC_LABK, KC_LPRN,  KC_LCBR, KC_SCLN,  KC_COLN,  OSM_LS, 
     KC_LCTL, KC_CIRC, KC_SLSH,  KC_ASTR, KC_BSLS,   KC_RBRC, CC_NDOC,  CC_NDOC,  /*|*/ CC_PDOC, CC_PDOC, KC_RABK, KC_RPRN,  KC_RCBR, KC_QUES,  KC_AT,    KC_RCTL,
-                                KC_LBRC, KC_LPRN,   CC_FNAV, KC_LCBR,  KC_LBRC,  /*|*/  OSM_XX, KC_BSPC, CC_FSYM, OSM_LS,   OSM_LS
+                                KC_LBRC, KC_LPRN,   KC_XX,   KC_XX,    KC_LBRC,  /*|*/  OSM_XX, KC_BSPC, CC_FSYM, OSM_LS,   OSM_LS
     ),
     [LAYER_NAVIGATION] = LAYOUTXX(
     KC_ESC,  KC_1,    KC_2,     KC_3,      KC_4,     KC_5,                             /*|*/                     KC_6,      KC_7,      KC_8,    KC_9,     KC_0,  KC_ESC,
